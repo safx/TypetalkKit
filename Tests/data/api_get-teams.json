@@ -1,0 +1,34 @@
+{
+  "teams": [
+    {
+      "team": {
+        "id": 700,
+        "name": "Nulab Inc.",
+        "imageUrl": "https://typetalk.in/teams/700/image.png?t=1402367549000",
+        "createdAt": "2014-06-10T02:32:29Z",
+        "updatedAt": "2014-06-10T02:32:29Z"
+      },
+      "memberCount": 4
+    },
+    {
+      "team": {
+        "id": 701,
+        "name": "OSS Project",
+        "imageUrl": "https://typetalk.in/teams/701/image.png?t=1402453949000",
+        "createdAt": "2014-06-11T02:32:29Z",
+        "updatedAt": "2014-06-11T02:32:29Z"
+      },
+      "memberCount": 1
+    },
+    {
+      "team": {
+        "id": 702,
+        "name": "Cycling team",
+        "imageUrl": "https://typetalk.in/teams/702/image.png?t=1402540349000",
+        "createdAt": "2014-06-12T02:32:29Z",
+        "updatedAt": "2014-06-12T02:32:29Z"
+      },
+      "memberCount": 2
+    }
+  ]
+}

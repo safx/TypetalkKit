@@ -1,0 +1,15 @@
+{
+    "id": 400,
+    "postId": 302,
+    "topicId": 208,
+    "comment": null,
+    "account": {
+        "id": 100,
+        "name": "jessica",
+        "fullName": "Jessica Fitzherbert",
+        "suggestion": "Jessica Fitzherbert",
+        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "createdAt": "2014-06-24T02:32:29Z",
+        "updatedAt": "2014-06-24T02:32:29Z"
+    }
+}

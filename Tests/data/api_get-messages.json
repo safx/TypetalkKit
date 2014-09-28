@@ -1,0 +1,412 @@
+{
+  "team": {
+    "id": 700,
+    "name": "Nulab Inc.",
+    "imageUrl": "https://typetalk.in/teams/700/image.png?t=1402367549000",
+    "createdAt": "2014-06-10T02:32:29Z",
+    "updatedAt": "2014-06-10T02:32:29Z"
+  },
+  "topic": {
+    "id": 208,
+    "name": "IT Peeps",
+    "suggestion": "IT Peeps",
+    "lastPostedAt": "2014-07-01T02:32:29Z",
+    "createdAt": "2014-06-10T02:32:29Z",
+    "updatedAt": "2014-06-10T02:32:29Z"
+  },
+  "bookmark": {
+    "postId": 304,
+    "updatedAt": "2014-07-25T03:38:34Z"
+  },
+  "posts": [
+    {
+      "id": 300,
+      "topicId": 208,
+      "replyTo": null,
+      "message": "Here's an example of a link and images. http://nulab-inc.com",
+      "account": {
+        "id": 103,
+        "name": "stefhull",
+        "fullName": "StefHull",
+        "suggestion": "StefHull",
+        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "createdAt": "2014-06-27T02:32:29Z",
+        "updatedAt": "2014-06-27T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [
+        {
+          "attachment": {
+            "fileKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+            "fileName": "1.jpg",
+            "fileSize": 472263
+          },
+          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg",
+          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg"
+        },
+        {
+          "attachment": {
+            "fileKey": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+            "fileName": "2.jpg",
+            "fileSize": 494376
+          },
+          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/2/2.jpg",
+          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg"
+        },
+        {
+          "attachment": {
+            "fileKey": "cccccccccccccccccccccccccccccccccccccccc",
+            "fileName": "5.jpg",
+            "fileSize": 218100
+          },
+          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/3/5.jpg",
+          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/3/5.jpg"
+        },
+        {
+          "attachment": {
+            "fileKey": "dddddddddddddddddddddddddddddddddddddddd",
+            "fileName": "6.jpg",
+            "fileSize": 627926
+          },
+          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/4/6.jpg",
+          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/4/6.jpg"
+        }
+      ],
+      "likes": [],
+      "talks": [],
+      "links": [
+        {
+          "id": 105,
+          "url": "http://nulab-inc.com",
+          "contentType": "text/html; charset=UTF-8",
+          "title": "Fun. Creative. Collaboration. | Nulab Inc.",
+          "description": "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.",
+          "imageUrl": "http://nulab-inc.com/ogp_dft.png",
+          "createdAt": "2014-07-25T03:38:34Z",
+          "updatedAt": "2014-07-25T03:38:34Z"
+        }
+      ],
+      "createdAt": "2014-06-29T00:32:29Z",
+      "updatedAt": "2014-06-29T00:32:29Z"
+    },
+    {
+      "id": 301,
+      "topicId": 208,
+      "replyTo": null,
+      "message": "OK. Moss, what did you have for breakfast this morning?",
+      "account": {
+        "id": 100,
+        "name": "jessica",
+        "fullName": "Jessica Fitzherbert",
+        "suggestion": "Jessica Fitzherbert",
+        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "createdAt": "2014-06-24T02:32:29Z",
+        "updatedAt": "2014-06-24T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [],
+      "talks": [],
+      "links": [],
+      "createdAt": "2014-06-30T01:32:29Z",
+      "updatedAt": "2014-06-30T01:32:29Z"
+    },
+    {
+      "id": 302,
+      "topicId": 208,
+      "replyTo": 301,
+      "message": "Smarties cereal.",
+      "account": {
+        "id": 102,
+        "name": "moss",
+        "fullName": "Moss",
+        "suggestion": "Moss",
+        "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+        "createdAt": "2014-06-26T02:32:29Z",
+        "updatedAt": "2014-06-26T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [
+        {
+          "id": 400,
+          "postId": 302,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 100,
+            "name": "jessica",
+            "fullName": "Jessica Fitzherbert",
+            "suggestion": "Jessica Fitzherbert",
+            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+            "createdAt": "2014-06-24T02:32:29Z",
+            "updatedAt": "2014-06-24T02:32:29Z"
+          }
+        },
+        {
+          "id": 401,
+          "postId": 302,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 101,
+            "name": "ahorowitz",
+            "fullName": "AHorowitz",
+            "suggestion": "AHorowitz",
+            "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+            "createdAt": "2014-06-25T02:32:29Z",
+            "updatedAt": "2014-06-25T02:32:29Z"
+          }
+        },
+        {
+          "id": 402,
+          "postId": 302,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 103,
+            "name": "stefhull",
+            "fullName": "StefHull",
+            "suggestion": "StefHull",
+            "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+            "createdAt": "2014-06-27T02:32:29Z",
+            "updatedAt": "2014-06-27T02:32:29Z"
+          }
+        }
+      ],
+      "talks": [],
+      "links": [],
+      "createdAt": "2014-06-30T04:32:29Z",
+      "updatedAt": "2014-06-30T04:32:29Z"
+    },
+    {
+      "id": 303,
+      "topicId": 208,
+      "replyTo": null,
+      "message": "Heard you're single again. All the best, Maurice Moss!",
+      "account": {
+        "id": 103,
+        "name": "stefhull",
+        "fullName": "StefHull",
+        "suggestion": "StefHull",
+        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "createdAt": "2014-06-27T02:32:29Z",
+        "updatedAt": "2014-06-27T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [],
+      "talks": [],
+      "links": [],
+      "createdAt": "2014-06-30T14:32:29Z",
+      "updatedAt": "2014-06-30T14:32:29Z"
+    },
+    {
+      "id": 304,
+      "topicId": 208,
+      "replyTo": 303,
+      "message": "Yes, I do the whole Lonely Hearts thing! Hello, IT.",
+      "account": {
+        "id": 102,
+        "name": "moss",
+        "fullName": "Moss",
+        "suggestion": "Moss",
+        "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+        "createdAt": "2014-06-26T02:32:29Z",
+        "updatedAt": "2014-06-26T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [],
+      "talks": [],
+      "links": [],
+      "createdAt": "2014-06-30T13:32:29Z",
+      "updatedAt": "2014-06-30T13:32:29Z"
+    },
+    {
+      "id": 305,
+      "topicId": 208,
+      "replyTo": null,
+      "message": "And I'm a 32 year old IT-man who works in a basement. Word.",
+      "account": {
+        "id": 104,
+        "name": "cooper",
+        "fullName": "CooperDaChopper",
+        "suggestion": "CooperDaChopper",
+        "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+        "createdAt": "2014-06-28T02:32:29Z",
+        "updatedAt": "2014-06-28T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [],
+      "talks": [
+        {
+          "id": 901,
+          "topicId": 208,
+          "name": "2nd talk",
+          "suggestion": "2nd talk",
+          "createdAt": "2014-07-02T03:52:29Z",
+          "updatedAt": "2014-07-02T03:55:29Z"
+        },
+        {
+          "id": 900,
+          "topicId": 208,
+          "name": "About us",
+          "suggestion": "About us",
+          "createdAt": "2014-07-02T03:42:29Z",
+          "updatedAt": "2014-07-02T03:52:29Z"
+        }
+      ],
+      "links": [],
+      "createdAt": "2014-06-30T14:32:29Z",
+      "updatedAt": "2014-06-30T14:32:29Z"
+    },
+    {
+      "id": 306,
+      "topicId": 208,
+      "replyTo": 305,
+      "message": "Oh. What time of the month? The weekend?",
+      "account": {
+        "id": 100,
+        "name": "jessica",
+        "fullName": "Jessica Fitzherbert",
+        "suggestion": "Jessica Fitzherbert",
+        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "createdAt": "2014-06-24T02:32:29Z",
+        "updatedAt": "2014-06-24T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [
+        {
+          "id": 403,
+          "postId": 306,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 101,
+            "name": "ahorowitz",
+            "fullName": "AHorowitz",
+            "suggestion": "AHorowitz",
+            "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+            "createdAt": "2014-06-25T02:32:29Z",
+            "updatedAt": "2014-06-25T02:32:29Z"
+          }
+        },
+        {
+          "id": 404,
+          "postId": 306,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 102,
+            "name": "moss",
+            "fullName": "Moss",
+            "suggestion": "Moss",
+            "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+            "createdAt": "2014-06-26T02:32:29Z",
+            "updatedAt": "2014-06-26T02:32:29Z"
+          }
+        },
+        {
+          "id": 405,
+          "postId": 306,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 103,
+            "name": "stefhull",
+            "fullName": "StefHull",
+            "suggestion": "StefHull",
+            "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+            "createdAt": "2014-06-27T02:32:29Z",
+            "updatedAt": "2014-06-27T02:32:29Z"
+          }
+        },
+        {
+          "id": 406,
+          "postId": 306,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 104,
+            "name": "cooper",
+            "fullName": "CooperDaChopper",
+            "suggestion": "CooperDaChopper",
+            "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+            "createdAt": "2014-06-28T02:32:29Z",
+            "updatedAt": "2014-06-28T02:32:29Z"
+          }
+        },
+        {
+          "id": 407,
+          "postId": 306,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 105,
+            "name": "brad",
+            "fullName": "BradMarshalls",
+            "suggestion": "BradMarshalls",
+            "imageUrl": "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000",
+            "createdAt": "2014-06-29T02:32:29Z",
+            "updatedAt": "2014-06-29T02:32:29Z"
+          }
+        }
+      ],
+      "talks": [
+        {
+          "id": 900,
+          "topicId": 208,
+          "name": "About us",
+          "suggestion": "About us",
+          "createdAt": "2014-07-02T03:42:29Z",
+          "updatedAt": "2014-07-02T03:52:29Z"
+        }
+      ],
+      "links": [],
+      "createdAt": "2014-07-01T01:32:29Z",
+      "updatedAt": "2014-07-01T01:32:29Z"
+    },
+    {
+      "id": 307,
+      "topicId": 208,
+      "replyTo": 306,
+      "message": "Hope it doesn't sound arrogant but I'm the greatest man in the world!",
+      "account": {
+        "id": 100,
+        "name": "jessica",
+        "fullName": "Jessica Fitzherbert",
+        "suggestion": "Jessica Fitzherbert",
+        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "createdAt": "2014-06-24T02:32:29Z",
+        "updatedAt": "2014-06-24T02:32:29Z"
+      },
+      "mention": null,
+      "attachments": [],
+      "likes": [
+        {
+          "id": 408,
+          "postId": 307,
+          "topicId": 208,
+          "comment": null,
+          "account": {
+            "id": 100,
+            "name": "jessica",
+            "fullName": "Jessica Fitzherbert",
+            "suggestion": "Jessica Fitzherbert",
+            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+            "createdAt": "2014-06-24T02:32:29Z",
+            "updatedAt": "2014-06-24T02:32:29Z"
+          }
+        }
+      ],
+      "talks": [],
+      "links": [],
+      "createdAt": "2014-07-01T02:32:29Z",
+      "updatedAt": "2014-07-01T02:32:29Z"
+    }
+  ],
+  "hasNext": false
+}

@@ -1,0 +1,44 @@
+{
+  "topic": {
+    "id": 222,
+    "name": "Update test topic",
+    "suggestion": "Update test topic",
+    "lastPostedAt": null,
+    "createdAt": "2014-07-25T03:38:55Z",
+    "updatedAt": "2014-07-25T03:38:56Z"
+  },
+  "teams": [],
+  "accounts": [
+    {
+      "id": 100,
+      "name": "jessica",
+      "fullName": "Jessica Fitzherbert",
+      "suggestion": "Jessica Fitzherbert",
+      "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+      "createdAt": "2014-06-24T02:32:29Z",
+      "updatedAt": "2014-06-24T02:32:29Z"
+    }
+  ],
+  "invites": [
+    {
+      "id": 145,
+      "account": {
+        "id": 104,
+        "name": "cooper",
+        "fullName": "CooperDaChopper",
+        "suggestion": "CooperDaChopper",
+        "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+        "createdAt": "2014-06-28T02:32:29Z",
+        "updatedAt": "2014-06-28T02:32:29Z"
+      },
+      "mailAddress": null,
+      "status": "invite"
+    },
+    {
+      "id": 146,
+      "account": null,
+      "mailAddress": "typetalk@example.com",
+      "status": "invite"
+    }
+  ]
+}

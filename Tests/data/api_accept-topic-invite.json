@@ -1,0 +1,34 @@
+{
+  "invite": {
+    "id": 600,
+    "topic": {
+      "id": 209,
+      "name": "Web Site",
+      "suggestion": "Web Site",
+      "lastPostedAt": "2014-07-01T02:32:29Z",
+      "createdAt": "2014-06-10T02:32:29Z",
+      "updatedAt": "2014-06-10T02:32:29Z"
+    },
+    "sender": {
+      "id": 106,
+      "name": "chelseab",
+      "fullName": "ChelseaB",
+      "suggestion": "ChelseaB",
+      "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
+      "createdAt": "2014-06-30T02:32:29Z",
+      "updatedAt": "2014-06-30T02:32:29Z"
+    },
+    "account": {
+      "id": 100,
+      "name": "jessica",
+      "fullName": "Jessica Fitzherbert",
+      "suggestion": "Jessica Fitzherbert",
+      "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+      "createdAt": "2014-06-24T02:32:29Z",
+      "updatedAt": "2014-06-24T02:32:29Z"
+    },
+    "message": "It is a new project. Join us!",
+    "createdAt": "2014-07-03T02:32:29Z",
+    "updatedAt": "2014-07-25T03:38:54Z"
+  }
+}

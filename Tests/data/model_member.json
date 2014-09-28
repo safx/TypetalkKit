@@ -1,0 +1,12 @@
+{
+    "account": {
+        "id": 101,
+        "name": "ahorowitz",
+        "fullName": "AHorowitz",
+        "suggestion": "AHorowitz",
+        "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+        "createdAt": "2014-06-25T02:32:29Z",
+        "updatedAt": "2014-06-25T02:32:29Z"
+    },
+    "role": "admin"
+}

@@ -1,0 +1,25 @@
+//
+//  TopicTest.swift
+//  TypetalkKit
+//
+//  Created by Safx Developer on 2014/09/16.
+//  Copyright (c) 2014年 Safx Developers. All rights reserved.
+//
+
+import XCTest
+import TypetalkKit
+
+class TopicTests: TestCase {
+    
+    func testExample() {
+        var error: NSError? = nil
+        let model = Topic(dictionary: json("model_topic"), error: &error)
+        
+        XCTAssertEqual(model.id, 207)
+        XCTAssertEqual(model.name, "Art Directors")
+        XCTAssertEqual(model.suggestion, "Art Directors")
+        XCTAssertEqual(model.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
+        XCTAssertEqual(model.createdAt.description, "2014-07-19 12:42:39 +0000")
+        XCTAssertEqual(model.updatedAt.description, "2014-08-29 22:52:49 +0000")
+    }
+}

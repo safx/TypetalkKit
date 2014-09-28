@@ -1,0 +1,70 @@
+{
+    "id": 300,
+    "topicId": 208,
+    "replyTo": null,
+    "message": "Here's an example of a link and images. http://nulab-inc.com",
+    "account": {
+        "id": 103,
+        "name": "stefhull",
+        "fullName": "StefHull",
+        "suggestion": "StefHull",
+        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "createdAt": "2014-06-27T02:32:29Z",
+        "updatedAt": "2014-06-27T02:32:29Z"
+    },
+    "mention": null,
+    "attachments": [
+        {
+            "attachment": {
+                "fileKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+                "fileName": "1.jpg",
+                "fileSize": 472263
+            },
+            "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg",
+            "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg"
+        },
+        {
+            "attachment": {
+                "fileKey": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+                "fileName": "2.jpg",
+                "fileSize": 494376
+            },
+            "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/2/2.jpg",
+            "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg"
+        },
+        {
+            "attachment": {
+                "fileKey": "cccccccccccccccccccccccccccccccccccccccc",
+                "fileName": "5.jpg",
+                "fileSize": 218100
+            },
+            "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/3/5.jpg",
+            "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/3/5.jpg"
+        },
+        {
+            "attachment": {
+                "fileKey": "dddddddddddddddddddddddddddddddddddddddd",
+                "fileName": "6.jpg",
+                "fileSize": 627926
+            },
+            "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/4/6.jpg",
+            "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/4/6.jpg"
+        }
+    ],
+    "likes": [],
+    "talks": [],
+    "links": [
+        {
+            "id": 105,
+            "url": "http://nulab-inc.com",
+            "contentType": "text/html; charset=UTF-8",
+            "title": "Fun. Creative. Collaboration. | Nulab Inc.",
+            "description": "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.",
+            "imageUrl": "http://nulab-inc.com/ogp_dft.png",
+            "createdAt": "2014-07-25T03:38:34Z",
+            "updatedAt": "2014-07-25T03:38:34Z"
+        }
+    ],
+    "createdAt": "2014-06-29T00:32:29Z",
+    "updatedAt": "2014-06-29T00:32:29Z"
+}

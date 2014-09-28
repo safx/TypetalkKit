@@ -1,0 +1,16 @@
+{
+    "mention": {
+        "unread": 1
+    },
+    "access": {
+        "unopened": 1
+    },
+    "invite": {
+        "team": {
+            "pending": 2
+        },
+        "topic": {
+            "pending": 2
+        }
+    }
+}

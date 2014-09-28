@@ -1,0 +1,16 @@
+{
+    "topic": {
+        "id": 202,
+        "name": "Arts & Crafts Club",
+        "suggestion": "Arts & Crafts Club",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-04T02:32:29Z",
+        "updatedAt": "2014-06-04T02:32:29Z"
+    },
+    "favorite": true,
+    "unread": {
+        "topicId": 202,
+        "postId": 0,
+        "count": 1
+    }
+}

@@ -1,0 +1,124 @@
+{
+  "topics": [
+    {
+      "topic": {
+        "id": 207,
+        "name": "Art Directors",
+        "suggestion": "Art Directors",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-09T02:32:29Z",
+        "updatedAt": "2014-06-09T02:32:29Z"
+      },
+      "favorite": true,
+      "unread": null
+    },
+    {
+      "topic": {
+        "id": 202,
+        "name": "Arts & Crafts Club",
+        "suggestion": "Arts & Crafts Club",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-04T02:32:29Z",
+        "updatedAt": "2014-06-04T02:32:29Z"
+      },
+      "favorite": true,
+      "unread": {
+        "topicId": 202,
+        "postId": 0,
+        "count": 1
+      }
+    },
+    {
+      "topic": {
+        "id": 201,
+        "name": "Communications Team",
+        "suggestion": "Communications Team",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-03T02:32:29Z",
+        "updatedAt": "2014-06-03T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": null
+    },
+    {
+      "topic": {
+        "id": 200,
+        "name": "Creative Technologists",
+        "suggestion": "Creative Technologists",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-02T02:32:29Z",
+        "updatedAt": "2014-06-02T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": null
+    },
+    {
+      "topic": {
+        "id": 204,
+        "name": "Creatives Home",
+        "suggestion": "Creatives Home",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-06T02:32:29Z",
+        "updatedAt": "2014-06-06T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": null
+    },
+    {
+      "topic": {
+        "id": 208,
+        "name": "IT Peeps",
+        "suggestion": "IT Peeps",
+        "lastPostedAt": "2014-07-01T02:32:29Z",
+        "createdAt": "2014-06-10T02:32:29Z",
+        "updatedAt": "2014-06-10T02:32:29Z"
+      },
+      "favorite": true,
+      "unread": {
+        "topicId": 208,
+        "postId": 304,
+        "count": 3
+      }
+    },
+    {
+      "topic": {
+        "id": 203,
+        "name": "Techies",
+        "suggestion": "Techies",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-05T02:32:29Z",
+        "updatedAt": "2014-06-05T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": {
+        "topicId": 203,
+        "postId": 0,
+        "count": 1
+      }
+    },
+    {
+      "topic": {
+        "id": 205,
+        "name": "UI/UX",
+        "suggestion": "UI/UX",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-07T02:32:29Z",
+        "updatedAt": "2014-06-07T02:32:29Z"
+      },
+      "favorite": true,
+      "unread": null
+    },
+    {
+      "topic": {
+        "id": 206,
+        "name": "VisualDesigners",
+        "suggestion": "VisualDesigners",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-08T02:32:29Z",
+        "updatedAt": "2014-06-08T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": null
+    }
+  ]
+}
