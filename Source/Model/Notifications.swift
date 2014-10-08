@@ -6,12 +6,14 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
-public class Notifications {
+public class Notifications : ObjectSerializable {
     public let mentions: [Mention] = []
     public let teamInvites: [TeamInvite] = []
     public let topicInvites: [TopicInvite] = []
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public init() {}
+    
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class URLAttachment {
+public class URLAttachment : ObjectSerializable {
     public let webUrl: NSURL = NSURL()
     public let apiUrl: NSURL = NSURL()
     public let attachment: Attachment = Attachment()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

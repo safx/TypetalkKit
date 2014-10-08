@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Like {
+public class Like : ObjectSerializable {
     public let id: LikeID = 0
     public let postId: PostID = 0
     public let topicId: TopicID = 0
@@ -17,7 +17,7 @@ public class Like {
     
     public init() {}
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         var err: NSError? = nil
         for (k,v) in dictionaryValue {
             switch k {

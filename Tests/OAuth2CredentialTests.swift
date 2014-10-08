@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class AccessTokenTests: TestCase {
+class AccessTokenTests: XCTestCase {
 
     func testProfile() {
         var error: NSError? = nil
-        let model = OAuth2Credential(dictionary: json("model_access_token"), error: &error)
+        let model = OAuth2Credential(dictionary: TestUtil.json("model_access_token"), error: &error)
         
         XCTAssertEqual(model.accessToken, "@YOUR_ACCESS_TOKEN")
         XCTAssertEqual(model.tokenType, "Bearer")

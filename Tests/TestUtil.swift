@@ -1,5 +1,5 @@
 //
-//  TestCase.swift
+//  TestUtil.swift
 //  TypetalkKit
 //
 //  Created by Safx Developer on 2014/09/14.
@@ -7,13 +7,12 @@
 //
 
 import Foundation
-import XCTest
 
-class TestCase : XCTestCase {
-    func json(name: String) -> [String:AnyObject] {
+class TestUtil {
+    class func json(name: String) -> [String:AnyObject] {
         var error: NSError? = nil
         //let bundle = NSBundle.mainBundle()
-        let bundle = NSBundle(forClass: TestCase.self)
+        let bundle = NSBundle(forClass: TestUtil.self)
         let path = bundle.pathForResource(name, ofType: "json")
         let data = NSData(contentsOfFile: path!, options: nil, error: &error)
         let dic = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as NSDictionary?

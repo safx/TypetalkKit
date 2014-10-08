@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class URLAttachmentTests: TestCase {
+class URLAttachmentTests: XCTestCase {
     
     func testExample() {
         var error: NSError? = nil
-        let model = URLAttachment(dictionary: json("model_urlattachment"), error: &error)
+        let model = URLAttachment(dictionary: TestUtil.json("model_urlattachment"), error: &error)
 
         XCTAssertEqual(model.webUrl.absoluteString!, "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg")
         XCTAssertEqual(model.apiUrl.absoluteString!, "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg")

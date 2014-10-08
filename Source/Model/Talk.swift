@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Talk {
+public class Talk : ObjectSerializable {
     public let id: TalkID = 0
     public let topicId: TopicID = 0
     public let name: String = ""
@@ -18,7 +18,7 @@ public class Talk {
     
     public init() {}
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

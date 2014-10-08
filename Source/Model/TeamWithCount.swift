@@ -1,16 +1,16 @@
 //
-//  TeamWithMembers.swift
+//  TeamWithCount.swift
 //  TypetalkKit
 //
-//  Created by Safx Developer on 2014/10/03.
+//  Created by Safx Developer on 2014/10/13.
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
 import Foundation
 
-public class TeamWithMembers : ObjectSerializable {
+public class TeamWithCount : ObjectSerializable {
     public let team: Team? = nil
-    public let members: [Member] = []
+    public let memberCount: Int = 0
     
     public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
@@ -20,11 +20,7 @@ public class TeamWithMembers : ObjectSerializable {
             case "team": if let dic = v as? [NSObject : AnyObject] {
                 self.team = Team(dictionary: dic, error: &err)
                 }
-            case "members": self.members = $.array(v) { (i) -> Member? in
-                let obj = Member(dictionary: i, error: &err)
-                return err == nil ? obj : nil
-                }
-                
+            case "memberCount": self.memberCount = v as Int
             default:
                 println("ERROR: \(k) = \(v)") // FIXME
             }

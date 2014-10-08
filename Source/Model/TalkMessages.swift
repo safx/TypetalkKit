@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class TalkMessages {
+public class TalkMessages : ObjectSerializable {
     public let topic: Topic? // FIXME
     public let talk: Talk? // FIXME
     public let posts: [Post] = []
@@ -16,7 +16,7 @@ public class TalkMessages {
     
     public init() {}
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

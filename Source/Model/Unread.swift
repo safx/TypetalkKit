@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class Unread {
+public class Unread : ObjectSerializable {
     public let topicId: TopicID = 0
     public let postId: PostID = 0
     public let count: Int = 0
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         for (k,v) in dictionaryValue {
             switch k {
             case "topicId": self.topicId = v as TopicID

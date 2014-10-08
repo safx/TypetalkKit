@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class Team {
+public class Team : ObjectSerializable {
     public let id: TeamID = 0
     public let name: String = ""
     public let imageUrl: NSURL = NSURL()
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         for (k,v) in dictionaryValue {
             switch k {

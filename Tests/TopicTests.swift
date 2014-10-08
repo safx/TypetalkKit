@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class TopicTests: TestCase {
+class TopicTests: XCTestCase {
     
     func testExample() {
         var error: NSError? = nil
-        let model = Topic(dictionary: json("model_topic"), error: &error)
+        let model = Topic(dictionary: TestUtil.json("model_topic"), error: &error)
         
         XCTAssertEqual(model.id, 207)
         XCTAssertEqual(model.name, "Art Directors")

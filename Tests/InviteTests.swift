@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class InviteTests: TestCase {
+class InviteTests: XCTestCase {
     
     func testTeamInvite() {
         var error: NSError? = nil
-        let model = TeamInvite(dictionary: json("model_team_invite"), error: &error)
+        let model = TeamInvite(dictionary: TestUtil.json("model_team_invite"), error: &error)
         
         XCTAssertEqual(model.id, 800)
         XCTAssertEqual(model.team!.id, 702)
@@ -42,7 +42,7 @@ class InviteTests: TestCase {
 
     func testTopicInvite() {
         var error: NSError? = nil
-        let model = TopicInvite(dictionary: json("model_topic_invite"), error: &error)
+        let model = TopicInvite(dictionary: TestUtil.json("model_topic_invite"), error: &error)
         
         XCTAssertEqual(model.id, 601)
         XCTAssertEqual(model.topic!.id, 210)

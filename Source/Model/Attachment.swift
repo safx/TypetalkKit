@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Attachment {
+public class Attachment : ObjectSerializable {
     public let fileKey: String = ""
     public let fileName: String = ""
     public let fileSize: Int = 0
@@ -16,7 +16,7 @@ public class Attachment {
     
     public init() {}
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         for (k,v) in dictionaryValue {
             switch k {
             case "fileKey": self.fileKey = v as String

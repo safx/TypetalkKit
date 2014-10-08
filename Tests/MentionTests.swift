@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class MentionTests: TestCase {
+class MentionTests: XCTestCase {
     
     func testExample() {
         var error: NSError? = nil
-        let model = Mention(dictionary: json("model_mention"), error: &error)
+        let model = Mention(dictionary: TestUtil.json("model_mention"), error: &error)
         
         XCTAssertEqual(model.id, 501)
         XCTAssertEqual(model.readAt!.description, "2014-07-25 03:38:52 +0000")

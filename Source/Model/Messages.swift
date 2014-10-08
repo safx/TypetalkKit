@@ -9,7 +9,7 @@
 import Foundation
 
 // respons structure for get-messages
-public class Messages {
+public class Messages : ObjectSerializable {
     public let team: Team? = nil // TODO: remove '?'
     public let topic: Topic? = nil // TODO: remove '?'
     public let bookmark: Bookmark? = nil // TODO: remove '?'
@@ -17,7 +17,7 @@ public class Messages {
     public let hasNext: Bool = 0
     
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

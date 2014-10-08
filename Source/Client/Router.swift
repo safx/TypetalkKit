@@ -196,7 +196,7 @@ public enum Router : URLRequestConvertible {
     public func checkScope(scopes: [Scope]) -> Bool {
         return scopes.filter{ $0 == self.scope }.count > 0
     }
-    
+
     public var URLRequest: NSURLRequest {
         var request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path)))
         request.HTTPMethod = method.toRaw()

@@ -10,11 +10,11 @@
 import XCTest
 import TypetalkKit
 
-class NotificationTests: TestCase {
+class NotificationTests: XCTestCase {
     
     func testExample() {
         var error: NSError? = nil
-        let model = Notifications(dictionary: json("model_notifications"), error: &error)
+        let model = Notifications(dictionary: TestUtil.json("model_notifications"), error: &error)
         
         XCTAssertEqual(countElements(model.mentions), 2)
         let mention = model.mentions[1]

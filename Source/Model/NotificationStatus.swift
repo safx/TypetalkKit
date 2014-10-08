@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class NotificationStatus {
+public class NotificationStatus : ObjectSerializable {
     public let unreadMentions: Int?
     public let unopenedAccess: Int?
     public let pendingTeamInvite: Int?
@@ -16,7 +16,7 @@ public class NotificationStatus {
     
     public init() {}
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         if let v = dictionaryValue["mention"] as? NSDictionary {
             if let x = v["unread"] as? Int { self.unreadMentions = x }
         }

@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class TeamInvite: Invite {
+public class TeamInvite: Invite, ObjectSerializable {
     public let team: Team? = nil
     public let role: String = ""
     
-    override public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         super.init(dictionary: dictionaryValue, error: error)
 
         var err: NSError? = nil

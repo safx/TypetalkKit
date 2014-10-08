@@ -8,12 +8,12 @@
 
 import Foundation
 
-public class TopicWithUserInfo {
+public class TopicWithUserInfo : ObjectSerializable {
     public let topic: Topic? = nil
     public let favorite: Bool = false
     public let unread: Unread? = nil
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         var err: NSError? = nil
         for (k,v) in dictionaryValue {
             switch k {

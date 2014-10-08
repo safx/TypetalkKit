@@ -8,10 +8,10 @@
 
 import Foundation
 
-public class TopicInvite: Invite {
+public class TopicInvite: Invite, ObjectSerializable {
     public let topic: Topic? = nil
     
-    override public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         super.init(dictionary: dictionaryValue, error: error)
         
         var err: NSError? = nil

@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class NotificationStatusTests: TestCase {
+class NotificationStatusTests: XCTestCase {
     
     func testExample() {
         var error: NSError? = nil
-        let model = NotificationStatus(dictionary: json("model_notification_status"), error: &error)
+        let model = NotificationStatus(dictionary: TestUtil.json("model_notification_status"), error: &error)
         
         XCTAssertEqual(model.unreadMentions!, 1)
         XCTAssertEqual(model.unopenedAccess!, 1)

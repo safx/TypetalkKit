@@ -10,7 +10,7 @@ import UIKit
 import XCTest
 import TypetalkKit
 
-class OAuth2ClientTests: TestCase {
+class OAuth2ClientTests: XCTestCase {
     
     func testParseQuery() {
         let d1 = OAuth2Client.parseQuery(NSURL(string: "typetalkkit://success/?code=ci9em1jbpcqq5dgvdfox5ahvbonuj5ygbzd3mwrgknc6tedp8kuxyxqpgpg8gpe0"))

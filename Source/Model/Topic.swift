@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Topic {
+public class Topic : ObjectSerializable {
     public let id: TopicID = 0
     public let name: String = ""
     public let suggestion: String = ""
@@ -16,7 +16,7 @@ public class Topic {
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         for (k,v) in dictionaryValue {
             switch k {

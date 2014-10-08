@@ -1,16 +1,16 @@
 //
-//  Member.swift
+//  AccountWithMailAddress.swift
 //  TypetalkKit
 //
-//  Created by Safx Developer on 2014/10/03.
+//  Created by Safx Developer on 2014/10/14.
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
 import Foundation
 
-public class Member : ObjectSerializable {
-    public let account: Account? = nil // TODO: remove '?'
-    public let role: String = ""
+public class AccountWithMailAddress : ObjectSerializable {
+    public let account: Account? = nil
+    public let mailAddress: String? = nil
     
     public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
@@ -20,8 +20,7 @@ public class Member : ObjectSerializable {
             case "account": if let dic = v as? [NSObject : AnyObject] {
                 self.account = Account(dictionary: dic, error: &err)
                 }
-            case "role": self.role = v as String
-                
+            case "mailAddress": if let x = v as? String { self.mailAddress = x }
             default:
                 println("ERROR: \(k) = \(v)") // FIXME
             }

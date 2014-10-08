@@ -9,13 +9,13 @@
 import Foundation
 
 // respons structure for get-message
-public class DetailedMessage {
+public class DetailedMessage : ObjectSerializable {
     public let team: Team? = nil // TODO: remove '?'
     public let topic: Topic? = nil // TODO: remove '?'
     public let post: Post? = nil // TODO: remove '?'
     public let replies: [Post] = []
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class TopicWithAccounts {
+public class TopicWithAccounts : ObjectSerializable {
     public let topic: Topic? = nil
     public let teams: [TeamWithMembers] = []
     public let accounts: [Account] = []
     public let invites: [TopicInvite] = []
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

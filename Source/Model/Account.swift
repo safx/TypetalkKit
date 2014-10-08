@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Account {
+public class Account : ObjectSerializable {
     public let id: AccountID = 0
     public let name: String = ""
     public let fullName: String = ""
@@ -17,7 +17,7 @@ public class Account {
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         for (k,v) in dictionaryValue {
             switch k {

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Link {
+public class Link : ObjectSerializable {
     public let id: LinkID = 0
     public let url: NSURL = NSURL()
     public let contentType: String = ""
@@ -18,7 +18,7 @@ public class Link {
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         for (k,v) in dictionaryValue {
             switch k {

@@ -9,11 +9,11 @@
 import XCTest
 import TypetalkKit
 
-class LinkTests: TestCase {
+class LinkTests: XCTestCase {
     
     func testProfile() {
         var error: NSError? = nil
-        let model = Link(dictionary: json("model_link"), error: &error)
+        let model = Link(dictionary: TestUtil.json("model_link"), error: &error)
         
         XCTAssertEqual(model.id, 105)
         XCTAssertEqual(model.url.absoluteString!, "http://nulab-inc.com")

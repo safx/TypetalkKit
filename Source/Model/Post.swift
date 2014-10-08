@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class Post {
+public class Post : ObjectSerializable {
     public let id: PostID = 0
     public let topicId: TopicID = 0
     public let topic: Topic? = nil
@@ -24,7 +24,7 @@ public class Post {
     public let updatedAt: NSDate = NSDate()
 
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         var err: NSError? = nil
         for (k,v) in dictionaryValue {

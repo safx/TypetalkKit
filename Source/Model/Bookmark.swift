@@ -8,11 +8,11 @@
 
 import Foundation
 
-public class Bookmark {
+public class Bookmark : ObjectSerializable {
     public let postId: PostID = 0
     public let updatedAt: NSDate = NSDate()
     
-    public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
+    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil
         for (k,v) in dictionaryValue {
             switch k {
