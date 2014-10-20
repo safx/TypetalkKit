@@ -198,8 +198,8 @@ public enum Router : URLRequestConvertible {
     }
 
     public var URLRequest: NSURLRequest {
-        var request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path)))
-        request.HTTPMethod = method.toRaw()
+        var request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)
+        request.HTTPMethod = method.rawValue
         
         if parameters.isEmpty { return request }
         return Alamofire.ParameterEncoding.URL.encode(request, parameters: parameters).0

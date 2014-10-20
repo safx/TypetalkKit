@@ -22,7 +22,7 @@ public class OAuth2AccountStore {
         let appid = NSBundle.mainBundle().bundleIdentifier
         return "\(IdentifierTypetalk).\(appid!)"
     }
-    private var attributes: NSDictionary {
+    private var attributes: [String:AnyObject] {
         return [
             kSecClass: kSecClassGenericPassword,
             kSecAttrService: typetalkAccountType,
@@ -31,7 +31,7 @@ public class OAuth2AccountStore {
     }
     
     public func queryCredential() -> OAuth2Credential? {
-        var attrs = attributes.mutableCopy() as NSMutableDictionary
+        var attrs = attributes
         attrs[kSecReturnAttributes] = kCFBooleanTrue
 
         var result: Unmanaged<AnyObject>? = nil
@@ -39,7 +39,8 @@ public class OAuth2AccountStore {
         if status == OSStatus(errSecSuccess) {
             if let res = result? {
                 let q = res.takeRetainedValue() as NSDictionary
-                if let data = q[kSecAttrGeneric] as? NSData {
+                let k = String(kSecAttrGeneric)
+                if let data = q[k] as? NSData {
                     return NSKeyedUnarchiver.unarchiveObjectWithData(data) as OAuth2Credential?
                 }
             }
@@ -55,7 +56,7 @@ public class OAuth2AccountStore {
     }
     
     public func saveCredential(credential: OAuth2Credential) -> Bool {
-        var attrs = attributes.mutableCopy() as NSMutableDictionary
+        var attrs = attributes
         attrs[kSecAttrGeneric] = NSKeyedArchiver.archivedDataWithRootObject(credential)
 
         let status = SecItemAdd(attrs, nil)

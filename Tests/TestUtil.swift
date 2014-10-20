@@ -15,7 +15,7 @@ class TestUtil {
         let bundle = NSBundle(forClass: TestUtil.self)
         let path = bundle.pathForResource(name, ofType: "json")
         let data = NSData(contentsOfFile: path!, options: nil, error: &error)
-        let dic = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as NSDictionary?
+        let dic = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error) as NSDictionary?
         assert(dic != nil && error == nil)
         return dic as [String:AnyObject]
     }

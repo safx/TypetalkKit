@@ -18,7 +18,7 @@ public enum Scope : String {
     public static func scopesFromRaw(raw: String) -> [Scope] {
         var r: [Scope] = []
         for i in raw.componentsSeparatedByString(",") {
-            if let val = Scope.fromRaw(i) {
+            if let val = Scope(rawValue: i) {
                 r.append(val)
             }
         }
@@ -26,6 +26,6 @@ public enum Scope : String {
     }
 
     public static func scopesToRaw(values: [Scope]) -> String {
-        return ",".join(values.map({ $0.toRaw() }))
+        return ",".join(values.map({ $0.rawValue }))
     }
 }

@@ -14,8 +14,8 @@ public class Messages : ObjectSerializable {
     public let topic: Topic? = nil // TODO: remove '?'
     public let bookmark: Bookmark? = nil // TODO: remove '?'
     public let posts: [Post] = []
-    public let hasNext: Bool = 0
-    
+    public let hasNext: Bool = false
+
     
     public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         typealias $ = ModelUtil

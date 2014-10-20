@@ -12,7 +12,7 @@ public class TalkMessages : ObjectSerializable {
     public let topic: Topic? // FIXME
     public let talk: Talk? // FIXME
     public let posts: [Post] = []
-    public let hasNext: Bool = 0
+    public let hasNext: Bool = false
     
     public init() {}
     

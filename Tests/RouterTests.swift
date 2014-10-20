@@ -40,7 +40,7 @@ class RouterTests: XCTestCase {
         let req = Router.PostMessage(38, PostMessageForm(message: "XYZ", replyTo: 987, fileKeys: [], talkIds: [])).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/38")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("message=XYZ").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("replyTo=987").location, NSNotFound)
     }
@@ -48,7 +48,7 @@ class RouterTests: XCTestCase {
         let req = Router.PostMessage(38, PostMessageForm(message: "XYZ", replyTo: nil, fileKeys: ["ABCDEF"], talkIds: [])).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/38")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("message=XYZ").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("fileKeys%5B%5D=ABCDEF").location, NSNotFound)
     }
@@ -56,7 +56,7 @@ class RouterTests: XCTestCase {
         let req = Router.PostMessage(38, PostMessageForm(message: "XYZ", replyTo: nil, fileKeys: [], talkIds: [678,321])).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/38")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("message=XYZ").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("talkIds%5B%5D=678").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("talkIds%5B%5D=321").location, NSNotFound)
@@ -137,7 +137,7 @@ class RouterTests: XCTestCase {
         let req = Router.SaveReadTopic(643, nil).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "PUT")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/bookmarks")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("topicId=643").location, NSNotFound)
         XCTAssertEqual(q.rangeOfString("postId=").location, NSNotFound)
     }
@@ -145,7 +145,7 @@ class RouterTests: XCTestCase {
         let req = Router.SaveReadTopic(345, 987).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "PUT")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/bookmarks")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("topicId=345").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("postId=987").location, NSNotFound)
     }
@@ -205,14 +205,14 @@ class RouterTests: XCTestCase {
         let req = Router.CreateTopic(CreateTopicForm(name: "FooBar", teamId: nil, inviteMembers: [], inviteMessage: "")).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
     }
     func testCreateTopic3() {
         let req = Router.CreateTopic(CreateTopicForm(name: "FooBar", teamId: 919, inviteMembers: [], inviteMessage: "SomeMessage")).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("teamId=919").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMessage=SomeMessage").location, NSNotFound)
@@ -221,7 +221,7 @@ class RouterTests: XCTestCase {
         let req = Router.CreateTopic(CreateTopicForm(name: "FooBar", teamId: nil, inviteMembers: ["Yamada", "Tanaka"], inviteMessage: "")).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Yamada").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Tanaka").location, NSNotFound)
@@ -236,7 +236,7 @@ class RouterTests: XCTestCase {
         let req = Router.UpdateTopic(3154, "NewTopicName", nil).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "PUT")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/3154")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=NewTopicName").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("teamId=").location, NSNotFound)
     }
@@ -244,7 +244,7 @@ class RouterTests: XCTestCase {
         let req = Router.UpdateTopic(3154, nil, 1111).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "PUT")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/3154")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertEqual(q.rangeOfString("name=").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("teamId=1111").location, NSNotFound)
     }
@@ -270,7 +270,7 @@ class RouterTests: XCTestCase {
         let req = Router.InviteTopicMember(345, ["Foo", "Bar"], "").URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/345/members/invite")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Foo").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Bar").location, NSNotFound)
         XCTAssertEqual(q.rangeOfString("inviteMessage=").location, NSNotFound)
@@ -279,7 +279,7 @@ class RouterTests: XCTestCase {
         let req = Router.InviteTopicMember(345, [], "HelloWorld").URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/345/members/invite")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertEqual(q.rangeOfString("inviteMembers%5B%5D=").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMessage=HelloWorld").location, NSNotFound)
     }
@@ -293,7 +293,7 @@ class RouterTests: XCTestCase {
         let req = Router.RemoveTopicMember(953, [123,789], []).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/953/members/remove")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("removeInviteIds%5B%5D=123").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("removeInviteIds%5B%5D=789").location, NSNotFound)
         XCTAssertEqual(q.rangeOfString("removeMemberIds%5B%5D=").location, NSNotFound)
@@ -302,7 +302,7 @@ class RouterTests: XCTestCase {
         let req = Router.RemoveTopicMember(953, [], [543,678]).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/953/members/remove")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertEqual(q.rangeOfString("removeInviteIds%5B%5D=").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("removeMemberIds%5B%5D=543").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("removeMemberIds%5B%5D=678").location, NSNotFound)

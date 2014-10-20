@@ -33,7 +33,7 @@ public class ModelUtil {
     }
 
     class func url(value: AnyObject) -> NSURL {
-        return NSURL(string: value as String)
+        return NSURL(string: value as String)!
     }
 
     class func getObjectSerializer<T: ObjectSerializable>(_: T?, key: String?) -> Request.Serializer {
