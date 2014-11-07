@@ -12,8 +12,7 @@ import TypetalkKit
 class LikeTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = Like(dictionary: TestUtil.json("model_like"), error: &error)
+        let model = Like(data: json("model_like"))
         
         XCTAssertEqual(model.id, 400)
         XCTAssertEqual(model.postId, 302)

@@ -26,7 +26,11 @@
 		8D5CA27119D850CB005A08B3 /* TypetalkKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D5CA27219D850D3005A08B3 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D697A2419E40978006B6753 /* ObjectSerializable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D697A2319E40978006B6753 /* ObjectSerializable.swift */; };
-		8D6D043F19DC26DF003EA699 /* DetailedMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D043E19DC26DF003EA699 /* DetailedMessage.swift */; };
+		8D6D043F19DC26DF003EA699 /* GetMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6D043E19DC26DF003EA699 /* GetMessageResponse.swift */; };
+		8D6EC70F19FBD3150042BB24 /* GetProfileResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6EC70E19FBD3150042BB24 /* GetProfileResponse.swift */; };
+		8D6EC71319FBD4540042BB24 /* GetFriendsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6EC71219FBD4540042BB24 /* GetFriendsResponse.swift */; };
+		8D6EC71519FBD6FA0042BB24 /* GetTalksResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6EC71419FBD6FA0042BB24 /* GetTalksResponse.swift */; };
+		8D6EC71719FBEAB40042BB24 /* LikeMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D6EC71619FBEAB40042BB24 /* LikeMessageResponse.swift */; };
 		8D79980F19E18F2C00DF9AB9 /* TeamInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */; };
 		8D79981219E1912900DF9AB9 /* TopicInvite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D79981119E1912900DF9AB9 /* TopicInvite.swift */; };
 		8D79981519E192BF00DF9AB9 /* model_topic_invite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D79981319E192BF00DF9AB9 /* model_topic_invite.json */; };
@@ -66,7 +70,6 @@
 		8D7B02FD19D45DF5000A0F7C /* api_unlike-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BB19D45DED000A0F7C /* api_unlike-message.json */; };
 		8D7B02FE19D45DF5000A0F7C /* api_update-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BC19D45DED000A0F7C /* api_update-topic.json */; };
 		8D7B02FF19D45DF5000A0F7C /* api_upload-attachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BD19D45DED000A0F7C /* api_upload-attachment.json */; };
-		8D7B031119D45E67000A0F7C /* ModelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF715119C9B90700F179A6 /* ModelUtil.swift */; };
 		8D7B031219D45E67000A0F7C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE509A019C71946008B4C83 /* Account.swift */; };
 		8D7B031319D45E67000A0F7C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B40019C87F4900E60736 /* Topic.swift */; };
 		8D7B031419D45E67000A0F7C /* TopicWithUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6DB819CF0821004AAF35 /* TopicWithUserInfo.swift */; };
@@ -81,7 +84,7 @@
 		8D7B031D19D45E67000A0F7C /* Talk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6E2619D2F634004AAF35 /* Talk.swift */; };
 		8D7B031E19D45E67000A0F7C /* Link.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6E2E19D2F7CF004AAF35 /* Link.swift */; };
 		8D7B031F19D45E67000A0F7C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6E3B19D30785004AAF35 /* Post.swift */; };
-		8D7B032019D45E67000A0F7C /* Messages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B029A19D3171A000A0F7C /* Messages.swift */; };
+		8D7B032019D45E67000A0F7C /* GetMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7B029A19D3171A000A0F7C /* GetMessagesResponse.swift */; };
 		8D7E6DB119CD5061004AAF35 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; };
 		8D7E6DBE19CF0E30004AAF35 /* UnreadTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6DBC19CF0E0F004AAF35 /* UnreadTests.swift */; };
 		8D7E6DC319CF0E9E004AAF35 /* model_unread.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7E6DBF19CF0E76004AAF35 /* model_unread.json */; };
@@ -101,6 +104,7 @@
 		8D7E6E3619D2F8C8004AAF35 /* LinkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6E3519D2F8C8004AAF35 /* LinkTests.swift */; };
 		8D7E6E3919D2F9BF004AAF35 /* model_post.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7E6E3719D2F9BF004AAF35 /* model_post.json */; };
 		8D7E6E3E19D309A9004AAF35 /* PostTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6E3D19D309A9004AAF35 /* PostTests.swift */; };
+		8D83204B19F953AE000CF91E /* SaveReadTopicResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D83204A19F953AE000CF91E /* SaveReadTopicResponse.swift */; };
 		8D85BA1D19E04A1E0036745B /* TalkMessages.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D85BA1C19E04A1E0036745B /* TalkMessages.swift */; };
 		8D85BA2019E04B1B0036745B /* TalkMaeeagesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D85BA1F19E04B1B0036745B /* TalkMaeeagesTests.swift */; };
 		8D85BA2319E04B410036745B /* model_talk_messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D85BA2119E04B410036745B /* model_talk_messages.json */; };
@@ -119,11 +123,16 @@
 		8DA638D419D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */; };
 		8DA638D619D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638D519D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift */; };
 		8DA638D819D5BA7900EA4C08 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */; };
 		8DBA516E19C5B47300BD88A3 /* TypetalkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DBA517419C5B47400BD88A3 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; };
-		8DBA519D19C5E9D300BD88A3 /* TestUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* TestUtil.swift */; };
+		8DBA519D19C5E9D300BD88A3 /* XCTestCase+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */; };
 		8DBA519F19C5E9E600BD88A3 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */; };
 		8DBA51A219C5EA2C00BD88A3 /* model_account.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA51A119C5EA2C00BD88A3 /* model_account.json */; };
+		8DBA9B3319FC45EA008EECE1 /* GetMentionsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA9B3219FC45EA008EECE1 /* GetMentionsResponse.swift */; };
+		8DBA9B3519FC46CC008EECE1 /* SaveReadMentionResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA9B3419FC46CC008EECE1 /* SaveReadMentionResponse.swift */; };
+		8DBA9B3719FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA9B3619FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift */; };
+		8DBA9B3919FC4E90008EECE1 /* GetTeamsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA9B3819FC4E90008EECE1 /* GetTeamsResponse.swift */; };
 		8DC9936319CC57FB0097E4B7 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9936219CC57FB0097E4B7 /* ClientTests.swift */; };
 		8DD6AC4D19EADC4C00D9A9A4 /* ClientAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */; };
 		8DD6AC4E19EADC4C00D9A9A4 /* Router+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4C19EADC4C00D9A9A4 /* Router+Test.swift */; };
@@ -131,6 +140,7 @@
 		8DD6AC5519ED4B2900D9A9A4 /* PostMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */; };
 		8DD6AC5719ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */; };
 		8DD6AC5919ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */; };
+		8DEE4EA21A0BAAA500FB547D /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEE4EA11A0BAAA500FB547D /* JSONHelper.swift */; };
 		8DEF713A19C8815700F179A6 /* model_topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D57B3FE19C87E7F00E60736 /* model_topic.json */; };
 		8DEF713F19C9AB2C00F179A6 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF713B19C9AAC200F179A6 /* TeamTests.swift */; };
 		8DEF714219C9ABF200F179A6 /* model_team.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714019C9AB5000F179A6 /* model_team.json */; };
@@ -139,7 +149,7 @@
 		8DEF714B19C9B17C00F179A6 /* URLAttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */; };
 		8DEF715019C9B1EB00F179A6 /* model_urlattachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */; };
 		8DEF718519C9D98B00F179A6 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF718419C9D98B00F179A6 /* Client.swift */; };
-		8DFBF90C19ED50AA0036497A /* AccountWithAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFBF90B19ED50AA0036497A /* AccountWithAddress.swift */; };
+		8DFBF90C19ED50AA0036497A /* AccountWithMailAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFBF90B19ED50AA0036497A /* AccountWithMailAddress.swift */; };
 		8DFBF90F19ED659B0036497A /* AcceptTeamInviteResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */; };
 /* End PBXBuildFile section */
 
@@ -218,14 +228,18 @@
 		8D5C6E4A19D805720020BCA2 /* model_team_invite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_team_invite.json; sourceTree = "<group>"; };
 		8D5C6E4E19D805B40020BCA2 /* InviteTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTests.swift; sourceTree = "<group>"; };
 		8D697A2319E40978006B6753 /* ObjectSerializable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ObjectSerializable.swift; path = Client/ObjectSerializable.swift; sourceTree = "<group>"; };
-		8D6D043E19DC26DF003EA699 /* DetailedMessage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailedMessage.swift; sourceTree = "<group>"; };
+		8D6D043E19DC26DF003EA699 /* GetMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetMessageResponse.swift; path = ../GetMessageResponse.swift; sourceTree = "<group>"; };
+		8D6EC70E19FBD3150042BB24 /* GetProfileResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetProfileResponse.swift; sourceTree = "<group>"; };
+		8D6EC71219FBD4540042BB24 /* GetFriendsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetFriendsResponse.swift; sourceTree = "<group>"; };
+		8D6EC71419FBD6FA0042BB24 /* GetTalksResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTalksResponse.swift; sourceTree = "<group>"; };
+		8D6EC71619FBEAB40042BB24 /* LikeMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LikeMessageResponse.swift; sourceTree = "<group>"; };
 		8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamInvite.swift; sourceTree = "<group>"; };
 		8D79981119E1912900DF9AB9 /* TopicInvite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicInvite.swift; sourceTree = "<group>"; };
 		8D79981319E192BF00DF9AB9 /* model_topic_invite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic_invite.json; sourceTree = "<group>"; };
 		8D79981719E2BADE00DF9AB9 /* Notifications.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Notifications.swift; sourceTree = "<group>"; };
 		8D79981919E2BCFD00DF9AB9 /* NotificationTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationTests.swift; sourceTree = "<group>"; };
 		8D79981B19E2BD5800DF9AB9 /* model_notifications.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_notifications.json; sourceTree = "<group>"; };
-		8D7B029A19D3171A000A0F7C /* Messages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Messages.swift; sourceTree = "<group>"; };
+		8D7B029A19D3171A000A0F7C /* GetMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetMessagesResponse.swift; path = ../GetMessagesResponse.swift; sourceTree = "<group>"; };
 		8D7B029D19D45DED000A0F7C /* api_accept-team-invite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_accept-team-invite.json"; sourceTree = "<group>"; };
 		8D7B029E19D45DED000A0F7C /* api_accept-topic-invite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_accept-topic-invite.json"; sourceTree = "<group>"; };
 		8D7B029F19D45DED000A0F7C /* api_create-topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_create-topic.json"; sourceTree = "<group>"; };
@@ -287,6 +301,7 @@
 		8D7E6E3719D2F9BF004AAF35 /* model_post.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_post.json; sourceTree = "<group>"; };
 		8D7E6E3B19D30785004AAF35 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		8D7E6E3D19D309A9004AAF35 /* PostTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostTests.swift; sourceTree = "<group>"; };
+		8D83204A19F953AE000CF91E /* SaveReadTopicResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveReadTopicResponse.swift; sourceTree = "<group>"; };
 		8D85BA1C19E04A1E0036745B /* TalkMessages.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkMessages.swift; sourceTree = "<group>"; };
 		8D85BA1F19E04B1B0036745B /* TalkMaeeagesTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TalkMaeeagesTests.swift; sourceTree = "<group>"; };
 		8D85BA2119E04B410036745B /* model_talk_messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_talk_messages.json; sourceTree = "<group>"; };
@@ -304,22 +319,28 @@
 		8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic_with_accounts.json; sourceTree = "<group>"; };
 		8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+TypetalkKitAddtion.swift"; path = "Util/NSDate+TypetalkKitAddtion.swift"; sourceTree = "<group>"; };
 		8DA638D519D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+TypetalkKitAddtionTests.swift"; sourceTree = "<group>"; };
+		8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTopicsResponse.swift; sourceTree = "<group>"; };
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = TypetalkKit.h; path = Source/TypetalkKit.h; sourceTree = "<group>"; };
 		8DBA517319C5B47400BD88A3 /* TypetalkKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TypetalkKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA517919C5B47400BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8DBA519C19C5E9D300BD88A3 /* TestUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestUtil.swift; sourceTree = "<group>"; };
+		8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Test.swift"; sourceTree = "<group>"; };
 		8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		8DBA51A119C5EA2C00BD88A3 /* model_account.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_account.json; sourceTree = "<group>"; };
+		8DBA9B3219FC45EA008EECE1 /* GetMentionsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetMentionsResponse.swift; sourceTree = "<group>"; };
+		8DBA9B3419FC46CC008EECE1 /* SaveReadMentionResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveReadMentionResponse.swift; sourceTree = "<group>"; };
+		8DBA9B3619FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptTopicInviteResponse.swift; sourceTree = "<group>"; };
+		8DBA9B3819FC4E90008EECE1 /* GetTeamsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTeamsResponse.swift; sourceTree = "<group>"; };
 		8DC9936219CC57FB0097E4B7 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientAPITests.swift; sourceTree = "<group>"; };
 		8DD6AC4C19EADC4C00D9A9A4 /* Router+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+Test.swift"; sourceTree = "<group>"; };
 		8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamWithCount.swift; sourceTree = "<group>"; };
-		8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMessagesResponse.swift; sourceTree = "<group>"; };
-		8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTopicMembersResponse.swift; sourceTree = "<group>"; };
+		8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostMessagesResponse.swift; path = ../PostMessagesResponse.swift; sourceTree = "<group>"; };
+		8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetTopicMembersResponse.swift; path = ../GetTopicMembersResponse.swift; sourceTree = "<group>"; };
 		8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithOnlineStatus.swift; sourceTree = "<group>"; };
 		8DE509A019C71946008B4C83 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		8DEE4EA11A0BAAA500FB547D /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = "External/JSONHelper/JSONHelper/Pod Classes/JSONHelper.swift"; sourceTree = SOURCE_ROOT; };
 		8DEF713B19C9AAC200F179A6 /* TeamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamTests.swift; sourceTree = "<group>"; };
 		8DEF713D19C9AAEA00F179A6 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		8DEF714019C9AB5000F179A6 /* model_team.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_team.json; sourceTree = "<group>"; };
@@ -329,10 +350,9 @@
 		8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachmentTests.swift; sourceTree = "<group>"; };
 		8DEF714C19C9B1B800F179A6 /* URLAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachment.swift; sourceTree = "<group>"; };
 		8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_urlattachment.json; sourceTree = "<group>"; };
-		8DEF715119C9B90700F179A6 /* ModelUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelUtil.swift; path = Util/ModelUtil.swift; sourceTree = "<group>"; };
 		8DEF718419C9D98B00F179A6 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = Client/Client.swift; sourceTree = "<group>"; };
-		8DFBF90B19ED50AA0036497A /* AccountWithAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithAddress.swift; sourceTree = "<group>"; };
-		8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptTeamInviteResponse.swift; sourceTree = "<group>"; };
+		8DFBF90B19ED50AA0036497A /* AccountWithMailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithMailAddress.swift; sourceTree = "<group>"; };
+		8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AcceptTeamInviteResponse.swift; path = ../AcceptTeamInviteResponse.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,6 +385,43 @@
 			name = OAuth2;
 			sourceTree = "<group>";
 		};
+		8D6F3A8519F5609300DA5483 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				8D451C4219DAFB16001611AD /* ErrorResponse.swift */,
+				8D7E6DDB19D055C9004AAF35 /* OAuth2Credential.swift */,
+				8D7E6DE519D1B592004AAF35 /* Scope.swift */,
+				8D08E37119E0157B004F7CBC /* Typealiases.swift */,
+				8DE509A019C71946008B4C83 /* Account.swift */,
+				8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */,
+				8DFBF90B19ED50AA0036497A /* AccountWithMailAddress.swift */,
+				8DEF714519C9AD4200F179A6 /* Attachment.swift */,
+				8D7E6DCD19CF2810004AAF35 /* Bookmark.swift */,
+				8D5C6E4719D804470020BCA2 /* Invite.swift */,
+				8D7E6E1D19D2F307004AAF35 /* Like.swift */,
+				8D7E6E2E19D2F7CF004AAF35 /* Link.swift */,
+				8DA0032C19DEEDF100844F14 /* Member.swift */,
+				8D5C6E3F19D7FF2C0020BCA2 /* Mention.swift */,
+				8D79981719E2BADE00DF9AB9 /* Notifications.swift */,
+				8D894A8D19E2E38C0039D0ED /* NotificationStatus.swift */,
+				8D7E6E3B19D30785004AAF35 /* Post.swift */,
+				8D7E6E2619D2F634004AAF35 /* Talk.swift */,
+				8D85BA1C19E04A1E0036745B /* TalkMessages.swift */,
+				8DEF713D19C9AAEA00F179A6 /* Team.swift */,
+				8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */,
+				8DA0033519DEF01400844F14 /* TeamWithMembers.swift */,
+				8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */,
+				8D57B40019C87F4900E60736 /* Topic.swift */,
+				8D79981119E1912900DF9AB9 /* TopicInvite.swift */,
+				8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */,
+				8D7E6DB819CF0821004AAF35 /* TopicWithUserInfo.swift */,
+				8D7E6DBA19CF0DA0004AAF35 /* Unread.swift */,
+				8DEF714C19C9B1B800F179A6 /* URLAttachment.swift */,
+				8D83204E19F9623D000CF91E /* Response */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		8D7E6DA919CD5032004AAF35 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -374,10 +431,31 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		8D83204E19F9623D000CF91E /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				8D6EC70E19FBD3150042BB24 /* GetProfileResponse.swift */,
+				8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */,
+				8D7B029A19D3171A000A0F7C /* GetMessagesResponse.swift */,
+				8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */,
+				8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */,
+				8D6D043E19DC26DF003EA699 /* GetMessageResponse.swift */,
+				8D6EC71619FBEAB40042BB24 /* LikeMessageResponse.swift */,
+				8D83204A19F953AE000CF91E /* SaveReadTopicResponse.swift */,
+				8DBA9B3219FC45EA008EECE1 /* GetMentionsResponse.swift */,
+				8DBA9B3419FC46CC008EECE1 /* SaveReadMentionResponse.swift */,
+				8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */,
+				8DBA9B3619FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift */,
+				8DBA9B3819FC4E90008EECE1 /* GetTeamsResponse.swift */,
+				8D6EC71219FBD4540042BB24 /* GetFriendsResponse.swift */,
+				8D6EC71419FBD6FA0042BB24 /* GetTalksResponse.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
 		8DA638D219D5AFD000EA4C08 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				8DEF715119C9B90700F179A6 /* ModelUtil.swift */,
 				8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */,
 			);
 			name = Util;
@@ -408,7 +486,8 @@
 			children = (
 				8DEF718319C9D95A00F179A6 /* Client */,
 				8D5C6E5019D83E470020BCA2 /* OAuth2 */,
-				8DE5099F19C71946008B4C83 /* Model */,
+				8D6F3A8519F5609300DA5483 /* Model */,
+				8DEE4EA01A0BAA8800FB547D /* JSONHelper */,
 				8DA638D219D5AFD000EA4C08 /* Util */,
 				8DBA516B19C5B47300BD88A3 /* Supporting Files */,
 			);
@@ -426,7 +505,7 @@
 		8DBA517719C5B47400BD88A3 /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				8DBA519C19C5E9D300BD88A3 /* TestUtil.swift */,
+				8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */,
 				8DD6AC4C19EADC4C00D9A9A4 /* Router+Test.swift */,
 				8DC9936219CC57FB0097E4B7 /* ClientTests.swift */,
 				8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */,
@@ -532,45 +611,12 @@
 			path = data;
 			sourceTree = "<group>";
 		};
-		8DE5099F19C71946008B4C83 /* Model */ = {
+		8DEE4EA01A0BAA8800FB547D /* JSONHelper */ = {
 			isa = PBXGroup;
 			children = (
-				8D08E37119E0157B004F7CBC /* Typealiases.swift */,
-				8DE509A019C71946008B4C83 /* Account.swift */,
-				8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */,
-				8DFBF90B19ED50AA0036497A /* AccountWithAddress.swift */,
-				8D57B40019C87F4900E60736 /* Topic.swift */,
-				8D7E6DB819CF0821004AAF35 /* TopicWithUserInfo.swift */,
-				8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */,
-				8DEF713D19C9AAEA00F179A6 /* Team.swift */,
-				8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */,
-				8DA0033519DEF01400844F14 /* TeamWithMembers.swift */,
-				8DEF714519C9AD4200F179A6 /* Attachment.swift */,
-				8DEF714C19C9B1B800F179A6 /* URLAttachment.swift */,
-				8D7E6DBA19CF0DA0004AAF35 /* Unread.swift */,
-				8D7E6DCD19CF2810004AAF35 /* Bookmark.swift */,
-				8D7E6DDB19D055C9004AAF35 /* OAuth2Credential.swift */,
-				8D7E6DE519D1B592004AAF35 /* Scope.swift */,
-				8D7E6E1D19D2F307004AAF35 /* Like.swift */,
-				8D7E6E2619D2F634004AAF35 /* Talk.swift */,
-				8D85BA1C19E04A1E0036745B /* TalkMessages.swift */,
-				8D7E6E2E19D2F7CF004AAF35 /* Link.swift */,
-				8D7E6E3B19D30785004AAF35 /* Post.swift */,
-				8D7B029A19D3171A000A0F7C /* Messages.swift */,
-				8D6D043E19DC26DF003EA699 /* DetailedMessage.swift */,
-				8D5C6E3F19D7FF2C0020BCA2 /* Mention.swift */,
-				8D5C6E4719D804470020BCA2 /* Invite.swift */,
-				8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */,
-				8D79981119E1912900DF9AB9 /* TopicInvite.swift */,
-				8D451C4219DAFB16001611AD /* ErrorResponse.swift */,
-				8DA0032C19DEEDF100844F14 /* Member.swift */,
-				8D79981719E2BADE00DF9AB9 /* Notifications.swift */,
-				8D894A8D19E2E38C0039D0ED /* NotificationStatus.swift */,
-				8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */,
-				8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */,
-				8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */,
+				8DEE4EA11A0BAAA500FB547D /* JSONHelper.swift */,
 			);
-			path = Model;
+			name = JSONHelper;
 			sourceTree = "<group>";
 		};
 		8DEF718319C9D95A00F179A6 /* Client */ = {
@@ -773,32 +819,40 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D7B031419D45E67000A0F7C /* TopicWithUserInfo.swift in Sources */,
+				8D6EC71319FBD4540042BB24 /* GetFriendsResponse.swift in Sources */,
 				8D697A2419E40978006B6753 /* ObjectSerializable.swift in Sources */,
-				8DFBF90C19ED50AA0036497A /* AccountWithAddress.swift in Sources */,
+				8DFBF90C19ED50AA0036497A /* AccountWithMailAddress.swift in Sources */,
 				8D79980F19E18F2C00DF9AB9 /* TeamInvite.swift in Sources */,
 				8D5C6E3C19D6FFD00020BCA2 /* OAuth2Client.swift in Sources */,
 				8DD6AC5919ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift in Sources */,
 				8DA0033619DEF01400844F14 /* TeamWithMembers.swift in Sources */,
 				8D39219119E57D2F006AA247 /* Response.swift in Sources */,
+				8D6EC70F19FBD3150042BB24 /* GetProfileResponse.swift in Sources */,
 				8D7B031919D45E67000A0F7C /* Bookmark.swift in Sources */,
-				8D7B031119D45E67000A0F7C /* ModelUtil.swift in Sources */,
 				8DA0032D19DEEDF100844F14 /* Member.swift in Sources */,
-				8D7B032019D45E67000A0F7C /* Messages.swift in Sources */,
+				8D7B032019D45E67000A0F7C /* GetMessagesResponse.swift in Sources */,
 				8D451C4319DAFB16001611AD /* ErrorResponse.swift in Sources */,
 				8D7B031E19D45E67000A0F7C /* Link.swift in Sources */,
+				8DBA9B3319FC45EA008EECE1 /* GetMentionsResponse.swift in Sources */,
 				8D7B031F19D45E67000A0F7C /* Post.swift in Sources */,
+				8DBA9B3519FC46CC008EECE1 /* SaveReadMentionResponse.swift in Sources */,
 				8D7B031B19D45E67000A0F7C /* Scope.swift in Sources */,
+				8D6EC71519FBD6FA0042BB24 /* GetTalksResponse.swift in Sources */,
+				8DEE4EA21A0BAAA500FB547D /* JSONHelper.swift in Sources */,
 				8D7B031519D45E67000A0F7C /* Team.swift in Sources */,
 				8D7B031319D45E67000A0F7C /* Topic.swift in Sources */,
 				8DD6AC5219EC1F2500D9A9A4 /* TeamWithCount.swift in Sources */,
 				8D7B031619D45E67000A0F7C /* Attachment.swift in Sources */,
 				8D7B031719D45E67000A0F7C /* URLAttachment.swift in Sources */,
+				8DBA9B3919FC4E90008EECE1 /* GetTeamsResponse.swift in Sources */,
 				8D79981819E2BADE00DF9AB9 /* Notifications.swift in Sources */,
 				8D7B031D19D45E67000A0F7C /* Talk.swift in Sources */,
 				8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */,
 				8DFBF90F19ED659B0036497A /* AcceptTeamInviteResponse.swift in Sources */,
 				8D5C6E3319D6A3F40020BCA2 /* Router.swift in Sources */,
 				8D5C6E4919D804670020BCA2 /* Invite.swift in Sources */,
+				8D83204B19F953AE000CF91E /* SaveReadTopicResponse.swift in Sources */,
+				8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */,
 				8DD6AC5519ED4B2900D9A9A4 /* PostMessagesResponse.swift in Sources */,
 				8D7B031C19D45E67000A0F7C /* Like.swift in Sources */,
 				8DA638D419D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift in Sources */,
@@ -808,11 +862,13 @@
 				8D7B031219D45E67000A0F7C /* Account.swift in Sources */,
 				8DEF718519C9D98B00F179A6 /* Client.swift in Sources */,
 				8D894A8E19E2E38C0039D0ED /* NotificationStatus.swift in Sources */,
+				8DBA9B3719FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift in Sources */,
 				8DD6AC5719ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift in Sources */,
 				8D5C6E3819D6E4A30020BCA2 /* OAuth2Router.swift in Sources */,
 				8D7B031819D45E67000A0F7C /* Unread.swift in Sources */,
-				8D6D043F19DC26DF003EA699 /* DetailedMessage.swift in Sources */,
+				8D6D043F19DC26DF003EA699 /* GetMessageResponse.swift in Sources */,
 				8D7E6DDA19D04ABE004AAF35 /* OAuth2AccountStore.swift in Sources */,
+				8D6EC71719FBEAB40042BB24 /* LikeMessageResponse.swift in Sources */,
 				8D85BA1D19E04A1E0036745B /* TalkMessages.swift in Sources */,
 				8D7B031A19D45E67000A0F7C /* OAuth2Credential.swift in Sources */,
 			);
@@ -835,7 +891,7 @@
 				8D7E6DC619CF0F73004AAF35 /* TopicWithUserInfoTests.swift in Sources */,
 				8DA0033019DEEE6300844F14 /* MemberTests.swift in Sources */,
 				8D7E6DBE19CF0E30004AAF35 /* UnreadTests.swift in Sources */,
-				8DBA519D19C5E9D300BD88A3 /* TestUtil.swift in Sources */,
+				8DBA519D19C5E9D300BD88A3 /* XCTestCase+Test.swift in Sources */,
 				8D5C6E4F19D805B40020BCA2 /* InviteTests.swift in Sources */,
 				8D894A9119E2E4F70039D0ED /* NotificationStatusTests.swift in Sources */,
 				8DD6AC4E19EADC4C00D9A9A4 /* Router+Test.swift in Sources */,

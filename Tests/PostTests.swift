@@ -12,21 +12,20 @@ import TypetalkKit
 class PostTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = Post(dictionary: TestUtil.json("model_post"), error: &error)
+        let model = Post(data: json("model_post"))
         
         XCTAssertEqual(model.id, 300)
         XCTAssertEqual(model.topicId, 208)
         XCTAssertNil(model.replyTo)
         XCTAssertEqual(model.message, "Here's an example of a link and images. http://nulab-inc.com")
 
-        XCTAssertEqual(model.account!.id, 103)
-        XCTAssertEqual(model.account!.name, "stefhull")
-        XCTAssertEqual(model.account!.fullName, "StefHull")
-        XCTAssertEqual(model.account!.suggestion, "StefHull")
-        XCTAssertEqual(model.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000")
-        XCTAssertEqual(model.account!.createdAt.description, "2014-06-27 02:32:29 +0000")
-        XCTAssertEqual(model.account!.updatedAt.description, "2014-06-27 02:32:29 +0000")
+        XCTAssertEqual(model.account.id, 103)
+        XCTAssertEqual(model.account.name, "stefhull")
+        XCTAssertEqual(model.account.fullName, "StefHull")
+        XCTAssertEqual(model.account.suggestion, "StefHull")
+        XCTAssertEqual(model.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000")
+        XCTAssertEqual(model.account.createdAt.description, "2014-06-27 02:32:29 +0000")
+        XCTAssertEqual(model.account.updatedAt.description, "2014-06-27 02:32:29 +0000")
 
         XCTAssertNil(model.mention)
 

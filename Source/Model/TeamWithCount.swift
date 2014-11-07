@@ -8,22 +8,14 @@
 
 import Foundation
 
-public class TeamWithCount : ObjectSerializable {
-    public let team: Team? = nil
+public class TeamWithCount : Deserializable, ObjcBase {
+    public let team: Team = Team()
     public let memberCount: Int = 0
-    
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "team": if let dic = v as? [NSObject : AnyObject] {
-                self.team = Team(dictionary: dic, error: &err)
-                }
-            case "memberCount": self.memberCount = v as Int
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+
+    required public init() {}
+
+    required public init(data: [String: AnyObject]) {
+        team        <<<< data["team"]
+        memberCount <<<  data["memberCount"]
     }
 }

@@ -8,27 +8,22 @@
 
 import Foundation
 
-public class Topic : ObjectSerializable {
+public class Topic : Deserializable, ObjcBase {
     public let id: TopicID = 0
     public let name: String = ""
     public let suggestion: String = ""
     public let lastPostedAt: NSDate? = nil // set to nil when a topic is created.
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
+
+    public required init() {}
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "id": self.id = v as TopicID
-            case "name": self.name = v as String
-            case "suggestion": self.suggestion = v as String
-            case "lastPostedAt": if let d = v as? String { self.lastPostedAt = $.date(v) }
-            case "createdAt": self.createdAt = $.date(v)
-            case "updatedAt": self.updatedAt = $.date(v)
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init(data: [String: AnyObject]) {
+        id           <<< data["id"]
+        name         <<< data["name"]
+        suggestion   <<< data["suggestion"]
+        lastPostedAt <<< (value: data["lastPostedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        createdAt    <<< (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt    <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

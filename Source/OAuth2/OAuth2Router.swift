@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 public enum OAuth2Router : URLRequestConvertible {
     private static let baseURLString = "https://typetalk.in/oauth2/"
     

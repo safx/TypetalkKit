@@ -1,3 +1,6 @@
 [submodule "External/Alamofire"]
 	path = External/Alamofire
 	url = https://github.com/Alamofire/Alamofire.git
+[submodule "External/JSONHelper"]
+	path = External/JSONHelper
+	url = https://github.com/isair/JSONHelper.git

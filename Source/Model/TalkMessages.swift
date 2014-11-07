@@ -8,29 +8,18 @@
 
 import Foundation
 
-public class TalkMessages : ObjectSerializable {
-    public let topic: Topic? // FIXME
-    public let talk: Talk? // FIXME
+public class TalkMessages : Deserializable, ObjcBase {
+    public let topic: Topic = Topic()
+    public let talk: Talk = Talk()
     public let posts: [Post] = []
     public let hasNext: Bool = false
     
-    public init() {}
-    
-    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "topic": self.topic = Topic(dictionary: v as [NSObject : AnyObject], error: &err)
-            case "talk": self.talk = Talk(dictionary: v as [NSObject : AnyObject], error: &err)
-            case "posts": self.posts = $.array(v) { (i) -> Post? in
-                let obj = Post(dictionary: i, error: &err)
-                return err == nil ? obj : nil
-                }
-            case "hasNext": self.hasNext = v as Bool
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init() {}
+
+    required public init(data: [String: AnyObject]) {
+        topic   <<<<  data["topic"]
+        talk    <<<<  data["talk"]
+        posts   <<<<* data["posts"]
+        hasNext <<<   data["hasNext"]
     }
 }

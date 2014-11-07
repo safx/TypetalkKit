@@ -8,20 +8,16 @@
 
 import Foundation
 
-public class Unread : ObjectSerializable {
+public class Unread : Deserializable, ObjcBase {
     public let topicId: TopicID = 0
     public let postId: PostID = 0
     public let count: Int = 0
-    
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "topicId": self.topicId = v as TopicID
-            case "postId": self.postId = v as PostID
-            case "count": self.count = v as Int
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+
+    public required init() {}
+
+    required public init(data: [String: AnyObject]) {
+        topicId <<< data["topicId"]
+        postId  <<< data["postId"]
+        count   <<< data["count"]
     }
 }

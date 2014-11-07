@@ -8,19 +8,14 @@
 
 import Foundation
 
-public class Bookmark : ObjectSerializable {
+public class Bookmark : Deserializable, ObjcBase {
     public let postId: PostID = 0
     public let updatedAt: NSDate = NSDate()
-    
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "postId": self.postId = v as PostID
-            case "updatedAt": self.updatedAt = $.date(v)
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+
+    required public init() {}
+
+    required public init(data: [String: AnyObject]) {
+        postId    <<< data["postId"]
+        updatedAt <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

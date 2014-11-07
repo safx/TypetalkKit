@@ -12,8 +12,7 @@ import TypetalkKit
 class LinkTests: XCTestCase {
     
     func testProfile() {
-        var error: NSError? = nil
-        let model = Link(dictionary: TestUtil.json("model_link"), error: &error)
+        let model = Link(data: json("model_link"))
         
         XCTAssertEqual(model.id, 105)
         XCTAssertEqual(model.url.absoluteString!, "http://nulab-inc.com")

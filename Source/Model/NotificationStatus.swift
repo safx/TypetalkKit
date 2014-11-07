@@ -8,27 +8,51 @@
 
 import Foundation
 
-public class NotificationStatus : ObjectSerializable {
-    public let unreadMentions: Int?
-    public let unopenedAccess: Int?
-    public let pendingTeamInvite: Int?
-    public let pendingTopicInvite: Int?
+public class NotificationStatus : Deserializable, ObjcBase {
+    public let mention: Mention?
+    public let access: Access?
+    public let invite: Invite?
     
-    public init() {}
+    required public init() {}
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        if let v = dictionaryValue["mention"] as? NSDictionary {
-            if let x = v["unread"] as? Int { self.unreadMentions = x }
+    required public init(data: [String: AnyObject]) {
+        mention <<<< data["mention"]
+        access  <<<< data["access"]
+        invite  <<<< data["invite"]
+    }
+
+    // MARK: subclasses
+
+    public class Mention : Deserializable {
+        public let unread: Int?
+        required public init() {}
+        required public init(data: [String: AnyObject]) {
+            unread <<< data["unread"]
         }
-        if let v = dictionaryValue["access"] as? NSDictionary {
-            if let x = v["unopened"] as? Int { self.unopenedAccess = x }
+    }
+
+    public class Access : Deserializable {
+        public let unopened: Int?
+        required public init() {}
+        required public init(data: [String: AnyObject]) {
+            unopened <<< data["unopened"]
         }
-        if let w = dictionaryValue["invite"] as? NSDictionary {
-            if let v = w["team"] as? NSDictionary {
-                if let x = v["pending"] as? Int { self.pendingTeamInvite = x }
-            }
-            if let v = w["topic"] as? NSDictionary {
-                if let x = v["pending"] as? Int { self.pendingTopicInvite = x }
+    }
+
+    public class Invite : Deserializable {
+        public let team: PendingCount?
+        public let topic: PendingCount?
+        required public init() {}
+        required public init(data: [String: AnyObject]) {
+            team  <<<< data["team"]
+            topic <<<< data["topic"]
+        }
+        
+        public class PendingCount : Deserializable {
+            public let pending: Int?
+            required public init() {}
+            required public init(data: [String: AnyObject]) {
+                pending <<< data["pending"]
             }
         }
     }

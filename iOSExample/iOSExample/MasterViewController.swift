@@ -45,7 +45,7 @@ class MasterViewController: UITableViewController {
                         }
                     }
                 } else if let ts = topics? {
-                    self.topics = ts
+                    self.topics = ts.topics
                     self.tableView.reloadData()
                 }
             }

@@ -12,16 +12,15 @@ import TypetalkKit
 class MemberTests: XCTestCase {
     
     func testProfile() {
-        var error: NSError? = nil
-        let model = Member(dictionary: TestUtil.json("model_member"), error: &error)
+        let model = Member(data: json("model_member"))
         
-        XCTAssertEqual(model.account!.id, 101)
-        XCTAssertEqual(model.account!.name, "ahorowitz")
-        XCTAssertEqual(model.account!.fullName, "AHorowitz")
-        XCTAssertEqual(model.account!.suggestion, "AHorowitz")
-        XCTAssertEqual(model.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000")
-        XCTAssertEqual(model.account!.createdAt.description, "2014-06-25 02:32:29 +0000")
-        XCTAssertEqual(model.account!.updatedAt.description, "2014-06-25 02:32:29 +0000")
+        XCTAssertEqual(model.account.id, 101)
+        XCTAssertEqual(model.account.name, "ahorowitz")
+        XCTAssertEqual(model.account.fullName, "AHorowitz")
+        XCTAssertEqual(model.account.suggestion, "AHorowitz")
+        XCTAssertEqual(model.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000")
+        XCTAssertEqual(model.account.createdAt.description, "2014-06-25 02:32:29 +0000")
+        XCTAssertEqual(model.account.updatedAt.description, "2014-06-25 02:32:29 +0000")
         XCTAssertEqual(model.role, "admin")
     }
 }

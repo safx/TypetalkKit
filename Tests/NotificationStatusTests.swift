@@ -12,12 +12,11 @@ import TypetalkKit
 class NotificationStatusTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = NotificationStatus(dictionary: TestUtil.json("model_notification_status"), error: &error)
+        let model = NotificationStatus(data: json("model_notification_status"))
         
-        XCTAssertEqual(model.unreadMentions!, 1)
-        XCTAssertEqual(model.unopenedAccess!, 1)
-        XCTAssertEqual(model.pendingTeamInvite!, 2)
-        XCTAssertEqual(model.pendingTopicInvite!, 2)
+        XCTAssertEqual(model.mention!.unread!, 1)
+        XCTAssertEqual(model.access!.unopened!, 1)
+        XCTAssertEqual(model.invite!.team!.pending!, 2)
+        XCTAssertEqual(model.invite!.topic!.pending!, 2)
     }
 }

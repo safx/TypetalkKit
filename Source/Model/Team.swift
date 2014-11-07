@@ -8,25 +8,20 @@
 
 import Foundation
 
-public class Team : ObjectSerializable {
+public class Team : Deserializable, ObjcBase {
     public let id: TeamID = 0
     public let name: String = ""
     public let imageUrl: NSURL = NSURL()
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
+
+    public required init() {}
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "id": self.id = v as TeamID
-            case "name": self.name = v as String
-            case "imageUrl": self.imageUrl = $.url(v)
-            case "createdAt": self.createdAt = $.date(v)
-            case "updatedAt": self.updatedAt = $.date(v)
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init(data: [String: AnyObject]) {
+        id        <<< data["id"]
+        name      <<< data["name"]
+        imageUrl  <<< data["imageUrl"]
+        createdAt  <<< (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt  <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

@@ -8,22 +8,16 @@
 
 import Foundation
 
-public class URLAttachment : ObjectSerializable {
+public class URLAttachment : Deserializable, ObjcBase {
     public let webUrl: NSURL = NSURL()
     public let apiUrl: NSURL = NSURL()
     public let attachment: Attachment = Attachment()
+
+    public required init() {}
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "webUrl": self.webUrl = $.url(v)
-            case "apiUrl": self.apiUrl = $.url(v)
-            case "attachment": self.attachment = Attachment(dictionary: v as [NSObject : AnyObject], error: &err)
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init(data: [String: AnyObject]) {
+        webUrl     <<<  data["webUrl"]
+        apiUrl     <<<  data["apiUrl"]
+        attachment <<<< data["attachment"]
     }
 }

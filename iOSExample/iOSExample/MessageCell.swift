@@ -26,10 +26,10 @@ class MessageCell: UITableViewCell {
     var model: Post? {
         didSet {
             message.text = model!.message
-            userName.text = model!.account!.name
+            userName.text = model!.account.name
             lastUpdate.text = NSDate().humanReadableTimeInterval(sinceDate: model!.updatedAt)
 
-            let url = model!.account!.imageUrl.absoluteString!
+            let url = model!.account.imageUrl.absoluteString!
             let data = MessageCell._cache.objectForKey(url) as? NSData
             if data != nil {
                 self.accountImage.image = UIImage(data: data!)
