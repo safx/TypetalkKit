@@ -9,14 +9,27 @@
 import Foundation
 import Alamofire
 
-extension Alamofire.Request {
+@objc public protocol ObjcBase {}
 
+extension Alamofire.Request {
     public func responseObject<T where T: ObjcBase, T: Deserializable>(completionHandler: (NSURLRequest, NSHTTPURLResponse?, T?, NSError?) -> Void) -> Self {
-        let serializer: Serializer = ModelUtil.objectResponseSerializer(nil as T?)
+        let serializer: Serializer = objectResponseSerializer(nil as T?)
 
         return response(serializer: serializer, completionHandler: { (request, response, object, error) in
             completionHandler(request, response, object as? T, error)
         })
     }
     
+    private func objectResponseSerializer<T where T: ObjcBase, T: Deserializable>(_: T?) -> Request.Serializer {
+        return { (request, response, data) in
+            let JSONSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
+            let (JSON: AnyObject?, serializationError) = JSONSerializer(request, response, data)
+            if JSON != nil {
+                let obj = T(data: JSON as [String: AnyObject])
+                return (obj, nil)
+            } else {
+                return (nil, serializationError)
+            }
+        }
+    }
 }

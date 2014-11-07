@@ -70,7 +70,6 @@
 		8D7B02FD19D45DF5000A0F7C /* api_unlike-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BB19D45DED000A0F7C /* api_unlike-message.json */; };
 		8D7B02FE19D45DF5000A0F7C /* api_update-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BC19D45DED000A0F7C /* api_update-topic.json */; };
 		8D7B02FF19D45DF5000A0F7C /* api_upload-attachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D7B02BD19D45DED000A0F7C /* api_upload-attachment.json */; };
-		8D7B031119D45E67000A0F7C /* ModelUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF715119C9B90700F179A6 /* ModelUtil.swift */; };
 		8D7B031219D45E67000A0F7C /* Account.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE509A019C71946008B4C83 /* Account.swift */; };
 		8D7B031319D45E67000A0F7C /* Topic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B40019C87F4900E60736 /* Topic.swift */; };
 		8D7B031419D45E67000A0F7C /* TopicWithUserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6DB819CF0821004AAF35 /* TopicWithUserInfo.swift */; };
@@ -351,7 +350,6 @@
 		8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachmentTests.swift; sourceTree = "<group>"; };
 		8DEF714C19C9B1B800F179A6 /* URLAttachment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachment.swift; sourceTree = "<group>"; };
 		8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_urlattachment.json; sourceTree = "<group>"; };
-		8DEF715119C9B90700F179A6 /* ModelUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ModelUtil.swift; path = Util/ModelUtil.swift; sourceTree = "<group>"; };
 		8DEF718419C9D98B00F179A6 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Client.swift; path = Client/Client.swift; sourceTree = "<group>"; };
 		8DFBF90B19ED50AA0036497A /* AccountWithMailAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithMailAddress.swift; sourceTree = "<group>"; };
 		8DFBF90E19ED659B0036497A /* AcceptTeamInviteResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AcceptTeamInviteResponse.swift; path = ../AcceptTeamInviteResponse.swift; sourceTree = "<group>"; };
@@ -458,7 +456,6 @@
 		8DA638D219D5AFD000EA4C08 /* Util */ = {
 			isa = PBXGroup;
 			children = (
-				8DEF715119C9B90700F179A6 /* ModelUtil.swift */,
 				8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */,
 			);
 			name = Util;
@@ -832,7 +829,6 @@
 				8D39219119E57D2F006AA247 /* Response.swift in Sources */,
 				8D6EC70F19FBD3150042BB24 /* GetProfileResponse.swift in Sources */,
 				8D7B031919D45E67000A0F7C /* Bookmark.swift in Sources */,
-				8D7B031119D45E67000A0F7C /* ModelUtil.swift in Sources */,
 				8DA0032D19DEEDF100844F14 /* Member.swift in Sources */,
 				8D7B032019D45E67000A0F7C /* GetMessagesResponse.swift in Sources */,
 				8D451C4319DAFB16001611AD /* ErrorResponse.swift in Sources */,
