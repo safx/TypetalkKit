@@ -15,8 +15,8 @@ class TopicCell: UITableViewCell {
 
     var model: TopicWithUserInfo? {
         didSet {
-            name.text = model!.topic!.name
-            lastUpdate.text = NSDate().humanReadableTimeInterval(sinceDate: model!.topic!.updatedAt)
+            name.text = model!.topic.name
+            lastUpdate.text = NSDate().humanReadableTimeInterval(sinceDate: model!.topic.updatedAt)
         }
     }
 

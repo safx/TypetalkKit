@@ -12,8 +12,7 @@ import TypetalkKit
 class AttachmentTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = Attachment(dictionary: TestUtil.json("model_attachment"), error: &error)
+        let model = Attachment(data: json("model_attachment"))
         
         XCTAssertEqual(model.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
         XCTAssertEqual(model.fileName, "sample.jpg")

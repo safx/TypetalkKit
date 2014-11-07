@@ -13,8 +13,7 @@ import TypetalkKit
 class NotificationTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = Notifications(dictionary: TestUtil.json("model_notifications"), error: &error)
+        let model = Notifications(data: json("model_notifications"))
         
         XCTAssertEqual(countElements(model.mentions), 2)
         let mention = model.mentions[1]
@@ -26,27 +25,27 @@ class NotificationTests: XCTestCase {
         XCTAssertEqual(mention.post!.topic!.name, "Arts & Crafts Club")
         XCTAssertNil(mention.post!.replyTo)
         XCTAssertEqual(mention.post!.message, "@jessica What do you think about this?")
-        XCTAssertEqual(mention.post!.account!.id, 101)
-        XCTAssertEqual(mention.post!.account!.name, "ahorowitz")
+        XCTAssertEqual(mention.post!.account.id, 101)
+        XCTAssertEqual(mention.post!.account.name, "ahorowitz")
         
-        XCTAssertEqual(countElements(model.teamInvites), 2)
-        let team = model.teamInvites[1]
+        XCTAssertEqual(countElements(model.invites.teams), 2)
+        let team = model.invites.teams[1]
         XCTAssertEqual(team.id, 800)
-        XCTAssertEqual(team.team!.id, 702)
-        XCTAssertEqual(team.team!.name, "Cycling team")
-        XCTAssertEqual(team.sender!.id, 106)
-        XCTAssertEqual(team.sender!.name, "chelseab")
+        XCTAssertEqual(team.team.id, 702)
+        XCTAssertEqual(team.team.name, "Cycling team")
+        XCTAssertEqual(team.sender.id, 106)
+        XCTAssertEqual(team.sender.name, "chelseab")
         XCTAssertEqual(team.account!.id, 100)
         XCTAssertEqual(team.account!.name, "jessica")
         
-        XCTAssertEqual(countElements(model.topicInvites), 2)
-        let topic = model.topicInvites[1]
+        XCTAssertEqual(countElements(model.invites.topics), 2)
+        let topic = model.invites.topics[1]
         XCTAssertEqual(topic.id, 600)
-        XCTAssertEqual(topic.topic!.id, 209)
-        XCTAssertEqual(topic.topic!.name, "Web Site")
-        XCTAssertEqual(topic.sender!.id, 106)
-        XCTAssertEqual(topic.sender!.name, "chelseab")
+        XCTAssertEqual(topic.topic.id, 209)
+        XCTAssertEqual(topic.topic.name, "Web Site")
+        XCTAssertEqual(topic.sender.id, 106)
+        XCTAssertEqual(topic.sender.name, "chelseab")
         XCTAssertEqual(topic.account!.id, 100)
-        XCTAssertEqual(topic.account!.name, "jessica")        
+        XCTAssertEqual(topic.account!.name, "jessica")
     }
 }

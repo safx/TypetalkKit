@@ -12,19 +12,18 @@ import TypetalkKit
 class InviteTests: XCTestCase {
     
     func testTeamInvite() {
-        var error: NSError? = nil
-        let model = TeamInvite(dictionary: TestUtil.json("model_team_invite"), error: &error)
+        let model = TeamInvite(data: json("model_team_invite"))
         
         XCTAssertEqual(model.id, 800)
-        XCTAssertEqual(model.team!.id, 702)
+        XCTAssertEqual(model.team.id, 702)
 
-        XCTAssertEqual(model.sender!.id, 106)
-        XCTAssertEqual(model.sender!.name, "chelseab")
-        XCTAssertEqual(model.sender!.fullName, "ChelseaB")
-        XCTAssertEqual(model.sender!.suggestion, "ChelseaB")
-        XCTAssertEqual(model.sender!.imageUrl.absoluteString!, "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000")
-        XCTAssertEqual(model.sender!.createdAt.description, "2014-06-30 02:32:29 +0000")
-        XCTAssertEqual(model.sender!.updatedAt.description, "2014-06-30 02:32:29 +0000")
+        XCTAssertEqual(model.sender.id, 106)
+        XCTAssertEqual(model.sender.name, "chelseab")
+        XCTAssertEqual(model.sender.fullName, "ChelseaB")
+        XCTAssertEqual(model.sender.suggestion, "ChelseaB")
+        XCTAssertEqual(model.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000")
+        XCTAssertEqual(model.sender.createdAt.description, "2014-06-30 02:32:29 +0000")
+        XCTAssertEqual(model.sender.updatedAt.description, "2014-06-30 02:32:29 +0000")
 
         XCTAssertEqual(model.account!.id, 100)
         XCTAssertEqual(model.account!.name, "jessica")
@@ -41,21 +40,20 @@ class InviteTests: XCTestCase {
     }
 
     func testTopicInvite() {
-        var error: NSError? = nil
-        let model = TopicInvite(dictionary: TestUtil.json("model_topic_invite"), error: &error)
+        let model = TopicInvite(data: json("model_topic_invite"))
         
         XCTAssertEqual(model.id, 601)
-        XCTAssertEqual(model.topic!.id, 210)
-        XCTAssertEqual(model.topic!.name, "Development")
-        XCTAssertEqual(model.topic!.suggestion, "Development")
+        XCTAssertEqual(model.topic.id, 210)
+        XCTAssertEqual(model.topic.name, "Development")
+        XCTAssertEqual(model.topic.suggestion, "Development")
         
-        XCTAssertEqual(model.sender!.id, 105)
-        XCTAssertEqual(model.sender!.name, "brad")
-        XCTAssertEqual(model.sender!.fullName, "BradMarshalls")
-        XCTAssertEqual(model.sender!.suggestion, "BradMarshalls")
-        XCTAssertEqual(model.sender!.imageUrl.absoluteString!, "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000")
-        XCTAssertEqual(model.sender!.createdAt.description, "2014-06-29 02:32:29 +0000")
-        XCTAssertEqual(model.sender!.updatedAt.description, "2014-06-29 02:32:29 +0000")
+        XCTAssertEqual(model.sender.id, 105)
+        XCTAssertEqual(model.sender.name, "brad")
+        XCTAssertEqual(model.sender.fullName, "BradMarshalls")
+        XCTAssertEqual(model.sender.suggestion, "BradMarshalls")
+        XCTAssertEqual(model.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000")
+        XCTAssertEqual(model.sender.createdAt.description, "2014-06-29 02:32:29 +0000")
+        XCTAssertEqual(model.sender.updatedAt.description, "2014-06-29 02:32:29 +0000")
         
         XCTAssertEqual(model.account!.id, 100)
         XCTAssertEqual(model.account!.name, "jessica")

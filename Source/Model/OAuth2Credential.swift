@@ -14,7 +14,7 @@ public class OAuth2Credential : NSObject, NSCoding {
     public let refreshToken: String = ""
     public let scopes: [Scope] = []
     public let expiryDate: NSDate = NSDate()
-    
+
     public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
         for (k,v) in dictionaryValue {
             switch k {

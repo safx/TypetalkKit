@@ -8,30 +8,13 @@
 
 import Foundation
 
-public class TopicInvite: Invite, ObjectSerializable {
-    public let topic: Topic? = nil
+public class TopicInvite: Invite, Deserializable, ObjcBase {
+    public let topic: Topic = Topic()
     
-    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        super.init(dictionary: dictionaryValue, error: error)
-        
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "topic": if let dic = v as? [NSObject : AnyObject] {
-                self.topic = Topic(dictionary: dic, error: &err)
-                }
-            case "id": break
-            case "sender": break
-            case "account": break
-            case "role": break
-            case "message": break
-            case "createdAt": break
-            case "updatedAt": break
-            case "mailAddress": break
-            case "status": break
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    public required init() { super.init() }
+    
+    required public init(data: [String: AnyObject]) {
+        super.init(data: data)
+        topic <<<< data["topic"]
     }
 }

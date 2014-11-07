@@ -8,26 +8,16 @@
 
 import Foundation
 
-public class Mention : ObjectSerializable {
+public class Mention : Deserializable, ObjcBase {
     public let id: MentionID = 0
-    public let readAt: NSDate?
+    public let readAt: NSDate? = nil
     public let post: Post? = nil
     
-    public init() {}
-    
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "id": self.id = v as MentionID
-            case "readAt": if let r = v as? String { self.readAt = $.date(r) }
-            case "post": if let dic = v as? [NSObject : AnyObject] {
-                self.post = Post(dictionary: dic, error: &err)
-            }
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init() {}
+        
+    required public init(data: [String: AnyObject]) {
+        id     <<<  data["id"]
+        readAt <<<  (value: data["readAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        post   <<<< data["post"]
     }
 }

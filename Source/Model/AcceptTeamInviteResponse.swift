@@ -8,28 +8,14 @@
 
 import Foundation
 
-public class AcceptTeamInviteResponse : ObjectSerializable {
+public class AcceptTeamInviteResponse : Deserializable, ObjcBase {
     public let topics: [Topic] = []
     public let invite: TeamInvite? = nil
     
-    
-    public init() {}
-    
-    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "topics": self.topics = $.array(v) { (i) -> Topic? in
-                let obj = Topic(dictionary: i, error: &err)
-                return err == nil ? obj : nil
-                }
-            case "invite": if let dic = v as? [NSObject : AnyObject] {
-                self.invite = TeamInvite(dictionary: dic, error: &err)
-                }
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init() {}
+
+    required public init(data: [String: AnyObject]) {
+        topics <<<<* data["topics"]
+        invite <<<<  data["invite"]
     }
 }

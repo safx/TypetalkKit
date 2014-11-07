@@ -8,26 +8,14 @@
 
 import Foundation
 
-public class TeamWithMembers : ObjectSerializable {
-    public let team: Team? = nil
+public class TeamWithMembers : Deserializable, ObjcBase {
+    public let team: Team = Team()
     public let members: [Member] = []
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "team": if let dic = v as? [NSObject : AnyObject] {
-                self.team = Team(dictionary: dic, error: &err)
-                }
-            case "members": self.members = $.array(v) { (i) -> Member? in
-                let obj = Member(dictionary: i, error: &err)
-                return err == nil ? obj : nil
-                }
-                
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    required public init() {}
+
+    required public init(data: [String: AnyObject]) {
+        team    <<<<  data["team"]
+        members <<<<* data["members"]
     }
 }

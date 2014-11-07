@@ -10,7 +10,7 @@ import UIKit
 import TypetalkKit
 
 class DetailViewController: UITableViewController {
-    var messages: Messages? = nil
+    var messages: GetMessagesResponse? = nil
     var detailItem: TopicWithUserInfo? = nil
     
     override func viewDidLoad() {
@@ -19,7 +19,7 @@ class DetailViewController: UITableViewController {
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
         
-        self.title = detailItem?.topic?.name
+        self.title = detailItem?.topic.name
         getMessages()
     }
     
@@ -30,7 +30,7 @@ class DetailViewController: UITableViewController {
 
     func getMessages() {
         if let topic = detailItem? {
-            let topicid = topic.topic!.id
+            let topicid = topic.topic.id
             Client.sharedClient.getMessages(topicid) { (messages, error) -> Void in
                 if error != nil {
                     // TODO

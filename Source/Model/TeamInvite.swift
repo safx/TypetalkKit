@@ -8,31 +8,15 @@
 
 import Foundation
 
-public class TeamInvite: Invite, ObjectSerializable {
-    public let team: Team? = nil
+public class TeamInvite: Invite, Deserializable, ObjcBase {
+    public let team: Team = Team()
     public let role: String = ""
     
-    required public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        super.init(dictionary: dictionaryValue, error: error)
-
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "team": if let dic = v as? [NSObject : AnyObject] {
-                self.team = Team(dictionary: dic, error: &err)
-                }
-            case "role": self.role = v as String
-            case "id": break
-            case "sender": break
-            case "account": break
-            case "message": break
-            case "createdAt": break
-            case "updatedAt": break
-            case "mailAddress": break
-            case "status": break
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    public required init() { super.init() }
+    
+    required public init(data: [String: AnyObject]) {
+        super.init(data: data)
+        team <<<< data["team"]
+        role <<<  data["role"]
     }
 }

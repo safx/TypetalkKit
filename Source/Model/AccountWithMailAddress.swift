@@ -1,5 +1,5 @@
 //
-//  AccountWithOnlineStatus.swift
+//  AccountWithMailAddress.swift
 //  TypetalkKit
 //
 //  Created by Safx Developer on 2014/10/14.
@@ -8,14 +8,14 @@
 
 import Foundation
 
-public class AccountWithOnlineStatus : Deserializable, ObjcBase {
+public class AccountWithMailAddress : Deserializable, ObjcBase {
     public let account: Account = Account()
-    public let online: Bool = false
-    
+    public let mailAddress: String? = nil
+
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        account <<<< data["account"]
-        online  <<<  data["online"]
+        account     <<<< data["account"]
+        mailAddress <<<  data["mailAddress"]
     }
 }

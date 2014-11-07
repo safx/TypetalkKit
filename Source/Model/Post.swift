@@ -8,13 +8,13 @@
 
 import Foundation
 
-public class Post : ObjectSerializable {
+public class Post : Deserializable, ObjcBase {
     public let id: PostID = 0
     public let topicId: TopicID = 0
     public let topic: Topic? = nil
     public let replyTo: Int? = nil
     public let message: String = ""
-    public let account: Account? = nil // TODO: remove '?'
+    public let account: Account = Account()
     public let mention: String? = nil // FIXME
     public let attachments: [URLAttachment] = []
     public let likes: [Like] = []
@@ -22,46 +22,22 @@ public class Post : ObjectSerializable {
     public let links: [Link] = []
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
-
     
-    public required init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer) {
-        typealias $ = ModelUtil
-        var err: NSError? = nil
-        for (k,v) in dictionaryValue {
-            switch k {
-            case "id": self.id = v as PostID
-            case "topicId": self.topicId = v as TopicID
-            case "topic": if let dic = v as? [NSObject : AnyObject] {
-                    self.topic = Topic(dictionary: dic, error: &err)
-                }
-            case "replyTo": if let r = v as? Int { self.replyTo = r }
-            case "message": self.message = v as String
-            case "account": if let dic = v as? [NSObject : AnyObject] {
-                    self.account = Account(dictionary: dic, error: &err)
-                }
-            case "mention": let pass = 0 // FIXME
-            case "attachments": self.attachments = $.array(v) { (i) -> URLAttachment? in
-                    let obj = URLAttachment(dictionary: i, error: &err)
-                    return err == nil ? obj : nil
-                }
-            case "likes": self.likes = $.array(v) { (i) -> Like? in
-                    let obj = Like(dictionary: i, error: &err)
-                    return err == nil ? obj : nil
-                }
-            case "talks": self.talks = $.array(v) { (i) -> Talk? in
-                    let obj = Talk(dictionary: i, error: &err)
-                    return err == nil ? obj : nil
-                }
-            case "links": self.links = $.array(v) { (i) -> Link? in
-                    let obj = Link(dictionary: i, error: &err)
-                    return err == nil ? obj : nil
-                }
-            case "createdAt": self.createdAt = $.date(v)
-            case "updatedAt": self.updatedAt = $.date(v)
-
-            default:
-                println("ERROR: \(k) = \(v)") // FIXME
-            }
-        }
+    public required init() {}
+    
+    required public init(data: [String: AnyObject]) {
+        id          <<<   data["id"]
+        topicId     <<<   data["topicId"]
+        topic       <<<<  data["topic"]
+        replyTo     <<<   data["replyTo"]
+        message     <<<   data["message"]
+        account     <<<<  data["account"]
+        mention     <<<   data["mention"]
+        attachments <<<<* data["attachments"]
+        likes       <<<<* data["likes"]
+        talks       <<<<* data["talks"]
+        links       <<<<* data["links"]
+        createdAt   <<<   (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt   <<<   (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

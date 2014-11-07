@@ -9,7 +9,6 @@
 import Foundation
 import Alamofire
 
-
 public struct DeveloperSettings {
     let clientId: String
     let clientSecret: String

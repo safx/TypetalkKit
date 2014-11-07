@@ -12,40 +12,42 @@ extension Client {
 
 // MARK: ResponseObject
 
-    public typealias GetProfileResponse            = Account
-    public typealias GetTopicsResponse             = [TopicWithUserInfo]
-    public typealias GetMessagesResponse           = Messages
+  //public typealias GetProfileResponse            = Account
+  //public typealias GetTopicsResponse             = [TopicWithUserInfo]
+  //public typealias GetMessagesResponse           = (Team, Topic, Bookmark, Post, hasNext)
   //public typealias PostMessageResponse           = (Topic, Post)
     public typealias UploadAttachmentResponse      = Attachment
   //public typealias GetTopicMembersResponse       = ([Account], [Account])
-    public typealias GetMessageResponse            = DetailedMessage
+  //public typealias GetMessageResponse            = (Team, Topic, Post, [Post])
     public typealias DeleteMessageResponse         = Post
-    public typealias LikeMessageResponse           = Like
-    public typealias UnlikeMessageResponse         = Like
-    public typealias FavoriteTopicResponse         = TopicWithUserInfo //(Topic, Bool)
-    public typealias UnfavoriteTopicResponse       = TopicWithUserInfo //(Topic, Bool)
+  //public typealias LikeMessageResponse           = Like
+    public typealias UnlikeMessageResponse         = LikeMessageResponse
+    public typealias FavoriteTopicResponse         = TopicWithUserInfo
+    public typealias UnfavoriteTopicResponse       = TopicWithUserInfo
     public typealias GetNotificationsResponse      = Notifications
     public typealias GetNotificationStatusResponse = NotificationStatus
     public typealias OpenNotificationResponse      = NotificationStatus
-    public typealias SaveReadTopicResponse         = Unread
-    public typealias GetMentionsResponse           = [Mention]
-    public typealias SaveReadMentionResponse       = Mention
+  //public typealias SaveReadTopicResponse         = Unread
+  //public typealias GetMentionsResponse           = [Mention]
+  //public typealias SaveReadMentionResponse       = Mention
   //public typealias AcceptTeamInviteResponse      = ([Topic], TeamInvite)
     public typealias DeclineTeamInviteResponse     = TeamInvite
-    public typealias AcceptTopicInviteResponse     = TopicInvite
-    public typealias DeclineTopicInviteResponse    = TopicInvite
+  //public typealias AcceptTopicInviteResponse     = TopicInvite
+    public typealias DeclineTopicInviteResponse    = AcceptTopicInviteResponse
     public typealias CreateTopicResponse           = TopicWithAccounts
     public typealias UpdateTopicResponse           = TopicWithAccounts
     public typealias DeleteTopicResponse           = Topic
     public typealias GetTopicDetailsResponse       = TopicWithAccounts
     public typealias InviteTopicMemberResponse     = TopicWithAccounts
     public typealias RemoveTopicMemberResponse     = TopicWithAccounts
-    public typealias GetTeamsResponse              = [TeamWithCount]
-    public typealias GetFriendsResponse            = [Account]
+  //public typealias GetTeamsResponse              = [TeamWithCount]
+  //public typealias GetFriendsResponse            = [Account]
     public typealias SearchAccountsResponse        = Account
-    public typealias GetTalksResponse              = [Talk]
+  //public typealias GetTalksResponse              = [Talk]
     public typealias GetTalkResponse               = TalkMessages
 
+    
+    
 // MARK: ResponseBlock
 
     public typealias GetProfileCompletionBlock            =  ((GetProfileResponse?            , NSError?) -> Void)

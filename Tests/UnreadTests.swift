@@ -13,8 +13,7 @@ import TypetalkKit
 class UnreadTests: XCTestCase {
     
     func testExample() {
-        var error: NSError? = nil
-        let model = Unread(dictionary: TestUtil.json("model_unread"), error: &error)
+        let model = Unread(data: json("model_unread"))
         
         XCTAssertEqual(model.topicId, 208)
         XCTAssertEqual(model.postId, 307)
