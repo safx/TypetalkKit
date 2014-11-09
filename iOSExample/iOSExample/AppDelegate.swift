@@ -21,13 +21,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         navigationController.topViewController.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
         
-        if !Client.sharedClient.isInitialized {
-            Client.sharedClient.setDeveloperSettings(clientId: "Your ClientID",
-                clientSecret: "Your SecretID",
-                redirectURI: "Your custome scheme", // e.g. typetalkkit://oauth2/
-                scopes: [Scope.my, Scope.topic_read])
-            Client.sharedClient.restoreTokenFromAccountStore()
-        }
+        
+        Client.sharedClient.setDeveloperSettings(
+            clientId:     "Your ClientID",
+            clientSecret: "Your SecretID",
+            redirectURI:  "Your custome scheme",    // e.g. typetalkkit://auth/success
+            scopes: [Scope.my, Scope.topic_read])
+        Client.sharedClient.restoreTokenFromAccountStore()
 
         return true
     }
