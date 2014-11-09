@@ -1,5 +1,5 @@
 //
-//  PostMessagesResponse.swift
+//  PostMessageResponse.swift
 //  TypetalkKit
 //
 //  Created by Safx Developer on 2014/10/14.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-public class PostMessagesResponse : Deserializable, ObjcBase {
+public class PostMessageResponse : Deserializable, ObjcBase {
     public let topic: Topic? = nil
     public let post: Post? = nil
 

@@ -53,7 +53,7 @@ extension Client {
     public typealias GetProfileCompletionBlock            =  ((GetProfileResponse?            , NSError?) -> Void)
     public typealias GetTopicsCompletionBlock             =  ((GetTopicsResponse?             , NSError?) -> Void)
     public typealias GetMessagesCompletionBlock           =  ((GetMessagesResponse?           , NSError?) -> Void)
-    public typealias PostMessagesCompletionBlock          =  ((PostMessagesResponse?          , NSError?) -> Void)
+    public typealias PostMessagesCompletionBlock          =  ((PostMessageResponse?           , NSError?) -> Void)
     public typealias UploadAttachmentCompletionBlock      =  ((UploadAttachmentResponse?      , NSError?) -> Void)
     public typealias GetTopicMembersCompletionBlock       =  ((GetTopicMembersResponse?       , NSError?) -> Void)
     public typealias GetMessageCompletionBlock            =  ((GetMessageResponse?            , NSError?) -> Void)

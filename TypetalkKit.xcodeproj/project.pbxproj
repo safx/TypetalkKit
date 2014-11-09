@@ -137,7 +137,7 @@
 		8DD6AC4D19EADC4C00D9A9A4 /* ClientAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */; };
 		8DD6AC4E19EADC4C00D9A9A4 /* Router+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4C19EADC4C00D9A9A4 /* Router+Test.swift */; };
 		8DD6AC5219EC1F2500D9A9A4 /* TeamWithCount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */; };
-		8DD6AC5519ED4B2900D9A9A4 /* PostMessagesResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */; };
+		8DD6AC5519ED4B2900D9A9A4 /* PostMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5419ED4B2900D9A9A4 /* PostMessageResponse.swift */; };
 		8DD6AC5719ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */; };
 		8DD6AC5919ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */; };
 		8DEE4EA21A0BAAA500FB547D /* JSONHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEE4EA11A0BAAA500FB547D /* JSONHelper.swift */; };
@@ -336,7 +336,7 @@
 		8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientAPITests.swift; sourceTree = "<group>"; };
 		8DD6AC4C19EADC4C00D9A9A4 /* Router+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Router+Test.swift"; sourceTree = "<group>"; };
 		8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamWithCount.swift; sourceTree = "<group>"; };
-		8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostMessagesResponse.swift; path = ../PostMessagesResponse.swift; sourceTree = "<group>"; };
+		8DD6AC5419ED4B2900D9A9A4 /* PostMessageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostMessageResponse.swift; path = ../PostMessageResponse.swift; sourceTree = "<group>"; };
 		8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetTopicMembersResponse.swift; path = ../GetTopicMembersResponse.swift; sourceTree = "<group>"; };
 		8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithOnlineStatus.swift; sourceTree = "<group>"; };
 		8DE509A019C71946008B4C83 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
@@ -437,7 +437,7 @@
 				8D6EC70E19FBD3150042BB24 /* GetProfileResponse.swift */,
 				8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */,
 				8D7B029A19D3171A000A0F7C /* GetMessagesResponse.swift */,
-				8DD6AC5419ED4B2900D9A9A4 /* PostMessagesResponse.swift */,
+				8DD6AC5419ED4B2900D9A9A4 /* PostMessageResponse.swift */,
 				8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */,
 				8D6D043E19DC26DF003EA699 /* GetMessageResponse.swift */,
 				8D6EC71619FBEAB40042BB24 /* LikeMessageResponse.swift */,
@@ -853,7 +853,7 @@
 				8D5C6E4919D804670020BCA2 /* Invite.swift in Sources */,
 				8D83204B19F953AE000CF91E /* SaveReadTopicResponse.swift in Sources */,
 				8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */,
-				8DD6AC5519ED4B2900D9A9A4 /* PostMessagesResponse.swift in Sources */,
+				8DD6AC5519ED4B2900D9A9A4 /* PostMessageResponse.swift in Sources */,
 				8D7B031C19D45E67000A0F7C /* Like.swift in Sources */,
 				8DA638D419D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift in Sources */,
 				8D79981219E1912900DF9AB9 /* TopicInvite.swift in Sources */,
