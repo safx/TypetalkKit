@@ -9,6 +9,8 @@
 import Foundation
 import Alamofire
 
+public let ERROR_DOMAIN = "ErrorDomain.TypetalkKit"
+
 @objc public protocol ObjcBase {}
 
 extension Alamofire.Request {
@@ -19,9 +21,17 @@ extension Alamofire.Request {
             completionHandler(request, response, object as? T, error)
         })
     }
-    
+
     private func objectResponseSerializer<T where T: ObjcBase, T: Deserializable>(_: T?) -> Request.Serializer {
         return { (request, response, data) in
+            if let r = response {
+                let statusCode = r.statusCode
+                if statusCode / 100 == 4 {
+                    let err = NSError(domain: ERROR_DOMAIN, code: statusCode, userInfo: r.allHeaderFields)
+                    return (nil, err)
+                }
+            }
+
             let JSONSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
             let (JSON: AnyObject?, serializationError) = JSONSerializer(request, response, data)
             if JSON != nil {
