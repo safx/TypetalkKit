@@ -27,7 +27,10 @@ class MessageCell: UITableViewCell {
         didSet {
             message.text = model!.message
             userName.text = model!.account.name
-            lastUpdate.text = NSDate().humanReadableTimeInterval(sinceDate: model!.updatedAt)
+
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = NSLocalizedString("MMM d yyyy", comment:"file date time (this format uses Unicode standard)")
+            lastUpdate.text = dateFormatter.stringFromDate(model!.updatedAt)
 
             let url = model!.account.imageUrl.absoluteString!
             let data = MessageCell._cache.objectForKey(url) as? NSData

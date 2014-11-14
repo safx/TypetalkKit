@@ -16,7 +16,10 @@ class TopicCell: UITableViewCell {
     var model: TopicWithUserInfo? {
         didSet {
             name.text = model!.topic.name
-            lastUpdate.text = NSDate().humanReadableTimeInterval(sinceDate: model!.topic.updatedAt)
+
+            let dateFormatter = NSDateFormatter()
+            dateFormatter.dateFormat = NSLocalizedString("MMM d yyyy", comment:"file date time (this format uses Unicode standard)")
+            lastUpdate.text = dateFormatter.stringFromDate(model!.topic.updatedAt)
         }
     }
 

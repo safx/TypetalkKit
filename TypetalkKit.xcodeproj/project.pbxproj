@@ -120,8 +120,6 @@
 		8DA0033E19DEF70600844F14 /* TopicWithAccounts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */; };
 		8DA0034019DEF87F00844F14 /* TopicWithAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */; };
 		8DA0034319DEF8AF00844F14 /* model_topic_with_accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */; };
-		8DA638D419D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */; };
-		8DA638D619D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638D519D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift */; };
 		8DA638D819D5BA7900EA4C08 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */; };
 		8DBA516E19C5B47300BD88A3 /* TypetalkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -317,8 +315,6 @@
 		8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicWithAccounts.swift; sourceTree = "<group>"; };
 		8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicWithAccountsTests.swift; sourceTree = "<group>"; };
 		8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic_with_accounts.json; sourceTree = "<group>"; };
-		8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSDate+TypetalkKitAddtion.swift"; path = "Util/NSDate+TypetalkKitAddtion.swift"; sourceTree = "<group>"; };
-		8DA638D519D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSDate+TypetalkKitAddtionTests.swift"; sourceTree = "<group>"; };
 		8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTopicsResponse.swift; sourceTree = "<group>"; };
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -453,14 +449,6 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
-		8DA638D219D5AFD000EA4C08 /* Util */ = {
-			isa = PBXGroup;
-			children = (
-				8DA638D319D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift */,
-			);
-			name = Util;
-			sourceTree = "<group>";
-		};
 		8DBA515E19C5B47300BD88A3 = {
 			isa = PBXGroup;
 			children = (
@@ -488,7 +476,6 @@
 				8D5C6E5019D83E470020BCA2 /* OAuth2 */,
 				8D6F3A8519F5609300DA5483 /* Model */,
 				8DEE4EA01A0BAA8800FB547D /* JSONHelper */,
-				8DA638D219D5AFD000EA4C08 /* Util */,
 				8DBA516B19C5B47300BD88A3 /* Supporting Files */,
 			);
 			path = Source;
@@ -534,7 +521,6 @@
 				8D5C6E4E19D805B40020BCA2 /* InviteTests.swift */,
 				8D79981919E2BCFD00DF9AB9 /* NotificationTests.swift */,
 				8D894A9019E2E4F70039D0ED /* NotificationStatusTests.swift */,
-				8DA638D519D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift */,
 				8DBA51A019C5E9FD00BD88A3 /* data */,
 				8DBA517819C5B47400BD88A3 /* Supporting Files */,
 			);
@@ -855,7 +841,6 @@
 				8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */,
 				8DD6AC5519ED4B2900D9A9A4 /* PostMessageResponse.swift in Sources */,
 				8D7B031C19D45E67000A0F7C /* Like.swift in Sources */,
-				8DA638D419D5B03300EA4C08 /* NSDate+TypetalkKitAddtion.swift in Sources */,
 				8D79981219E1912900DF9AB9 /* TopicInvite.swift in Sources */,
 				8D5C6E4019D7FF2C0020BCA2 /* Mention.swift in Sources */,
 				8DA0033E19DEF70600844F14 /* TopicWithAccounts.swift in Sources */,
@@ -884,7 +869,6 @@
 				8D7E6DDE19D05677004AAF35 /* OAuth2CredentialTests.swift in Sources */,
 				8D5C6E3E19D703200020BCA2 /* OAuth2ClientTests.swift in Sources */,
 				8DD6AC4D19EADC4C00D9A9A4 /* ClientAPITests.swift in Sources */,
-				8DA638D619D5B07700EA4C08 /* NSDate+TypetalkKitAddtionTests.swift in Sources */,
 				8DA0034019DEF87F00844F14 /* TopicWithAccountsTests.swift in Sources */,
 				8DEF714B19C9B17C00F179A6 /* URLAttachmentTests.swift in Sources */,
 				8DA0033819DEF0DA00844F14 /* TeamWithMembersTests.swift in Sources */,
