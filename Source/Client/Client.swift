@@ -35,6 +35,9 @@ public class Client {
     public var isSignedIn: Bool {
         return oauth2.isSignedIn
     }
+    public var accessToken: String? {
+        return oauth2.accessToken
+    }
     public func setDeveloperSettings(#clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
         return oauth2.setDeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
     }

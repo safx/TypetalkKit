@@ -54,6 +54,12 @@ public class OAuth2Client {
         default: return false
         }
     }
+    public var accessToken: String? {
+        switch state {
+        case .SignedIn(let credential): return credential.accessToken
+        default: return nil
+        }
+    }
     
     
     public func restoreTokenFromAccountStore() -> Bool {
