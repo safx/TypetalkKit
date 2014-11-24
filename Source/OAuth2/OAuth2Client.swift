@@ -60,10 +60,10 @@ public class OAuth2Client {
         default: return nil
         }
     }
-    
+    private let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
     
     public func restoreTokenFromAccountStore() -> Bool {
-        if let credential = OAuth2AccountStore.sharedStore.queryCredential() {
+        if let credential = accountStore.queryCredential() {
             self.state = .SignedIn(credential)
             return true
         }
@@ -132,7 +132,7 @@ public class OAuth2Client {
                         var err: NSError? = nil
                         let credential = OAuth2Credential(dictionary: json as NSDictionary, error: &err)
                         if err == nil {
-                            OAuth2AccountStore.sharedStore.saveCredential(credential)
+                            self.accountStore.saveCredential(credential)
                             self.state = ClientState.SignedIn(credential)
                         }
                     } else {

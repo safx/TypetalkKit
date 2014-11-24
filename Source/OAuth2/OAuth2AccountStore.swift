@@ -9,24 +9,17 @@
 import Foundation
 
 public class OAuth2AccountStore {
-    public class var sharedStore : OAuth2AccountStore {
-    struct Static {
-        static let instance = OAuth2AccountStore()
-        }
-        return Static.instance
+    private let serviceName: String
+    
+    init(serviceName: String) {
+        self.serviceName = serviceName
     }
     
-    public let SecAttrLabelTypetalk = "OAuth2"
-    public let IdentifierTypetalk = "com.blogspot.safxdev.typetalk"
-    private var typetalkAccountType: String {
-        let appid = NSBundle.mainBundle().bundleIdentifier
-        return "\(IdentifierTypetalk).\(appid!)"
-    }
     private var attributes: [String:AnyObject] {
         return [
             kSecClass: kSecClassGenericPassword,
-            kSecAttrService: typetalkAccountType,
-            kSecAttrLabel: SecAttrLabelTypetalk,
+            kSecAttrService: serviceName,
+            //kSecAttrLabel: SecAttrLabelTypetalk,
         ]
     }
     
