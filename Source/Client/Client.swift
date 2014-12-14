@@ -257,6 +257,13 @@ extension Client {
             .responseObject(_do(completion))
     }
 
+    public func downloadAttachment(url: NSURL, completion: DownloadAttachmentCompletionBlock) {
+        _request(Router.DownloadAttachment(url))?
+            .response { (_, _, data, error) in
+                completion(data as? NSData, error)
+            }
+    }
+
     private func _do<T>(comp: (T?, NSError?) -> Void) -> ((NSURLRequest, NSHTTPURLResponse?, T?, NSError?) -> Void) {
         return { (_, _, t, e) in comp(t, e) }
     }

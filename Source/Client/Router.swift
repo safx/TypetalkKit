@@ -85,6 +85,7 @@ public enum Router : URLRequestConvertible {
     case SearchAccounts(String)
     case GetTalks(TopicID)
     case GetTalk(TopicID, TalkID, GetTalkForm)
+    case DownloadAttachment(NSURL)
     
     
     private var methodAndPath: (Alamofire.Method, Scope, String) {
@@ -122,6 +123,12 @@ public enum Router : URLRequestConvertible {
         case .SearchAccounts                              : return (.GET   , .my          , "search/accounts")
         case .GetTalks(let topicId)                       : return (.GET   , .topic_read  , "topics/\(topicId)/talks")
         case .GetTalk(let (topicId, talkId, _))           : return (.GET   , .topic_read  , "topics/\(topicId)/talks/\(talkId)/posts")
+        case .DownloadAttachment(let url):
+            let u = url.absoluteString!
+            assert(u.hasPrefix(Router.baseURLString))
+            let len = countElements(Router.baseURLString)
+            let s = u.substringFromIndex(advance(u.startIndex, len))
+            return (.GET, .topic_read, "\(s)")
         }
     }
 

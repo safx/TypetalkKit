@@ -83,5 +83,6 @@ extension Client {
     public typealias SearchAccountsCompletionBlock        =  ((SearchAccountsResponse?        , NSError?) -> Void)
     public typealias GetTalksCompletionBlock              =  ((GetTalksResponse?              , NSError?) -> Void)
     public typealias GetTalkCompletionBlock               =  ((GetTalkResponse?               , NSError?) -> Void)
+    public typealias DownloadAttachmentCompletionBlock    =  ((NSData?                        , NSError?) -> Void)
 
 }
