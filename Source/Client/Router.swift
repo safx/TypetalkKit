@@ -9,6 +9,23 @@
 import Foundation
 import Alamofire
 
+public enum MessageDirection: String {
+    case Backward = "backward"
+    case Forward  = "forward"
+}
+
+public struct GetMessagesForm {
+    let count: Int?
+    let from: PostID?
+    let direction: MessageDirection?
+    
+    public init(count: Int?, from: PostID?, direction: MessageDirection?) {
+        self.count = count
+        self.from = from
+        self.direction = direction
+    }
+}
+
 public struct PostMessageForm {
     let message: String
     let replyTo: Int?
@@ -40,9 +57,9 @@ public struct CreateTopicForm {
 public struct GetTalkForm {
     let count: Int?
     let from: PostID?
-    let direction: String?  // FIXME: forward or backward
+    let direction: MessageDirection?
     
-    public init(count: Int?, from: PostID?, direction: String?) {
+    public init(count: Int?, from: PostID?, direction: MessageDirection?) {
         self.count = count
         self.from = from
         self.direction = direction
@@ -54,7 +71,7 @@ public enum Router : URLRequestConvertible {
     
     case GetProfile
     case GetTopics
-    case GetMessages(TopicID)
+    case GetMessages(TopicID, GetMessagesForm)
     case PostMessage(TopicID, PostMessageForm)
     case UploadAttachment(TopicID)
     case GetTopicMembers(TopicID)
@@ -92,7 +109,7 @@ public enum Router : URLRequestConvertible {
         switch self {
         case .GetProfile                                  : return (.GET   , .my          , "profile")
         case .GetTopics                                   : return (.GET   , .my          , "topics")
-        case .GetMessages(let topicId)                    : return (.GET   , .topic_read  , "topics/\(topicId)")
+        case .GetMessages(let (topicId, _))               : return (.GET   , .topic_read  , "topics/\(topicId)")
         case .PostMessage(let (topicId, _))               : return (.POST  , .topic_post  , "topics/\(topicId)")
         case .UploadAttachment(let topicId)               : return (.POST  , .topic_post  , "topics/\(topicId)/attachments")
         case .GetTopicMembers(let topicId)                : return (.GET   , .topic_read  , "topics/\(topicId)/members/status")
@@ -134,6 +151,12 @@ public enum Router : URLRequestConvertible {
 
     private var parameters: [String: AnyObject] {
         switch self {
+        case .GetMessages(let (_, form)):
+            var p = [String: AnyObject]()
+            if let v = form.count { p["count"] = v }
+            if let v = form.from { p["from"] = v }
+            if let v = form.direction { p["direction"] = v.rawValue }
+            return p
         case .PostMessage(let (_, form)):
             var p: [String: AnyObject] = [ "message": form.message ]
             if let r = form.replyTo { p["replyTo"] = r }
@@ -176,7 +199,7 @@ public enum Router : URLRequestConvertible {
             var p: [String: AnyObject] = [:]
             if let c = form.count { p["count"] = c }
             if let f = form.from { p["from"] = f }
-            if let d = form.direction { p["direction"] = d }
+            if let d = form.direction { p["direction"] = d.rawValue }
             return p
         default:
             return [:]

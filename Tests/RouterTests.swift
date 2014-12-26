@@ -26,9 +26,24 @@ class RouterTests: XCTestCase {
     }
     
     func testGetMessages() {
-        let req = Router.GetMessages(312).URLRequest
+        let req = Router.GetMessages(312, GetMessagesForm(count: nil, from: nil, direction: nil)).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/312")
+    }
+    func testGetMessages2() {
+        let req = Router.GetMessages(312, GetMessagesForm(count: 98, from: nil, direction: nil)).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/312?count=98")
+    }
+    func testGetMessages3() {
+        let req = Router.GetMessages(312, GetMessagesForm(count: nil, from: 178, direction: nil)).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/312?from=178")
+    }
+    func testGetMessages4() {
+        let req = Router.GetMessages(312, GetMessagesForm(count: nil, from: nil, direction: MessageDirection.Backward)).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/312?direction=backward")
     }
 
     func testPostMessages() {
@@ -348,7 +363,7 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?from=911")
     }
     func testGetTalk4() {
-        let req = Router.GetTalk(135, 468, GetTalkForm(count: nil, from: nil, direction: "forward")).URLRequest
+        let req = Router.GetTalk(135, 468, GetTalkForm(count: nil, from: nil, direction: MessageDirection.Forward)).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?direction=forward")
     }

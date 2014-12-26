@@ -74,7 +74,7 @@ class ClientAPITests: XCTestCase {
     func testGetMessages() {
         let expectation = expectationWithDescription("")
         
-        client.getMessages(0) { (response, error) -> Void in
+        client.getMessages(0, count: nil, from: nil, direction: nil) { (response, error) -> Void in
             if let messages = response {
                 let last = messages.posts[7]
                 XCTAssertEqual(last.id, 307)

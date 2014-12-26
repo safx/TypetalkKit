@@ -31,7 +31,7 @@ class DetailViewController: UITableViewController {
     func getMessages() {
         if let topic = detailItem? {
             let topicid = topic.topic.id
-            Client.sharedClient.getMessages(topicid) { (messages, error) -> Void in
+            Client.sharedClient.getMessages(topicid, count: nil, from: nil, direction: nil) { (messages, error) -> Void in
                 if error != nil {
                     // TODO
                 } else if let ms = messages? {

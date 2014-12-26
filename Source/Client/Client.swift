@@ -99,8 +99,9 @@ extension Client {
             .responseObject(_do(completion))
     }
 
-    public func getMessages(topicId: TopicID, completion: GetMessagesCompletionBlock) {
-        _request(Router.GetMessages(topicId))?
+    public func getMessages(topicId: TopicID, count: Int?, from: PostID?, direction: MessageDirection?, completion: GetMessagesCompletionBlock) {
+        let form = GetMessagesForm(count: count, from: from, direction: direction)
+        _request(Router.GetMessages(topicId, form))?
             .responseObject(_do(completion))
     }
     
@@ -251,7 +252,7 @@ extension Client {
             .responseObject(_do(completion))
     }
 
-    public func getTalk(topicId: TopicID, talkId: TalkID, count: Int?, from: PostID?, direction: String?, completion: GetTalkCompletionBlock) {
+    public func getTalk(topicId: TopicID, talkId: TalkID, count: Int?, from: PostID?, direction: MessageDirection?, completion: GetTalkCompletionBlock) {
         let form = GetTalkForm(count: count, from: from, direction: direction)
         _request(Router.GetTalk(topicId, talkId, form))?
             .responseObject(_do(completion))
