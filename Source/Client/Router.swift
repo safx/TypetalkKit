@@ -9,66 +9,10 @@
 import Foundation
 import Alamofire
 
-public enum MessageDirection: String {
-    case Backward = "backward"
-    case Forward  = "forward"
-}
-
-public struct GetMessagesForm {
-    let count: Int?
-    let from: PostID?
-    let direction: MessageDirection?
-    
-    public init(count: Int?, from: PostID?, direction: MessageDirection?) {
-        self.count = count
-        self.from = from
-        self.direction = direction
-    }
-}
-
-public struct PostMessageForm {
-    let message: String
-    let replyTo: Int?
-    let fileKeys: [String]
-    let talkIds: [TalkID]
-    
-    public init(message: String, replyTo: PostID?, fileKeys: [String], talkIds: [TalkID]) {
-        self.message = message
-        self.replyTo = replyTo
-        self.fileKeys = fileKeys
-        self.talkIds = talkIds
-    }
-}
-
-public struct CreateTopicForm {
-    let name: String
-    let teamId: TeamID?
-    let inviteMembers: [String]
-    let inviteMessage: String = ""
-
-    public init(name: String, teamId: TeamID?, inviteMembers: [String], inviteMessage: String) {
-        self.name = name
-        self.teamId = teamId
-        self.inviteMembers = inviteMembers
-        self.inviteMessage = inviteMessage
-    }
-}
-
-public struct GetTalkForm {
-    let count: Int?
-    let from: PostID?
-    let direction: MessageDirection?
-    
-    public init(count: Int?, from: PostID?, direction: MessageDirection?) {
-        self.count = count
-        self.from = from
-        self.direction = direction
-    }
-}
 
 public enum Router : URLRequestConvertible {
     private static let baseURLString = "https://typetalk.in/api/v1/"
-    
+
     case GetProfile
     case GetTopics
     case GetMessages(TopicID, GetMessagesForm)
@@ -103,8 +47,8 @@ public enum Router : URLRequestConvertible {
     case GetTalks(TopicID)
     case GetTalk(TopicID, TalkID, GetTalkForm)
     case DownloadAttachment(NSURL)
-    
-    
+
+
     private var methodAndPath: (Alamofire.Method, Scope, String) {
         switch self {
         case .GetProfile                                  : return (.GET   , .my          , "profile")
@@ -152,36 +96,24 @@ public enum Router : URLRequestConvertible {
     private var parameters: [String: AnyObject] {
         switch self {
         case .GetMessages(let (_, form)):
-            var p = [String: AnyObject]()
-            if let v = form.count { p["count"] = v }
-            if let v = form.from { p["from"] = v }
-            if let v = form.direction { p["direction"] = v.rawValue }
-            return p
+            return form.toObject()
         case .PostMessage(let (_, form)):
-            var p: [String: AnyObject] = [ "message": form.message ]
-            if let r = form.replyTo { p["replyTo"] = r }
-            if countElements(form.fileKeys) > 0 { p["fileKeys"] = form.fileKeys }
-            if countElements(form.talkIds) > 0 { p["talkIds"] = form.talkIds }
-            return p
+            return form.toObject()
         case .SaveReadTopic(let (topicId, postId)):
             var p: [String: AnyObject] = [ "topicId": topicId ]
-            if let i = postId { p["postId"] = i }
+            if let v = postId { p["postId"] = v }
             return p
         case .GetMentions(let (from, unread)):
             var p: [String: AnyObject] = [:]
-            if let f = from { p["from"] = f }
-            if let u = unread { p["unread"] = u }
+            if let v = from { p["from"] = v }
+            if let v = unread { p["unread"] = v }
             return p
         case .CreateTopic(let form):
-            var p: [String: AnyObject] = [ "name": form.name ]
-            if let t = form.teamId { p["teamId"] = t }
-            if countElements(form.inviteMembers) > 0 { p["inviteMembers"] = form.inviteMembers }
-            if countElements(form.inviteMessage) > 0 { p["inviteMessage"] = form.inviteMessage }
-            return p
+            return form.toObject()
         case .UpdateTopic(let (_, name, teamId)):
             var p: [String: AnyObject] = [:]
-            if let n = name { p["name"] = name }
-            if let t = teamId { p["teamId"] = t } else { p["teamId"] = "" }
+            if let v = name { p["name"] = v }
+            if let v = teamId { p["teamId"] = v } else { p["teamId"] = "" }
             return p
         case InviteTopicMember(let (_, inviteNames, inviteMessage)):
             var p: [String: AnyObject] = [:]
@@ -196,11 +128,7 @@ public enum Router : URLRequestConvertible {
         case .SearchAccounts(let nameOrEmailAddress):
             return ["nameOrEmailAddress": nameOrEmailAddress]
         case .GetTalk(let (_, _, form)):
-            var p: [String: AnyObject] = [:]
-            if let c = form.count { p["count"] = c }
-            if let f = form.from { p["from"] = f }
-            if let d = form.direction { p["direction"] = d.rawValue }
-            return p
+            return form.toObject()
         default:
             return [:]
         }
@@ -209,7 +137,7 @@ public enum Router : URLRequestConvertible {
     private var method: Alamofire.Method {
         return methodAndPath.0
     }
-    
+
     private var scope: Scope? {
         switch self {
         case .SearchAccounts:
@@ -218,7 +146,7 @@ public enum Router : URLRequestConvertible {
             return methodAndPath.1
         }
     }
-    
+
     private var path: String {
         return methodAndPath.2
     }
@@ -230,27 +158,27 @@ public enum Router : URLRequestConvertible {
     public var URLRequest: NSURLRequest {
         var request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)
         request.HTTPMethod = method.rawValue
-        
+
         if parameters.isEmpty { return request }
         return Alamofire.ParameterEncoding.URL.encode(request, parameters: parameters).0
     }
-    
+
     public func URLRequest(OAuth2Token: String) -> NSURLRequest {
         var request = URLRequest.mutableCopy() as NSMutableURLRequest
         request.setValue("Bearer \(OAuth2Token)", forHTTPHeaderField: "Authorization")
         return request
     }
-    
+
     public func URLRequest(OAuth2Token: String, fileName: String, fileContent: NSData) -> NSURLRequest {
         func generateBoundary() -> String {
             let uuid = CFUUIDCreate(nil)
             let uuidString = CFUUIDCreateString(nil, uuid)
             return "Boundary-\(uuidString)"
         }
-        
+
         let boundary = generateBoundary()
         let formData = NSMutableData()
-        
+
         formData.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         formData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
         formData.appendData("Content-Type: application/octet-stream; charset=ISO-8859-1\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
@@ -260,11 +188,78 @@ public enum Router : URLRequestConvertible {
 
         var request = URLRequest(OAuth2Token).mutableCopy() as NSMutableURLRequest
         assert(request.HTTPMethod == "POST")
-        
+
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.setValue("\(formData.length)", forHTTPHeaderField: "Content-Length")
         request.HTTPBody = formData
-        
+
         return request
+    }
+}
+
+public enum MessageDirection: String {
+    case Backward = "backward"
+    case Forward  = "forward"
+}
+
+public struct GetMessagesForm {
+    let count: Int?
+    let from: PostID?
+    let direction: MessageDirection?
+
+    public init(count: Int?, from: PostID?, direction: MessageDirection?) {
+        self.count = count
+        self.from = from
+        self.direction = direction
+    }
+    private func toObject() -> [String: AnyObject] {
+        var p = [String: AnyObject]()
+        if let v = count { p["count"] = v }
+        if let v = from { p["from"] = v }
+        if let v = direction { p["direction"] = v.rawValue }
+        return p
+    }
+}
+public typealias GetTalkForm = GetMessagesForm
+
+public struct PostMessageForm {
+    let message: String
+    let replyTo: Int?
+    let fileKeys: [String]
+    let talkIds: [TalkID]
+
+    public init(message: String, replyTo: PostID?, fileKeys: [String], talkIds: [TalkID]) {
+        self.message = message
+        self.replyTo = replyTo
+        self.fileKeys = fileKeys
+        self.talkIds = talkIds
+    }
+    private func toObject() -> [String: AnyObject] {
+        var p: [String: AnyObject] = [ "message": message ]
+        if let v = replyTo { p["replyTo"] = v }
+        if countElements(fileKeys) > 0 { p["fileKeys"] = fileKeys }
+        if countElements(talkIds) > 0 { p["talkIds"] = talkIds }
+        return p
+    }
+}
+
+public struct CreateTopicForm {
+    let name: String
+    let teamId: TeamID?
+    let inviteMembers: [String]
+    let inviteMessage: String = ""
+
+    public init(name: String, teamId: TeamID?, inviteMembers: [String], inviteMessage: String) {
+        self.name = name
+        self.teamId = teamId
+        self.inviteMembers = inviteMembers
+        self.inviteMessage = inviteMessage
+    }
+    private func toObject() -> [String: AnyObject] {
+        var p: [String: AnyObject] = [ "name": name ]
+        if let v = teamId { p["teamId"] = v }
+        if countElements(inviteMembers) > 0 { p["inviteMembers"] = inviteMembers }
+        if countElements(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
+        return p
     }
 }
