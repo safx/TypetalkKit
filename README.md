@@ -1,19 +1,22 @@
-TypetalkKit
-===========
+# TypetalkKit
+
+[![TravisCI](http://img.shields.io/travis/safx/TypetalkKit.svg?style=flat)](https://travis-ci.org/safx/TypetalkKit)
 
 ## Basic Usage
 
 The following code gets user's topics and prints these.
 
-    Client.sharedClient.getTopics { (topics, error) -> Void in
-        if error != nil {
-            // error
-        } else if let ts = topics? {
-            for i in ts {
-                println("\(i)")
-            }
+```swift
+Client.sharedClient.getTopics { (topics, error) -> Void in
+    if error != nil {
+        // error
+    } else if let ts = topics? {
+        for i in ts {
+            println("\(i)")
         }
     }
+}
+```
 
 TypetalkKit supports all Typetalk API.
 
@@ -30,17 +33,21 @@ which should be unique to complete authorization process.
 
 In your app, set developer settings:
 
-        Client.sharedClient.setDeveloperSettings(
-            clientId:     "Your ClientID",
-            clientSecret: "Your SecretID",
-            redirectURI:  "Your custome scheme",    // e.g. typetalkkit+<YOUR_APP_ID>://auth/success
-            scopes: [Scope.my, Scope.topic_read])
+```swift
+Client.sharedClient.setDeveloperSettings(
+    clientId:     "Your ClientID",
+    clientSecret: "Your SecretID",
+    redirectURI:  "Your custome scheme",    // e.g. typetalkkit+<YOUR_APP_ID>://auth/success
+    scopes: [Scope.my, Scope.topic_read])
+```
 
 And then call `authorize`.
 
-        Client.sharedClient.authorize { (error) -> Void in
-           ...
-        }
+```swift
+Client.sharedClient.authorize { (error) -> Void in
+   ...
+}
+```
 
 TypetalkKit use Safari for Typetalk's authorization process.
 You, thearefore, have to add a custom URL scheme for "redirect URI" to your `Info.plist`
@@ -48,12 +55,14 @@ in order to switch back to your app from Safari.
 
 When your app is back from Safari, call `Client.sharedClient.authorizationDone` in your `application(openURL, sourceApplication, annotation)` as follows:
 
-    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-        if Client.sharedClient.isRedirectURL(url) && sourceApplication? == "com.apple.mobilesafari" {
-            return Client.sharedClient.authorizationDone(URL: url)
-        }
-        return false
+```swift
+func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+    if Client.sharedClient.isRedirectURL(url) && sourceApplication? == "com.apple.mobilesafari" {
+        return Client.sharedClient.authorizationDone(URL: url)
     }
+    return false
+}
+```
 
 If you don't call `authorizationDone`, the callback of `authorize` never be called.
 

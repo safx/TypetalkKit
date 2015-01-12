@@ -1,0 +1,9 @@
+language: objective-c
+osx_image: xcode611
+
+before_install:
+- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+
+script:
+- set -o pipefail
+- xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit -destination 'platform=iOS Simulator,OS=8.1,name=iPhone 6' test | xcpretty -c
