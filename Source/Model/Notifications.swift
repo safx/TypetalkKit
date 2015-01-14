@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Notifications : Deserializable, ObjcBase {
     public let mentions: [Mention] = []

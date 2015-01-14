@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Link : Deserializable, ObjcBase {
     public let id: LinkID = 0

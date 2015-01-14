@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Like : Deserializable, ObjcBase {
     public let id: LikeID = 0

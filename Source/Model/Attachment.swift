@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Attachment : Deserializable, ObjcBase {
     public let fileKey: String = ""

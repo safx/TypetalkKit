@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class GetTopicsResponse : Deserializable, ObjcBase {
     public let topics: [TopicWithUserInfo] = []

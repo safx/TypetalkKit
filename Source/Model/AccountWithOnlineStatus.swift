@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class AccountWithOnlineStatus : Deserializable, ObjcBase {
     public let account: Account = Account()

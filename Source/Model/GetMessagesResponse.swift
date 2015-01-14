@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class GetMessagesResponse : Deserializable, ObjcBase {
     public let team: Team = Team()

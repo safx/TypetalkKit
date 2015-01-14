@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class GetTeamsResponse : Deserializable, ObjcBase {
     public let teams: [TeamWithCount] = []

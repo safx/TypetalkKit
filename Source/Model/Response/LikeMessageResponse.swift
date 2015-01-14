@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class LikeMessageResponse : Deserializable, ObjcBase {
     public let like = Like()

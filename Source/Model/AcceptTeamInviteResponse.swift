@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class AcceptTeamInviteResponse : Deserializable, ObjcBase {
     public let topics: [Topic] = []

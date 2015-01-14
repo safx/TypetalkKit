@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class TopicInvite: Invite, Deserializable, ObjcBase {
     public let topic: Topic = Topic()

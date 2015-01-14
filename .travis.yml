@@ -7,3 +7,4 @@ before_install:
 script:
 - set -o pipefail
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit -destination 'platform=iOS Simulator,OS=8.1,name=iPhone 6' test | xcpretty -c
+- pod lib lint --quick

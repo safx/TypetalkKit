@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class GetTalksResponse : Deserializable, ObjcBase {
     public let talks: [Talk] = []

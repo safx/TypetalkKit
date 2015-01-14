@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class URLAttachment : Deserializable, ObjcBase {
     public let webUrl: NSURL = NSURL()

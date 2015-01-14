@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Bookmark : Deserializable, ObjcBase {
     public let postId: PostID = 0

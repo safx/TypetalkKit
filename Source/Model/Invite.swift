@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Invite : Deserializable, ObjcBase {
     public let id: InviteID = 0

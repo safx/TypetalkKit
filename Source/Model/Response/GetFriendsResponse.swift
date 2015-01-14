@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class GetFriendsResponse : Deserializable, ObjcBase {
     public let accounts: [Account] = []

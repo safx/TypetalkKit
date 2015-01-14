@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Account : Deserializable, ObjcBase {
     public let id: AccountID = 0

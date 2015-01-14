@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class PostMessageResponse : Deserializable, ObjcBase {
     public let topic: Topic? = nil

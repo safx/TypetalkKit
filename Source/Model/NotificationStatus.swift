@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class NotificationStatus : Deserializable, ObjcBase {
     public let mention: Mention?

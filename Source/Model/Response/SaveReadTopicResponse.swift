@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class SaveReadTopicResponse : Deserializable, ObjcBase {
     public let unread = Unread()

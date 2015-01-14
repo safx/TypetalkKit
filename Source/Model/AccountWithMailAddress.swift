@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class AccountWithMailAddress : Deserializable, ObjcBase {
     public let account: Account = Account()

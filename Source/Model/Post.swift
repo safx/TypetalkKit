@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Post : Deserializable, ObjcBase {
     public let id: PostID = 0

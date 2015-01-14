@@ -1,5 +1,5 @@
 //
-//  ResponseSerialize.swift
+//  ObjectSerialize.swift
 //  TypetalkKit
 //
 //  Created by Safx Developer on 2014/10/07.
@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import JSONHelper
 
 public let ERROR_DOMAIN = "ErrorDomain.TypetalkKit"
 

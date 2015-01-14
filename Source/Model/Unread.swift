@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import JSONHelper
 
 public class Unread : Deserializable, ObjcBase {
     public let topicId: TopicID = 0
