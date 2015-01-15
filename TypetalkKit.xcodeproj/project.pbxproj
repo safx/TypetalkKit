@@ -10,6 +10,7 @@
 		8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
 		8D39219119E57D2F006AA247 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39219019E57D2F006AA247 /* Response.swift */; };
 		8D451C4319DAFB16001611AD /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D451C4219DAFB16001611AD /* ErrorResponse.swift */; };
+		8D513F151A67E9AA007778D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D513F141A67E9AA007778D7 /* Info.plist */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
 		8D5C6E3319D6A3F40020BCA2 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3219D6A3F40020BCA2 /* Router.swift */; };
 		8D5C6E3619D6B58B0020BCA2 /* RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3519D6B58B0020BCA2 /* RouterTests.swift */; };
@@ -121,6 +122,7 @@
 		8DA0034019DEF87F00844F14 /* TopicWithAccountsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */; };
 		8DA0034319DEF8AF00844F14 /* model_topic_with_accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */; };
 		8DA638D819D5BA7900EA4C08 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8DA73D8D1A67EB3D007DE49B /* Dummy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA73D8B1A67EB3D007DE49B /* Dummy.swift */; };
 		8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */; };
 		8DBA516E19C5B47300BD88A3 /* TypetalkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DBA517419C5B47400BD88A3 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; };
@@ -152,6 +154,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		8D513F0E1A67E967007778D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8D7E6DA819CD5032004AAF35 /* Alamofire.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4DD67C0B1A5C55C900ED2280;
+			remoteInfo = "Alamofire OSX";
+		};
+		8D513F161A67EA16007778D7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8DBA515F19C5B47300BD88A3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8D513EF41A67E966007778D7;
+			remoteInfo = JSONHelper;
+		};
 		8D7B032119D45F26000A0F7C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DBA515F19C5B47300BD88A3 /* Project object */;
@@ -210,6 +226,9 @@
 		8D08E37119E0157B004F7CBC /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		8D39219019E57D2F006AA247 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		8D451C4219DAFB16001611AD /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		8D513EF51A67E966007778D7 /* JSONHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D513F121A67E98F007778D7 /* JSONHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = JSONHelper.swift; path = "External/JSONHelper/JSONHelper/Pod Classes/JSONHelper.swift"; sourceTree = SOURCE_ROOT; };
+		8D513F141A67E9AA007778D7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = External/JSONHelper/JSONHelper/Info.plist; sourceTree = SOURCE_ROOT; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
 		8D57B3FE19C87E7F00E60736 /* model_topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic.json; sourceTree = "<group>"; };
 		8D57B40019C87F4900E60736 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
@@ -315,6 +334,7 @@
 		8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicWithAccounts.swift; sourceTree = "<group>"; };
 		8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicWithAccountsTests.swift; sourceTree = "<group>"; };
 		8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic_with_accounts.json; sourceTree = "<group>"; };
+		8DA73D8B1A67EB3D007DE49B /* Dummy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Dummy.swift; path = iOSExample/Dummy.swift; sourceTree = SOURCE_ROOT; };
 		8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTopicsResponse.swift; sourceTree = "<group>"; };
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -352,6 +372,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D513EF11A67E966007778D7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DBA516419C5B47300BD88A3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -371,6 +398,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D513EF61A67E966007778D7 /* JSONHelper */ = {
+			isa = PBXGroup;
+			children = (
+				8D513F121A67E98F007778D7 /* JSONHelper.swift */,
+				8DA73D8B1A67EB3D007DE49B /* Dummy.swift */,
+				8D513F141A67E9AA007778D7 /* Info.plist */,
+			);
+			path = JSONHelper;
+			sourceTree = "<group>";
+		};
 		8D5C6E5019D83E470020BCA2 /* OAuth2 */ = {
 			isa = PBXGroup;
 			children = (
@@ -422,6 +459,7 @@
 			isa = PBXGroup;
 			children = (
 				8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */,
+				8D513F0F1A67E967007778D7 /* Alamofire.framework */,
 				8D7E6DB019CD5032004AAF35 /* AlamofireTests.xctest */,
 			);
 			name = Products;
@@ -455,6 +493,7 @@
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
+				8D513EF61A67E966007778D7 /* JSONHelper */,
 				8DBA516919C5B47300BD88A3 /* Products */,
 				8D7E6DA819CD5032004AAF35 /* Alamofire.xcodeproj */,
 			);
@@ -465,6 +504,7 @@
 			children = (
 				8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */,
 				8DBA517319C5B47400BD88A3 /* TypetalkKitTests.xctest */,
+				8D513EF51A67E966007778D7 /* JSONHelper.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -619,6 +659,13 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		8D513EF21A67E966007778D7 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DBA516519C5B47300BD88A3 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -630,6 +677,24 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8D513EF41A67E966007778D7 /* JSONHelper */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper" */;
+			buildPhases = (
+				8D513EF01A67E966007778D7 /* Sources */,
+				8D513EF11A67E966007778D7 /* Frameworks */,
+				8D513EF21A67E966007778D7 /* Headers */,
+				8D513EF31A67E966007778D7 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JSONHelper;
+			productName = JSONHelper;
+			productReference = 8D513EF51A67E966007778D7 /* JSONHelper.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		8DBA516719C5B47300BD88A3 /* TypetalkKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8DBA517E19C5B47400BD88A3 /* Build configuration list for PBXNativeTarget "TypetalkKit" */;
@@ -644,6 +709,7 @@
 			);
 			dependencies = (
 				8D7E6DB719CD5082004AAF35 /* PBXTargetDependency */,
+				8D513F171A67EA16007778D7 /* PBXTargetDependency */,
 			);
 			name = TypetalkKit;
 			productName = TypetalkKit;
@@ -678,6 +744,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Safx Developers";
 				TargetAttributes = {
+					8D513EF41A67E966007778D7 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
 					8DBA516719C5B47300BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
 					};
@@ -706,11 +775,19 @@
 			targets = (
 				8DBA516719C5B47300BD88A3 /* TypetalkKit */,
 				8DBA517219C5B47400BD88A3 /* TypetalkKitTests */,
+				8D513EF41A67E966007778D7 /* JSONHelper */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		8D513F0F1A67E967007778D7 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 8D513F0E1A67E967007778D7 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
@@ -728,6 +805,14 @@
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8D513EF31A67E966007778D7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D513F151A67E9AA007778D7 /* Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DBA516619C5B47300BD88A3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -800,6 +885,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D513EF01A67E966007778D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8DA73D8D1A67EB3D007DE49B /* Dummy.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8DBA516319C5B47300BD88A3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -898,6 +991,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		8D513F171A67EA16007778D7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8D513EF41A67E966007778D7 /* JSONHelper */;
+			targetProxy = 8D513F161A67EA16007778D7 /* PBXContainerItemProxy */;
+		};
 		8D7B032219D45F26000A0F7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DBA516719C5B47300BD88A3 /* TypetalkKit */;
@@ -911,6 +1009,45 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8D513F081A67E967007778D7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "$(SRCROOT)/External/JSONHelper/JSONHelper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		8D513F091A67E967007778D7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = "$(SRCROOT)/External/JSONHelper/JSONHelper/Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		8DBA517C19C5B47400BD88A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1059,6 +1196,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D513F081A67E967007778D7 /* Debug */,
+				8D513F091A67E967007778D7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		8DBA516219C5B47300BD88A3 /* Build configuration list for PBXProject "TypetalkKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
