@@ -1,6 +1,9 @@
 # TypetalkKit
 
 [![TravisCI](http://img.shields.io/travis/safx/TypetalkKit.svg?style=flat)](https://travis-ci.org/safx/TypetalkKit)
+![Platform](https://img.shields.io/cocoapods/p/TypetalkKit.svg?style=flat)
+![License](https://img.shields.io/cocoapods/l/TypetalkKit.svg?style=flat)
+![Version](https://img.shields.io/cocoapods/v/TypetalkKit.svg?style=flat)
 
 ## Basic Usage
 
