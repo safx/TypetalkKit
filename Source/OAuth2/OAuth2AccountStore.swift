@@ -27,15 +27,15 @@ public class OAuth2AccountStore {
         var attrs = attributes
         attrs[kSecReturnAttributes] = kCFBooleanTrue
 
-        var result: Unmanaged<AnyObject>? = nil
-        let status = SecItemCopyMatching(attrs, &result)
+        // Avoid swift compiler optimization bug: http://stackoverflow.com/a/27721235
+        var result: AnyObject?
+        var status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
+
         if status == OSStatus(errSecSuccess) {
-            if let res = result? {
-                let q = res.takeRetainedValue() as NSDictionary
-                let k = String(kSecAttrGeneric)
-                if let data = q[k] as? NSData {
-                    return NSKeyedUnarchiver.unarchiveObjectWithData(data) as OAuth2Credential?
-                }
+            let q = result as NSDictionary
+            let k = String(kSecAttrGeneric)
+            if let data = q[k] as? NSData {
+                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as OAuth2Credential?
             }
         } else if status != OSStatus(errSecItemNotFound) {
             //
