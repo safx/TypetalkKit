@@ -10,17 +10,17 @@ import Foundation
 import JSONHelper
 
 public class Attachment : Deserializable, ObjcBase {
+    public let contentType: String = ""
     public let fileKey: String = ""
     public let fileName: String = ""
     public let fileSize: Int = 0
-    public let contentType: String = ""
     
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
+        contentType <<< data["contentType"]
         fileKey     <<< data["fileKey"]
         fileName    <<< data["fileName"]
         fileSize    <<< data["fileSize"]
-        contentType <<< data["contentType"]
     }
 }

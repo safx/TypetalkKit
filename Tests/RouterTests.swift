@@ -367,4 +367,26 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?direction=forward")
     }
+
+    func testDownloadAttachment() {
+        let req = Router.DownloadAttachment(111, 222, 333, "ReadMe.md", nil).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
+    }
+    func testDownloadAttachment2() {
+        let req = Router.DownloadAttachment(300, 400, 100, "image.png", AttachmentType.Large).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
+    }
+    
+    func testDownloadAttachmentWithURL() {
+        let req = Router.DownloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")!, nil).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
+    }
+    func testDownloadAttachmentWithURL2() {
+        let req = Router.DownloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, AttachmentType.Large).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
+    }
 }

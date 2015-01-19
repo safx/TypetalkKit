@@ -12,6 +12,9 @@
 		8D451C4319DAFB16001611AD /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D451C4219DAFB16001611AD /* ErrorResponse.swift */; };
 		8D513F151A67E9AA007778D7 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8D513F141A67E9AA007778D7 /* Info.plist */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
+		8D5C5D5F1A6D1C54003387DE /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C5D5E1A6D1C54003387DE /* Thumbnail.swift */; };
+		8D5C5D651A6D290A003387DE /* ThumbnailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C5D641A6D290A003387DE /* ThumbnailTests.swift */; };
+		8D5C5D661A6D2916003387DE /* model_thumbnail.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C5D621A6D28CB003387DE /* model_thumbnail.json */; };
 		8D5C6E3319D6A3F40020BCA2 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3219D6A3F40020BCA2 /* Router.swift */; };
 		8D5C6E3619D6B58B0020BCA2 /* RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3519D6B58B0020BCA2 /* RouterTests.swift */; };
 		8D5C6E3819D6E4A30020BCA2 /* OAuth2Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3719D6E4A30020BCA2 /* OAuth2Router.swift */; };
@@ -232,6 +235,9 @@
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
 		8D57B3FE19C87E7F00E60736 /* model_topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic.json; sourceTree = "<group>"; };
 		8D57B40019C87F4900E60736 /* Topic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Topic.swift; sourceTree = "<group>"; };
+		8D5C5D5E1A6D1C54003387DE /* Thumbnail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Thumbnail.swift; sourceTree = "<group>"; };
+		8D5C5D621A6D28CB003387DE /* model_thumbnail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_thumbnail.json; sourceTree = "<group>"; };
+		8D5C5D641A6D290A003387DE /* ThumbnailTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThumbnailTests.swift; sourceTree = "<group>"; };
 		8D5C6E3219D6A3F40020BCA2 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Router.swift; path = Client/Router.swift; sourceTree = "<group>"; };
 		8D5C6E3519D6B58B0020BCA2 /* RouterTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RouterTests.swift; sourceTree = "<group>"; };
 		8D5C6E3719D6E4A30020BCA2 /* OAuth2Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = OAuth2Router.swift; path = OAuth2/OAuth2Router.swift; sourceTree = "<group>"; };
@@ -444,6 +450,7 @@
 				8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */,
 				8DA0033519DEF01400844F14 /* TeamWithMembers.swift */,
 				8DD6AC5119EC1F2500D9A9A4 /* TeamWithCount.swift */,
+				8D5C5D5E1A6D1C54003387DE /* Thumbnail.swift */,
 				8D57B40019C87F4900E60736 /* Topic.swift */,
 				8D79981119E1912900DF9AB9 /* TopicInvite.swift */,
 				8DA0033D19DEF70600844F14 /* TopicWithAccounts.swift */,
@@ -551,6 +558,7 @@
 				8D7E6DBC19CF0E0F004AAF35 /* UnreadTests.swift */,
 				8D7E6DD019CF2891004AAF35 /* BookmarkTests.swift */,
 				8D7E6DDD19D05677004AAF35 /* OAuth2CredentialTests.swift */,
+				8D5C5D641A6D290A003387DE /* ThumbnailTests.swift */,
 				8D7E6DE719D1BBB3004AAF35 /* ScopeTests.swift */,
 				8D7E6E2019D2F43A004AAF35 /* LikeTests.swift */,
 				8D7E6E2819D2F6F8004AAF35 /* TalkTests.swift */,
@@ -628,6 +636,7 @@
 				8D7E6E3719D2F9BF004AAF35 /* model_post.json */,
 				8D5C6E4319D800560020BCA2 /* model_mention.json */,
 				8D5C6E4A19D805720020BCA2 /* model_team_invite.json */,
+				8D5C5D621A6D28CB003387DE /* model_thumbnail.json */,
 				8D79981319E192BF00DF9AB9 /* model_topic_invite.json */,
 				8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */,
 				8D85BA2119E04B410036745B /* model_talk_messages.json */,
@@ -832,6 +841,7 @@
 				8D7B02F819D45DF5000A0F7C /* api_remove-topic-member.json in Resources */,
 				8D7B02E519D45DF5000A0F7C /* api_delete-topic.json in Resources */,
 				8D7B02FB19D45DF5000A0F7C /* api_search-accounts.json in Resources */,
+				8D5C5D661A6D2916003387DE /* model_thumbnail.json in Resources */,
 				8D7E6DC919CF0FFD004AAF35 /* model_topic_with_userinfo.json in Resources */,
 				8D7E6E3219D2F7F4004AAF35 /* model_link.json in Resources */,
 				8D7E6E2419D2F48F004AAF35 /* model_like.json in Resources */,
@@ -916,6 +926,7 @@
 				8D7B031F19D45E67000A0F7C /* Post.swift in Sources */,
 				8DBA9B3519FC46CC008EECE1 /* SaveReadMentionResponse.swift in Sources */,
 				8D7B031B19D45E67000A0F7C /* Scope.swift in Sources */,
+				8D5C5D5F1A6D1C54003387DE /* Thumbnail.swift in Sources */,
 				8D6EC71519FBD6FA0042BB24 /* GetTalksResponse.swift in Sources */,
 				8DEE4EA21A0BAAA500FB547D /* JSONHelper.swift in Sources */,
 				8D7B031519D45E67000A0F7C /* Team.swift in Sources */,
@@ -960,6 +971,7 @@
 				8D79981A19E2BCFD00DF9AB9 /* NotificationTests.swift in Sources */,
 				8D7E6E3E19D309A9004AAF35 /* PostTests.swift in Sources */,
 				8D7E6DDE19D05677004AAF35 /* OAuth2CredentialTests.swift in Sources */,
+				8D5C5D651A6D290A003387DE /* ThumbnailTests.swift in Sources */,
 				8D5C6E3E19D703200020BCA2 /* OAuth2ClientTests.swift in Sources */,
 				8DD6AC4D19EADC4C00D9A9A4 /* ClientAPITests.swift in Sources */,
 				8DA0034019DEF87F00844F14 /* TopicWithAccountsTests.swift in Sources */,

@@ -46,7 +46,8 @@ public enum Router : URLRequestConvertible {
     case SearchAccounts(String)
     case GetTalks(TopicID)
     case GetTalk(TopicID, TalkID, GetTalkForm)
-    case DownloadAttachment(NSURL)
+    case DownloadAttachment(TopicID, PostID, AttachmentID, String, AttachmentType?)
+    case DownloadAttachmentWithURL(NSURL, AttachmentType?)
 
 
     private var methodAndPath: (Alamofire.Method, Scope, String) {
@@ -84,7 +85,9 @@ public enum Router : URLRequestConvertible {
         case .SearchAccounts                              : return (.GET   , .my          , "search/accounts")
         case .GetTalks(let topicId)                       : return (.GET   , .topic_read  , "topics/\(topicId)/talks")
         case .GetTalk(let (topicId, talkId, _))           : return (.GET   , .topic_read  , "topics/\(topicId)/talks/\(talkId)/posts")
-        case .DownloadAttachment(let url):
+        case .DownloadAttachment(let (topicId, postId, attachmentId, filename, _))
+                                                          : return (.GET   , .topic_read  , "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)")
+        case .DownloadAttachmentWithURL(let (url, _)):
             let u = url.absoluteString!
             assert(u.hasPrefix(Router.baseURLString))
             let len = countElements(Router.baseURLString)
@@ -129,6 +132,14 @@ public enum Router : URLRequestConvertible {
             return ["nameOrEmailAddress": nameOrEmailAddress]
         case .GetTalk(let (_, _, form)):
             return form.toObject()
+        case .DownloadAttachment(let (_, _, _, _, type)):
+            var p: [String: AnyObject] = [:]
+            if let v = type { p["type"] = v.rawValue }
+            return p
+        case .DownloadAttachmentWithURL(let (_, type)):
+            var p: [String: AnyObject] = [:]
+            if let v = type { p["type"] = v.rawValue }
+            return p
         default:
             return [:]
         }
@@ -200,6 +211,12 @@ public enum Router : URLRequestConvertible {
 public enum MessageDirection: String {
     case Backward = "backward"
     case Forward  = "forward"
+}
+
+public enum AttachmentType: String {
+    case Small  = "small"
+    case Medium = "medium"
+    case Large  = "large"
 }
 
 public struct GetMessagesForm {

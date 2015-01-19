@@ -1,9 +1,30 @@
 {
     "attachment": {
+        "contentType": "image/jpeg",
         "fileKey": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
         "fileName": "1.jpg",
         "fileSize": 472263
     },
     "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg",
-    "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg"
+    "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg",
+    "thumbnails": [
+        {
+            "type": "small",
+            "fileSize": 16842,
+            "width": 480,
+            "height": 360
+        },
+        {
+            "type": "medium",
+            "fileSize": 23714,
+            "width": 800,
+            "height": 600
+        },
+        {
+            "type": "large",
+            "fileSize": 41130,
+            "width": 1024,
+            "height": 768
+        }
+    ]
 }

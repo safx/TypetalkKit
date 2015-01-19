@@ -6,6 +6,7 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
+public typealias AttachmentID = Int
 public typealias AccountID = Int
 public typealias InviteID = Int
 public typealias LikeID  = Int

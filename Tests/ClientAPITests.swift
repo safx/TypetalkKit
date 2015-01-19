@@ -876,5 +876,31 @@ class ClientAPITests: XCTestCase {
             XCTAssertNil(error, "\(error)")
         }
     }
+
+    func testDownloadAttachment() {
+        let expectation = expectationWithDescription("")
+        client.downloadAttachment(0, postId: 1, attachmentId: 2, filename: "aaaaaa", type: nil) { (response, error) -> Void in
+            if let r = response {
+                expectation.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
+    func testDownloadAttachmentWithURL() {
+        let expectation = expectationWithDescription("")
+        client.downloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!) { (response, error) -> Void in
+            if let r = response {
+                expectation.fulfill()
+            }
+        }
+        
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
 }
 

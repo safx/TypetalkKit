@@ -10,15 +10,17 @@ import Foundation
 import JSONHelper
 
 public class URLAttachment : Deserializable, ObjcBase {
+    public let attachment: Attachment = Attachment()
     public let webUrl: NSURL = NSURL()
     public let apiUrl: NSURL = NSURL()
-    public let attachment: Attachment = Attachment()
+    public let thumbnails: [Thumbnail] = []
 
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        webUrl     <<<  data["webUrl"]
-        apiUrl     <<<  data["apiUrl"]
-        attachment <<<< data["attachment"]
+        attachment <<<<  data["attachment"]
+        webUrl     <<<   data["webUrl"]
+        apiUrl     <<<   data["apiUrl"]
+        thumbnails <<<<* data["thumbnails"]
     }
 }

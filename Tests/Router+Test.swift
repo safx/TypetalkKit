@@ -47,7 +47,10 @@ extension TypetalkKit.Router {
         case .SearchAccounts        : return "search-accounts"
         case .GetTalks              : return "get-talks"
         case .GetTalk               : return "get-talk"
-        default                     : return ""
+            
+        case .DownloadAttachment       : return "get-talk" // whatever
+        case .DownloadAttachmentWithURL: return "get-talk" // whatever
+        default                        : return ""
         }
     }
 

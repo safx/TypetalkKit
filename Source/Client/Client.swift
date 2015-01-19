@@ -258,8 +258,15 @@ extension Client {
             .responseObject(_do(completion))
     }
 
-    public func downloadAttachment(url: NSURL, completion: DownloadAttachmentCompletionBlock) {
-        _request(Router.DownloadAttachment(url))?
+    public func downloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType?, completion: DownloadAttachmentCompletionBlock) {
+        _request(Router.DownloadAttachment(topicId, postId, attachmentId, filename, type))?
+            .response { (_, _, data, error) in
+                completion(data as? NSData, error)
+        }
+    }
+
+    public func downloadAttachmentWithURL(url: NSURL, completion: DownloadAttachmentWithURLCompletionBlock) {
+        _request(Router.DownloadAttachmentWithURL(url, nil))?
             .response { (_, _, data, error) in
                 completion(data as? NSData, error)
             }
