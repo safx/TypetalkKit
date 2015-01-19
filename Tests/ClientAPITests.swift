@@ -892,7 +892,7 @@ class ClientAPITests: XCTestCase {
 
     func testDownloadAttachmentWithURL() {
         let expectation = expectationWithDescription("")
-        client.downloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!) { (response, error) -> Void in
+        client.downloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, type: nil) { (response, error) -> Void in
             if let r = response {
                 expectation.fulfill()
             }
