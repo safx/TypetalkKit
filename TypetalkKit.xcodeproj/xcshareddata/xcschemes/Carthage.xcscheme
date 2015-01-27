@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-               BuildableName = "TypetalkKit.framework"
-               BlueprintName = "TypetalkKit"
+               BuildableName = "TypetalkKit-iOS.framework"
+               BlueprintName = "TypetalkKit-iOS"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
+            BuildableName = "TypetalkKit-iOS.framework"
+            BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
+            BuildableName = "TypetalkKit-iOS.framework"
+            BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -70,8 +70,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
+            BuildableName = "TypetalkKit-iOS.framework"
+            BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

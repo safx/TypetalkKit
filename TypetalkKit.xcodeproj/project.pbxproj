@@ -686,9 +686,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		8D513EF41A67E966007778D7 /* JSONHelper */ = {
+		8D513EF41A67E966007778D7 /* JSONHelper-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper" */;
+			buildConfigurationList = 8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper-iOS" */;
 			buildPhases = (
 				8D513EF01A67E966007778D7 /* Sources */,
 				8D513EF11A67E966007778D7 /* Frameworks */,
@@ -699,14 +699,14 @@
 			);
 			dependencies = (
 			);
-			name = JSONHelper;
+			name = "JSONHelper-iOS";
 			productName = JSONHelper;
 			productReference = 8D513EF51A67E966007778D7 /* JSONHelper.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		8DBA516719C5B47300BD88A3 /* TypetalkKit */ = {
+		8DBA516719C5B47300BD88A3 /* TypetalkKit-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8DBA517E19C5B47400BD88A3 /* Build configuration list for PBXNativeTarget "TypetalkKit" */;
+			buildConfigurationList = 8DBA517E19C5B47400BD88A3 /* Build configuration list for PBXNativeTarget "TypetalkKit-iOS" */;
 			buildPhases = (
 				8DBA516319C5B47300BD88A3 /* Sources */,
 				8DBA516419C5B47300BD88A3 /* Frameworks */,
@@ -720,7 +720,7 @@
 				8D7E6DB719CD5082004AAF35 /* PBXTargetDependency */,
 				8D513F171A67EA16007778D7 /* PBXTargetDependency */,
 			);
-			name = TypetalkKit;
+			name = "TypetalkKit-iOS";
 			productName = TypetalkKit;
 			productReference = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */;
 			productType = "com.apple.product-type.framework";
@@ -782,9 +782,9 @@
 			);
 			projectRoot = "";
 			targets = (
-				8DBA516719C5B47300BD88A3 /* TypetalkKit */,
+				8DBA516719C5B47300BD88A3 /* TypetalkKit-iOS */,
 				8DBA517219C5B47400BD88A3 /* TypetalkKitTests */,
-				8D513EF41A67E966007778D7 /* JSONHelper */,
+				8D513EF41A67E966007778D7 /* JSONHelper-iOS */,
 			);
 		};
 /* End PBXProject section */
@@ -1005,12 +1005,12 @@
 /* Begin PBXTargetDependency section */
 		8D513F171A67EA16007778D7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8D513EF41A67E966007778D7 /* JSONHelper */;
+			target = 8D513EF41A67E966007778D7 /* JSONHelper-iOS */;
 			targetProxy = 8D513F161A67EA16007778D7 /* PBXContainerItemProxy */;
 		};
 		8D7B032219D45F26000A0F7C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 8DBA516719C5B47300BD88A3 /* TypetalkKit */;
+			target = 8DBA516719C5B47300BD88A3 /* TypetalkKit-iOS */;
 			targetProxy = 8D7B032119D45F26000A0F7C /* PBXContainerItemProxy */;
 		};
 		8D7E6DB719CD5082004AAF35 /* PBXTargetDependency */ = {
@@ -1037,7 +1037,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JSONHelper;
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1055,7 +1055,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = JSONHelper;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1155,7 +1155,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1170,7 +1170,7 @@
 				INFOPLIST_FILE = Source/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -1208,7 +1208,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper" */ = {
+		8D513F101A67E967007778D7 /* Build configuration list for PBXNativeTarget "JSONHelper-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8D513F081A67E967007778D7 /* Debug */,
@@ -1226,7 +1226,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8DBA517E19C5B47400BD88A3 /* Build configuration list for PBXNativeTarget "TypetalkKit" */ = {
+		8DBA517E19C5B47400BD88A3 /* Build configuration list for PBXNativeTarget "TypetalkKit-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8DBA517F19C5B47400BD88A3 /* Debug */,

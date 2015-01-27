@@ -7,9 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D7E6DB319CD506E004AAF35 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DEF718E19CB1B1E00F179A6 /* TypetalkKit.framework */; };
 		8DA638C219D4704500EA4C08 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638C119D4704500EA4C08 /* TopicCell.swift */; };
-		8DA638CC19D47BA200EA4C08 /* TypetalkKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DEF718E19CB1B1E00F179A6 /* TypetalkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DEF716219C9CCD400F179A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716119C9CCD400F179A6 /* AppDelegate.swift */; };
 		8DEF716419C9CCD400F179A6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716319C9CCD400F179A6 /* MasterViewController.swift */; };
 		8DEF716619C9CCD400F179A6 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716519C9CCD400F179A6 /* DetailViewController.swift */; };
@@ -21,33 +19,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		8D7E6DCB19CF12A3004AAF35 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 8DBA516719C5B47300BD88A3;
-			remoteInfo = TypetalkKit;
-		};
 		8DEF717419C9CCD400F179A6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 8DEF715419C9CCD300F179A6 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 8DEF715B19C9CCD400F179A6;
 			remoteInfo = iOSExample;
-		};
-		8DEF718D19CB1B1E00F179A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DBA516819C5B47300BD88A3;
-			remoteInfo = TypetalkKit;
-		};
-		8DEF718F19CB1B1E00F179A6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8DBA517319C5B47400BD88A3;
-			remoteInfo = TypetalkKitTests;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -58,7 +35,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8DA638CC19D47BA200EA4C08 /* TypetalkKit.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,7 +53,6 @@
 		8DEF717319C9CCD400F179A6 /* iOSExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF717819C9CCD400F179A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DEF717919C9CCD400F179A6 /* iOSExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSExampleTests.swift; sourceTree = "<group>"; };
-		8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = TypetalkKit.xcodeproj; path = ../TypetalkKit.xcodeproj; sourceTree = "<group>"; };
 		8DFF110F19D4659D00B67CC7 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -86,7 +61,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D7E6DB319CD506E004AAF35 /* TypetalkKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -106,7 +80,6 @@
 				8DEF715E19C9CCD400F179A6 /* iOSExample */,
 				8DEF717619C9CCD400F179A6 /* iOSExampleTests */,
 				8DEF715D19C9CCD400F179A6 /* Products */,
-				8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */,
 			);
 			sourceTree = "<group>";
 		};
@@ -160,15 +133,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		8DEF718919CB1B1E00F179A6 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				8DEF718E19CB1B1E00F179A6 /* TypetalkKit.framework */,
-				8DEF719019CB1B1E00F179A6 /* TypetalkKitTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -184,7 +148,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				8D7E6DCC19CF12A3004AAF35 /* PBXTargetDependency */,
 			);
 			name = iOSExample;
 			productName = iOSExample;
@@ -238,12 +201,6 @@
 			mainGroup = 8DEF715319C9CCD300F179A6;
 			productRefGroup = 8DEF715D19C9CCD400F179A6 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 8DEF718919CB1B1E00F179A6 /* Products */;
-					ProjectRef = 8DEF718819CB1B1E00F179A6 /* TypetalkKit.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				8DEF715B19C9CCD400F179A6 /* iOSExample */,
@@ -251,23 +208,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		8DEF718E19CB1B1E00F179A6 /* TypetalkKit.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = TypetalkKit.framework;
-			remoteRef = 8DEF718D19CB1B1E00F179A6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		8DEF719019CB1B1E00F179A6 /* TypetalkKitTests.xctest */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.cfbundle;
-			path = TypetalkKitTests.xctest;
-			remoteRef = 8DEF718F19CB1B1E00F179A6 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		8DEF715A19C9CCD400F179A6 /* Resources */ = {
@@ -313,11 +253,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		8D7E6DCC19CF12A3004AAF35 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = TypetalkKit;
-			targetProxy = 8D7E6DCB19CF12A3004AAF35 /* PBXContainerItemProxy */;
-		};
 		8DEF717519C9CCD400F179A6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 8DEF715B19C9CCD400F179A6 /* iOSExample */;
