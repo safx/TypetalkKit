@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+               BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
                BuildableName = "TypetalkKit.framework"
-               BlueprintName = "TypetalkKit-iOS"
+               BlueprintName = "TypetalkKit-OSX"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -29,15 +29,6 @@
       buildConfiguration = "Debug">
       <Testables>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit-iOS"
-            ReferencedContainer = "container:TypetalkKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -51,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+            BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
             BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit-iOS"
+            BlueprintName = "TypetalkKit-OSX"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -69,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+            BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
             BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit-iOS"
+            BlueprintName = "TypetalkKit-OSX"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
