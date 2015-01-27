@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-               BuildableName = "TypetalkKit-iOS.framework"
+               BuildableName = "TypetalkKit.framework"
                BlueprintName = "TypetalkKit-iOS"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
@@ -29,8 +29,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DBA517219C5B47400BD88A3"
-               BuildableName = "TypetalkKitTests.xctest"
-               BlueprintName = "TypetalkKitTests"
+               BuildableName = "TypetalkKitTests-iOS.xctest"
+               BlueprintName = "TypetalkKitTests-iOS"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -47,8 +47,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8DBA517219C5B47400BD88A3"
-               BuildableName = "TypetalkKitTests.xctest"
-               BlueprintName = "TypetalkKitTests"
+               BuildableName = "TypetalkKitTests-iOS.xctest"
+               BlueprintName = "TypetalkKitTests-iOS"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit-iOS.framework"
+            BuildableName = "TypetalkKit.framework"
             BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit-iOS.framework"
+            BuildableName = "TypetalkKit.framework"
             BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
@@ -94,7 +94,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit-iOS.framework"
+            BuildableName = "TypetalkKit.framework"
             BlueprintName = "TypetalkKit-iOS"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>

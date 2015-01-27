@@ -146,13 +146,28 @@ public class OAuth2Client {
 }
 
 // MARK: iOS
+#if os(iOS)
 
-import UIKit
-
-extension OAuth2Client {
-    public func authorize(completion: CompletionBlock) {
-        state = .Authorizing(completion)
-        let request = OAuth2Router.Authorize(_settings).URLRequest
-        UIApplication.sharedApplication().openURL(request.URL)
+    import UIKit
+    
+    extension OAuth2Client {
+        public func authorize(completion: CompletionBlock) {
+            state = .Authorizing(completion)
+            let request = OAuth2Router.Authorize(_settings).URLRequest
+            UIApplication.sharedApplication().openURL(request.URL)
+        }
     }
-}
+
+#else
+    
+    import AppKit
+    
+    extension OAuth2Client {
+        public func authorize(completion: CompletionBlock) {
+            state = .Authorizing(completion)
+            let request = OAuth2Router.Authorize(_settings).URLRequest
+            //NSApplication.sharedApplication().openURL(request.URL)
+        }
+    }
+    
+#endif
