@@ -6,13 +6,7 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
-#include "TargetConditionals.h"
-
-#if TARGET_OS_MAC
-#import <Cocoa/Cocoa.h>
-#else
-#import <UIKit/UIKit.h>
-#endif
+#import <Foundation/Foundation.h>
 
 //! Project version number for TypetalkKit.
 FOUNDATION_EXPORT double TypetalkKitVersionNumber;
