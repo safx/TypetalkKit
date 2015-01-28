@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "TypetalkKit"
-  s.version      = "0.2.2"
+  s.version      = "0.2.3"
   s.summary      = "An unofficial web API client for Typetalk, a web service for team disscussions."
   s.homepage     = "https://github.com/safx/TypetalkKit"
   s.license      = { :type => "MIT", :file => "LICENSE" }
