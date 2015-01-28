@@ -411,7 +411,7 @@
 		8D894A9019E2E4F70039D0ED /* NotificationStatusTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationStatusTests.swift; sourceTree = "<group>"; };
 		8D894A9219E2E52D0039D0ED /* model_notification_status.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_notification_status.json; sourceTree = "<group>"; };
 		8D9D18481A77D54200E3BCCF /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D9D18521A77D54200E3BCCF /* TypetalkKit-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TypetalkKit-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D9D18521A77D54200E3BCCF /* TypetalkKit-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = "TypetalkKit-OSXTests.xctest"; path = "TypetalkKitTests-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9D18931A77DC0F00E3BCCF /* JSONHelper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = JSONHelper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA0032C19DEEDF100844F14 /* Member.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Member.swift; sourceTree = "<group>"; };
 		8DA0032F19DEEE6300844F14 /* MemberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTests.swift; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypetalkKit.h; sourceTree = "<group>"; };
-		8DBA517319C5B47400BD88A3 /* TypetalkKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TypetalkKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		8DBA517319C5B47400BD88A3 /* TypetalkKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = TypetalkKitTests.xctest; path = "TypetalkKitTests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA517919C5B47400BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Test.swift"; sourceTree = "<group>"; };
 		8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
@@ -1650,6 +1650,7 @@
 				8D9D185D1A77D54300E3BCCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D9D185E1A77D54300E3BCCF /* Build configuration list for PBXNativeTarget "TypetalkKitTests-OSX" */ = {
 			isa = XCConfigurationList;
@@ -1658,6 +1659,7 @@
 				8D9D18601A77D54300E3BCCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D9D18A61A77DC1000E3BCCF /* Build configuration list for PBXNativeTarget "JSONHelper-OSX" */ = {
 			isa = XCConfigurationList;
@@ -1666,6 +1668,7 @@
 				8D9D18A81A77DC1000E3BCCF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8DBA516219C5B47300BD88A3 /* Build configuration list for PBXProject "TypetalkKit" */ = {
 			isa = XCConfigurationList;
