@@ -14,23 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+               BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
                BuildableName = "TypetalkKit.framework"
-               BlueprintName = "TypetalkKit"
-               ReferencedContainer = "container:TypetalkKit.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DBA517219C5B47400BD88A3"
-               BuildableName = "TypetalkKitTests.xctest"
-               BlueprintName = "TypetalkKitTests"
+               BlueprintName = "TypetalkKit-OSX"
                ReferencedContainer = "container:TypetalkKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -42,26 +28,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "8DBA517219C5B47400BD88A3"
-               BuildableName = "TypetalkKitTests.xctest"
-               BlueprintName = "TypetalkKitTests"
-               ReferencedContainer = "container:TypetalkKit.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
-            BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
-            ReferencedContainer = "container:TypetalkKit.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
@@ -75,9 +42,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+            BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
             BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
+            BlueprintName = "TypetalkKit-OSX"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -93,9 +60,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "8DBA516719C5B47300BD88A3"
+            BlueprintIdentifier = "8D9D18471A77D54200E3BCCF"
             BuildableName = "TypetalkKit.framework"
-            BlueprintName = "TypetalkKit"
+            BlueprintName = "TypetalkKit-OSX"
             ReferencedContainer = "container:TypetalkKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

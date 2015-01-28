@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:iOSExample/../TypetalkKit.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:iOSExample/iOSExample.xcodeproj">
    </FileRef>
 </Workspace>

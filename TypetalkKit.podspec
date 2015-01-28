@@ -8,8 +8,8 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/safx/TypetalkKit.git", :tag => s.version }
   s.source_files = "Source/**/*.swift"
   s.ios.deployment_target = "8.0"
+  #s.osx.deployment_target = "10.9"
   s.dependency     "Alamofire", '~> 1.1.3'
   s.dependency     "JSONHelper", '~> 1.3.2'
-  s.frameworks   = 'UIKit'
   s.requires_arc = true
 end

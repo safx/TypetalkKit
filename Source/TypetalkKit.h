@@ -6,7 +6,7 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
 //! Project version number for TypetalkKit.
 FOUNDATION_EXPORT double TypetalkKitVersionNumber;
