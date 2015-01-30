@@ -4,6 +4,7 @@
 ![Platform](https://img.shields.io/cocoapods/p/TypetalkKit.svg?style=flat)
 ![License](https://img.shields.io/cocoapods/l/TypetalkKit.svg?style=flat)
 ![Version](https://img.shields.io/cocoapods/v/TypetalkKit.svg?style=flat)
+![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)
 
 ## Basic Usage
 
