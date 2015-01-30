@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8D15FF0D1A7BE4A6004A22C2 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D15FF0C1A7BE4A6004A22C2 /* TypetalkKit.framework */; };
 		8DA638C219D4704500EA4C08 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638C119D4704500EA4C08 /* TopicCell.swift */; };
 		8DEF716219C9CCD400F179A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716119C9CCD400F179A6 /* AppDelegate.swift */; };
 		8DEF716419C9CCD400F179A6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716319C9CCD400F179A6 /* MasterViewController.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8D15FF0C1A7BE4A6004A22C2 /* TypetalkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TypetalkKit.framework; path = "../build/Debug-iphoneos/TypetalkKit.framework"; sourceTree = "<group>"; };
 		8DA638C119D4704500EA4C08 /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		8DEF715C19C9CCD400F179A6 /* iOSExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOSExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF716019C9CCD400F179A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D15FF0D1A7BE4A6004A22C2 /* TypetalkKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -77,6 +80,7 @@
 		8DEF715319C9CCD300F179A6 = {
 			isa = PBXGroup;
 			children = (
+				8D15FF0C1A7BE4A6004A22C2 /* TypetalkKit.framework */,
 				8DEF715E19C9CCD400F179A6 /* iOSExample */,
 				8DEF717619C9CCD400F179A6 /* iOSExampleTests */,
 				8DEF715D19C9CCD400F179A6 /* Products */,
@@ -363,6 +367,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = iOSExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -373,6 +381,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
+				);
 				INFOPLIST_FILE = iOSExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
