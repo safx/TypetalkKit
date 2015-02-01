@@ -5,6 +5,9 @@
       location = "group:iOSExample/../TypetalkKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iOSExample/iOSExample.xcodeproj">
+      location = "group:Example-iOS/Example-iOS.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Example-OSX/Example-OSX.xcodeproj">
    </FileRef>
 </Workspace>

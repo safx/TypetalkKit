@@ -1,5 +1,0 @@
-//
-//  Dummy.swift
-//
-
-import Foundation
