@@ -9,8 +9,8 @@
 import UIKit
 import TypetalkKit
 
-class DetailViewController: UITableViewController {
-    var messages: GetMessagesResponse? = nil
+class DetailViewController: UITableViewController, TypetalkStreamingDelegate {
+    var posts = [Post]()
     var detailItem: TopicWithUserInfo? = nil
     
     override func viewDidLoad() {
@@ -21,6 +21,9 @@ class DetailViewController: UITableViewController {
         
         self.title = detailItem?.topic.name
         getMessages()
+        
+        Client.sharedClient.delegate = self
+        Client.sharedClient.streaming()
     }
     
     override func didReceiveMemoryWarning() {
@@ -35,7 +38,7 @@ class DetailViewController: UITableViewController {
                 if error != nil {
                     // TODO
                 } else if let ms = messages? {
-                    self.messages = ms
+                    self.posts = ms.posts
                     self.tableView.reloadData()
                 }
             }
@@ -49,14 +52,35 @@ class DetailViewController: UITableViewController {
     }
     
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages? == nil ? 0 : messages!.posts.count
+        return posts.count
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let m = messages!.posts[indexPath.row]
+        let m = posts[indexPath.row]
         let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as MessageCell
         cell.model = m
         return cell
+    }
+
+    // MARK: - TypetalkStreamingDelegate funcs
+    
+    func streamDidReceive(client: Client, event: StreamingEvent) {
+        switch event {
+        case .Connect               : println("connected")
+        case .Disconnect(let err)   : println("disconnected: \(err)")
+        case .PostMessage(let res)  : appendNewPost(res.post!)
+        case .LikeMessage(let res)  : println("like: \(res)")
+        case .UnlikeMessage(let res): println("unlike: \(res)")
+        case .Unknown(let (t, d))   : println("unknown: \(t) \(d)")
+        }
+    }
+    
+    func appendNewPost(post: Post) {
+        let row = posts.count
+        posts.append(post)
+        let indexPath = NSIndexPath(forRow: row, inSection: 0)
+        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
+        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
     }
 }
 

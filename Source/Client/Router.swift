@@ -48,6 +48,7 @@ public enum Router : URLRequestConvertible {
     case GetTalk(TopicID, TalkID, GetTalkForm)
     case DownloadAttachment(TopicID, PostID, AttachmentID, String, AttachmentType?)
     case DownloadAttachmentWithURL(NSURL, AttachmentType?)
+    case Streaming
 
 
     private var methodAndPath: (Alamofire.Method, Scope, String) {
@@ -93,6 +94,7 @@ public enum Router : URLRequestConvertible {
             let len = countElements(Router.baseURLString)
             let s = u.substringFromIndex(advance(u.startIndex, len))
             return (.GET, .topic_read, "\(s)")
+        case .Streaming                                   : return (.GET   , .topic_read  , "streaming")
         }
     }
 

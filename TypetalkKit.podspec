@@ -11,5 +11,6 @@ Pod::Spec.new do |s|
   s.osx.deployment_target = "10.9"
   s.dependency     "Alamofire", '~> 1.1.4'
   s.dependency     "JSONHelper", '~> 1.4.1'
+  s.dependency     "Starscream", '~> 0.9.2'
   s.requires_arc = true
 end

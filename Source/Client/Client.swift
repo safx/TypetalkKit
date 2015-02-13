@@ -28,7 +28,7 @@ public class Client {
 
     // MARK: OAuth2
     
-    private var oauth2 = OAuth2Client()
+    internal var oauth2 = OAuth2Client()
     public var isInitialized: Bool {
         return oauth2.isInitialized
     }
