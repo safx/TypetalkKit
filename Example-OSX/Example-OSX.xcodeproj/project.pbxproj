@@ -11,21 +11,10 @@
 		8D3B51351A7935A800F7B6A5 /* TopicViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B51341A7935A800F7B6A5 /* TopicViewController.swift */; };
 		8D3B51371A7935A800F7B6A5 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B51361A7935A800F7B6A5 /* Images.xcassets */; };
 		8D3B513A1A7935A800F7B6A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B51381A7935A800F7B6A5 /* Main.storyboard */; };
-		8D3B51461A7935A800F7B6A5 /* TypetalkSample_OSXTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B51451A7935A800F7B6A5 /* TypetalkSample_OSXTests.swift */; };
 		8D40113B1A7C9748005D7EEC /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113A1A7C9748005D7EEC /* MessageViewController.swift */; };
 		8D40113F1A7CA3C9005D7EEC /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */; };
 		8DC068D41A7E6DB40039326F /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DC068D31A7E6DB40039326F /* TypetalkKit.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		8D3B51401A7935A800F7B6A5 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 8D3B51251A7935A800F7B6A5 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 8D3B512C1A7935A800F7B6A5;
-			remoteInfo = "TypetalkSample-OSX";
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		8D3B515E1A7A80E600F7B6A5 /* Embed Frameworks */ = {
@@ -47,9 +36,6 @@
 		8D3B51341A7935A800F7B6A5 /* TopicViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopicViewController.swift; sourceTree = "<group>"; };
 		8D3B51361A7935A800F7B6A5 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8D3B51391A7935A800F7B6A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		8D3B513F1A7935A800F7B6A5 /* Example-OSXTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Example-OSXTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		8D3B51441A7935A800F7B6A5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D3B51451A7935A800F7B6A5 /* TypetalkSample_OSXTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypetalkSample_OSXTests.swift; sourceTree = "<group>"; };
 		8D40113A1A7C9748005D7EEC /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		8DC068D31A7E6DB40039326F /* TypetalkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TypetalkKit.framework; path = ../build/Debug/TypetalkKit.framework; sourceTree = "<group>"; };
@@ -64,13 +50,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D3B513C1A7935A800F7B6A5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -78,8 +57,7 @@
 			isa = PBXGroup;
 			children = (
 				8DC068D31A7E6DB40039326F /* TypetalkKit.framework */,
-				8D3B512F1A7935A800F7B6A5 /* TypetalkSample-OSX */,
-				8D3B51421A7935A800F7B6A5 /* TypetalkSample-OSXTests */,
+				8D3B512F1A7935A800F7B6A5 /* Example-OSX */,
 				8D3B512E1A7935A800F7B6A5 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,12 +66,11 @@
 			isa = PBXGroup;
 			children = (
 				8D3B512D1A7935A800F7B6A5 /* Example-OSX.app */,
-				8D3B513F1A7935A800F7B6A5 /* Example-OSXTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8D3B512F1A7935A800F7B6A5 /* TypetalkSample-OSX */ = {
+		8D3B512F1A7935A800F7B6A5 /* Example-OSX */ = {
 			isa = PBXGroup;
 			children = (
 				8D3B51321A7935A800F7B6A5 /* AppDelegate.swift */,
@@ -104,30 +81,13 @@
 				8D3B51381A7935A800F7B6A5 /* Main.storyboard */,
 				8D3B51301A7935A800F7B6A5 /* Supporting Files */,
 			);
-			path = "TypetalkSample-OSX";
+			path = "Example-OSX";
 			sourceTree = "<group>";
 		};
 		8D3B51301A7935A800F7B6A5 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
 				8D3B51311A7935A800F7B6A5 /* Info.plist */,
-			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		8D3B51421A7935A800F7B6A5 /* TypetalkSample-OSXTests */ = {
-			isa = PBXGroup;
-			children = (
-				8D3B51451A7935A800F7B6A5 /* TypetalkSample_OSXTests.swift */,
-				8D3B51431A7935A800F7B6A5 /* Supporting Files */,
-			);
-			path = "TypetalkSample-OSXTests";
-			sourceTree = "<group>";
-		};
-		8D3B51431A7935A800F7B6A5 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				8D3B51441A7935A800F7B6A5 /* Info.plist */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -153,24 +113,6 @@
 			productReference = 8D3B512D1A7935A800F7B6A5 /* Example-OSX.app */;
 			productType = "com.apple.product-type.application";
 		};
-		8D3B513E1A7935A800F7B6A5 /* Example-OSXTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 8D3B514C1A7935A800F7B6A5 /* Build configuration list for PBXNativeTarget "Example-OSXTests" */;
-			buildPhases = (
-				8D3B513B1A7935A800F7B6A5 /* Sources */,
-				8D3B513C1A7935A800F7B6A5 /* Frameworks */,
-				8D3B513D1A7935A800F7B6A5 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				8D3B51411A7935A800F7B6A5 /* PBXTargetDependency */,
-			);
-			name = "Example-OSXTests";
-			productName = "TypetalkSample-OSXTests";
-			productReference = 8D3B513F1A7935A800F7B6A5 /* Example-OSXTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -182,10 +124,6 @@
 				TargetAttributes = {
 					8D3B512C1A7935A800F7B6A5 = {
 						CreatedOnToolsVersion = 6.1.1;
-					};
-					8D3B513E1A7935A800F7B6A5 = {
-						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 8D3B512C1A7935A800F7B6A5;
 					};
 				};
 			};
@@ -203,7 +141,6 @@
 			projectRoot = "";
 			targets = (
 				8D3B512C1A7935A800F7B6A5 /* Example-OSX */,
-				8D3B513E1A7935A800F7B6A5 /* Example-OSXTests */,
 			);
 		};
 /* End PBXProject section */
@@ -215,13 +152,6 @@
 			files = (
 				8D3B51371A7935A800F7B6A5 /* Images.xcassets in Resources */,
 				8D3B513A1A7935A800F7B6A5 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		8D3B513D1A7935A800F7B6A5 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,23 +169,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		8D3B513B1A7935A800F7B6A5 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				8D3B51461A7935A800F7B6A5 /* TypetalkSample_OSXTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		8D3B51411A7935A800F7B6A5 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 8D3B512C1A7935A800F7B6A5 /* Example-OSX */;
-			targetProxy = 8D3B51401A7935A800F7B6A5 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		8D3B51381A7935A800F7B6A5 /* Main.storyboard */ = {
@@ -356,7 +270,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					/Users/safx/src/TypetalkKit/build/Debug,
 				);
-				INFOPLIST_FILE = "TypetalkSample-OSX/Info.plist";
+				INFOPLIST_FILE = "Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "Example-OSX";
 			};
@@ -372,45 +286,9 @@
 					"$(PROJECT_DIR)/Carthage/Build/Mac",
 					/Users/safx/src/TypetalkKit/build/Debug,
 				);
-				INFOPLIST_FILE = "TypetalkSample-OSX/Info.plist";
+				INFOPLIST_FILE = "Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				PRODUCT_NAME = "Example-OSX";
-			};
-			name = Release;
-		};
-		8D3B514D1A7935A800F7B6A5 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				GCC_PREPROCESSOR_DEFINITIONS = (
-					"DEBUG=1",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "TypetalkSample-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "Example-OSXTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TypetalkSample-OSX.app/Contents/MacOS/TypetalkSample-OSX";
-			};
-			name = Debug;
-		};
-		8D3B514E1A7935A800F7B6A5 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				COMBINE_HIDPI_IMAGES = YES;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(DEVELOPER_FRAMEWORKS_DIR)",
-					"$(inherited)",
-				);
-				INFOPLIST_FILE = "TypetalkSample-OSXTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/../Frameworks";
-				PRODUCT_NAME = "Example-OSXTests";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TypetalkSample-OSX.app/Contents/MacOS/TypetalkSample-OSX";
 			};
 			name = Release;
 		};
@@ -431,15 +309,6 @@
 			buildConfigurations = (
 				8D3B514A1A7935A800F7B6A5 /* Debug */,
 				8D3B514B1A7935A800F7B6A5 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		8D3B514C1A7935A800F7B6A5 /* Build configuration list for PBXNativeTarget "Example-OSXTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				8D3B514D1A7935A800F7B6A5 /* Debug */,
-				8D3B514E1A7935A800F7B6A5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
