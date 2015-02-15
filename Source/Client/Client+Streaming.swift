@@ -21,13 +21,12 @@ public enum StreamingEvent {
     case Unknown(String, [String:AnyObject])
 }
 
-public protocol TypetalkStreamingDelegate: class {
-    func streamDidReceive(client: Client, event: StreamingEvent)
-}
+public typealias StreamingReceivedBlock = (StreamingEvent -> Void)
+
 
 // MARK: Typetalk Streaming API
 
-private var g_stream_delegate: TypetalkStreamingDelegate?
+private var g_streaming_received_block: StreamingReceivedBlock?
 
 extension Client : WebSocketDelegate {
 
@@ -38,14 +37,15 @@ extension Client : WebSocketDelegate {
         return Static.instance
     }
 
-    public var delegate : TypetalkStreamingDelegate? {
-        get { return g_stream_delegate }
-        set { g_stream_delegate = newValue }
+    private var streamingBlock : StreamingReceivedBlock? {
+        get { return g_streaming_received_block }
+        set { g_streaming_received_block = newValue }
     }
     
-    public func streaming() -> Bool {
+    public func streaming(block: StreamingReceivedBlock) -> Bool {
         switch oauth2.state {
         case .SignedIn(let (credential)):
+            self.streamingBlock = block
             socket.headers["Authorization"] = "Bearer \(credential.accessToken)"
             socket.delegate = self
             socket.connect()
@@ -59,8 +59,8 @@ extension Client : WebSocketDelegate {
 
     private func sendStreamEventIfPossible(event: StreamingEvent?) {
         if let ev = event {
-            if let dl = delegate {
-                dl.streamDidReceive(self, event: ev)
+            if let c = streamingBlock {
+                c(ev)
             }
         }
     }

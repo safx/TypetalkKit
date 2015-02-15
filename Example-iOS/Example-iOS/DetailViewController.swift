@@ -9,7 +9,7 @@
 import UIKit
 import TypetalkKit
 
-class DetailViewController: UITableViewController, TypetalkStreamingDelegate {
+class DetailViewController: UITableViewController {
     var posts = [Post]()
     var detailItem: TopicWithUserInfo? = nil
     
@@ -22,8 +22,16 @@ class DetailViewController: UITableViewController, TypetalkStreamingDelegate {
         self.title = detailItem?.topic.name
         getMessages()
         
-        Client.sharedClient.delegate = self
-        Client.sharedClient.streaming()
+        Client.sharedClient.streaming { event in
+            switch event {
+            case .Connect               : println("connected")
+            case .Disconnect(let err)   : println("disconnected: \(err)")
+            case .PostMessage(let res)  : self.appendNewPost(res.post!)
+            case .LikeMessage(let res)  : println("like: \(res)")
+            case .UnlikeMessage(let res): println("unlike: \(res)")
+            case .Unknown(let (t, d))   : println("unknown: \(t) \(d)")
+            }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -62,19 +70,6 @@ class DetailViewController: UITableViewController, TypetalkStreamingDelegate {
         return cell
     }
 
-    // MARK: - TypetalkStreamingDelegate funcs
-    
-    func streamDidReceive(client: Client, event: StreamingEvent) {
-        switch event {
-        case .Connect               : println("connected")
-        case .Disconnect(let err)   : println("disconnected: \(err)")
-        case .PostMessage(let res)  : appendNewPost(res.post!)
-        case .LikeMessage(let res)  : println("like: \(res)")
-        case .UnlikeMessage(let res): println("unlike: \(res)")
-        case .Unknown(let (t, d))   : println("unknown: \(t) \(d)")
-        }
-    }
-    
     func appendNewPost(post: Post) {
         let row = posts.count
         posts.append(post)
