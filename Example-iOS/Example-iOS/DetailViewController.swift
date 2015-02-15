@@ -27,9 +27,7 @@ class DetailViewController: UITableViewController {
             case .Connect               : println("connected")
             case .Disconnect(let err)   : println("disconnected: \(err)")
             case .PostMessage(let res)  : self.appendNewPost(res.post!)
-            case .LikeMessage(let res)  : println("like: \(res)")
-            case .UnlikeMessage(let res): println("unlike: \(res)")
-            case .Unknown(let (t, d))   : println("unknown: \(t) \(d)")
+            default: ()
             }
         }
     }

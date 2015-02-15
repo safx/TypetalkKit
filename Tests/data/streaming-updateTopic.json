@@ -1,0 +1,11 @@
+{
+    "type": "updateTopic",
+    "data": {
+        "id": 11111,
+        "name": "Super Topic",
+        "suggestion": "Super Topic",
+        "lastPostedAt": null,
+        "createdAt": "2015-02-15T11:12:37Z",
+        "updatedAt": "2015-02-15T11:13:15Z"
+    }
+}

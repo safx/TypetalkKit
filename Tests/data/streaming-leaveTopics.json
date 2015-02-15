@@ -1,0 +1,15 @@
+{
+    "type": "leaveTopics",
+    "data": {
+        "topics": [
+            {
+                "id": 8888,
+                "name": "Sample topic",
+                "suggestion": "Sample topic",
+                "lastPostedAt": null,
+                "createdAt": "2014-10-04T08:51:10Z",
+                "updatedAt": "2014-10-06T15:04:07Z"
+            }
+        ]
+    }
+}

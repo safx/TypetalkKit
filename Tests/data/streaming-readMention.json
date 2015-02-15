@@ -1,0 +1,35 @@
+{
+    "type": "readMention",
+    "data": {
+        "mention": {
+            "id": 111111,
+            "readAt": "2015-02-15T11:47:18Z",
+            "post": {
+                "id": 999999,
+                "topicId": 10999,
+                "topic": {
+                    "id": 10999,
+                    "name": "foo",
+                    "suggestion": "foo",
+                    "lastPostedAt": "2015-02-15T11:47:17Z",
+                    "createdAt": "2015-02-15T11:41:49Z",
+                    "updatedAt": "2015-02-15T11:41:49Z"
+                },
+                "replyTo": null,
+                "message": "@user hello",
+                "account": {
+                    "id": 2222,
+                    "name": "someone",
+                    "fullName": "someone",
+                    "suggestion": "someone",
+                    "imageUrl": "https://typetalk.in/accounts/2222/profile_image.png?t=1418350277470",
+                    "createdAt": "2014-10-04T08:51:10Z",
+                    "updatedAt": "2015-02-15T11:38:16Z"
+                },
+                "attachments": [],
+                "createdAt": "2015-02-15T11:47:17Z",
+                "updatedAt": "2015-02-15T11:47:17Z"
+            }
+        }
+    }
+}

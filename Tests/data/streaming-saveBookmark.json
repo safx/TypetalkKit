@@ -1,0 +1,10 @@
+{
+    "type": "saveBookmark",
+    "data": {
+        "unread": {
+            "topicId": 3333,
+            "postId": 999999,
+            "count": 0
+        }
+    }
+}

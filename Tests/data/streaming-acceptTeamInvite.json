@@ -1,0 +1,47 @@
+{
+    "type": "acceptTeamInvite",
+    "data": {
+        "topics": [
+            {
+                "id": 8888,
+                "name": "Sample topic",
+                "suggestion": "Sample topic",
+                "lastPostedAt": null,
+                "createdAt": "2014-10-04T08:51:10Z",
+                "updatedAt": "2014-10-06T15:04:07Z"
+            }
+        ],
+        "invite": {
+            "id": 9999,
+            "team": {
+                "id": 1000,
+                "name": "MyTeam",
+                "imageUrl": "https://typetalk.in/teams/1000/image.png?t=1412601586241",
+                "createdAt": "2014-10-06T13:09:39Z",
+                "updatedAt": "2014-10-06T13:19:46Z"
+            },
+            "sender": {
+                "id": 2222,
+                "name": "someone",
+                "fullName": "someone",
+                "suggestion": "someone",
+                "imageUrl": "https://typetalk.in/accounts/2222/profile_image.png?t=1412708350774",
+                "createdAt": "2014-10-04T08:51:10Z",
+                "updatedAt": "2015-02-15T11:38:16Z"
+            },
+            "account": {
+                "id": 3333,
+                "name": "user",
+                "fullName": "user",
+                "suggestion": "user",
+                "imageUrl": "https://typetalk.in/accounts/3333/profile_image.png?t=1413274680212",
+                "createdAt": "2014-03-18T14:38:01Z",
+                "updatedAt": "2015-02-15T10:23:55Z"
+            },
+            "role": "member",
+            "message": "Please join my team on Typetalk.",
+            "createdAt": "2015-02-15T11:44:44Z",
+            "updatedAt": "2015-02-15T11:44:52Z"
+        }
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "type": "updateNotificationAccess",
+    "data": {
+        "access": {
+            "unopened": 8
+        }
+    }
+}

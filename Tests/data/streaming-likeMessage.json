@@ -1,0 +1,20 @@
+{
+    "type": "likeMessage",
+    "data": {
+        "like": {
+            "id": 111111,
+            "postId": 999999,
+            "topicId": 3333,
+            "comment": "",
+            "account": {
+                "id": 3333,
+                "name": "someone",
+                "fullName": "someone",
+                "suggestion": "someone",
+                "imageUrl": "https://typetalk.in/accounts/3333/profile_image.png?t=1474613202128",
+                "createdAt": "2014-03-18T14:38:01Z",
+                "updatedAt": "2015-02-15T10:23:55Z"
+            }
+        }
+    }
+}
