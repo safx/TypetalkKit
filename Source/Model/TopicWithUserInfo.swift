@@ -13,8 +13,14 @@ public class TopicWithUserInfo : Deserializable, ObjcBase {
     public let topic: Topic = Topic()
     public let favorite: Bool = false
     public let unread: Unread? = nil
-    
+
     required public init() {}
+
+    public init(topic: Topic, favorite: Bool = false, unread: Unread? = nil) {
+        self.topic = topic
+        self.favorite = favorite
+        self.unread = unread
+    }
 
     required public init(data: [String: AnyObject]) {
         topic    <<<< data["topic"]
