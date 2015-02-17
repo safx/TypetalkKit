@@ -12,8 +12,8 @@
         "favorite": true,
         "unread": {
             "topicId": 11111,
-            "postId": 0,
-            "count": 0
+            "postId": 777,
+            "count": 2
         }
     }
 }
