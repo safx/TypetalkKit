@@ -1,0 +1,21 @@
+{
+    "type": "deleteTalk",
+    "data": {
+        "topic": {
+            "id": 3333,
+            "name": "Sample topic",
+            "suggestion": "Sample topic",
+            "lastPostedAt": "2015-02-15T11:11:09Z",
+            "createdAt": "2014-03-18T14:38:01Z",
+            "updatedAt": "2014-10-04T10:02:33Z"
+        },
+        "talk": {
+            "id": 8888,
+            "topicId": 3333,
+            "name": "SuperTalk",
+            "suggestion": "SuperTalk",
+            "createdAt": "2015-01-21T14:03:05Z",
+            "updatedAt": "2015-02-15T11:25:51Z"
+        }
+    }
+}

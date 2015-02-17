@@ -1,0 +1,35 @@
+{
+    "type": "postMessage",
+    "data": {
+        "topic": {
+            "id": 3333,
+            "name": "Sample topic",
+            "suggestion": "Sample topic",
+            "lastPostedAt": "2015-02-15T11:11:09Z",
+            "createdAt": "2014-03-18T14:38:01Z",
+            "updatedAt": "2014-10-04T10:02:33Z"
+        },
+        "post": {
+            "id": 999999,
+            "topicId": 3333,
+            "replyTo": null,
+            "message": "How are you?",
+            "account": {
+                "id": 3333,
+                "name": "user",
+                "fullName": "user",
+                "suggestion": "user",
+                "imageUrl": "https://typetalk.in/accounts/3333/profile_image.png?t=1412123207468",
+                "createdAt": "2014-03-18T14:38:01Z",
+                "updatedAt": "2015-02-15T10:23:55Z"
+            },
+            "mention": null,
+            "attachments": [],
+            "likes": [],
+            "talks": [],
+            "links": [],
+            "createdAt": "2015-02-15T11:11:09Z",
+            "updatedAt": "2015-02-15T11:11:09Z"
+        }
+    }
+}

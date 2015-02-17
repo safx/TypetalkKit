@@ -1,0 +1,23 @@
+{
+    "type": "joinTopics",
+    "data": {
+        "topics": [
+            {
+                "topic": {
+                    "id": 11111,
+                    "name": "foo",
+                    "suggestion": "foo",
+                    "lastPostedAt": null,
+                    "createdAt": "2015-02-15T11:41:49Z",
+                    "updatedAt": "2015-02-15T11:41:49Z"
+                },
+                "favorite": true,
+                "unread": {
+                    "topicId": 11111,
+                    "postId": 0,
+                    "count": 0
+                }
+            }
+        ]
+    }
+}

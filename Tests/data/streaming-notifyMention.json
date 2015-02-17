@@ -1,0 +1,35 @@
+{
+    "type": "notifyMention",
+    "data": {
+        "mention": {
+            "id": 111111,
+            "readAt": null,
+            "post": {
+                "id": 999999,
+                "topicId": 10033,
+                "topic": {
+                    "id": 10000,
+                    "name": "Sample",
+                    "suggestion": "Sample",
+                    "lastPostedAt": "2015-02-15T11:17:05Z",
+                    "createdAt": "2015-02-15T11:12:37Z",
+                    "updatedAt": "2015-02-15T11:14:24Z"
+                },
+                "replyTo": null,
+                "message": "@someone hello",
+                "account": {
+                    "id": 3333,
+                    "name": "user",
+                    "fullName": "user",
+                    "suggestion": "user",
+                    "imageUrl": "https://typetalk.in/accounts/3333/profile_image.png?t=1413127202468",
+                    "createdAt": "2014-03-18T14:38:01Z",
+                    "updatedAt": "2015-02-15T10:23:55Z"
+                },
+                "attachments": [],
+                "createdAt": "2015-02-15T11:17:05Z",
+                "updatedAt": "2015-02-15T11:17:05Z"
+            }
+        }
+    }
+}

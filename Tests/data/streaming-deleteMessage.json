@@ -1,0 +1,44 @@
+{
+    "type": "deleteMessage",
+    "data": {
+        "topic": {
+            "id": 11111,
+            "name": "foobar",
+            "suggestion": "foobar",
+            "lastPostedAt": "2015-02-15T11:17:05Z",
+            "createdAt": "2015-02-15T11:12:37Z",
+            "updatedAt": "2015-02-15T11:14:24Z"
+        },
+        "post": {
+            "id": 999999,
+            "topicId": 11111,
+            "replyTo": null,
+            "message": "@someone hello",
+            "account": {
+                "id": 3333,
+                "name": "user",
+                "fullName": "user",
+                "suggestion": "user",
+                "imageUrl": "https://typetalk.in/accounts/3333/profile_image.png?t=1413127202468",
+                "createdAt": "2014-03-18T14:38:01Z",
+                "updatedAt": "2015-02-15T10:23:55Z"
+            },
+            "mention": null,
+            "attachments": [],
+            "likes": [],
+            "talks": [
+                {
+                    "id": 8888,
+                    "topicId": 11111,
+                    "name": "foo",
+                    "suggestion": "foo",
+                    "createdAt": "2015-02-15T11:18:31Z",
+                    "updatedAt": "2015-02-15T11:18:31Z"
+                }
+            ],
+            "links": [],
+            "createdAt": "2015-02-15T11:17:05Z",
+            "updatedAt": "2015-02-15T11:17:05Z"
+        }
+    }
+}

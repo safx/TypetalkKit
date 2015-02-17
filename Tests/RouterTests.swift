@@ -389,4 +389,10 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
     }
+    
+    func testStreaming() {
+        let req = Router.Streaming.URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/streaming")
+    }
 }

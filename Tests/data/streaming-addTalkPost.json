@@ -1,0 +1,24 @@
+{
+    "type": "addTalkPost",
+    "data": {
+        "topic": {
+            "id": 10999,
+            "name": "foo",
+            "suggestion": "foo",
+            "lastPostedAt": "2015-02-15T11:48:37Z",
+            "createdAt": "2015-02-15T11:41:49Z",
+            "updatedAt": "2015-02-15T11:41:49Z"
+        },
+        "talk": {
+            "id": 8888,
+            "topicId": 10999,
+            "name": "bar",
+            "suggestion": "bar",
+            "createdAt": "2015-02-15T11:48:29Z",
+            "updatedAt": "2015-02-15T11:48:40Z"
+        },
+        "postIds": [
+            998877
+        ]
+    }
+}
