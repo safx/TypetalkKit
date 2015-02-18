@@ -53,11 +53,10 @@ public class OAuth2AccountStore {
         attrs[kSecAttrGeneric] = NSKeyedArchiver.archivedDataWithRootObject(credential)
 
         let status = SecItemAdd(attrs, nil)
-        if status == OSStatus(errSecDuplicateItem) {
-            if removeCredential() {
-                return SecItemAdd(attrs, nil) == OSStatus(errSecSuccess)
-            }
+        if status != OSStatus(errSecDuplicateItem) {
+            return status == OSStatus(errSecSuccess)
         }
-        return status == OSStatus(errSecSuccess)
+
+        return SecItemUpdate(attributes, attrs) == OSStatus(errSecSuccess)
     }
 }
