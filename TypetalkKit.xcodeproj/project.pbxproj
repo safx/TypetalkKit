@@ -308,6 +308,12 @@
 		8DD6AC5519ED4B2900D9A9A4 /* PostMessageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5419ED4B2900D9A9A4 /* PostMessageResponse.swift */; };
 		8DD6AC5719ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */; };
 		8DD6AC5919ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */; };
+		8DE6279F1A962C63000EADC3 /* PostLinksEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6279E1A962C63000EADC3 /* PostLinksEvent.swift */; };
+		8DE627A01A962C63000EADC3 /* PostLinksEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DE6279E1A962C63000EADC3 /* PostLinksEvent.swift */; };
+		8DE627A21A962DC1000EADC3 /* streaming-postLinks.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */; };
+		8DE627A31A962DC1000EADC3 /* streaming-postLinks.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */; };
+		8DE627A51A962DD7000EADC3 /* model_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A41A962DD7000EADC3 /* model_profile.json */; };
+		8DE627A61A962DD7000EADC3 /* model_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A41A962DD7000EADC3 /* model_profile.json */; };
 		8DEF713A19C8815700F179A6 /* model_topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D57B3FE19C87E7F00E60736 /* model_topic.json */; };
 		8DEF713F19C9AB2C00F179A6 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF713B19C9AAC200F179A6 /* TeamTests.swift */; };
 		8DEF714219C9ABF200F179A6 /* model_team.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714019C9AB5000F179A6 /* model_team.json */; };
@@ -653,6 +659,9 @@
 		8DD6AC5619ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetTopicMembersResponse.swift; path = ../GetTopicMembersResponse.swift; sourceTree = "<group>"; };
 		8DD6AC5819ED4F9500D9A9A4 /* AccountWithOnlineStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountWithOnlineStatus.swift; sourceTree = "<group>"; };
 		8DE509A019C71946008B4C83 /* Account.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Account.swift; sourceTree = "<group>"; };
+		8DE6279E1A962C63000EADC3 /* PostLinksEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLinksEvent.swift; sourceTree = "<group>"; };
+		8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-postLinks.json"; sourceTree = "<group>"; };
+		8DE627A41A962DD7000EADC3 /* model_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_profile.json; sourceTree = "<group>"; };
 		8DEF713B19C9AAC200F179A6 /* TeamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamTests.swift; sourceTree = "<group>"; };
 		8DEF713D19C9AAEA00F179A6 /* Team.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Team.swift; sourceTree = "<group>"; };
 		8DEF714019C9AB5000F179A6 /* model_team.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_team.json; sourceTree = "<group>"; };
@@ -777,7 +786,6 @@
 				8D7E6E3B19D30785004AAF35 /* Post.swift */,
 				8D7E6E2619D2F634004AAF35 /* Talk.swift */,
 				8D85BA1C19E04A1E0036745B /* TalkMessages.swift */,
-				8DC8CC9D1A90F8500065BCF5 /* TalkPost.swift */,
 				8DEF713D19C9AAEA00F179A6 /* Team.swift */,
 				8D79980E19E18F2C00DF9AB9 /* TeamInvite.swift */,
 				8DA0033519DEF01400844F14 /* TeamWithMembers.swift */,
@@ -789,6 +797,7 @@
 				8D7E6DB819CF0821004AAF35 /* TopicWithUserInfo.swift */,
 				8D7E6DBA19CF0DA0004AAF35 /* Unread.swift */,
 				8DEF714C19C9B1B800F179A6 /* URLAttachment.swift */,
+				8DE627961A962BFC000EADC3 /* Event */,
 				8D83204E19F9623D000CF91E /* Response */,
 			);
 			path = Model;
@@ -937,6 +946,7 @@
 				8DD221A51A90DA2400EA024C /* streaming-likeMessage.json */,
 				8DD221A61A90DA2400EA024C /* streaming-notifyMention.json */,
 				8DD221A71A90DA2400EA024C /* streaming-postMessage.json */,
+				8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */,
 				8DD221A81A90DA2400EA024C /* streaming-readMention.json */,
 				8DD221A91A90DA2400EA024C /* streaming-removeTalkPost.json */,
 				8DD221AA1A90DA2400EA024C /* streaming-requestTeamInvite.json */,
@@ -994,6 +1004,7 @@
 				8D7E6E2A19D2F757004AAF35 /* model_talk.json */,
 				8D7E6E3019D2F7F4004AAF35 /* model_link.json */,
 				8D7E6E3719D2F9BF004AAF35 /* model_post.json */,
+				8DE627A41A962DD7000EADC3 /* model_profile.json */,
 				8D5C6E4319D800560020BCA2 /* model_mention.json */,
 				8D5C6E4A19D805720020BCA2 /* model_team_invite.json */,
 				8D5C5D621A6D28CB003387DE /* model_thumbnail.json */,
@@ -1004,6 +1015,15 @@
 				8D894A9219E2E52D0039D0ED /* model_notification_status.json */,
 			);
 			path = data;
+			sourceTree = "<group>";
+		};
+		8DE627961A962BFC000EADC3 /* Event */ = {
+			isa = PBXGroup;
+			children = (
+				8DC8CC9D1A90F8500065BCF5 /* TalkPost.swift */,
+				8DE6279E1A962C63000EADC3 /* PostLinksEvent.swift */,
+			);
+			path = Event;
 			sourceTree = "<group>";
 		};
 		8DEF718319C9D95A00F179A6 /* Client */ = {
@@ -1309,6 +1329,7 @@
 				8DD221CC1A90DA2400EA024C /* streaming-postMessage.json in Resources */,
 				8DD221C41A90DA2400EA024C /* streaming-joinTopics.json in Resources */,
 				8DD221F41A90DA3300EA024C /* api_get-profile.json in Resources */,
+				8DE627A61A962DD7000EADC3 /* model_profile.json in Resources */,
 				8DD221B81A90DA2400EA024C /* streaming-createTopic.json in Resources */,
 				8DD221BE1A90DA2400EA024C /* streaming-deleteTalk.json in Resources */,
 				8DD221D21A90DA2400EA024C /* streaming-requestTeamInvite.json in Resources */,
@@ -1351,6 +1372,7 @@
 				8DD221E81A90DA3300EA024C /* api_create-topic.json in Resources */,
 				8DD221FA1A90DA3300EA024C /* api_get-topics.json in Resources */,
 				8DD222041A90DA3300EA024C /* api_unlike-message.json in Resources */,
+				8DE627A31A962DC1000EADC3 /* streaming-postLinks.json in Resources */,
 				8DD2220F1A90DA3300EA024C /* model_topic_with_userinfo.json in Resources */,
 				8DD221B61A90DA2400EA024C /* streaming-createTalk.json in Resources */,
 				8DD222181A90DA3300EA024C /* model_thumbnail.json in Resources */,
@@ -1409,6 +1431,7 @@
 				8DD221C51A90DA2400EA024C /* streaming-leaveTopics.json in Resources */,
 				8DA0033319DEEEA500844F14 /* model_member.json in Resources */,
 				8D7B02E219D45DF5000A0F7C /* api_decline-team-invite.json in Resources */,
+				8DE627A51A962DD7000EADC3 /* model_profile.json in Resources */,
 				8DD221CF1A90DA2400EA024C /* streaming-removeTalkPost.json in Resources */,
 				8D7B02F319D45DF5000A0F7C /* api_get-topics.json in Resources */,
 				8D79981D19E2BD5800DF9AB9 /* model_notifications.json in Resources */,
@@ -1451,6 +1474,7 @@
 				8D7B02F919D45DF5000A0F7C /* api_save-read-mention.json in Resources */,
 				8D7B02E419D45DF5000A0F7C /* api_delete-message.json in Resources */,
 				8D7B02E019D45DF5000A0F7C /* api_accept-topic-invite.json in Resources */,
+				8DE627A21A962DC1000EADC3 /* streaming-postLinks.json in Resources */,
 				8D7B02FF19D45DF5000A0F7C /* api_upload-attachment.json in Resources */,
 				8D7B02EF19D45DF5000A0F7C /* api_get-talks.json in Resources */,
 				8D7B02E819D45DF5000A0F7C /* api_get-mentions.json in Resources */,
@@ -1539,6 +1563,7 @@
 				8D9D187E1A77D6B800E3BCCF /* TeamWithCount.swift in Sources */,
 				8D9D187A1A77D6B800E3BCCF /* TalkMessages.swift in Sources */,
 				8D47DBB31A8CC6D800201315 /* Client+Streaming.swift in Sources */,
+				8DE627A01A962C63000EADC3 /* PostLinksEvent.swift in Sources */,
 				8D9D18731A77D6B800E3BCCF /* Link.swift in Sources */,
 				8D9D18661A77D6B300E3BCCF /* OAuth2Router.swift in Sources */,
 				8D9D18771A77D6B800E3BCCF /* NotificationStatus.swift in Sources */,
@@ -1616,6 +1641,7 @@
 				8DEF718519C9D98B00F179A6 /* Client.swift in Sources */,
 				8D894A8E19E2E38C0039D0ED /* NotificationStatus.swift in Sources */,
 				8D47DBB21A8CC6D800201315 /* Client+Streaming.swift in Sources */,
+				8DE6279F1A962C63000EADC3 /* PostLinksEvent.swift in Sources */,
 				8DBA9B3719FC4DB1008EECE1 /* AcceptTopicInviteResponse.swift in Sources */,
 				8DD6AC5719ED4E1B00D9A9A4 /* GetTopicMembersResponse.swift in Sources */,
 				8D5C6E3819D6E4A30020BCA2 /* OAuth2Router.swift in Sources */,

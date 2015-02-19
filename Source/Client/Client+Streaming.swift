@@ -25,6 +25,7 @@ public typealias LeaveTopicsEvent                = AcceptTeamInviteResponse // F
 public typealias LikeMessageEvent                = LikeMessageResponse
 public typealias NotifyMentionEvent              = SaveReadMentionResponse
 public typealias PostMessageEvent                = PostMessageResponse
+//public typealias PostLinksEvent
 public typealias ReadMentionEvent                = SaveReadMentionResponse
 public typealias RemoveTalkPostEvent             = TalkPost
 public typealias RequestTeamInviteEvent          = TeamInvite
@@ -54,6 +55,7 @@ public enum StreamingEvent {
     case LikeMessage(LikeMessageEvent)
     case NotifyMention(NotifyMentionEvent)
     case PostMessage(PostMessageEvent)
+    case PostLinks(PostLinksEvent)
     case ReadMention(ReadMentionEvent)
     case RemoveTalkPost(RemoveTalkPostEvent)
     case RequestTeamInvite(RequestTeamInviteEvent)
@@ -81,6 +83,7 @@ public enum StreamingEvent {
         } else if type == "likeMessage"              { self = .LikeMessage(LikeMessageEvent(data: data))
         } else if type == "notifyMention"            { self = .NotifyMention(NotifyMentionEvent(data: data))
         } else if type == "postMessage"              { self = .PostMessage(PostMessageEvent(data: data))
+        } else if type == "postLinks"                { self = .PostLinks(PostLinksEvent(data: data))
         } else if type == "readMention"              { self = .ReadMention(ReadMentionEvent(data: data))
         } else if type == "removeTalkPost"           { self = .RemoveTalkPost(RemoveTalkPostEvent(data: data))
         } else if type == "requestTeamInvite"        { self = .RequestTeamInvite(RequestTeamInviteEvent(data: data))

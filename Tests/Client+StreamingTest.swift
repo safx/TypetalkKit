@@ -308,6 +308,21 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.post!.updatedAt.description, "2015-02-15 11:11:09 +0000")
     }
 
+    func testPostLinksEvent() {
+        let model = PostLinksEvent(data: streaming_json("postLinks"))
+
+        XCTAssertEqual(model.postId, 567899)
+        XCTAssertEqual(model.links.count, 1)
+        XCTAssertEqual(model.links[0].id, 12345)
+        XCTAssertEqual(model.links[0].url.absoluteString!, "http://nulab-inc.com")
+        XCTAssertEqual(model.links[0].contentType, "text/html; charset=UTF-8")
+        XCTAssertEqual(model.links[0].title, "Fun. Creative. Collaboration. | Nulab Inc.")
+        XCTAssertEqual(model.links[0].description, "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.")
+        XCTAssertEqual(model.links[0].imageUrl.absoluteString!, "http://nulab-inc.com/ogp_dft.png")
+        XCTAssertEqual(model.links[0].createdAt.description, "2015-02-19 14:28:17 +0000")
+        XCTAssertEqual(model.links[0].updatedAt.description, "2015-02-19 14:28:17 +0000")
+    }
+
     func testReadMentionEvent() {
         let model = ReadMentionEvent(data: streaming_json("readMention"))
 

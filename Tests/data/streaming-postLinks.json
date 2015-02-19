@@ -1,0 +1,18 @@
+{
+    "type": "postLinks",
+    "data": {
+        "postId": 567899,
+        "links": [
+            {
+                "id": 12345,
+                "url": "http://nulab-inc.com",
+                "contentType": "text/html; charset=UTF-8",
+                "title": "Fun. Creative. Collaboration. | Nulab Inc.",
+                "description": "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.",
+                "imageUrl": "http://nulab-inc.com/ogp_dft.png",
+                "createdAt": "2015-02-19T14:28:17Z",
+                "updatedAt": "2015-02-19T14:28:17Z"
+            }
+        ]
+    }
+}
