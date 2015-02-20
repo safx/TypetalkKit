@@ -14,7 +14,7 @@ public struct DeveloperSettings {
     let clientSecret: String
     let redirectURI: String
     let scopes: [Scope]
-    
+
     public init(clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) {
         self.clientId = clientId
         self.clientSecret = clientSecret
@@ -25,7 +25,7 @@ public struct DeveloperSettings {
 
 
 public class OAuth2Client {
-    public typealias CompletionBlock = ((NSError?) -> Void)
+    public typealias CompletionClosure = ((NSError?) -> Void)
 
     private var _settings: DeveloperSettings = DeveloperSettings(clientId: "", clientSecret: "", redirectURI: "", scopes: [])
     public var settings: DeveloperSettings { return _settings }
@@ -37,16 +37,16 @@ public class OAuth2Client {
         _settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
         return true
     }
-    
-    
+
+
     enum ClientState {
         case NotSignedIn
-        case Authorizing(CompletionBlock)
+        case Authorizing(CompletionClosure)
         case RequestingAccessToken
         case SignedIn(OAuth2Credential)
         case RequestingTokenRefresh
     }
-    
+
     var state: ClientState = .NotSignedIn
     public var isSignedIn: Bool {
         switch state {
@@ -61,7 +61,7 @@ public class OAuth2Client {
         }
     }
     private let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
-    
+
     public func restoreTokenFromAccountStore() -> Bool {
         if let credential = accountStore.queryCredential() {
             self.state = .SignedIn(credential)
@@ -69,12 +69,12 @@ public class OAuth2Client {
         }
         return false
     }
-    
+
     public func isRedirectURL(url: NSURL) -> Bool {
         let absurl = url.absoluteString!
         return absurl.hasPrefix(_settings.redirectURI)
     }
-    
+
     public func authorizationDone(URL url: NSURL) -> Bool {
         switch state {
         case .Authorizing(let cb):
@@ -83,12 +83,11 @@ public class OAuth2Client {
                 requestAuthorizationCode(code, cb)
                 return true
             }
-            return false
-        default:
-            return false
+        default: ()
         }
+        return false
     }
-    
+
     public class func parseQuery(url: NSURL) -> [String:String] {
         var dic: [String:String] = [:]
         if let q = url.query {
@@ -105,13 +104,13 @@ public class OAuth2Client {
         }
         return dic
     }
-    
-    public func requestAuthorizationCode(code: String, completion: CompletionBlock) {
+
+    public func requestAuthorizationCode(code: String, completion: CompletionClosure) {
         state = .RequestingAccessToken
         _requestAccessToken(OAuth2Router.RequestAuthorizationCode(_settings, code), completion)
     }
-    
-    public func requestRefreshToken(completion: CompletionBlock) -> Bool {
+
+    public func requestRefreshToken(completion: CompletionClosure) -> Bool {
         switch state {
         case .SignedIn(let (credential)):
             state = .RequestingTokenRefresh
@@ -122,8 +121,8 @@ public class OAuth2Client {
             return false
         }
     }
-    
-    private func _requestAccessToken(router: OAuth2Router, completion: CompletionBlock) {
+
+    private func _requestAccessToken(router: OAuth2Router, completion: CompletionClosure) {
         Alamofire.request(router)
             .responseJSON { (request, response, json, error) -> Void in
                 if error == nil {
@@ -160,7 +159,7 @@ public class OAuth2Client {
 #endif
 
 extension OAuth2Client {
-    public func authorize(completion: CompletionBlock) {
+    public func authorize(completion: CompletionClosure) {
         state = .Authorizing(completion)
         let request = OAuth2Router.Authorize(_settings).URLRequest
         openURL(request.URL)

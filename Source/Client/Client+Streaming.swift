@@ -99,10 +99,6 @@ public enum StreamingEvent {
 
 // MARK: Typetalk Streaming API
 
-public typealias StreamingEventBlock = (StreamingEvent -> Void)
-
-private var g_streaming_received_block: StreamingEventBlock?
-
 extension Client : WebSocketDelegate {
 
     private var socket : WebSocket {
@@ -112,15 +108,10 @@ extension Client : WebSocketDelegate {
         return Static.instance
     }
 
-    private var streamingBlock : StreamingEventBlock? {
-        get { return g_streaming_received_block }
-        set { g_streaming_received_block = newValue }
-    }
-
-    public func streaming(block: StreamingEventBlock) -> Bool {
+    public func streaming(closure: StreamingEvent -> ()) -> Bool {
         switch oauth2.state {
         case .SignedIn(let (credential)):
-            self.streamingBlock = block
+            streamingClosure = closure
             socket.headers["Authorization"] = "Bearer \(credential.accessToken)"
             socket.delegate = self
             socket.connect()
@@ -133,7 +124,7 @@ extension Client : WebSocketDelegate {
     // MARK: WebSocketDelegate funcs
 
     private func sendStreamEventIfPossible(event: StreamingEvent) {
-        if let c = streamingBlock {
+        if let c = streamingClosure {
             c(event)
         }
     }
@@ -152,7 +143,6 @@ extension Client : WebSocketDelegate {
         let type = json["type"] as? String
         let data = json["data"] as? [String:AnyObject]
         if type != nil && data != nil {
-            //println("text: \(text)")
             sendStreamEventIfPossible(StreamingEvent(type: type!, data: data!))
         }
     }
