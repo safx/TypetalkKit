@@ -6,6 +6,10 @@
 ![Version](https://img.shields.io/cocoapods/v/TypetalkKit.svg?style=flat)
 ![Carthage](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)
 
+TypetalkKit is an unofficial web API client for Typetalk.
+
+* [Typetalk API Overview](http://developer.nulab-inc.com/docs/typetalk)
+
 ## Basic Usage
 
 The following code gets user's topics and prints these.
@@ -25,6 +29,12 @@ Client.sharedClient.getTopics { (topics, error) -> Void in
 TypetalkKit supports all Typetalk API.
 
 If you want information in detail, please visit [official page](http://developer.nulab-inc.com/docs/typetalk).
+
+## Features
+
+* Pure Swift API
+* Full REST API support
+* Streaming API support (not completed)
 
 ## Authorization
 
@@ -73,6 +83,10 @@ If you don't call `authorizationDone`, the callback of `authorize` never be call
 For more information of Typetalk's authorization, please see [official page](http://developer.nulab-inc.com/docs/typetalk/auth).
 
 ## Install
+
+### CocoaPods (0.36.0.rc.1)
+
+    pod 'TypetalkKit'
 
 ### Manual Install
 

@@ -8,8 +8,12 @@
 
 import Foundation
 import TypetalkKit
-import Starscream
 
+#if os(iOS) || COCOAPODS
+    import Starscream
+#else
+    import StarscreamOSX
+#endif
 
 public typealias AcceptTeamInviteEvent           = AcceptTeamInviteResponse
 public typealias AddTalkPostEvent                = TalkPost

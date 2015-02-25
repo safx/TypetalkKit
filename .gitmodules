@@ -6,4 +6,4 @@
 	url = https://github.com/isair/JSONHelper.git
 [submodule "External/Starscream"]
 	path = External/Starscream
-	url = https://github.com/safx/Starscream.git
+	url = https://github.com/daltoniam/Starscream.git
