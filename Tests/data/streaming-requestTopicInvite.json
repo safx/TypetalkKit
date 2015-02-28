@@ -1,0 +1,35 @@
+{
+    "type": "requestTopicInvite",
+    "data": {
+        "id": 4321,
+        "topic": {
+            "id": 11111,
+            "name": "SampleTopic",
+            "suggestion": "SampleTopic",
+            "lastPostedAt": null,
+            "createdAt": "2015-02-28T14:34:12Z",
+            "updatedAt": "2015-02-28T14:34:12Z"
+        },
+        "sender": {
+            "id": 5678,
+            "name": "User1",
+            "fullName": "User1",
+            "suggestion": "User1",
+            "imageUrl": "https://typetalk.in/accounts/5678/profile_image.png?t=1447083512770",
+            "createdAt": "2014-10-04T08:51:10Z",
+            "updatedAt": "2015-02-28T14:30:22Z"
+        },
+        "account": {
+            "id": 3210,
+            "name": "Foobar",
+            "fullName": "Foobar",
+            "suggestion": "Foobar",
+            "imageUrl": "https://typetalk.in/accounts/3210/profile_image.png?t=1441342021468",
+            "createdAt": "2014-03-18T14:38:01Z",
+            "updatedAt": "2015-02-28T14:32:39Z"
+        },
+        "message": "Sample",
+        "createdAt": "2015-02-28T14:34:21Z",
+        "updatedAt": "2015-02-28T14:34:21Z"
+    }
+}

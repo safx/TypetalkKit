@@ -1,0 +1,37 @@
+{
+    "type": "acceptTopicInvite",
+    "data": {
+        "invite": {
+            "id": 4321,
+            "topic": {
+                "id": 12345,
+                "name": "サンプルトピック",
+                "suggestion": "サンプルトピック",
+                "lastPostedAt": null,
+                "createdAt": "2015-02-28T14:34:12Z",
+                "updatedAt": "2015-02-28T14:41:48Z"
+            },
+            "sender": {
+                "id": 5432,
+                "name": "User1",
+                "fullName": "User1",
+                "suggestion": "User1",
+                "imageUrl": "https://typetalk.in/accounts/5432/profile_image.png?t=1410835027747",
+                "createdAt": "2014-10-04T08:51:10Z",
+                "updatedAt": "2015-02-28T14:30:22Z"
+            },
+            "account": {
+                "id": 3210,
+                "name": "Foobar",
+                "fullName": "Foobar",
+                "suggestion": "Foobar",
+                "imageUrl": "https://typetalk.in/accounts/3210/profile_image.png?t=1412746832021",
+                "createdAt": "2014-03-18T14:38:01Z",
+                "updatedAt": "2015-02-28T14:32:39Z"
+            },
+            "message": "Hello?",
+            "createdAt": "2015-02-28T14:43:52Z",
+            "updatedAt": "2015-02-28T14:44:01Z"
+        }
+    }
+}

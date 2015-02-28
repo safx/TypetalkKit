@@ -473,4 +473,129 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.createdAt.description, "2015-02-15 11:12:37 +0000")
         XCTAssertEqual(model.updatedAt.description, "2015-02-15 11:12:37 +0000")
     }
+
+    func testRequestTopicInviteEvent() {
+        let model = RequestTopicInviteEvent(data: streaming_json("requestTopicInvite"))
+
+        XCTAssertEqual(model.id, 4321)
+        XCTAssertEqual(model.topic.name, "SampleTopic")
+        XCTAssertEqual(model.topic.suggestion, "SampleTopic")
+        XCTAssertNil(model.topic.lastPostedAt)
+        XCTAssertEqual(model.topic.createdAt.description, "2015-02-28 14:34:12 +0000")
+        XCTAssertEqual(model.topic.updatedAt.description, "2015-02-28 14:34:12 +0000")
+
+        XCTAssertEqual(model.sender.id, 5678)
+        XCTAssertEqual(model.sender.name, "User1")
+        XCTAssertEqual(model.sender.fullName, "User1")
+        XCTAssertEqual(model.sender.suggestion, "User1")
+        XCTAssertEqual(model.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/5678/profile_image.png?t=1447083512770")
+        XCTAssertEqual(model.sender.createdAt.description, "2014-10-04 08:51:10 +0000")
+        XCTAssertEqual(model.sender.updatedAt.description, "2015-02-28 14:30:22 +0000")
+
+        XCTAssertEqual(model.account!.id, 3210)
+        XCTAssertEqual(model.account!.name, "Foobar")
+        XCTAssertEqual(model.account!.fullName, "Foobar")
+        XCTAssertEqual(model.account!.suggestion, "Foobar")
+        XCTAssertEqual(model.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/3210/profile_image.png?t=1441342021468")
+        XCTAssertEqual(model.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
+        XCTAssertEqual(model.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
+
+        XCTAssertEqual(model.message, "Sample")
+        XCTAssertEqual(model.createdAt.description, "2015-02-28 14:34:21 +0000")
+        XCTAssertEqual(model.updatedAt.description, "2015-02-28 14:34:21 +0000")
+    }
+
+    func testAcceptTopicInviteEvent() {
+        let model = AcceptTopicInviteEvent(data: streaming_json("acceptTopicInvite"))
+
+        XCTAssertEqual(model.invite.id, 4321)
+        XCTAssertEqual(model.invite.topic.name, "サンプルトピック")
+        XCTAssertEqual(model.invite.topic.suggestion, "サンプルトピック")
+        XCTAssertNil(model.invite.topic.lastPostedAt)
+        XCTAssertEqual(model.invite.topic.createdAt.description, "2015-02-28 14:34:12 +0000")
+        XCTAssertEqual(model.invite.topic.updatedAt.description, "2015-02-28 14:41:48 +0000")
+
+        XCTAssertEqual(model.invite.sender.id, 5432)
+        XCTAssertEqual(model.invite.sender.name, "User1")
+        XCTAssertEqual(model.invite.sender.fullName, "User1")
+        XCTAssertEqual(model.invite.sender.suggestion, "User1")
+        XCTAssertEqual(model.invite.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/5432/profile_image.png?t=1410835027747")
+        XCTAssertEqual(model.invite.sender.createdAt.description, "2014-10-04 08:51:10 +0000")
+        XCTAssertEqual(model.invite.sender.updatedAt.description, "2015-02-28 14:30:22 +0000")
+
+        XCTAssertEqual(model.invite.account!.id, 3210)
+        XCTAssertEqual(model.invite.account!.name, "Foobar")
+        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
+        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
+        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/3210/profile_image.png?t=1412746832021")
+        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
+        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
+
+        XCTAssertEqual(model.invite.message, "Hello?")
+        XCTAssertEqual(model.invite.createdAt.description, "2015-02-28 14:43:52 +0000")
+        XCTAssertEqual(model.invite.updatedAt.description, "2015-02-28 14:44:01 +0000")
+    }
+
+    func testDeclineTopicInviteEvent() {
+        let model = DeclineTopicInviteEvent(data: streaming_json("declineTopicInvite"))
+
+        XCTAssertEqual(model.invite.id, 4321)
+        XCTAssertEqual(model.invite.topic.name, "SampleTopic")
+        XCTAssertEqual(model.invite.topic.suggestion, "SampleTopic")
+        XCTAssertNil(model.invite.topic.lastPostedAt)
+        XCTAssertEqual(model.invite.topic.createdAt.description, "2015-02-28 14:34:12 +0000")
+        XCTAssertEqual(model.invite.topic.updatedAt.description, "2015-02-28 14:34:12 +0000")
+
+        XCTAssertEqual(model.invite.sender.id, 5678)
+        XCTAssertEqual(model.invite.sender.name, "User1")
+        XCTAssertEqual(model.invite.sender.fullName, "User1")
+        XCTAssertEqual(model.invite.sender.suggestion, "User1")
+        XCTAssertEqual(model.invite.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/5678/profile_image.png?t=1412783507470")
+        XCTAssertEqual(model.invite.sender.createdAt.description, "2014-10-04 08:51:10 +0000")
+        XCTAssertEqual(model.invite.sender.updatedAt.description, "2015-02-28 14:30:22 +0000")
+
+        XCTAssertEqual(model.invite.account!.id, 3210)
+        XCTAssertEqual(model.invite.account!.name, "Foobar")
+        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
+        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
+        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/3210/profile_image.png?t=1421271320468")
+        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
+        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
+
+        XCTAssertEqual(model.invite.message, "")
+        XCTAssertEqual(model.invite.createdAt.description, "2015-02-28 14:34:21 +0000")
+        XCTAssertEqual(model.invite.updatedAt.description, "2015-02-28 14:38:28 +0000")
+    }
+
+    func testCancelTopicInviteEvent() {
+        let model = CancelTopicInviteEvent(data: streaming_json("cancelTopicInvite"))
+
+        XCTAssertEqual(model.invite.id, 4321)
+        XCTAssertEqual(model.invite.topic.name, "サンプルトピック")
+        XCTAssertEqual(model.invite.topic.suggestion, "サンプルトピック")
+        XCTAssertNil(model.invite.topic.lastPostedAt)
+        XCTAssertEqual(model.invite.topic.createdAt.description, "2015-02-28 14:34:12 +0000")
+        XCTAssertEqual(model.invite.topic.updatedAt.description, "2015-02-28 14:41:48 +0000")
+
+        XCTAssertEqual(model.invite.sender.id, 5432)
+        XCTAssertEqual(model.invite.sender.name, "User1")
+        XCTAssertEqual(model.invite.sender.fullName, "User1")
+        XCTAssertEqual(model.invite.sender.suggestion, "User1")
+        XCTAssertEqual(model.invite.sender.imageUrl.absoluteString!, "https://typetalk.in/accounts/5432/profile_image.png?t=1414708350277")
+        XCTAssertEqual(model.invite.sender.createdAt.description, "2014-10-04 08:51:10 +0000")
+        XCTAssertEqual(model.invite.sender.updatedAt.description, "2015-02-28 14:30:22 +0000")
+
+        XCTAssertEqual(model.invite.account!.id, 3210)
+        XCTAssertEqual(model.invite.account!.name, "Foobar")
+        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
+        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
+        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/3210/profile_image.png?t=1421271320468")
+        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
+        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
+
+        XCTAssertEqual(model.invite.message, "")
+        XCTAssertEqual(model.invite.createdAt.description, "2015-02-28 14:34:21 +0000")
+        XCTAssertEqual(model.invite.updatedAt.description, "2015-02-28 14:38:28 +0000")
+    }
+
 }

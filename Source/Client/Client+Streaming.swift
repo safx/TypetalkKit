@@ -16,10 +16,13 @@ import TypetalkKit
 #endif
 
 public typealias AcceptTeamInviteEvent           = AcceptTeamInviteResponse
+public typealias AcceptTopicInviteEvent          = AcceptTopicInviteResponse
 public typealias AddTalkPostEvent                = TalkPost
+public typealias CancelTopicInviteEvent          = AcceptTopicInviteResponse
 public typealias CreateTalkEvent                 = TalkPost
 public typealias CreateTopicEvent                = TopicWithUserInfo
 public typealias DeclineTeamInviteEvent          = AcceptTeamInviteResponse
+public typealias DeclineTopicInviteEvent         = AcceptTopicInviteResponse
 public typealias DeleteMessageEvent              = PostMessageResponse
 public typealias DeleteTalkEvent                 = TalkPost
 public typealias DeleteTopicEvent                = Topic
@@ -33,6 +36,7 @@ public typealias PostMessageEvent                = PostMessageResponse
 public typealias ReadMentionEvent                = SaveReadMentionResponse
 public typealias RemoveTalkPostEvent             = TalkPost
 public typealias RequestTeamInviteEvent          = TeamInvite
+public typealias RequestTopicInviteEvent         = TopicInvite
 public typealias SaveBookmarkEvent               = SaveReadTopicResponse
 public typealias UnfavoriteTopicEvent            = TopicWithUserInfo // FIXME: unread should be omitted.
 public typealias UnlikeMessageEvent              = LikeMessageResponse
@@ -46,10 +50,13 @@ public enum StreamingEvent {
     case Disconnect(NSError?)
 
     case AcceptTeamInvite(AcceptTeamInviteEvent)
+    case AcceptTopicInvite(AcceptTopicInviteEvent)
     case AddTalkPost(AddTalkPostEvent)
+    case CancelTopicInvite(CancelTopicInviteEvent)
     case CreateTalk(CreateTalkEvent)
     case CreateTopic(CreateTopicEvent)
     case DeclineTeamInvite(DeclineTeamInviteEvent)
+    case DeclineTopicInvite(DeclineTopicInviteEvent)
     case DeleteTalk(DeleteTalkEvent)
     case DeleteTopic(DeleteTopicEvent)
     case DeleteMessage(DeleteMessageEvent)
@@ -63,6 +70,7 @@ public enum StreamingEvent {
     case ReadMention(ReadMentionEvent)
     case RemoveTalkPost(RemoveTalkPostEvent)
     case RequestTeamInvite(RequestTeamInviteEvent)
+    case RequestTopicInvite(RequestTopicInviteEvent)
     case SaveBookmark(SaveBookmarkEvent)
     case UpdateNotificationAccess(UpdateNotificationAccessEvent)
     case UnfavoriteTopic(UnfavoriteTopicEvent)
@@ -74,10 +82,13 @@ public enum StreamingEvent {
 
     init(type: String, data:[String:AnyObject]) {
                if type == "acceptTeamInvite"         { self = .AcceptTeamInvite(AcceptTeamInviteEvent(data: data))
+        } else if type == "acceptTopicInvite"        { self = .AcceptTopicInvite(AcceptTopicInviteEvent(data: data))
         } else if type == "addTalkPost"              { self = .AddTalkPost(AddTalkPostEvent(data: data))
+        } else if type == "cancelTopicInvite"        { self = .CancelTopicInvite(CancelTopicInviteEvent(data: data))
         } else if type == "createTalk"               { self = .CreateTalk(CreateTalkEvent(data: data))
         } else if type == "createTopic"              { self = .CreateTopic(CreateTopicEvent(data: data))
         } else if type == "declineTeamInvite"        { self = .DeclineTeamInvite(DeclineTeamInviteEvent(data: data))
+        } else if type == "declineTopicInvite"       { self = .DeclineTopicInvite(DeclineTopicInviteEvent(data: data))
         } else if type == "deleteTalk"               { self = .DeleteTalk(DeleteTalkEvent(data: data))
         } else if type == "deleteTopic"              { self = .DeleteTopic(DeleteTopicEvent(data: data))
         } else if type == "deleteMessage"            { self = .DeleteMessage(DeleteMessageEvent(data: data))
@@ -91,6 +102,7 @@ public enum StreamingEvent {
         } else if type == "readMention"              { self = .ReadMention(ReadMentionEvent(data: data))
         } else if type == "removeTalkPost"           { self = .RemoveTalkPost(RemoveTalkPostEvent(data: data))
         } else if type == "requestTeamInvite"        { self = .RequestTeamInvite(RequestTeamInviteEvent(data: data))
+        } else if type == "requestTopicInvite"       { self = .RequestTopicInvite(RequestTopicInviteEvent(data: data))
         } else if type == "saveBookmark"             { self = .SaveBookmark(SaveBookmarkEvent(data: data))
         } else if type == "updateNotificationAccess" { self = .UpdateNotificationAccess(UpdateNotificationAccessEvent(data: data))
         } else if type == "unfavoriteTopic"          { self = .UnfavoriteTopic(UnfavoriteTopicEvent(data: data))
