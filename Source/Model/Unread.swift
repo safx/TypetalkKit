@@ -16,6 +16,12 @@ public class Unread : Deserializable, ObjcBase {
 
     public required init() {}
 
+    public init(topicId: TopicID, postId: PostID, count: Int) {
+        self.topicId = topicId
+        self.postId = postId
+        self.count = count
+    }
+
     required public init(data: [String: AnyObject]) {
         topicId <<< data["topicId"]
         postId  <<< data["postId"]

@@ -46,8 +46,8 @@ public typealias UpdateTopicEvent                = Topic
 
 
 public enum StreamingEvent {
-    case Connect
-    case Disconnect(NSError?)
+    case Connected
+    case Disconnected(NSError?)
 
     case AcceptTeamInvite(AcceptTeamInviteEvent)
     case AcceptTopicInvite(AcceptTopicInviteEvent)
@@ -124,6 +124,10 @@ extension Client : WebSocketDelegate {
         return Static.instance
     }
 
+    public var isConnected : Bool {
+        return socket.isConnected
+    }
+
     public func streaming(closure: StreamingEvent -> ()) -> Bool {
         switch oauth2.state {
         case .SignedIn(let (credential)):
@@ -146,11 +150,11 @@ extension Client : WebSocketDelegate {
     }
 
     public func websocketDidConnect(socket: WebSocket) {
-        sendStreamEventIfPossible(.Connect)
+        sendStreamEventIfPossible(.Connected)
     }
 
     public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
-        sendStreamEventIfPossible(.Disconnect(error))
+        sendStreamEventIfPossible(.Disconnected(error))
     }
 
     public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
