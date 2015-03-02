@@ -23,9 +23,25 @@ public class Post : Deserializable, ObjcBase {
     public let links: [Link] = []
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
-    
+
     public required init() {}
-    
+
+    public init(id: PostID, topicId: TopicID, topic: Topic? = nil, replyTo: Int?, message: String = "", account: Account = Account(), mention: String? = nil, attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
+        self.id = id
+        self.topicId = topicId
+        self.topic = topic
+        self.replyTo = replyTo
+        self.message = message
+        self.account = account
+        self.mention = mention
+        self.attachments = attachments
+        self.likes = likes
+        self.talks = talks
+        self.links = links
+        self.createdAt = createdAt
+        self.updatedAt = updatedAt
+    }
+
     required public init(data: [String: AnyObject]) {
         id          <<<   data["id"]
         topicId     <<<   data["topicId"]
