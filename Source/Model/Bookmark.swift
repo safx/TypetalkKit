@@ -15,6 +15,11 @@ public class Bookmark : Deserializable, ObjcBase {
 
     required public init() {}
 
+    public init(postId: PostID, updatedAt: NSDate) {
+        self.postId = postId
+        self.updatedAt = updatedAt
+    }
+
     required public init(data: [String: AnyObject]) {
         postId    <<< data["postId"]
         updatedAt <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")

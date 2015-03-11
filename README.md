@@ -84,7 +84,7 @@ For more information of Typetalk's authorization, please see [official page](htt
 
 ## Install
 
-### CocoaPods (0.36.0.rc.1)
+### CocoaPods (0.36.0)
 
     pod 'TypetalkKit'
 
