@@ -14,8 +14,7 @@ import TypetalkKit
 
 
 class ClientAPITests: XCTestCase {
-    // Direct creating a test client here causes to compilation error.
-    var client: Client = Client.sharedClient
+    var client: Client!
     
     override func setUp() {
         super.setUp()
