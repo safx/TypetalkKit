@@ -15,6 +15,6 @@ public class SaveReadMentionResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        mention <<<< data["mention"]
+        mention <-- data["mention"]
     }
 }

@@ -18,9 +18,9 @@ public class Attachment : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        contentType <<< data["contentType"]
-        fileKey     <<< data["fileKey"]
-        fileName    <<< data["fileName"]
-        fileSize    <<< data["fileSize"]
+        contentType <-- data["contentType"]
+        fileKey     <-- data["fileKey"]
+        fileName    <-- data["fileName"]
+        fileSize    <-- data["fileSize"]
     }
 }

@@ -23,8 +23,8 @@ public class TopicWithUserInfo : Deserializable, ObjcBase {
     }
 
     required public init(data: [String: AnyObject]) {
-        topic    <<<< data["topic"]
-        favorite <<<  data["favorite"]
-        unread   <<<< data["unread"]
+        topic    <-- data["topic"]
+        favorite <-- data["favorite"]
+        unread   <-- data["unread"]
     }
 }

@@ -19,10 +19,10 @@ public class Thumbnail: Deserializable, ObjcBase {
 
     required public init(data: [String: AnyObject]) {
         var t = ""
-        t <<< data["type"]
+        t <-- data["type"]
         type     =   AttachmentType(rawValue: t)!
-        fileSize <<< data["fileSize"]
-        width    <<< data["width"]
-        height   <<< data["height"]
+        fileSize <-- data["fileSize"]
+        width    <-- data["width"]
+        height   <-- data["height"]
     }
 }

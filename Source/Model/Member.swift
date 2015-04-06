@@ -16,7 +16,7 @@ public class Member : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        account <<<< data["account"]
-        role    <<<  data["role"]
+        account <-- data["account"]
+        role    <-- data["role"]
     }
 }

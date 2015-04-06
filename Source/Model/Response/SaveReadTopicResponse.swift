@@ -15,6 +15,6 @@ public class SaveReadTopicResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        unread <<<< data["unread"]
+        unread <-- data["unread"]
     }
 }

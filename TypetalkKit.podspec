@@ -9,8 +9,8 @@ Pod::Spec.new do |s|
   s.source_files = "Source/**/*.swift"
   s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.9"
-  s.dependency     "Alamofire", '~> 1.1.4'
-  s.dependency     "JSONHelper", '~> 1.4.1'
+  s.dependency     "Alamofire", '~> 1.1.5'
+  s.dependency     "JSONHelper", '~> 1.5.0'
   s.dependency     "Starscream", '~> 0.9.2'
   s.requires_arc = true
 end

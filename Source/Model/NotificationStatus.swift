@@ -17,9 +17,9 @@ public class NotificationStatus : Deserializable, ObjcBase {
     required public init() {}
     
     required public init(data: [String: AnyObject]) {
-        mention <<<< data["mention"]
-        access  <<<< data["access"]
-        invite  <<<< data["invite"]
+        mention <-- data["mention"]
+        access  <-- data["access"]
+        invite  <-- data["invite"]
     }
 
     // MARK: subclasses
@@ -28,7 +28,7 @@ public class NotificationStatus : Deserializable, ObjcBase {
         public let unread: Int?
         required public init() {}
         required public init(data: [String: AnyObject]) {
-            unread <<< data["unread"]
+            unread <-- data["unread"]
         }
     }
 
@@ -36,7 +36,7 @@ public class NotificationStatus : Deserializable, ObjcBase {
         public let unopened: Int?
         required public init() {}
         required public init(data: [String: AnyObject]) {
-            unopened <<< data["unopened"]
+            unopened <-- data["unopened"]
         }
     }
 
@@ -45,15 +45,15 @@ public class NotificationStatus : Deserializable, ObjcBase {
         public let topic: PendingCount?
         required public init() {}
         required public init(data: [String: AnyObject]) {
-            team  <<<< data["team"]
-            topic <<<< data["topic"]
+            team  <-- data["team"]
+            topic <-- data["topic"]
         }
         
         public class PendingCount : Deserializable {
             public let pending: Int?
             required public init() {}
             required public init(data: [String: AnyObject]) {
-                pending <<< data["pending"]
+                pending <-- data["pending"]
             }
         }
     }

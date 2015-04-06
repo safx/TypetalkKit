@@ -18,9 +18,9 @@ public class URLAttachment : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        attachment <<<<  data["attachment"]
-        webUrl     <<<   data["webUrl"]
-        apiUrl     <<<   data["apiUrl"]
-        thumbnails <<<<* data["thumbnails"]
+        attachment <-- data["attachment"]
+        webUrl     <-- data["webUrl"]
+        apiUrl     <-- data["apiUrl"]
+        thumbnails <-- data["thumbnails"]
     }
 }

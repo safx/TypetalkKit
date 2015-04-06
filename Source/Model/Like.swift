@@ -19,10 +19,10 @@ public class Like : Deserializable, ObjcBase {
     public required init() {}
 
     required public init(data: [String: AnyObject]) {
-        id      <<< data["id"]
-        postId  <<< data["postId"]
-        topicId <<< data["topicId"]
-        comment <<< data["comment"]
-        account <<<< data["account"]
+        id      <-- data["id"]
+        postId  <-- data["postId"]
+        topicId <-- data["topicId"]
+        comment <-- data["comment"]
+        account <-- data["account"]
     }
 }

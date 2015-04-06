@@ -23,13 +23,13 @@ public class Invite : Deserializable, ObjcBase {
     public required init() {}
 
     required public init(data: [String: AnyObject]) {
-        id          <<<  data["id"]
-        sender      <<<< data["sender"]
-        account     <<<< data["account"]
-        message     <<<  data["message"]
-        createdAt   <<< (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt   <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        mailAddress <<<  data["mailAddress"]
-        status      <<<  data["status"]
+        id          <-- data["id"]
+        sender      <-- data["sender"]
+        account     <-- data["account"]
+        message     <-- data["message"]
+        createdAt   <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt   <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        mailAddress <-- data["mailAddress"]
+        status      <-- data["status"]
     }
 }

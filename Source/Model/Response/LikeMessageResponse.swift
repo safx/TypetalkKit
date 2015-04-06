@@ -15,6 +15,6 @@ public class LikeMessageResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        like <<<< data["like"]
+        like <-- data["like"]
     }
 }

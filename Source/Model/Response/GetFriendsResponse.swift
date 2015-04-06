@@ -15,6 +15,6 @@ public class GetFriendsResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        accounts <<<<* data["accounts"]
+        accounts <-- data["accounts"]
     }
 }

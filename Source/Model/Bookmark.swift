@@ -21,7 +21,7 @@ public class Bookmark : Deserializable, ObjcBase {
     }
 
     required public init(data: [String: AnyObject]) {
-        postId    <<< data["postId"]
-        updatedAt <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        postId    <-- data["postId"]
+        updatedAt <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

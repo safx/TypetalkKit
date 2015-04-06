@@ -16,7 +16,7 @@ public class PostLinksEvent : Deserializable, ObjcBase {
     public required init() {}
 
     required public init(data: [String: AnyObject]) {
-        postId <<<   data["postId"]
-        links  <<<<* data["links"]
+        postId <-- data["postId"]
+        links  <-- data["links"]
     }
 }

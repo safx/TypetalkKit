@@ -16,7 +16,7 @@ public class GetTopicMembersResponse : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        accounts <<<<* data["accounts"]
-        pendings <<<<* data["pendings"]
+        accounts <-- data["accounts"]
+        pendings <-- data["pendings"]
     }
 }

@@ -18,9 +18,9 @@ public class GetMessageResponse : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        team    <<<<  data["team"]
-        topic   <<<<  data["topic"]
-        post    <<<<  data["post"]
-        replies <<<<* data["replies"]
+        team    <-- data["team"]
+        topic   <-- data["topic"]
+        post    <-- data["post"]
+        replies <-- data["replies"]
     }
 }

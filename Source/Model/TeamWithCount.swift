@@ -16,7 +16,7 @@ public class TeamWithCount : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        team        <<<< data["team"]
-        memberCount <<<  data["memberCount"]
+        team        <-- data["team"]
+        memberCount <-- data["memberCount"]
     }
 }

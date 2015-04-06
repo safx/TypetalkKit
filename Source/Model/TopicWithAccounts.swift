@@ -18,9 +18,9 @@ public class TopicWithAccounts : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        topic    <<<<  data["topic"]
-        teams    <<<<* data["teams"]
-        accounts <<<<* data["accounts"]
-        invites  <<<<* data["invites"]
+        topic    <-- data["topic"]
+        teams    <-- data["teams"]
+        accounts <-- data["accounts"]
+        invites  <-- data["invites"]
     }
 }

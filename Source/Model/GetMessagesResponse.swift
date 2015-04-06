@@ -19,10 +19,10 @@ public class GetMessagesResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        team     <<<<  data["team"]
-        topic    <<<<  data["topic"]
-        bookmark <<<<  data["bookmark"]        
-        posts    <<<<* data["posts"]
-        hasNext  <<<   data["hasNext"]
+        team     <-- data["team"]
+        topic    <-- data["topic"]
+        bookmark <-- data["bookmark"]
+        posts    <-- data["posts"]
+        hasNext  <-- data["hasNext"]
     }
 }

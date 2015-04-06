@@ -17,8 +17,8 @@ public class TalkPost : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        topic   <<<<  data["topic"]
-        talk    <<<<  data["talk"]
-        postIds <<<*  data["postIds"]
+        topic   <-- data["topic"]
+        talk    <-- data["talk"]
+        postIds <-- data["postIds"]
     }
 }
