@@ -24,8 +24,8 @@ class DetailViewController: UITableViewController {
         
         Client.sharedClient.streaming { event in
             switch event {
-            case .Connect               : println("connected")
-            case .Disconnect(let err)   : println("disconnected: \(err)")
+            case .Connected             : println("connected")
+            case .Disconnected(let err) : println("disconnected: \(err)")
             case .PostMessage(let res)  : self.appendNewPost(res.post!)
             default: ()
             }
