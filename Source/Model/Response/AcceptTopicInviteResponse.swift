@@ -15,6 +15,6 @@ public class AcceptTopicInviteResponse : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        invite <<<< data["invite"]
+        invite <-- data["invite"]
     }
 }

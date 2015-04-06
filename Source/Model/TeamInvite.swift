@@ -17,7 +17,7 @@ public class TeamInvite: Invite, Deserializable, ObjcBase {
     
     required public init(data: [String: AnyObject]) {
         super.init(data: data)
-        team <<<< data["team"]
-        role <<<  data["role"]
+        team <-- data["team"]
+        role <-- data["role"]
     }
 }

@@ -16,7 +16,7 @@ public class AccountWithMailAddress : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        account     <<<< data["account"]
-        mailAddress <<<  data["mailAddress"]
+        account     <-- data["account"]
+        mailAddress <-- data["mailAddress"]
     }
 }

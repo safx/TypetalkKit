@@ -23,8 +23,8 @@ public class Unread : Deserializable, ObjcBase {
     }
 
     required public init(data: [String: AnyObject]) {
-        topicId <<< data["topicId"]
-        postId  <<< data["postId"]
-        count   <<< data["count"]
+        topicId <-- data["topicId"]
+        postId  <-- data["postId"]
+        count   <-- data["count"]
     }
 }

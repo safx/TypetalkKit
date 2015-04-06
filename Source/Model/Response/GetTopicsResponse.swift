@@ -15,6 +15,6 @@ public class GetTopicsResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        topics <<<<* data["topics"]
+        topics <-- data["topics"]
     }
 }

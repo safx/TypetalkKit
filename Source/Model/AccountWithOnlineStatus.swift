@@ -16,7 +16,7 @@ public class AccountWithOnlineStatus : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        account <<<< data["account"]
-        online  <<<  data["online"]
+        account <-- data["account"]
+        online  <-- data["online"]
     }
 }

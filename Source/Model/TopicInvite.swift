@@ -16,6 +16,6 @@ public class TopicInvite: Invite, Deserializable, ObjcBase {
     
     required public init(data: [String: AnyObject]) {
         super.init(data: data)
-        topic <<<< data["topic"]
+        topic <-- data["topic"]
     }
 }

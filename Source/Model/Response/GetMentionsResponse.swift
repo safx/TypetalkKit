@@ -15,6 +15,6 @@ public class GetMentionsResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        mentions <<<<* data["mentions"]
+        mentions <-- data["mentions"]
     }
 }

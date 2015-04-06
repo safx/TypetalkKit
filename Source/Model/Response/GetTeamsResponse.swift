@@ -15,7 +15,7 @@ public class GetTeamsResponse : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        teams <<<<* data["teams"]
+        teams <-- data["teams"]
     }
 }
 

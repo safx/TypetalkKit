@@ -20,11 +20,11 @@ public class Topic : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        id           <<< data["id"]
-        name         <<< data["name"]
-        suggestion   <<< data["suggestion"]
-        lastPostedAt <<< (value: data["lastPostedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        createdAt    <<< (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt    <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        id           <-- data["id"]
+        name         <-- data["name"]
+        suggestion   <-- data["suggestion"]
+        lastPostedAt <-- (value: data["lastPostedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        createdAt    <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt    <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

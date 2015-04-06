@@ -43,18 +43,18 @@ public class Post : Deserializable, ObjcBase {
     }
 
     required public init(data: [String: AnyObject]) {
-        id          <<<   data["id"]
-        topicId     <<<   data["topicId"]
-        topic       <<<<  data["topic"]
-        replyTo     <<<   data["replyTo"]
-        message     <<<   data["message"]
-        account     <<<<  data["account"]
-        mention     <<<   data["mention"]
-        attachments <<<<* data["attachments"]
-        likes       <<<<* data["likes"]
-        talks       <<<<* data["talks"]
-        links       <<<<* data["links"]
-        createdAt   <<<   (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt   <<<   (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        id          <-- data["id"]
+        topicId     <-- data["topicId"]
+        topic       <-- data["topic"]
+        replyTo     <-- data["replyTo"]
+        message     <-- data["message"]
+        account     <-- data["account"]
+        mention     <-- data["mention"]
+        attachments <-- data["attachments"]
+        likes       <-- data["likes"]
+        talks       <-- data["talks"]
+        links       <-- data["links"]
+        createdAt   <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt   <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

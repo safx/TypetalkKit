@@ -22,14 +22,14 @@ public class Link : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        id          <<< data["id"]
-        url         <<< data["url"]
-        contentType <<< data["contentType"]
-        title       <<< data["title"]
-        description <<< data["description"]
-        imageUrl    <<< data["imageUrl"]
-        createdAt   <<< (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt   <<< (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        id          <-- data["id"]
+        url         <-- data["url"]
+        contentType <-- data["contentType"]
+        title       <-- data["title"]
+        description <-- data["description"]
+        imageUrl    <-- data["imageUrl"]
+        createdAt   <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt   <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
 
     }
 }

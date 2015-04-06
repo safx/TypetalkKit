@@ -16,8 +16,8 @@ public class Notifications : Deserializable, ObjcBase {
     public required init() {}
 
     required public init(data: [String: AnyObject]) {
-        mentions <<<<* data["mentions"]
-        invites  <<<<  data["invites"]
+        mentions <-- data["mentions"]
+        invites  <-- data["invites"]
     }
 
     // MARK: subclass
@@ -29,8 +29,8 @@ public class Notifications : Deserializable, ObjcBase {
         public required init() {}
    
         required public init(data: [String: AnyObject]) {
-            teams  <<<<* data["teams"]
-            topics <<<<* data["topics"]
+            teams  <-- data["teams"]
+            topics <-- data["topics"]
         }
     }
 }

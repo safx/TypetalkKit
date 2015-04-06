@@ -17,8 +17,8 @@ public class Mention : Deserializable, ObjcBase {
     required public init() {}
         
     required public init(data: [String: AnyObject]) {
-        id     <<<  data["id"]
-        readAt <<<  (value: data["readAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        post   <<<< data["post"]
+        id     <-- data["id"]
+        readAt <-- (value: data["readAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        post   <-- data["post"]
     }
 }

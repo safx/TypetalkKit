@@ -18,9 +18,9 @@ public class TalkMessages : Deserializable, ObjcBase {
     required public init() {}
 
     required public init(data: [String: AnyObject]) {
-        topic   <<<<  data["topic"]
-        talk    <<<<  data["talk"]
-        posts   <<<<* data["posts"]
-        hasNext <<<   data["hasNext"]
+        topic   <-- data["topic"]
+        talk    <-- data["talk"]
+        posts   <-- data["posts"]
+        hasNext <-- data["hasNext"]
     }
 }

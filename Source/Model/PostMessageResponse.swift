@@ -16,7 +16,7 @@ public class PostMessageResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        topic <<<< data["topic"]
-        post  <<<< data["post"]
+        topic <-- data["topic"]
+        post  <-- data["post"]
     }
 }

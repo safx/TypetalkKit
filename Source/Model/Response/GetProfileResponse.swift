@@ -15,6 +15,6 @@ public class GetProfileResponse : Deserializable, ObjcBase {
     public required init() {}
     
     required public init(data: [String: AnyObject]) {
-        account <<<< data["account"]
+        account <-- data["account"]
     }
 }
