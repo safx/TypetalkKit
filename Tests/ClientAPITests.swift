@@ -15,7 +15,7 @@ import TypetalkKit
 
 class ClientAPITests: XCTestCase {
     var client: Client!
-    
+
     override func setUp() {
         super.setUp()
 
@@ -26,7 +26,7 @@ class ClientAPITests: XCTestCase {
 
     func testGetProfile() {
         let expectation = expectationWithDescription("")
-        
+
         client.getProfile { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.account.id, 100)
@@ -36,19 +36,19 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
                 XCTAssertEqual(r.account.createdAt.description, "2014-06-24 02:32:29 +0000")
                 XCTAssertEqual(r.account.updatedAt.description, "2014-06-24 02:32:29 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetTopics() {
         let expectation = expectationWithDescription("")
-        
+
         client.getTopics { (response, error) -> Void in
             if let r = response {
                 let last = r.topics[8]
@@ -60,39 +60,57 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(last.topic.updatedAt.description, "2014-06-08 02:32:29 +0000")
                 XCTAssertFalse(last.favorite)
                 XCTAssertNil(last.unread)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetMessages() {
         let expectation = expectationWithDescription("")
-        
+
         client.getMessages(0, count: nil, from: nil, direction: nil) { (response, error) -> Void in
             if let messages = response {
+                let first = messages.posts[0]
+                XCTAssertEqual(first.id, 300)
+                XCTAssertEqual(first.topicId, 208)
+                XCTAssertNil(first.replyTo)
+                XCTAssertEqual(first.links.count, 2)
+                XCTAssertNil(first.links[0].embed)
+                XCTAssertNotNil(first.links[1].embed)
+
+                XCTAssertEqual(first.links[1].embed!.type, "rich")
+                XCTAssertEqual(first.links[1].embed!.version, Float(1.0))
+                XCTAssertEqual(first.links[1].embed!.providerName, "Speaker Deck")
+                XCTAssertEqual(first.links[1].embed!.providerURL!.absoluteString!, "https://speakerdeck.com/")
+                XCTAssertEqual(first.links[1].embed!.title, "Nulab's Way of Working Remotely")
+                XCTAssertEqual(first.links[1].embed!.authorName, "Nulab Inc.")
+                XCTAssertEqual(first.links[1].embed!.authorURL!.absoluteString!, "https://speakerdeck.com/nulabinc")
+                XCTAssertEqual(first.links[1].embed!.html, "<iframe allowfullscreen=\"true\" allowtransparency=\"true\" frameborder=\"0\" height=\"596\" id=\"talk_frame_130304\" mozallowfullscreen=\"true\" src=\"//speakerdeck.com/player/4445cf303b350132afda224ffdff9a3d\" style=\"border:0; padding:0; margin:0; background:transparent;\" webkitallowfullscreen=\"true\" width=\"710\"></iframe>\n")
+                XCTAssertEqual(first.links[1].embed!.width, 710)
+                XCTAssertEqual(first.links[1].embed!.height, 596)
+
                 let last = messages.posts[7]
                 XCTAssertEqual(last.id, 307)
                 XCTAssertEqual(last.topicId, 208)
                 XCTAssertEqual(last.replyTo!, 306)
                 XCTAssertEqual(last.message, "Hope it doesn't sound arrogant but I'm the greatest man in the world!")
-                
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testPostMessage() {
         let expectation = expectationWithDescription("")
-        
+
         client.postMessage(0, message: "", replyTo: 0, fileKeys: [], talkIds: []) { (response, error) -> Void in
             if let res = response {
                 let topic = res.topic!
@@ -100,7 +118,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.id, 208)
                 XCTAssertEqual(topic.name, "IT Peeps")
                 XCTAssertEqual(topic.suggestion, "IT Peeps")
-                
+
                 XCTAssertEqual(post.id, 333)
                 XCTAssertNil(post.replyTo)
                 XCTAssertNil(post.mention)
@@ -109,44 +127,44 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(post.likes.isEmpty)
                 XCTAssertTrue(post.talks.isEmpty)
                 XCTAssertTrue(post.links.isEmpty)
-                
+
                 XCTAssertEqual(post.account.id, 100)
                 XCTAssertEqual(post.account.name, "jessica")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testUploadAttachment() {
         let expectation = expectationWithDescription("")
-        
+
         client.uploadAttachment(0, fileName: "", fileContent: NSData()) { (response, error) -> Void in
             if let attachment = response {
                 XCTAssertEqual(attachment.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
                 XCTAssertEqual(attachment.fileName, "sample.jpg")
                 XCTAssertEqual(attachment.fileSize, 472263)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetTopicMembers() {
         let expectation = expectationWithDescription("")
-        
+
         client.getTopicMembers(0) { (response, error) -> Void in
             if let res = response {
                 XCTAssertEqual(res.pendings.count, 1)
-                
+
                 let last = res.accounts[5]
                 XCTAssertEqual(last.account.id, 103)
                 XCTAssertEqual(last.account.name, "stefhull")
@@ -155,9 +173,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(last.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000")
                 XCTAssertEqual(last.account.createdAt.description, "2014-06-27 02:32:29 +0000")
                 XCTAssertEqual(last.online, false)
-                
+
                 XCTAssertEqual(res.pendings.count, 1)
-                
+
                 let pending = res.pendings[0]
                 XCTAssertEqual(pending.account.id, 106)
                 XCTAssertEqual(pending.account.name, "chelseab")
@@ -166,19 +184,19 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(pending.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000")
                 XCTAssertEqual(pending.account.createdAt.description, "2014-06-30 02:32:29 +0000")
                 XCTAssertNil(pending.mailAddress)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetMessage() {
         let expectation = expectationWithDescription("")
-        
+
         client.getMessage(0, postId: 0) { (response, error) -> Void in
             if let message = response {
                 XCTAssertEqual(message.team.id, 700)
@@ -186,33 +204,33 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(message.team.imageUrl.absoluteString!, "https://typetalk.in/teams/700/image.png?t=1402367549000")
                 XCTAssertEqual(message.team.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(message.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 XCTAssertEqual(message.topic.id, 208)
                 XCTAssertEqual(message.topic.name, "IT Peeps")
                 XCTAssertEqual(message.topic.suggestion, "IT Peeps")
                 XCTAssertEqual(message.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
                 XCTAssertEqual(message.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(message.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 XCTAssertEqual(message.post.id, 307)
                 XCTAssertEqual(message.post.topicId, 208)
                 XCTAssertEqual(message.post.replyTo!, 306)
                 XCTAssertEqual(countElements(message.post.likes), 1)
-                
+
                 XCTAssertEqual(countElements(message.replies), 2)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testDeleteMessage() {
         let expectation = expectationWithDescription("")
-        
+
         client.deleteMessage(0, postId: 0) { (response, error) -> Void in
             if let post = response {
                 XCTAssertEqual(post.id, 333)
@@ -226,11 +244,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(post.likes.isEmpty)
                 XCTAssertTrue(post.talks.isEmpty)
                 XCTAssertTrue(post.links.isEmpty)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -238,7 +256,7 @@ class ClientAPITests: XCTestCase {
 
     func testLikeMessage() {
         let expectation = expectationWithDescription("")
-        
+
         client.likeMessage(0, postId: 0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.like.id, 604)
@@ -252,19 +270,19 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.like.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
                 XCTAssertEqual(r.like.account!.createdAt.description, "2014-06-24 02:32:29 +0000")
                 XCTAssertEqual(r.like.account!.updatedAt.description, "2014-06-24 02:32:29 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testUnlikeMessage() {
         let expectation = expectationWithDescription("")
-        
+
         client.unlikeMessage(0, postId: 0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.like.id, 604)
@@ -278,11 +296,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.like.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
                 XCTAssertEqual(r.like.account!.createdAt.description, "2014-06-24 02:32:29 +0000")
                 XCTAssertEqual(r.like.account!.updatedAt.description, "2014-06-24 02:32:29 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -290,7 +308,7 @@ class ClientAPITests: XCTestCase {
 
     func testFavoriteTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.favoriteTopic(0) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 206)
@@ -299,21 +317,21 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-08 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-08 02:32:29 +0000")
-                
+
                 XCTAssertTrue(topic.favorite)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testUnfavoriteTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.unfavoriteTopic(0) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 206)
@@ -322,21 +340,21 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-08 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-08 02:32:29 +0000")
-                
+
                 XCTAssertFalse(topic.favorite)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetNotifications() {
         let expectation = expectationWithDescription("")
-        
+
         client.getNotifications { (response, error) -> Void in
             if let notifications = response {
                 XCTAssertEqual(countElements(notifications.mentions), 2)
@@ -351,7 +369,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(mention.post!.message, "@jessica What do you think about this?")
                 XCTAssertEqual(mention.post!.account.id, 101)
                 XCTAssertEqual(mention.post!.account.name, "ahorowitz")
-                
+
                 XCTAssertEqual(countElements(notifications.invites.teams), 2)
                 let team = notifications.invites.teams[1]
                 XCTAssertEqual(team.id, 800)
@@ -361,7 +379,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(team.sender.name, "chelseab")
                 XCTAssertEqual(team.account!.id, 100)
                 XCTAssertEqual(team.account!.name, "jessica")
-                
+
                 XCTAssertEqual(countElements(notifications.invites.topics), 2)
                 let topic = notifications.invites.topics[1]
                 XCTAssertEqual(topic.id, 600)
@@ -371,11 +389,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.sender.name, "chelseab")
                 XCTAssertEqual(topic.account!.id, 100)
                 XCTAssertEqual(topic.account!.name, "jessica")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -383,67 +401,67 @@ class ClientAPITests: XCTestCase {
 
     func testGetNotificationStatus() {
         let expectation = expectationWithDescription("")
-        
+
         client.getNotificationStatus { (response, error) -> Void in
             if let status = response {
                 XCTAssertEqual(status.mention!.unread!, 1)
                 XCTAssertEqual(status.access!.unopened!, 1)
                 XCTAssertEqual(status.invite!.team!.pending!, 2)
                 XCTAssertEqual(status.invite!.topic!.pending!, 2)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testOpenNotification() {
         let expectation = expectationWithDescription("")
-        
+
         client.openNotification { (response, error) -> Void in
             if let status = response {
                 XCTAssertNil(status.mention)
                 XCTAssertEqual(status.access!.unopened!, 0)
                 XCTAssertNil(status.invite)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testSaveReadTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.saveReadTopic(0, postId: 0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.unread.topicId, 208)
                 XCTAssertEqual(r.unread.postId, 307)
                 XCTAssertEqual(r.unread.count, 0)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetMentions() {
         let expectation = expectationWithDescription("")
-        
+
         client.getMentions(0, unread: nil) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(countElements(r.mentions), 2)
                 let mention = r.mentions[0]
-                
+
                 XCTAssertEqual(mention.id, 501)
                 XCTAssertNil(mention.readAt)
                 XCTAssertEqual(mention.post!.id, 309)
@@ -455,11 +473,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(mention.post!.topic!.updatedAt.description, "2014-06-05 02:32:29 +0000")
                 XCTAssertNil(mention.post!.replyTo)
                 XCTAssertEqual(mention.post!.message, "@jessica Help me!")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -467,7 +485,7 @@ class ClientAPITests: XCTestCase {
 
     func testSaveReadMention() {
         let expectation = expectationWithDescription("")
-        
+
         client.saveReadMention(0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.mention.id, 501)
@@ -481,19 +499,19 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.mention.post!.topic!.updatedAt.description, "2014-06-05 02:32:29 +0000")
                 XCTAssertNil(r.mention.post!.replyTo)
                 XCTAssertEqual(r.mention.post!.message, "@jessica Help me!")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testAcceptTeamInvite() {
         let expectation = expectationWithDescription("")
-        
+
         client.acceptTeamInvite(0, inviteId: 0) { (response, error) -> Void in
             if let res = response {
                 let topics = res.topics
@@ -506,7 +524,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.lastPostedAt!.description, "2014-06-12 04:32:29 +0000")
                 XCTAssertEqual(topic.createdAt.description, "2014-06-12 03:32:29 +0000")
                 XCTAssertEqual(topic.updatedAt.description, "2014-06-12 03:32:29 +0000")
-                
+
                 XCTAssertEqual(invite.id, 800)
                 XCTAssertEqual(invite.team.id, 702)
                 XCTAssertEqual(invite.team.name, "Cycling team")
@@ -514,22 +532,22 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(invite.sender.name, "chelseab")
                 XCTAssertEqual(invite.account!.id, 100)
                 XCTAssertEqual(invite.account!.name, "jessica")
-                
+
                 XCTAssertEqual(invite.role, "member")
                 XCTAssertEqual(invite.message, "Hello. Please join us.")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testDeclineTeamInvite() {
         let expectation = expectationWithDescription("")
-        
+
         client.declineTeamInvite(0, inviteId: 0) { (response, error) -> Void in
             if let invite = response {
                 XCTAssertEqual(invite.id, 801)
@@ -539,14 +557,14 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(invite.sender.name, "brad")
                 XCTAssertEqual(invite.account!.id, 100)
                 XCTAssertEqual(invite.account!.name, "jessica")
-                
+
                 XCTAssertEqual(invite.role, "admin")
                 XCTAssertEqual(invite.message, "This team is for new project.")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -554,7 +572,7 @@ class ClientAPITests: XCTestCase {
 
     func testAcceptTopicInvite() {
         let expectation = expectationWithDescription("")
-        
+
         client.acceptTopicInvite(0, inviteId: 0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.invite.id, 600)
@@ -565,11 +583,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.invite.account!.id, 100)
                 XCTAssertEqual(r.invite.account!.name, "jessica")
                 XCTAssertEqual(r.invite.message, "It is a new project. Join us!")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -577,7 +595,7 @@ class ClientAPITests: XCTestCase {
 
     func testDeclineTopicInvite() {
         let expectation = expectationWithDescription("")
-        
+
         client.declineTopicInvite(0, inviteId: 0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(r.invite.id, 601)
@@ -588,11 +606,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.invite.account!.id, 100)
                 XCTAssertEqual(r.invite.account!.name, "jessica")
                 XCTAssertEqual(r.invite.message, "It is a new project. Join us!")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -600,7 +618,7 @@ class ClientAPITests: XCTestCase {
 
     func testCreateTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.createTopic("", teamId: nil, inviteMembers: [], inviteMessage: "") { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 222)
@@ -609,7 +627,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertNil(topic.topic.lastPostedAt)
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:55 +0000")
-                
+
                 XCTAssertEqual(countElements(topic.teams), 1)
                 let team = topic.teams[0]
                 XCTAssertEqual(team.team.id, 700)
@@ -617,19 +635,19 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(team.team.imageUrl.absoluteString!, "https://typetalk.in/teams/700/image.png?t=1402367549000")
                 XCTAssertEqual(team.team.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(team.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testUpdateTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.updateTopic(0, name: "", teamId: nil) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 222)
@@ -638,15 +656,15 @@ class ClientAPITests: XCTestCase {
                 XCTAssertNil(topic.topic.lastPostedAt)
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
-                
+
                 XCTAssertEqual(countElements(topic.teams), 0)
                 XCTAssertEqual(countElements(topic.accounts), 1)
                 XCTAssertEqual(countElements(topic.invites), 2)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -654,7 +672,7 @@ class ClientAPITests: XCTestCase {
 
     func testDeleteTopic() {
         let expectation = expectationWithDescription("")
-        
+
         client.deleteTopic(0) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.id, 222)
@@ -663,11 +681,11 @@ class ClientAPITests: XCTestCase {
                 XCTAssertNil(topic.lastPostedAt)
                 XCTAssertEqual(topic.createdAt.description, "2014-07-25 03:38:55 +0000")
                 XCTAssertEqual(topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -675,7 +693,7 @@ class ClientAPITests: XCTestCase {
 
     func testGetTopicDetails() {
         let expectation = expectationWithDescription("")
-        
+
         client.getTopicDetails(0) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 208)
@@ -684,7 +702,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 XCTAssertEqual(countElements(topic.teams), 1)
                 XCTAssertEqual(countElements(topic.accounts), 2)
                 XCTAssertEqual(countElements(topic.invites), 2)
@@ -692,7 +710,7 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -700,7 +718,7 @@ class ClientAPITests: XCTestCase {
 
     func testInviteTopicMember() {
         let expectation = expectationWithDescription("")
-        
+
         client.inviteTopicMember(0, inviteName: [], inviteMessage: "") { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 207)
@@ -709,23 +727,23 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-09 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-09 02:32:29 +0000")
-                
+
                 XCTAssertEqual(countElements(topic.teams), 0)
                 XCTAssertEqual(countElements(topic.accounts), 1)
                 XCTAssertEqual(countElements(topic.invites), 2)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testRemoveTopicMember() {
         let expectation = expectationWithDescription("")
-        
+
         client.removeTopicMember(0, removeInviteIds: [], removeMemberIds: []) { (response, error) -> Void in
             if let topic = response {
                 XCTAssertEqual(topic.topic.id, 208)
@@ -734,20 +752,20 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 XCTAssertEqual(countElements(topic.teams), 1)
                 XCTAssertEqual(countElements(topic.accounts), 0)
                 XCTAssertEqual(countElements(topic.invites), 0)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetTerms() {
         let expectation = expectationWithDescription("")
 
@@ -761,16 +779,16 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(first.team.imageUrl.absoluteString!, "https://typetalk.in/teams/700/image.png?t=1402367549000")
                 XCTAssertEqual(first.team.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(first.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
-    
+
     func testGetFriends() {
         let expectation = expectationWithDescription("")
 
@@ -789,7 +807,7 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -797,7 +815,7 @@ class ClientAPITests: XCTestCase {
 
     func testSearchAccounts() {
         let expectation = expectationWithDescription("")
-        
+
         client.searchAccounts("") { (response, error) -> Void in
             if let account = response {
                 XCTAssertEqual(account.id, 102)
@@ -811,7 +829,7 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -819,7 +837,7 @@ class ClientAPITests: XCTestCase {
 
     func testGetTalks() {
         let expectation = expectationWithDescription("")
-        
+
         client.getTalks(0) { (response, error) -> Void in
             if let r = response {
                 XCTAssertEqual(countElements(r.talks), 2)
@@ -834,7 +852,7 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -851,26 +869,26 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(talk.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
                 XCTAssertEqual(talk.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(talk.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
-                
+
                 XCTAssertEqual(talk.talk.id, 900)
                 XCTAssertEqual(talk.talk.topicId, 208)
                 XCTAssertEqual(talk.talk.name, "About us")
                 XCTAssertEqual(talk.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
                 XCTAssertEqual(talk.talk.updatedAt.description, "2014-07-02 03:52:29 +0000")
-                
+
                 XCTAssertEqual(countElements(talk.posts), 2)
                 let last = talk.posts[1]
                 XCTAssertEqual(last.id, 306)
                 XCTAssertEqual(last.topicId, 208)
                 XCTAssertEqual(last.replyTo!, 305)
                 XCTAssertEqual(last.message, "Oh. What time of the month? The weekend?")
-                
+
                 XCTAssertEqual(talk.hasNext, false)
-                
+
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -883,7 +901,7 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
@@ -896,10 +914,9 @@ class ClientAPITests: XCTestCase {
                 expectation.fulfill()
             }
         }
-        
+
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
     }
 }
-

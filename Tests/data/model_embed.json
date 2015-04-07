@@ -1,0 +1,12 @@
+{
+    "type": "rich",
+    "version": 1.0,
+    "provider_name": "Speaker Deck",
+    "provider_url": "https://speakerdeck.com/",
+    "title": "Nulab's Way of Working Remotely",
+    "author_name": "Nulab Inc.",
+    "author_url": "https://speakerdeck.com/nulabinc",
+    "html": "<iframe allowfullscreen=\"true\" allowtransparency=\"true\" frameborder=\"0\" height=\"596\" id=\"talk_frame_130304\" mozallowfullscreen=\"true\" src=\"//speakerdeck.com/player/4445cf303b350132afda224ffdff9a3d\" style=\"border:0; padding:0; margin:0; background:transparent;\" webkitallowfullscreen=\"true\" width=\"710\"></iframe>\n",
+    "width": 710,
+    "height": 596
+}

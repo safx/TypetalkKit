@@ -18,6 +18,7 @@ public class Link : Deserializable, ObjcBase {
     public let imageUrl: NSURL = NSURL()
     public let createdAt: NSDate = NSDate()
     public let updatedAt: NSDate = NSDate()
+    public let embed: Embed?
 
     public required init() {}
     
@@ -30,6 +31,6 @@ public class Link : Deserializable, ObjcBase {
         imageUrl    <-- data["imageUrl"]
         createdAt   <-- (data["createdAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
         updatedAt   <-- (data["updatedAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
-
+        embed       <-- data["embed"]
     }
 }

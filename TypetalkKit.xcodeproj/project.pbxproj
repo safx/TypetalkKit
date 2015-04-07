@@ -194,6 +194,11 @@
 		8DA0034319DEF8AF00844F14 /* model_topic_with_accounts.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */; };
 		8DA638D819D5BA7900EA4C08 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D7E6DAE19CD5032004AAF35 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DB4DC8E19FC05E100A04240 /* GetTopicsResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */; };
+		8DB5012F1AD41E20001F403E /* Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB5012E1AD41E20001F403E /* Embed.swift */; };
+		8DB501301AD41E20001F403E /* Embed.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB5012E1AD41E20001F403E /* Embed.swift */; };
+		8DB501321AD41F61001F403E /* EmbedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB501311AD41F61001F403E /* EmbedTests.swift */; };
+		8DB501331AD41FBD001F403E /* model_embed.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DB501241AD41DF9001F403E /* model_embed.json */; };
+		8DB501341AD41FBE001F403E /* model_embed.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DB501241AD41DF9001F403E /* model_embed.json */; };
 		8DBA516E19C5B47300BD88A3 /* TypetalkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DBA517419C5B47400BD88A3 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; };
 		8DBA519D19C5E9D300BD88A3 /* XCTestCase+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */; };
@@ -623,6 +628,9 @@
 		8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicWithAccountsTests.swift; sourceTree = "<group>"; };
 		8DA0034119DEF8AF00844F14 /* model_topic_with_accounts.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic_with_accounts.json; sourceTree = "<group>"; };
 		8DB4DC8D19FC05E100A04240 /* GetTopicsResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetTopicsResponse.swift; sourceTree = "<group>"; };
+		8DB501241AD41DF9001F403E /* model_embed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_embed.json; sourceTree = "<group>"; };
+		8DB5012E1AD41E20001F403E /* Embed.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Embed.swift; sourceTree = "<group>"; };
+		8DB501311AD41F61001F403E /* EmbedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbedTests.swift; sourceTree = "<group>"; };
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypetalkKit.h; sourceTree = "<group>"; };
@@ -770,6 +778,7 @@
 				8DFBF90B19ED50AA0036497A /* AccountWithMailAddress.swift */,
 				8DEF714519C9AD4200F179A6 /* Attachment.swift */,
 				8D7E6DCD19CF2810004AAF35 /* Bookmark.swift */,
+				8DB5012E1AD41E20001F403E /* Embed.swift */,
 				8D5C6E4719D804470020BCA2 /* Invite.swift */,
 				8D7E6E1D19D2F307004AAF35 /* Like.swift */,
 				8D7E6E2E19D2F7CF004AAF35 /* Link.swift */,
@@ -886,6 +895,7 @@
 				8D5C6E3919D6E4F10020BCA2 /* OAuth2RouterTests.swift */,
 				8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */,
 				8DA0032F19DEEE6300844F14 /* MemberTests.swift */,
+				8DB501311AD41F61001F403E /* EmbedTests.swift */,
 				8D57B3FC19C87D9900E60736 /* TopicTests.swift */,
 				8D7E6DC419CF0F5C004AAF35 /* TopicWithUserInfoTests.swift */,
 				8DA0033F19DEF87F00844F14 /* TopicWithAccountsTests.swift */,
@@ -987,6 +997,7 @@
 				8D7B02BD19D45DED000A0F7C /* api_upload-attachment.json */,
 				8DBA51A119C5EA2C00BD88A3 /* model_account.json */,
 				8DA0033119DEEEA500844F14 /* model_member.json */,
+				8DB501241AD41DF9001F403E /* model_embed.json */,
 				8D57B3FE19C87E7F00E60736 /* model_topic.json */,
 				8DEF714019C9AB5000F179A6 /* model_team.json */,
 				8DA0033919DEF11200844F14 /* model_team_with_members.json */,
@@ -1307,6 +1318,7 @@
 				8DD221BE1A90DA2400EA024C /* streaming-deleteTalk.json in Resources */,
 				8DD221D21A90DA2400EA024C /* streaming-requestTeamInvite.json in Resources */,
 				8DD221BC1A90DA2400EA024C /* streaming-deleteMessage.json in Resources */,
+				8DB501341AD41FBE001F403E /* model_embed.json in Resources */,
 				8DD222001A90DA3300EA024C /* api_save-read-mention.json in Resources */,
 				8DD221F71A90DA3300EA024C /* api_get-teams.json in Resources */,
 				8DD221F51A90DA3300EA024C /* api_get-talk.json in Resources */,
@@ -1406,6 +1418,7 @@
 				8D7B02F319D45DF5000A0F7C /* api_get-topics.json in Resources */,
 				8D79981D19E2BD5800DF9AB9 /* model_notifications.json in Resources */,
 				8D7B02F819D45DF5000A0F7C /* api_remove-topic-member.json in Resources */,
+				8DB501331AD41FBD001F403E /* model_embed.json in Resources */,
 				8DD221DD1A90DA2400EA024C /* streaming-updateTopic.json in Resources */,
 				8D7B02E519D45DF5000A0F7C /* api_delete-topic.json in Resources */,
 				8D7B02FB19D45DF5000A0F7C /* api_search-accounts.json in Resources */,
@@ -1511,6 +1524,7 @@
 				8D9D18BA1A77DD8C00E3BCCF /* AcceptTeamInviteResponse.swift in Sources */,
 				8D9D18671A77D6B300E3BCCF /* OAuth2AccountStore.swift in Sources */,
 				8D9D18821A77D6B800E3BCCF /* TopicWithAccounts.swift in Sources */,
+				8DB501301AD41E20001F403E /* Embed.swift in Sources */,
 				8DC8CC9F1A90F8500065BCF5 /* TalkPost.swift in Sources */,
 				8D9D18691A77D6B800E3BCCF /* OAuth2Credential.swift in Sources */,
 				8D9D186E1A77D6B800E3BCCF /* AccountWithMailAddress.swift in Sources */,
@@ -1581,6 +1595,7 @@
 				8D7B031F19D45E67000A0F7C /* Post.swift in Sources */,
 				8DBA9B3519FC46CC008EECE1 /* SaveReadMentionResponse.swift in Sources */,
 				8D7B031B19D45E67000A0F7C /* Scope.swift in Sources */,
+				8DB5012F1AD41E20001F403E /* Embed.swift in Sources */,
 				8DC8CC9E1A90F8500065BCF5 /* TalkPost.swift in Sources */,
 				8D5C5D5F1A6D1C54003387DE /* Thumbnail.swift in Sources */,
 				8D6EC71519FBD6FA0042BB24 /* GetTalksResponse.swift in Sources */,
@@ -1651,6 +1666,7 @@
 				8D7E6E3619D2F8C8004AAF35 /* LinkTests.swift in Sources */,
 				8DEF713F19C9AB2C00F179A6 /* TeamTests.swift in Sources */,
 				8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */,
+				8DB501321AD41F61001F403E /* EmbedTests.swift in Sources */,
 				8D5C6E4219D7FFFC0020BCA2 /* MentionTests.swift in Sources */,
 				8D5C6E3A19D6E4F10020BCA2 /* OAuth2RouterTests.swift in Sources */,
 				8D7E6E2119D2F43A004AAF35 /* LikeTests.swift in Sources */,

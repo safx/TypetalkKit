@@ -22,5 +22,6 @@ class LinkTests: XCTestCase {
         XCTAssertEqual(model.imageUrl.absoluteString!, "http://nulab-inc.com/ogp_dft.png")
         XCTAssertEqual(model.createdAt.description, "2014-07-25 03:38:34 +0000")
         XCTAssertEqual(model.updatedAt.description, "2014-07-25 03:38:34 +0000")
+        XCTAssertNil(model.embed)
     }
 }
