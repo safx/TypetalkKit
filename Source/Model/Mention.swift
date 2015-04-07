@@ -11,14 +11,14 @@ import JSONHelper
 
 public class Mention : Deserializable, ObjcBase {
     public let id: MentionID = 0
-    public let readAt: NSDate? = nil
-    public let post: Post? = nil
+    public let readAt: NSDate?
+    public let post: Post?
     
     required public init() {}
         
     required public init(data: [String: AnyObject]) {
         id     <-- data["id"]
-        readAt <-- (value: data["readAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        readAt <-- (data["readAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
         post   <-- data["post"]
     }
 }

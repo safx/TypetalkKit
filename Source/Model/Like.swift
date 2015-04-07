@@ -13,8 +13,8 @@ public class Like : Deserializable, ObjcBase {
     public let id: LikeID = 0
     public let postId: PostID = 0
     public let topicId: TopicID = 0
-    public let comment: String? = nil
-    public let account: Account? = nil
+    public let comment: String?
+    public let account: Account?
     
     public required init() {}
 

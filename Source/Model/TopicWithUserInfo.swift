@@ -12,7 +12,7 @@ import JSONHelper
 public class TopicWithUserInfo : Deserializable, ObjcBase {
     public let topic: Topic = Topic()
     public let favorite: Bool = false
-    public let unread: Unread? = nil
+    public let unread: Unread?
 
     required public init() {}
 

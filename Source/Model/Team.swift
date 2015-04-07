@@ -22,7 +22,7 @@ public class Team : Deserializable, ObjcBase {
         id        <-- data["id"]
         name      <-- data["name"]
         imageUrl  <-- data["imageUrl"]
-        createdAt <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        createdAt <-- (data["createdAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt <-- (data["updatedAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

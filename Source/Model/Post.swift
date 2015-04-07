@@ -12,11 +12,11 @@ import JSONHelper
 public class Post : Deserializable, ObjcBase {
     public let id: PostID = 0
     public let topicId: TopicID = 0
-    public let topic: Topic? = nil
-    public let replyTo: Int? = nil
+    public let topic: Topic?
+    public let replyTo: Int?
     public let message: String = ""
     public let account: Account = Account()
-    public let mention: String? = nil // FIXME
+    public let mention: String?
     public let attachments: [URLAttachment] = []
     public let likes: [Like] = []
     public let talks: [Talk] = []
@@ -54,7 +54,7 @@ public class Post : Deserializable, ObjcBase {
         likes       <-- data["likes"]
         talks       <-- data["talks"]
         links       <-- data["links"]
-        createdAt   <-- (value: data["createdAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
-        updatedAt   <-- (value: data["updatedAt"], format: "yyyy-MM-dd'T'HH:mm:ssZ")
+        createdAt   <-- (data["createdAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
+        updatedAt   <-- (data["updatedAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
     }
 }

@@ -11,7 +11,7 @@ import JSONHelper
 
 public class AccountWithMailAddress : Deserializable, ObjcBase {
     public let account: Account = Account()
-    public let mailAddress: String? = nil
+    public let mailAddress: String?
 
     required public init() {}
 

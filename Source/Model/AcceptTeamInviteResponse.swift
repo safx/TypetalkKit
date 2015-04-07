@@ -11,7 +11,7 @@ import JSONHelper
 
 public class AcceptTeamInviteResponse : Deserializable, ObjcBase {
     public let topics: [Topic] = []
-    public let invite: TeamInvite? = nil
+    public let invite: TeamInvite?
     
     required public init() {}
 

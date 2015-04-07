@@ -10,8 +10,8 @@ import Foundation
 import JSONHelper
 
 public class PostMessageResponse : Deserializable, ObjcBase {
-    public let topic: Topic? = nil
-    public let post: Post? = nil
+    public let topic: Topic?
+    public let post: Post?
 
     public required init() {}
     
