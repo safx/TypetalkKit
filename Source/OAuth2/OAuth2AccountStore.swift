@@ -27,7 +27,6 @@ public class OAuth2AccountStore {
         var attrs = attributes
         attrs[kSecReturnAttributes] = kCFBooleanTrue
 
-        // Avoid swift compiler optimization bug: http://stackoverflow.com/a/27721235
         var result: AnyObject?
         var status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
 
@@ -52,7 +51,9 @@ public class OAuth2AccountStore {
         var attrs = attributes
         attrs[kSecAttrGeneric] = NSKeyedArchiver.archivedDataWithRootObject(credential)
 
-        let status = SecItemAdd(attrs, nil)
+        var result: AnyObject?
+        var status = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
+
         if status != OSStatus(errSecDuplicateItem) {
             return status == OSStatus(errSecSuccess)
         }
