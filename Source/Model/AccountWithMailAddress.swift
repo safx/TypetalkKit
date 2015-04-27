@@ -10,13 +10,25 @@ import Foundation
 import JSONHelper
 
 public class AccountWithMailAddress : Deserializable, ObjcBase {
-    public let account: Account = Account()
+    public let account: Account
     public let mailAddress: String?
 
-    required public init() {}
+    public init(account: Account = Account(), mailAddress: String? = nil) {
+        self.account = account
+        self.mailAddress = mailAddress
+    }
 
-    required public init(data: [String: AnyObject]) {
-        account     <-- data["account"]
-        mailAddress <-- data["mailAddress"]
+    required public convenience init(data: [String: AnyObject]) {
+        var account: Account?;
+        var mailAddress: String?
+
+        account     <-- data["account"] ?? Account()
+        mailAddress <-- data["mailAddress"] ?? ""
+
+        if let a = account {
+            self.init(account: a, mailAddress: mailAddress)
+        } else {
+            fatalError()
+        }
     }
 }

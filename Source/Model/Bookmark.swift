@@ -10,18 +10,21 @@ import Foundation
 import JSONHelper
 
 public class Bookmark : Deserializable, ObjcBase {
-    public let postId: PostID = 0
-    public let updatedAt: NSDate = NSDate()
+    public let postId: PostID
+    public let updatedAt: NSDate
 
-    required public init() {}
-
-    public init(postId: PostID, updatedAt: NSDate) {
+    public init(postId: PostID = 0, updatedAt: NSDate = NSDate()) {
         self.postId = postId
         self.updatedAt = updatedAt
     }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var postId: PostID?
+        var updatedAt: NSDate?
+        
         postId    <-- data["postId"]
         updatedAt <-- (data["updatedAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
+
+        self.init(postId: postId ?? 0, updatedAt: updatedAt ?? NSDate())
     }
 }

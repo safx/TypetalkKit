@@ -10,11 +10,16 @@ import Foundation
 import JSONHelper
 
 public class GetTalksResponse : Deserializable, ObjcBase {
-    public let talks: [Talk] = []
+    public let talks: [Talk]
     
-    public required init() {}
+    public required init(talks: [Talk] = []) {
+        self.talks = talks
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var talks: [Talk]?
         talks <-- data["talks"]
+        self.init(talks: talks ?? [])
+
     }
 }

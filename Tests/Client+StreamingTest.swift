@@ -150,16 +150,16 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertNil(model.post!.mention)
 
-        XCTAssertEqual(countElements(model.post!.attachments), 0)
-        XCTAssertEqual(countElements(model.post!.likes), 0)
-        XCTAssertEqual(countElements(model.post!.talks), 1)
+        XCTAssertEqual(count(model.post!.attachments), 0)
+        XCTAssertEqual(count(model.post!.likes), 0)
+        XCTAssertEqual(count(model.post!.talks), 1)
         XCTAssertEqual(model.post!.talks[0].id, 8888)
         XCTAssertEqual(model.post!.talks[0].topicId, 11111)
         XCTAssertEqual(model.post!.talks[0].name, "foo")
         XCTAssertEqual(model.post!.talks[0].suggestion, "foo")
         XCTAssertEqual(model.post!.talks[0].createdAt.description, "2015-02-15 11:18:31 +0000")
         XCTAssertEqual(model.post!.talks[0].updatedAt.description, "2015-02-15 11:18:31 +0000")
-        XCTAssertEqual(countElements(model.post!.links), 0)
+        XCTAssertEqual(count(model.post!.links), 0)
 
         XCTAssertEqual(model.post!.createdAt.description, "2015-02-15 11:17:05 +0000")
         XCTAssertEqual(model.post!.updatedAt.description, "2015-02-15 11:17:05 +0000")
@@ -299,10 +299,10 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertNil(model.post!.mention)
 
-        XCTAssertEqual(countElements(model.post!.attachments), 0)
-        XCTAssertEqual(countElements(model.post!.likes), 0)
-        XCTAssertEqual(countElements(model.post!.talks), 0)
-        XCTAssertEqual(countElements(model.post!.links), 0)
+        XCTAssertEqual(count(model.post!.attachments), 0)
+        XCTAssertEqual(count(model.post!.likes), 0)
+        XCTAssertEqual(count(model.post!.talks), 0)
+        XCTAssertEqual(count(model.post!.links), 0)
 
         XCTAssertEqual(model.post!.createdAt.description, "2015-02-15 11:11:09 +0000")
         XCTAssertEqual(model.post!.updatedAt.description, "2015-02-15 11:11:09 +0000")
@@ -340,7 +340,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.mention.post!.account.suggestion, "someone")
         XCTAssertEqual(model.mention.post!.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/2222/profile_image.png?t=1418350277470")
 
-        XCTAssertEqual(countElements(model.mention.post!.attachments), 0)
+        XCTAssertEqual(count(model.mention.post!.attachments), 0)
         XCTAssertEqual(model.mention.post!.createdAt.description, "2015-02-15 11:47:17 +0000")
         XCTAssertEqual(model.mention.post!.updatedAt.description, "2015-02-15 11:47:17 +0000")
     }

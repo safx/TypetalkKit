@@ -20,7 +20,7 @@ class TeamWithMembersTests: XCTestCase {
         XCTAssertEqual(model.team.createdAt.description, "2014-06-10 02:32:29 +0000")
         XCTAssertEqual(model.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-        XCTAssertEqual(countElements(model.members), 4)
+        XCTAssertEqual(count(model.members), 4)
         let last = model.members[3]
         XCTAssertEqual(last.account.id, 103)
         XCTAssertEqual(last.account.name, "stefhull")

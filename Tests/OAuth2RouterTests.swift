@@ -20,8 +20,8 @@ class OAuth2RouterTests: XCTestCase {
     func testAuthorize() {
         let req = OAuth2Router.Authorize(settings).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL.host!, "typetalk.in")
-        XCTAssertEqual(req.URL.path!, "/oauth2/authorize")
+        XCTAssertEqual(req.URL!.host!, "typetalk.in")
+        XCTAssertEqual(req.URL!.path!, "/oauth2/authorize")
     }
 
     func testRequestAuthorizationCode() {

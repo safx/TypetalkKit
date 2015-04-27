@@ -10,15 +10,25 @@ import Foundation
 import JSONHelper
 
 public class TalkPost : Deserializable, ObjcBase {
-    public let topic: Topic = Topic()
-    public let talk: Talk = Talk()
+    public let topic: Topic
+    public let talk: Talk
     public let postIds: [PostID]?
 
-    required public init() {}
+    required public init(topic: Topic = Topic(), talk: Talk = Talk(), postIds: [PostID]? = nil) {
+        self.topic = topic
+        self.talk = talk
+        self.postIds = postIds
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var topic: Topic?
+        var talk: Talk?
+        var postIds: [PostID]?
+
         topic   <-- data["topic"]
         talk    <-- data["talk"]
         postIds <-- data["postIds"]
+
+        self.init(topic: topic ?? Topic(), talk: talk ?? Talk(), postIds: postIds)
     }
 }

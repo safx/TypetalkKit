@@ -10,21 +10,25 @@ import Foundation
 import JSONHelper
 
 public class Unread : Deserializable, ObjcBase {
-    public let topicId: TopicID = 0
-    public let postId: PostID = 0
-    public let count: Int = 0
+    public let topicId: TopicID
+    public let postId: PostID
+    public let count: Int
 
-    public required init() {}
-
-    public init(topicId: TopicID, postId: PostID, count: Int) {
+    public required init(topicId: TopicID = 0, postId: PostID = 0, count: Int = 0) {
         self.topicId = topicId
         self.postId = postId
         self.count = count
     }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var topicId: TopicID?
+        var postId: PostID?
+        var count: Int?
+
         topicId <-- data["topicId"]
         postId  <-- data["postId"]
         count   <-- data["count"]
+
+        self.init(topicId: topicId ?? 0, postId: postId ?? 0, count: count ?? 0)
     }
 }

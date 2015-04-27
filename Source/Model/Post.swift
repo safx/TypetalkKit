@@ -10,23 +10,21 @@ import Foundation
 import JSONHelper
 
 public class Post : Deserializable, ObjcBase {
-    public let id: PostID = 0
-    public let topicId: TopicID = 0
+    public let id: PostID
+    public let topicId: TopicID
     public let topic: Topic?
     public let replyTo: Int?
-    public let message: String = ""
-    public let account: Account = Account()
+    public let message: String
+    public let account: Account
     public let mention: String?
-    public let attachments: [URLAttachment] = []
-    public let likes: [Like] = []
-    public let talks: [Talk] = []
-    public let links: [Link] = []
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let attachments: [URLAttachment]
+    public let likes: [Like]
+    public let talks: [Talk]
+    public let links: [Link]
+    public let createdAt: NSDate
+    public let updatedAt: NSDate
 
-    public required init() {}
-
-    public init(id: PostID, topicId: TopicID, topic: Topic? = nil, replyTo: Int?, message: String = "", account: Account = Account(), mention: String? = nil, attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
+    public init(id: PostID = 0, topicId: TopicID = 0, topic: Topic? = nil, replyTo: Int? = nil, message: String = "", account: Account = Account(), mention: String? = nil, attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
         self.id = id
         self.topicId = topicId
         self.topic = topic
@@ -42,7 +40,21 @@ public class Post : Deserializable, ObjcBase {
         self.updatedAt = updatedAt
     }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var id: PostID?
+        var topicId: TopicID?
+        var topic: Topic?
+        var replyTo: Int?
+        var message: String?
+        var account: Account?
+        var mention: String?
+        var attachments: [URLAttachment]?
+        var likes: [Like]?
+        var talks: [Talk]?
+        var links: [Link]?
+        var createdAt: NSDate?
+        var updatedAt: NSDate?
+
         id          <-- data["id"]
         topicId     <-- data["topicId"]
         topic       <-- data["topic"]
@@ -56,5 +68,7 @@ public class Post : Deserializable, ObjcBase {
         links       <-- data["links"]
         createdAt   <-- (data["createdAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
         updatedAt   <-- (data["updatedAt"], "yyyy-MM-dd'T'HH:mm:ssZ")
+
+        self.init(id: id ?? 0, topicId: topicId ?? 0, topic: topic, replyTo: replyTo, message: message ?? "", account: account ?? Account(), mention: mention, attachments: attachments ?? [], likes: likes ?? [], talks: talks ?? [], links: links ?? [], createdAt: createdAt ?? NSDate(), updatedAt: updatedAt ?? NSDate())
     }
 }

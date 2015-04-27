@@ -15,7 +15,7 @@ class NotificationTests: XCTestCase {
     func testExample() {
         let model = Notifications(data: json("model_notifications"))
         
-        XCTAssertEqual(countElements(model.mentions), 2)
+        XCTAssertEqual(count(model.mentions), 2)
         let mention = model.mentions[1]
         XCTAssertEqual(mention.id, 500)
         XCTAssertEqual(mention.readAt!.description, "2014-06-30 15:00:00 +0000")
@@ -28,7 +28,7 @@ class NotificationTests: XCTestCase {
         XCTAssertEqual(mention.post!.account.id, 101)
         XCTAssertEqual(mention.post!.account.name, "ahorowitz")
         
-        XCTAssertEqual(countElements(model.invites.teams), 2)
+        XCTAssertEqual(count(model.invites.teams), 2)
         let team = model.invites.teams[1]
         XCTAssertEqual(team.id, 800)
         XCTAssertEqual(team.team.id, 702)
@@ -38,7 +38,7 @@ class NotificationTests: XCTestCase {
         XCTAssertEqual(team.account!.id, 100)
         XCTAssertEqual(team.account!.name, "jessica")
         
-        XCTAssertEqual(countElements(model.invites.topics), 2)
+        XCTAssertEqual(count(model.invites.topics), 2)
         let topic = model.invites.topics[1]
         XCTAssertEqual(topic.id, 600)
         XCTAssertEqual(topic.topic.id, 209)

@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class LikeMessageResponse : Deserializable, ObjcBase {
-    public let like = Like()
+    public let like: Like
     
-    public required init() {}
+    public required init(like: Like = Like()) {
+        self.like = like
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var like: Like?
         like <-- data["like"]
+        self.init(like: like ?? Like())
     }
 }

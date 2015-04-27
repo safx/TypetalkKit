@@ -10,12 +10,16 @@ import Foundation
 import JSONHelper
 
 public class GetTeamsResponse : Deserializable, ObjcBase {
-    public let teams: [TeamWithCount] = []
+    public let teams: [TeamWithCount]
     
-    required public init() {}
+    required public init(teams: [TeamWithCount] = []) {
+        self.teams = teams
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var teams: [TeamWithCount]?
         teams <-- data["teams"]
+        self.init(teams: teams ?? [])
     }
 }
 

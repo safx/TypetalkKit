@@ -13,10 +13,18 @@ public class PostMessageResponse : Deserializable, ObjcBase {
     public let topic: Topic?
     public let post: Post?
 
-    public required init() {}
+    public required init(topic: Topic? = nil, post: Post? = nil) {
+        self.topic = topic
+        self.post = post
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var topic: Topic?
+        var post: Post?
+
         topic <-- data["topic"]
         post  <-- data["post"]
+
+        self.init(topic: topic, post: post)
     }
 }

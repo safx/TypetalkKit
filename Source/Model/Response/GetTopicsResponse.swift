@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class GetTopicsResponse : Deserializable, ObjcBase {
-    public let topics: [TopicWithUserInfo] = []
+    public let topics: [TopicWithUserInfo]
     
-    public required init() {}
+    public required init(topics: [TopicWithUserInfo] = []) {
+        self.topics = topics
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var topics: [TopicWithUserInfo]?
         topics <-- data["topics"]
+        self.init(topics: topics ?? [])
     }
 }

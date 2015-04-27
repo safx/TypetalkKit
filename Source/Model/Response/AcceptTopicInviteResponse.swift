@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class AcceptTopicInviteResponse : Deserializable, ObjcBase {
-    public let invite = TopicInvite()
+    public let invite: TopicInvite
     
-    required public init() {}
+    required public init(invite: TopicInvite = TopicInvite()) {
+        self.invite = invite
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var invite: TopicInvite?
         invite <-- data["invite"]
+        self.init(invite: invite ?? TopicInvite())
     }
 }

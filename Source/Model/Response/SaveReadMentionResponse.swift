@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class SaveReadMentionResponse : Deserializable, ObjcBase {
-    public let mention = Mention()
+    public let mention: Mention
     
-    public required init() {}
-    
-    required public init(data: [String: AnyObject]) {
+    public required init(mention: Mention = Mention()) {
+        self.mention = mention
+    }
+
+    required public convenience init(data: [String: AnyObject]) {
+        var mention: Mention?
         mention <-- data["mention"]
+        self.init(mention: mention ?? Mention())
     }
 }

@@ -10,13 +10,21 @@ import Foundation
 import JSONHelper
 
 public class AccountWithOnlineStatus : Deserializable, ObjcBase {
-    public let account: Account = Account()
-    public let online: Bool = false
+    public let account: Account
+    public let online: Bool
     
-    required public init() {}
+    public init(account: Account = Account(), online: Bool = false) {
+        self.account = account
+        self.online = online
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var account: Account?
+        var online: Bool?
+
         account <-- data["account"]
         online  <-- data["online"]
+
+        self.init(account: account ?? Account(), online: online ?? false)
     }
 }
