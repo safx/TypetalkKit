@@ -10,21 +10,25 @@ import Foundation
 import JSONHelper
 
 public class TopicWithUserInfo : Deserializable, ObjcBase {
-    public let topic: Topic = Topic()
-    public let favorite: Bool = false
+    public let topic: Topic
+    public let favorite: Bool
     public let unread: Unread?
 
-    required public init() {}
-
-    public init(topic: Topic, favorite: Bool = false, unread: Unread? = nil) {
+    public init(topic: Topic = Topic(), favorite: Bool = false, unread: Unread? = nil) {
         self.topic = topic
         self.favorite = favorite
         self.unread = unread
     }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var topic: Topic?
+        var favorite: Bool?
+        var unread: Unread?
+
         topic    <-- data["topic"]
         favorite <-- data["favorite"]
         unread   <-- data["unread"]
+
+        self.init(topic: topic ?? Topic(), favorite: favorite ?? false, unread: unread)
     }
 }

@@ -8,12 +8,8 @@
 
 import Foundation
 import TypetalkKit
+import Starscream
 
-#if os(iOS) || COCOAPODS
-    import Starscream
-#else
-    import StarscreamOSX
-#endif
 
 public typealias AcceptTeamInviteEvent           = AcceptTeamInviteResponse
 public typealias AcceptTopicInviteEvent          = AcceptTopicInviteResponse
@@ -119,7 +115,7 @@ extension Client : WebSocketDelegate {
 
     private var socket : WebSocket {
         struct Static {
-            static let instance = WebSocket(url: Router.Streaming.URLRequest.URL)
+            static let instance = WebSocket(url: Router.Streaming.URLRequest.URL!)
         }
         return Static.instance
     }
@@ -159,7 +155,7 @@ extension Client : WebSocketDelegate {
 
     public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         let jsondata = text.dataUsingEncoding(NSUnicodeStringEncoding)!
-        let json = NSJSONSerialization.JSONObjectWithData(jsondata, options: nil, error: nil) as [String:AnyObject]
+        let json = NSJSONSerialization.JSONObjectWithData(jsondata, options: nil, error: nil) as! [String:AnyObject]
         let type = json["type"] as? String
         let data = json["data"] as? [String:AnyObject]
         if type != nil && data != nil {

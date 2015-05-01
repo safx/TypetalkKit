@@ -10,13 +10,21 @@ import Foundation
 import JSONHelper
 
 public class PostLinksEvent : Deserializable, ObjcBase {
-    public let postId: PostID = 0
-    public let links: [Link] = []
+    public let postId: PostID
+    public let links: [Link]
 
-    public required init() {}
+    public required init(postId: PostID = 0, links: [Link] = []) {
+        self.postId = postId
+        self.links = links
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var postId: PostID?
+        var links: [Link]?
+
         postId <-- data["postId"]
         links  <-- data["links"]
+
+        self.init(postId: postId ?? 0, links: links ?? [])
     }
 }

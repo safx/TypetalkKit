@@ -21,10 +21,10 @@ class TopicWithAccountsTests: XCTestCase {
         XCTAssertEqual(model.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
         XCTAssertEqual(model.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-        XCTAssertEqual(countElements(model.teams), 1)
-        XCTAssertEqual(countElements(model.accounts), 2)
+        XCTAssertEqual(count(model.teams), 1)
+        XCTAssertEqual(count(model.accounts), 2)
 
-        XCTAssertEqual(countElements(model.invites), 2)
+        XCTAssertEqual(count(model.invites), 2)
         let last = model.invites[1]
         XCTAssertEqual(last.id, 603)
         XCTAssertNil(last.account)

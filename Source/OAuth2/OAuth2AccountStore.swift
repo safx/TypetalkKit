@@ -17,24 +17,23 @@ public class OAuth2AccountStore {
     
     private var attributes: [String:AnyObject] {
         return [
-            kSecClass: kSecClassGenericPassword,
-            kSecAttrService: serviceName,
-            //kSecAttrLabel: SecAttrLabelTypetalk,
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrService as String: serviceName,
         ]
     }
     
     public func queryCredential() -> OAuth2Credential? {
         var attrs = attributes
-        attrs[kSecReturnAttributes] = kCFBooleanTrue
+        attrs[kSecReturnAttributes as String] = kCFBooleanTrue
 
         var result: AnyObject?
         var status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
 
         if status == OSStatus(errSecSuccess) {
-            let q = result as NSDictionary
+            let q = result as! NSDictionary
             let k = String(kSecAttrGeneric)
             if let data = q[k] as? NSData {
-                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as OAuth2Credential?
+                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! OAuth2Credential?
             }
         } else if status != OSStatus(errSecItemNotFound) {
             //
@@ -49,7 +48,7 @@ public class OAuth2AccountStore {
     
     public func saveCredential(credential: OAuth2Credential) -> Bool {
         var attrs = attributes
-        attrs[kSecAttrGeneric] = NSKeyedArchiver.archivedDataWithRootObject(credential)
+        attrs[kSecAttrGeneric as String] = NSKeyedArchiver.archivedDataWithRootObject(credential)
 
         var result: AnyObject?
         var status = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }

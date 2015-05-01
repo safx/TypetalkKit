@@ -30,7 +30,7 @@ public class OAuth2Client {
     private var _settings: DeveloperSettings = DeveloperSettings(clientId: "", clientSecret: "", redirectURI: "", scopes: [])
     public var settings: DeveloperSettings { return _settings }
     public var isInitialized: Bool {
-        return _settings.clientId != "" && _settings.clientSecret != "" && _settings.redirectURI != "" && countElements(_settings.scopes) > 0
+        return _settings.clientId != "" && _settings.clientSecret != "" && _settings.redirectURI != "" && count(_settings.scopes) > 0
     }
     public func setDeveloperSettings(#clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
         if isInitialized { return false }
@@ -80,7 +80,7 @@ public class OAuth2Client {
         case .Authorizing(let cb):
             let d = OAuth2Client.parseQuery(url)
             if let code = d["code"] {
-                requestAuthorizationCode(code, cb)
+                requestAuthorizationCode(code, completion: cb)
                 return true
             }
         default: ()
@@ -94,7 +94,7 @@ public class OAuth2Client {
             let ss = q.componentsSeparatedByString("&")
             for s in ss {
                 let kv = q.componentsSeparatedByString("=")
-                switch countElements(kv) {
+                switch count(kv) {
                 case 0: let nothing = 0
                 case 1: dic[kv[0]] = ""
                 case 2: dic[kv[0]] = kv[1]
@@ -107,14 +107,14 @@ public class OAuth2Client {
 
     public func requestAuthorizationCode(code: String, completion: CompletionClosure) {
         state = .RequestingAccessToken
-        _requestAccessToken(OAuth2Router.RequestAuthorizationCode(_settings, code), completion)
+        _requestAccessToken(OAuth2Router.RequestAuthorizationCode(_settings, code), completion: completion)
     }
 
     public func requestRefreshToken(completion: CompletionClosure) -> Bool {
         switch state {
         case .SignedIn(let (credential)):
             state = .RequestingTokenRefresh
-            _requestAccessToken(OAuth2Router.RequestRefreshToken(_settings, credential.refreshToken), completion)
+            _requestAccessToken(OAuth2Router.RequestRefreshToken(_settings, credential.refreshToken), completion: completion)
             return true
         default:
             // TODO: send error to completion block
@@ -126,10 +126,10 @@ public class OAuth2Client {
         Alamofire.request(router)
             .responseJSON { (request, response, json, error) -> Void in
                 if error == nil {
-                    let errorResponse = ErrorResponse.checkErrorResponse(json as [String:AnyObject])
+                    let errorResponse = ErrorResponse.checkErrorResponse(json as! [String:AnyObject])
                     if errorResponse == nil {
                         var err: NSError? = nil
-                        let credential = OAuth2Credential(dictionary: json as NSDictionary, error: &err)
+                        let credential = OAuth2Credential(dictionary: json as! [NSObject : AnyObject], error: &err)
                         if err == nil {
                             self.accountStore.saveCredential(credential)
                             self.state = ClientState.SignedIn(credential)
@@ -162,6 +162,6 @@ extension OAuth2Client {
     public func authorize(completion: CompletionClosure) {
         state = .Authorizing(completion)
         let request = OAuth2Router.Authorize(_settings).URLRequest
-        openURL(request.URL)
+        openURL(request.URL!)
     }
 }

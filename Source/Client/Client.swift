@@ -17,13 +17,15 @@ public class Client {
         return Static.instance
     }
 
-    private init() {}
+    private init() {
+        self.requestModifierForTests = nil
+    }
 
     public typealias RequestModifier = ((Router) -> NSURLRequest)
     public init(requestModifierForTests: RequestModifier) {
         self.requestModifierForTests = requestModifierForTests
     }
-    let requestModifierForTests: RequestModifier? = nil
+    let requestModifierForTests: RequestModifier?
 
     var streamingClosure : (StreamingEvent -> ())?
 
@@ -61,7 +63,7 @@ public class Client {
     // MARK: Alamofire
 
     private func _request(router: Router) -> Request? {
-        if let mod = requestModifierForTests? {
+        if let mod = requestModifierForTests {
             return Alamofire.request(mod(router))
         }
 
@@ -74,7 +76,7 @@ public class Client {
     }
 
     private func _upload(router: Router, fileName: String, fileContent: NSData) -> Request? {
-        if let mod = requestModifierForTests? {
+        if let mod = requestModifierForTests {
             return Alamofire.request(mod(router))
         }
 

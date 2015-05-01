@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class GetMentionsResponse : Deserializable, ObjcBase {
-    public let mentions: [Mention] = []
+    public let mentions: [Mention]
     
-    public required init() {}
+    public required init(mentions: [Mention] = []) {
+        self.mentions = mentions
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var mentions: [Mention]?
         mentions <-- data["mentions"]
+        self.init(mentions: mentions ?? [])
     }
 }

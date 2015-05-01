@@ -10,13 +10,21 @@ import Foundation
 import JSONHelper
 
 public class TeamWithMembers : Deserializable, ObjcBase {
-    public let team: Team = Team()
-    public let members: [Member] = []
+    public let team: Team
+    public let members: [Member]
     
-    required public init() {}
+    required public init(team: Team = Team(), members: [Member] = []) {
+        self.team = team
+        self.members = members
+    }
 
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var team: Team?
+        var members: [Member]?
+        
         team    <-- data["team"]
         members <-- data["members"]
+
+        self.init(team: team ?? Team(), members: members ?? [])
     }
 }

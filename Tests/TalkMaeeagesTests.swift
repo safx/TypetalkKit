@@ -27,7 +27,7 @@ class TalkMessagesTests: XCTestCase {
         XCTAssertEqual(model.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
         XCTAssertEqual(model.talk.updatedAt.description, "2014-07-02 03:52:29 +0000")
 
-        XCTAssertEqual(countElements(model.posts), 2)
+        XCTAssertEqual(count(model.posts), 2)
 
         XCTAssertEqual(model.hasNext, false)
     }

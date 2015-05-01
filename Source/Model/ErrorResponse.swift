@@ -9,10 +9,10 @@
 import Foundation
 
 public class ErrorResponse {
-    public let name: String = ""
-    public let description: String = ""
-    public let file: String = ""
-    public let line: Int = 0
+    public let name: String
+    public let description: String
+    public let file: String
+    public let line: Int
 
     public class func checkErrorResponse(json: [NSObject : AnyObject], file: String = __FILE__, line: Int = __LINE__) -> ErrorResponse? {
         if json["error"] == nil { return nil }
@@ -24,13 +24,20 @@ public class ErrorResponse {
     public init(dictionary dictionaryValue: [NSObject : AnyObject], error: NSErrorPointer, file: String, line: Int) {
         self.file = file
         self.line = line
+
+        var name: String = ""
+        var desc: String = ""
+
         for (k,v) in dictionaryValue {
             switch k {
-            case "error": self.name = v as String
-            case "error_description": self.description = v as String
+            case "error": name = v as! String
+            case "error_description": desc = v as! String
             default:
                 println("ERROR: \(k) = \(v)") // FIXME
             }
         }
+
+        self.name = name
+        self.description = desc
     }
 }

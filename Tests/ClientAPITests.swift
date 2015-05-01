@@ -215,9 +215,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(message.post.id, 307)
                 XCTAssertEqual(message.post.topicId, 208)
                 XCTAssertEqual(message.post.replyTo!, 306)
-                XCTAssertEqual(countElements(message.post.likes), 1)
+                XCTAssertEqual(count(message.post.likes), 1)
 
-                XCTAssertEqual(countElements(message.replies), 2)
+                XCTAssertEqual(count(message.replies), 2)
 
                 expectation.fulfill()
             }
@@ -240,7 +240,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(post.attachments.isEmpty)
                 XCTAssertEqual(post.account.id, 100)
                 XCTAssertEqual(post.account.name, "jessica")
-                XCTAssertEqual(countElements(post.attachments), 0)
+                XCTAssertEqual(count(post.attachments), 0)
                 XCTAssertTrue(post.likes.isEmpty)
                 XCTAssertTrue(post.talks.isEmpty)
                 XCTAssertTrue(post.links.isEmpty)
@@ -357,7 +357,7 @@ class ClientAPITests: XCTestCase {
 
         client.getNotifications { (response, error) -> Void in
             if let notifications = response {
-                XCTAssertEqual(countElements(notifications.mentions), 2)
+                XCTAssertEqual(count(notifications.mentions), 2)
                 let mention = notifications.mentions[1]
                 XCTAssertEqual(mention.id, 500)
                 XCTAssertEqual(mention.readAt!.description, "2014-06-30 15:00:00 +0000")
@@ -370,7 +370,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(mention.post!.account.id, 101)
                 XCTAssertEqual(mention.post!.account.name, "ahorowitz")
 
-                XCTAssertEqual(countElements(notifications.invites.teams), 2)
+                XCTAssertEqual(count(notifications.invites.teams), 2)
                 let team = notifications.invites.teams[1]
                 XCTAssertEqual(team.id, 800)
                 XCTAssertEqual(team.team.id, 702)
@@ -380,7 +380,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(team.account!.id, 100)
                 XCTAssertEqual(team.account!.name, "jessica")
 
-                XCTAssertEqual(countElements(notifications.invites.topics), 2)
+                XCTAssertEqual(count(notifications.invites.topics), 2)
                 let topic = notifications.invites.topics[1]
                 XCTAssertEqual(topic.id, 600)
                 XCTAssertEqual(topic.topic.id, 209)
@@ -459,7 +459,7 @@ class ClientAPITests: XCTestCase {
 
         client.getMentions(0, unread: nil) { (response, error) -> Void in
             if let r = response {
-                XCTAssertEqual(countElements(r.mentions), 2)
+                XCTAssertEqual(count(r.mentions), 2)
                 let mention = r.mentions[0]
 
                 XCTAssertEqual(mention.id, 501)
@@ -516,7 +516,7 @@ class ClientAPITests: XCTestCase {
             if let res = response {
                 let topics = res.topics
                 let invite = res.invite!
-                XCTAssertEqual(countElements(topics), 2)
+                XCTAssertEqual(count(topics), 2)
                 let topic = topics[1]
                 XCTAssertEqual(topic.id, 212)
                 XCTAssertEqual(topic.name, "Races")
@@ -628,7 +628,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:55 +0000")
 
-                XCTAssertEqual(countElements(topic.teams), 1)
+                XCTAssertEqual(count(topic.teams), 1)
                 let team = topic.teams[0]
                 XCTAssertEqual(team.team.id, 700)
                 XCTAssertEqual(team.team.name, "Nulab Inc.")
@@ -657,9 +657,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
 
-                XCTAssertEqual(countElements(topic.teams), 0)
-                XCTAssertEqual(countElements(topic.accounts), 1)
-                XCTAssertEqual(countElements(topic.invites), 2)
+                XCTAssertEqual(count(topic.teams), 0)
+                XCTAssertEqual(count(topic.accounts), 1)
+                XCTAssertEqual(count(topic.invites), 2)
 
                 expectation.fulfill()
             }
@@ -703,9 +703,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-                XCTAssertEqual(countElements(topic.teams), 1)
-                XCTAssertEqual(countElements(topic.accounts), 2)
-                XCTAssertEqual(countElements(topic.invites), 2)
+                XCTAssertEqual(count(topic.teams), 1)
+                XCTAssertEqual(count(topic.accounts), 2)
+                XCTAssertEqual(count(topic.invites), 2)
 
                 expectation.fulfill()
             }
@@ -728,9 +728,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-09 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-09 02:32:29 +0000")
 
-                XCTAssertEqual(countElements(topic.teams), 0)
-                XCTAssertEqual(countElements(topic.accounts), 1)
-                XCTAssertEqual(countElements(topic.invites), 2)
+                XCTAssertEqual(count(topic.teams), 0)
+                XCTAssertEqual(count(topic.accounts), 1)
+                XCTAssertEqual(count(topic.invites), 2)
 
                 expectation.fulfill()
             }
@@ -753,9 +753,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-                XCTAssertEqual(countElements(topic.teams), 1)
-                XCTAssertEqual(countElements(topic.accounts), 0)
-                XCTAssertEqual(countElements(topic.invites), 0)
+                XCTAssertEqual(count(topic.teams), 1)
+                XCTAssertEqual(count(topic.accounts), 0)
+                XCTAssertEqual(count(topic.invites), 0)
 
                 expectation.fulfill()
             }
@@ -771,7 +771,7 @@ class ClientAPITests: XCTestCase {
 
         client.getTeams { (response, error) -> Void in
             if let r = response {
-                XCTAssertEqual(countElements(r.teams), 3)
+                XCTAssertEqual(count(r.teams), 3)
                 let first = r.teams[0]
                 XCTAssertEqual(first.memberCount, 4)
                 XCTAssertEqual(first.team.id, 700)
@@ -794,7 +794,7 @@ class ClientAPITests: XCTestCase {
 
         client.getFriends { (response, error) -> Void in
             if let r = response {
-                XCTAssertEqual(countElements(r.accounts), 5)
+                XCTAssertEqual(count(r.accounts), 5)
                 let last = r.accounts[4]
                 XCTAssertEqual(last.id, 103)
                 XCTAssertEqual(last.name, "stefhull")
@@ -840,7 +840,7 @@ class ClientAPITests: XCTestCase {
 
         client.getTalks(0) { (response, error) -> Void in
             if let r = response {
-                XCTAssertEqual(countElements(r.talks), 2)
+                XCTAssertEqual(count(r.talks), 2)
                 let last = r.talks[1]
                 XCTAssertEqual(last.id, 900)
                 XCTAssertEqual(last.topicId, 208)
@@ -876,7 +876,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(talk.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
                 XCTAssertEqual(talk.talk.updatedAt.description, "2014-07-02 03:52:29 +0000")
 
-                XCTAssertEqual(countElements(talk.posts), 2)
+                XCTAssertEqual(count(talk.posts), 2)
                 let last = talk.posts[1]
                 XCTAssertEqual(last.id, 306)
                 XCTAssertEqual(last.topicId, 208)

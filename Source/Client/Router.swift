@@ -91,7 +91,7 @@ public enum Router : URLRequestConvertible {
         case .DownloadAttachmentWithURL(let (url, _)):
             let u = url.absoluteString!
             assert(u.hasPrefix(Router.baseURLString))
-            let len = countElements(Router.baseURLString)
+            let len = count(Router.baseURLString)
             let s = u.substringFromIndex(advance(u.startIndex, len))
             return (.GET, .topic_read, "\(s)")
         case .Streaming                                   : return (.GET   , .topic_read  , "streaming")
@@ -106,29 +106,28 @@ public enum Router : URLRequestConvertible {
             return form.toObject()
         case .SaveReadTopic(let (topicId, postId)):
             var p: [String: AnyObject] = [ "topicId": topicId ]
-            if let v = postId { p["postId"] = v }
+            postId.map { p["postId"] = $0 }
             return p
         case .GetMentions(let (from, unread)):
             var p: [String: AnyObject] = [:]
-            if let v = from { p["from"] = v }
-            if let v = unread { p["unread"] = v }
+            from.map { p["from"] = $0 }
+            unread.map { p["unread"] = $0 }
             return p
         case .CreateTopic(let form):
             return form.toObject()
         case .UpdateTopic(let (_, name, teamId)):
-            var p: [String: AnyObject] = [:]
-            if let v = name { p["name"] = v }
-            if let v = teamId { p["teamId"] = v } else { p["teamId"] = "" }
+            var p: [String: AnyObject] = [ "teamId": teamId ?? ""]
+            name.map { p["name"] = $0 }
             return p
         case InviteTopicMember(let (_, inviteNames, inviteMessage)):
             var p: [String: AnyObject] = [:]
-            if countElements(inviteNames) > 0 { p["inviteMembers"] = inviteNames }
-            if countElements(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
+            if count(inviteNames) > 0 { p["inviteMembers"] = inviteNames }
+            if count(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
             return p
         case .RemoveTopicMember(let (_, removeInviteIds, removeMemberIds)):
             var p: [String: AnyObject] = [:]
-            if countElements(removeInviteIds) > 0 { p["removeInviteIds"] = removeInviteIds }
-            if countElements(removeMemberIds) > 0 { p["removeMemberIds"] = removeMemberIds }
+            if count(removeInviteIds) > 0 { p["removeInviteIds"] = removeInviteIds }
+            if count(removeMemberIds) > 0 { p["removeMemberIds"] = removeMemberIds }
             return p
         case .SearchAccounts(let nameOrEmailAddress):
             return ["nameOrEmailAddress": nameOrEmailAddress]
@@ -136,11 +135,11 @@ public enum Router : URLRequestConvertible {
             return form.toObject()
         case .DownloadAttachment(let (_, _, _, _, type)):
             var p: [String: AnyObject] = [:]
-            if let v = type { p["type"] = v.rawValue }
+            type.map { p["type"] = $0.rawValue }
             return p
         case .DownloadAttachmentWithURL(let (_, type)):
             var p: [String: AnyObject] = [:]
-            if let v = type { p["type"] = v.rawValue }
+            type.map { p["type"] = $0.rawValue }
             return p
         default:
             return [:]
@@ -177,7 +176,7 @@ public enum Router : URLRequestConvertible {
     }
 
     public func URLRequest(OAuth2Token: String) -> NSURLRequest {
-        var request = URLRequest.mutableCopy() as NSMutableURLRequest
+        var request = URLRequest.mutableCopy() as! NSMutableURLRequest
         request.setValue("Bearer \(OAuth2Token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -199,7 +198,7 @@ public enum Router : URLRequestConvertible {
         formData.appendData(fileContent)
         formData.appendData("\r\n--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
 
-        var request = URLRequest(OAuth2Token).mutableCopy() as NSMutableURLRequest
+        var request = URLRequest(OAuth2Token).mutableCopy() as! NSMutableURLRequest
         assert(request.HTTPMethod == "POST")
 
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -233,9 +232,9 @@ public struct GetMessagesForm {
     }
     private func toObject() -> [String: AnyObject] {
         var p = [String: AnyObject]()
-        if let v = count { p["count"] = v }
-        if let v = from { p["from"] = v }
-        if let v = direction { p["direction"] = v.rawValue }
+        count.map { p["count"] = $0 }
+        from.map { p["from"] = $0 }
+        direction.map { p["direction"] = $0.rawValue }
         return p
     }
 }
@@ -255,9 +254,9 @@ public struct PostMessageForm {
     }
     private func toObject() -> [String: AnyObject] {
         var p: [String: AnyObject] = [ "message": message ]
-        if let v = replyTo { p["replyTo"] = v }
-        if countElements(fileKeys) > 0 { p["fileKeys"] = fileKeys }
-        if countElements(talkIds) > 0 { p["talkIds"] = talkIds }
+        replyTo.map { p["replyTo"] = $0 }
+        if count(fileKeys) > 0 { p["fileKeys"] = fileKeys }
+        if count(talkIds) > 0 { p["talkIds"] = talkIds }
         return p
     }
 }
@@ -266,7 +265,7 @@ public struct CreateTopicForm {
     let name: String
     let teamId: TeamID?
     let inviteMembers: [String]
-    let inviteMessage: String = ""
+    let inviteMessage: String
 
     public init(name: String, teamId: TeamID?, inviteMembers: [String], inviteMessage: String) {
         self.name = name
@@ -276,9 +275,9 @@ public struct CreateTopicForm {
     }
     private func toObject() -> [String: AnyObject] {
         var p: [String: AnyObject] = [ "name": name ]
-        if let v = teamId { p["teamId"] = v }
-        if countElements(inviteMembers) > 0 { p["inviteMembers"] = inviteMembers }
-        if countElements(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
+        teamId.map { p["teamId"] = $0 }
+        if count(inviteMembers) > 0 { p["inviteMembers"] = inviteMembers }
+        if count(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
         return p
     }
 }

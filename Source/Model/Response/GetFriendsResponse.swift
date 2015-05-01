@@ -10,11 +10,16 @@ import Foundation
 import JSONHelper
 
 public class GetFriendsResponse : Deserializable, ObjcBase {
-    public let accounts: [Account] = []
+    public let accounts: [Account]
     
-    public required init() {}
+    public init(accounts: [Account] = []) {
+        self.accounts = accounts
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var accounts: [Account]?
         accounts <-- data["accounts"]
+
+        self.init(accounts: accounts ?? [])
     }
 }

@@ -21,7 +21,7 @@ class URLAttachmentTests: XCTestCase {
         XCTAssertEqual(model.attachment.fileName, "1.jpg")
         XCTAssertEqual(model.attachment.fileSize, 472263)
 
-        XCTAssertEqual(countElements(model.thumbnails), 3)
+        XCTAssertEqual(count(model.thumbnails), 3)
         XCTAssertEqual(model.thumbnails[0].type.rawValue, "small")
         XCTAssertEqual(model.thumbnails[0].fileSize, 16842)
         XCTAssertEqual(model.thumbnails[0].width, 480)

@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class GetProfileResponse : Deserializable, ObjcBase {
-    public let account = Account()
+    public let account: Account
     
-    public required init() {}
+    public required init(account: Account = Account()) {
+        self.account = account
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var account: Account?
         account <-- data["account"]
+        self.init(account: account ?? Account())
     }
 }

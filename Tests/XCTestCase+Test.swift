@@ -19,14 +19,14 @@ extension XCTestCase {
     func json(name: String) -> [String:AnyObject] {
         var error: NSError? = nil
         let data = NSData(contentsOfFile: path(name), options: nil, error: &error)
-        let dic = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error) as NSDictionary?
+        let dic = NSJSONSerialization.JSONObjectWithData(data!, options: nil, error: &error) as! NSDictionary?
         assert(dic != nil && error == nil)
-        return dic as [String:AnyObject]
+        return dic as! [String:AnyObject]
     }
 
     func streaming_json(name: String) -> [String:AnyObject] {
         let j = json("streaming-\(name)")
         let data: AnyObject? = j["data"]
-        return data as [String:AnyObject]!
+        return data as! [String:AnyObject]!
     }
 }

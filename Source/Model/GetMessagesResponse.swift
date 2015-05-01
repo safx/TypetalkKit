@@ -10,19 +10,33 @@ import Foundation
 import JSONHelper
 
 public class GetMessagesResponse : Deserializable, ObjcBase {
-    public let team: Team = Team()
-    public let topic: Topic = Topic()
-    public let bookmark: Bookmark = Bookmark()
-    public let posts: [Post] = []
-    public let hasNext: Bool = false
+    public let team: Team
+    public let topic: Topic
+    public let bookmark: Bookmark
+    public let posts: [Post]
+    public let hasNext: Bool
 
-    public required init() {}
-    
-    required public init(data: [String: AnyObject]) {
+    public required init(team: Team = Team(), topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false) {
+        self.team = team
+        self.topic = topic
+        self.bookmark = bookmark
+        self.posts = posts
+        self.hasNext = hasNext
+    }
+
+    required public convenience init(data: [String: AnyObject]) {
+        var team: Team?
+        var topic: Topic?
+        var bookmark: Bookmark?
+        var posts: [Post]?
+        var hasNext: Bool?
+
         team     <-- data["team"]
         topic    <-- data["topic"]
         bookmark <-- data["bookmark"]
         posts    <-- data["posts"]
         hasNext  <-- data["hasNext"]
+
+        self.init(team: team ?? Team(), topic: topic ?? Topic(), bookmark: bookmark ?? Bookmark(), posts: posts ?? [], hasNext: hasNext ?? false)
     }
 }

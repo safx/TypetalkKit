@@ -10,13 +10,21 @@ import Foundation
 import JSONHelper
 
 public class GetTopicMembersResponse : Deserializable, ObjcBase {
-    public let accounts: [AccountWithOnlineStatus] = []
-    public let pendings: [AccountWithMailAddress] = []
-    
-    required public init() {}
+    public let accounts: [AccountWithOnlineStatus]
+    public let pendings: [AccountWithMailAddress]
 
-    required public init(data: [String: AnyObject]) {
+    required public init(accounts: [AccountWithOnlineStatus] = [], pendings: [AccountWithMailAddress] = []) {
+        self.accounts = accounts
+        self.pendings = pendings
+    }
+
+    required public convenience init(data: [String: AnyObject]) {
+        var accounts: [AccountWithOnlineStatus]?
+        var pendings: [AccountWithMailAddress]?
+
         accounts <-- data["accounts"]
         pendings <-- data["pendings"]
+
+        self.init(accounts: accounts ?? [], pendings: pendings ?? [])
     }
 }

@@ -10,11 +10,15 @@ import Foundation
 import JSONHelper
 
 public class SaveReadTopicResponse : Deserializable, ObjcBase {
-    public let unread = Unread()
+    public let unread: Unread
     
-    public required init() {}
+    public required init(unread: Unread = Unread()) {
+        self.unread = unread
+    }
     
-    required public init(data: [String: AnyObject]) {
+    required public convenience init(data: [String: AnyObject]) {
+        var unread: Unread?
         unread <-- data["unread"]
+        self.init(unread: unread ?? Unread())
     }
 }

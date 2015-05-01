@@ -29,10 +29,10 @@ class PostTests: XCTestCase {
 
         XCTAssertNil(model.mention)
 
-        XCTAssertEqual(countElements(model.attachments), 4)
-        XCTAssertEqual(countElements(model.likes), 0)
-        XCTAssertEqual(countElements(model.talks), 0)
-        XCTAssertEqual(countElements(model.links), 1)
+        XCTAssertEqual(count(model.attachments), 4)
+        XCTAssertEqual(count(model.likes), 0)
+        XCTAssertEqual(count(model.talks), 0)
+        XCTAssertEqual(count(model.links), 1)
 
         XCTAssertEqual(model.createdAt.description, "2014-06-29 00:32:29 +0000")
         XCTAssertEqual(model.updatedAt.description, "2014-06-29 00:32:29 +0000")
