@@ -189,14 +189,19 @@ public enum Router : URLRequestConvertible {
         }
 
         let boundary = generateBoundary()
-        let formData = NSMutableData()
 
-        formData.appendData("--\(boundary)\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        formData.appendData("Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        formData.appendData("Content-Type: application/octet-stream; charset=ISO-8859-1\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
-        formData.appendData("Content-Transfer-Encoding: binary\r\n\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        let head = [
+            "--\(boundary)\r\n",
+            "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n",
+            "Content-Type: application/octet-stream; charset=ISO-8859-1\r\n",
+            "Content-Transfer-Encoding: binary\r\n\r\n",
+        ]
+        let tail = ["\r\n--\(boundary)--\r\n"]
+
+        let formData = NSMutableData()
+        map(head) { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
         formData.appendData(fileContent)
-        formData.appendData("\r\n--\(boundary)--\r\n".dataUsingEncoding(NSUTF8StringEncoding)!)
+        map(tail) { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
 
         var request = URLRequest(OAuth2Token).mutableCopy() as! NSMutableURLRequest
         assert(request.HTTPMethod == "POST")
