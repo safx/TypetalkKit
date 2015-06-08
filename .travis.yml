@@ -6,6 +6,11 @@ before_install:
 
 script:
 - set -o pipefail
+- sudo chown :travis /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ *.simruntime/Contents/Resources/RuntimeRoot/usr/lib/dyld_sim
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-OSX build -sdk macosx10.10     ONLY_ACTIVE_ARCH=YES | xcpretty -c
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test  -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES | xcpretty -c
+- swiftcov generage --output coverage xcodebuild test -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS -configuration Release -sdk iphonesimulator
 - pod lib lint --quick
+
+after_success:
+- bash <(curl -s https://codecov.io/bash)
