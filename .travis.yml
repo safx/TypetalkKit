@@ -3,14 +3,15 @@ osx_image: beta-xcode6.3
 
 before_install:
 - gem install xcpretty --no-rdoc --no-ri --no-document --quiet
+#- git clone https://github.com/realm/SwiftCov.git && cd SwiftCov && make && cd ..
 
 script:
 - set -o pipefail
-- sudo chown :travis /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ *.simruntime/Contents/Resources/RuntimeRoot/usr/lib/dyld_sim
+#- sudo chown :travis /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ *.simruntime/Contents/Resources/RuntimeRoot/usr/lib/dyld_sim
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-OSX build -sdk macosx10.10     ONLY_ACTIVE_ARCH=YES | xcpretty -c
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test  -sdk iphonesimulator ONLY_ACTIVE_ARCH=YES | xcpretty -c
-- swiftcov generage --output coverage xcodebuild test -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS -configuration Release -sdk iphonesimulator
+#- SwiftCov/swiftcov generage --output coverage xcodebuild test -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS -configuration Release -sdk iphonesimulator
 - pod lib lint --quick
 
-after_success:
-- bash <(curl -s https://codecov.io/bash)
+#after_success:
+#- bash <(curl -s https://codecov.io/bash)

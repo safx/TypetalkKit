@@ -1,0 +1,9 @@
+test:
+  override:
+    - sudo chown :wheel /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ *.simruntime/Contents/Resources/RuntimeRoot/usr/lib/dyld_sim
+    - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-OSX build -sdk macosx10.10
+    - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test  -sdk iphonesimulator
+    - swiftcov generate --output coverage --threshold 0 xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test -sdk iphonesimulator -- ./Source/*/*.swift
+
+  post:
+    - bash <(curl -s https://codecov.io/bash)
