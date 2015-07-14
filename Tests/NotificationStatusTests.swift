@@ -12,7 +12,7 @@ import TypetalkKit
 class NotificationStatusTests: XCTestCase {
     
     func testExample() {
-        let model = NotificationStatus(data: json("model_notification_status"))
+        let model = try! NotificationStatus.parseJSON(json("model_notification_status"))
         
         XCTAssertEqual(model.mention!.unread!, 1)
         XCTAssertEqual(model.access!.unopened!, 1)

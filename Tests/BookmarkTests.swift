@@ -13,7 +13,7 @@ import TypetalkKit
 class BookmarkTests: XCTestCase {
     
     func testExample() {
-        let model = Bookmark(data: json("model_bookmark"))
+        let model = try! Bookmark.parseJSON(json("model_bookmark"))
         
         XCTAssertEqual(model.postId, 304)
         XCTAssertEqual(model.updatedAt.description, "2014-07-25 03:38:34 +0000")

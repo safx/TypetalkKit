@@ -41,7 +41,7 @@ public class Client {
     public var accessToken: String? {
         return oauth2.accessToken
     }
-    public func setDeveloperSettings(#clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
+    public func setDeveloperSettings(clientId clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
         return oauth2.setDeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
     }
     public func restoreTokenFromAccountStore() -> Bool {
@@ -94,171 +94,171 @@ public class Client {
 extension Client {
     public func getProfile(completion: GetProfileCompletionClosure) {
         _request(Router.GetProfile)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetProfileResponse?, completion)
     }
 
     public func getTopics(completion: GetTopicsCompletionClosure) {
         _request(Router.GetTopics)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTopicsResponse?, completion)
     }
 
     public func getMessages(topicId: TopicID, count: Int?, from: PostID?, direction: MessageDirection?, completion: GetMessagesCompletionClosure) {
         let form = GetMessagesForm(count: count, from: from, direction: direction)
         _request(Router.GetMessages(topicId, form))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetMessagesResponse?, completion)
     }
 
-    public func postMessage(topicId: TopicID, message: String, replyTo: PostID?, fileKeys: [String], talkIds: [TalkID], completion: PostMessagesCompletionClosure) {
+    public func postMessage(topicId: TopicID, message: String, replyTo: PostID?, fileKeys: [String], talkIds: [TalkID], completion: PostMessageCompletionClosure) {
         let form = PostMessageForm(message: message, replyTo: replyTo, fileKeys: fileKeys, talkIds: talkIds)
         _request(Router.PostMessage(topicId, form))?
-            .responseObject(_do(completion))
+            .responseObject(nil as PostMessageResponse?, completion)
     }
 
     public func uploadAttachment(topicId: TopicID, fileName: String, fileContent: NSData, completion: UploadAttachmentCompletionClosure) {
         _upload(Router.UploadAttachment(topicId), fileName: fileName, fileContent: fileContent)?
-            .responseObject(_do(completion))
+            .responseObject(nil as UploadAttachmentResponse?, completion)
     }
 
     public func getTopicMembers(topicId: TopicID, completion: GetTopicMembersCompletionClosure) {
         _request(Router.GetTopicMembers(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTopicMembersResponse?, completion)
     }
 
     public func getMessage(topicId: TopicID, postId: PostID, completion: GetMessageCompletionClosure) {
         _request(Router.GetMessage(topicId, postId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetMessageResponse?, completion)
     }
 
     public func deleteMessage(topicId: TopicID, postId: PostID, completion: DeleteMessageCompletionClosure) {
         _request(Router.DeleteMessage(topicId, postId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as DeleteMessageResponse?, completion)
     }
 
     public func likeMessage(topicId: TopicID, postId: PostID, completion: LikeMessageCompletionClosure) {
         _request(Router.LikeMessage(topicId, postId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as LikeMessageResponse?, completion)
     }
 
     public func unlikeMessage(topicId: TopicID, postId: PostID, completion: UnlikeMessageCompletionClosure) {
         _request(Router.UnlikeMessage(topicId, postId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as UnlikeMessageResponse?, completion)
     }
 
     public func favoriteTopic(topicId: TopicID, completion: FavoriteTopicCompletionClosure) {
         _request(Router.FavoriteTopic(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as FavoriteTopicResponse?, completion)
     }
 
     public func unfavoriteTopic(topicId: TopicID, completion: UnfavoriteTopicCompletionClosure) {
         _request(Router.UnfavoriteTopic(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as UnfavoriteTopicResponse?, completion)
     }
 
     public func getNotifications(completion: GetNotificationsCompletionClosure) {
         _request(Router.GetNotifications)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetNotificationsResponse?, completion)
     }
 
     public func getNotificationStatus(completion: GetNotificationStatusCompletionClosure) {
         _request(Router.GetNotificationStatus)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetNotificationStatusResponse?, completion)
     }
 
     public func openNotification(completion: OpenNotificationCompletionClosure) {
         _request(Router.OpenNotification)?
-            .responseObject(_do(completion))
+            .responseObject(nil as OpenNotificationResponse?, completion)
     }
 
     public func saveReadTopic(topicId: TopicID, postId: PostID?, completion: SaveReadTopicCompletionClosure) {
         _request(Router.SaveReadTopic(topicId, postId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as SaveReadTopicResponse?, completion)
     }
 
     public func getMentions(from: MentionID?, unread: Bool?, completion: GetMentionsCompletionClosure) {
         _request(Router.GetMentions(from, unread))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetMentionsResponse?, completion)
     }
 
     public func saveReadMention(mentionId: MentionID, completion: SaveReadMentionCompletionClosure) {
         _request(Router.SaveReadMention(mentionId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as SaveReadMentionResponse?, completion)
     }
 
     public func acceptTeamInvite(teamId: TeamID, inviteId: InviteID, completion: AcceptTeamInviteCompletionClosure) {
         _request(Router.AcceptTeamInvite(teamId, inviteId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as AcceptTeamInviteResponse?, completion)
     }
 
     public func declineTeamInvite(teamId: TeamID, inviteId: InviteID, completion: DeclineTeamInviteCompletionClosure) {
         _request(Router.DeclineTeamInvite(teamId, inviteId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as DeclineTeamInviteResponse?, completion)
     }
 
     public func acceptTopicInvite(teamId: TopicID, inviteId: InviteID, completion: AcceptTopicInviteCompletionClosure) {
         _request(Router.AcceptTopicInvite(teamId, inviteId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as AcceptTopicInviteResponse?, completion)
     }
 
     public func declineTopicInvite(teamId: TopicID, inviteId: InviteID, completion: DeclineTopicInviteCompletionClosure) {
         _request(Router.DeclineTopicInvite(teamId, inviteId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as DeclineTopicInviteResponse?, completion)
     }
 
     public func createTopic(name: String, teamId: TeamID?, inviteMembers: [String], inviteMessage: String, completion: CreateTopicCompletionClosure) {
         let form = CreateTopicForm(name: name, teamId: teamId, inviteMembers: inviteMembers, inviteMessage: inviteMessage)
         _request(Router.CreateTopic(form))?
-            .responseObject(_do(completion))
+            .responseObject(nil as CreateTopicResponse?, completion)
     }
 
     public func updateTopic(topicId: TopicID, name: String, teamId: TeamID?, completion: UpdateTopicCompletionClosure) {
         _request(Router.UpdateTopic(topicId, name, teamId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as UpdateTopicResponse?, completion)
     }
 
     public func deleteTopic(topicId: TopicID, completion: DeleteTopicCompletionClosure) {
         _request(Router.DeleteTopic(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as DeleteTopicResponse?, completion)
     }
 
     public func getTopicDetails(topicId: TopicID, completion: GetTopicDetailsCompletionClosure) {
         _request(Router.GetTopicDetails(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTopicDetailsResponse?, completion)
     }
 
     public func inviteTopicMember(topicId: TopicID, inviteName: [String], inviteMessage: String, completion: InviteTopicMemberCompletionClosure) {
         _request(Router.InviteTopicMember(topicId, inviteName, inviteMessage))?
-            .responseObject(_do(completion))
+            .responseObject(nil as InviteTopicMemberResponse?, completion)
     }
 
     public func removeTopicMember(topicId: TopicID, removeInviteIds: [InviteID], removeMemberIds: [AccountID], completion: RemoveTopicMemberCompletionClosure) {
         _request(Router.RemoveTopicMember(topicId, removeInviteIds, removeMemberIds))?
-            .responseObject(_do(completion))
+            .responseObject(nil as RemoveTopicMemberResponse?, completion)
     }
 
     public func getTeams(completion: GetTeamsCompletionClosure) {
         _request(Router.GetTeams)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTeamsResponse?, completion)
     }
 
     public func getFriends(completion: GetFriendsCompletionClosure) {
         _request(Router.GetFriends)?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetFriendsResponse?, completion)
     }
 
     public func searchAccounts(nameOrEmailAddress: String, completion: SearchAccountsCompletionClosure) {
         _request(Router.SearchAccounts(nameOrEmailAddress))?
-            .responseObject(_do(completion))
+            .responseObject(nil as SearchAccountsResponse?, completion)
     }
 
     public func getTalks(topicId: TopicID, completion: GetTalksCompletionClosure) {
         _request(Router.GetTalks(topicId))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTalksResponse?, completion)
     }
 
     public func getTalk(topicId: TopicID, talkId: TalkID, count: Int?, from: PostID?, direction: MessageDirection?, completion: GetTalkCompletionClosure) {
         let form = GetTalkForm(count: count, from: from, direction: direction)
         _request(Router.GetTalk(topicId, talkId, form))?
-            .responseObject(_do(completion))
+            .responseObject(nil as GetTalkResponse?, completion)
     }
 
     public func downloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType?, completion: DownloadAttachmentCompletionClosure) {
@@ -273,9 +273,5 @@ extension Client {
             .response { (_, _, data, error) in
                 completion(data as? NSData, error)
             }
-    }
-
-    private func _do<T>(comp: (T?, NSError?) -> Void) -> ((NSURLRequest, NSHTTPURLResponse?, T?, NSError?) -> Void) {
-        return { (_, _, t, e) in comp(t, e) }
     }
 }

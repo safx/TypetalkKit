@@ -12,7 +12,7 @@ import TypetalkKit
 class TopicTests: XCTestCase {
     
     func testExample() {
-        let model = Topic(data: json("model_topic"))
+        let model = try! Topic.parseJSON(json("model_topic"))
         
         XCTAssertEqual(model.id, 207)
         XCTAssertEqual(model.name, "Art Directors")

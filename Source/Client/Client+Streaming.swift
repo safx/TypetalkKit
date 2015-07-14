@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import TypetalkKit
 import Starscream
 
 
@@ -17,7 +16,7 @@ public typealias AddTalkPostEvent                = TalkPost
 public typealias CancelTopicInviteEvent          = AcceptTopicInviteResponse
 public typealias CreateTalkEvent                 = TalkPost
 public typealias CreateTopicEvent                = TopicWithUserInfo
-public typealias DeclineTeamInviteEvent          = AcceptTeamInviteResponse
+public typealias DeclineTeamInviteEvent          = DeclineTeamInviteResponse
 public typealias DeclineTopicInviteEvent         = AcceptTopicInviteResponse
 public typealias DeleteMessageEvent              = PostMessageResponse
 public typealias DeleteTalkEvent                 = TalkPost
@@ -31,8 +30,8 @@ public typealias PostMessageEvent                = PostMessageResponse
 //public typealias PostLinksEvent
 public typealias ReadMentionEvent                = SaveReadMentionResponse
 public typealias RemoveTalkPostEvent             = TalkPost
-public typealias RequestTeamInviteEvent          = TeamInvite
-public typealias RequestTopicInviteEvent         = TopicInvite
+public typealias RequestTeamInviteEvent          = Invite // TeamInvite
+public typealias RequestTopicInviteEvent         = Invite // TopicInvite
 public typealias SaveBookmarkEvent               = SaveReadTopicResponse
 public typealias UnfavoriteTopicEvent            = TopicWithUserInfo // FIXME: unread should be omitted.
 public typealias UnlikeMessageEvent              = LikeMessageResponse
@@ -76,35 +75,35 @@ public enum StreamingEvent {
 
     case Unknown(String, [String:AnyObject])
 
-    init(type: String, data:[String:AnyObject]) {
-               if type == "acceptTeamInvite"         { self = .AcceptTeamInvite(AcceptTeamInviteEvent(data: data))
-        } else if type == "acceptTopicInvite"        { self = .AcceptTopicInvite(AcceptTopicInviteEvent(data: data))
-        } else if type == "addTalkPost"              { self = .AddTalkPost(AddTalkPostEvent(data: data))
-        } else if type == "cancelTopicInvite"        { self = .CancelTopicInvite(CancelTopicInviteEvent(data: data))
-        } else if type == "createTalk"               { self = .CreateTalk(CreateTalkEvent(data: data))
-        } else if type == "createTopic"              { self = .CreateTopic(CreateTopicEvent(data: data))
-        } else if type == "declineTeamInvite"        { self = .DeclineTeamInvite(DeclineTeamInviteEvent(data: data))
-        } else if type == "declineTopicInvite"       { self = .DeclineTopicInvite(DeclineTopicInviteEvent(data: data))
-        } else if type == "deleteTalk"               { self = .DeleteTalk(DeleteTalkEvent(data: data))
-        } else if type == "deleteTopic"              { self = .DeleteTopic(DeleteTopicEvent(data: data))
-        } else if type == "deleteMessage"            { self = .DeleteMessage(DeleteMessageEvent(data: data))
-        } else if type == "favoriteTopic"            { self = .FavoriteTopic(FavoriteTopicEvent(data: data))
-        } else if type == "joinTopics"               { self = .JoinTopics(JoinTopicsEvent(data: data))
-        } else if type == "leaveTopics"              { self = .LeaveTopics(LeaveTopicsEvent(data: data))
-        } else if type == "likeMessage"              { self = .LikeMessage(LikeMessageEvent(data: data))
-        } else if type == "notifyMention"            { self = .NotifyMention(NotifyMentionEvent(data: data))
-        } else if type == "postMessage"              { self = .PostMessage(PostMessageEvent(data: data))
-        } else if type == "postLinks"                { self = .PostLinks(PostLinksEvent(data: data))
-        } else if type == "readMention"              { self = .ReadMention(ReadMentionEvent(data: data))
-        } else if type == "removeTalkPost"           { self = .RemoveTalkPost(RemoveTalkPostEvent(data: data))
-        } else if type == "requestTeamInvite"        { self = .RequestTeamInvite(RequestTeamInviteEvent(data: data))
-        } else if type == "requestTopicInvite"       { self = .RequestTopicInvite(RequestTopicInviteEvent(data: data))
-        } else if type == "saveBookmark"             { self = .SaveBookmark(SaveBookmarkEvent(data: data))
-        } else if type == "updateNotificationAccess" { self = .UpdateNotificationAccess(UpdateNotificationAccessEvent(data: data))
-        } else if type == "unfavoriteTopic"          { self = .UnfavoriteTopic(UnfavoriteTopicEvent(data: data))
-        } else if type == "unlikeMessage"            { self = .UnlikeMessage(UnlikeMessageEvent(data: data))
-        } else if type == "updateTalk"               { self = .UpdateTalk(UpdateTalkEvent(data: data))
-        } else if type == "updateTopic"              { self = .UpdateTopic(UpdateTopicEvent(data: data))
+    init(type: String, data:[String:AnyObject]) throws {
+               if type == "acceptTeamInvite"         { self = .AcceptTeamInvite(try AcceptTeamInviteEvent.parseJSON(data))
+        } else if type == "acceptTopicInvite"        { self = .AcceptTopicInvite(try AcceptTopicInviteEvent.parseJSON(data))
+        } else if type == "addTalkPost"              { self = .AddTalkPost(try AddTalkPostEvent.parseJSON(data))
+        } else if type == "cancelTopicInvite"        { self = .CancelTopicInvite(try CancelTopicInviteEvent.parseJSON(data))
+        } else if type == "createTalk"               { self = .CreateTalk(try CreateTalkEvent.parseJSON(data))
+        } else if type == "createTopic"              { self = .CreateTopic(try CreateTopicEvent.parseJSON(data))
+        } else if type == "declineTeamInvite"        { self = .DeclineTeamInvite(try DeclineTeamInviteEvent.parseJSON(data))
+        } else if type == "declineTopicInvite"       { self = .DeclineTopicInvite(try DeclineTopicInviteEvent.parseJSON(data))
+        } else if type == "deleteTalk"               { self = .DeleteTalk(try DeleteTalkEvent.parseJSON(data))
+        } else if type == "deleteTopic"              { self = .DeleteTopic(try DeleteTopicEvent.parseJSON(data))
+        } else if type == "deleteMessage"            { self = .DeleteMessage(try DeleteMessageEvent.parseJSON(data))
+        } else if type == "favoriteTopic"            { self = .FavoriteTopic(try FavoriteTopicEvent.parseJSON(data))
+        } else if type == "joinTopics"               { self = .JoinTopics(try JoinTopicsEvent.parseJSON(data))
+        } else if type == "leaveTopics"              { self = .LeaveTopics(try LeaveTopicsEvent.parseJSON(data))
+        } else if type == "likeMessage"              { self = .LikeMessage(try LikeMessageEvent.parseJSON(data))
+        } else if type == "notifyMention"            { self = .NotifyMention(try NotifyMentionEvent.parseJSON(data))
+        } else if type == "postMessage"              { self = .PostMessage(try PostMessageEvent.parseJSON(data))
+        } else if type == "postLinks"                { self = .PostLinks(try PostLinksEvent.parseJSON(data))
+        } else if type == "readMention"              { self = .ReadMention(try ReadMentionEvent.parseJSON(data))
+        } else if type == "removeTalkPost"           { self = .RemoveTalkPost(try RemoveTalkPostEvent.parseJSON(data))
+        } else if type == "requestTeamInvite"        { self = .RequestTeamInvite(try RequestTeamInviteEvent.parseJSON(data))
+        } else if type == "requestTopicInvite"       { self = .RequestTopicInvite(try RequestTopicInviteEvent.parseJSON(data))
+        } else if type == "saveBookmark"             { self = .SaveBookmark(try SaveBookmarkEvent.parseJSON(data))
+        } else if type == "updateNotificationAccess" { self = .UpdateNotificationAccess(try UpdateNotificationAccessEvent.parseJSON(data))
+        } else if type == "unfavoriteTopic"          { self = .UnfavoriteTopic(try UnfavoriteTopicEvent.parseJSON(data))
+        } else if type == "unlikeMessage"            { self = .UnlikeMessage(try UnlikeMessageEvent.parseJSON(data))
+        } else if type == "updateTalk"               { self = .UpdateTalk(try UpdateTalkEvent.parseJSON(data))
+        } else if type == "updateTopic"              { self = .UpdateTopic(try UpdateTopicEvent.parseJSON(data))
         } else                                       { self = .Unknown(type, data) }
     }
 }
@@ -155,11 +154,16 @@ extension Client : WebSocketDelegate {
 
     public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         let jsondata = text.dataUsingEncoding(NSUnicodeStringEncoding)!
-        let json = NSJSONSerialization.JSONObjectWithData(jsondata, options: nil, error: nil) as! [String:AnyObject]
-        let type = json["type"] as? String
-        let data = json["data"] as? [String:AnyObject]
-        if type != nil && data != nil {
-            sendStreamEventIfPossible(StreamingEvent(type: type!, data: data!))
+        do {
+            let json = try NSJSONSerialization.JSONObjectWithData(jsondata, options: []) as! [String:AnyObject]
+            let type = json["type"] as? String
+            let data = json["data"] as? [String:AnyObject]
+            if type != nil && data != nil {
+                let ev = try StreamingEvent(type: type!, data: data!)
+                sendStreamEventIfPossible(ev)
+            }
+        } catch {
+            print(error)
         }
     }
 

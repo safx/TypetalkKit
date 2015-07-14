@@ -119,6 +119,7 @@
 		8D3B51251A7935A800F7B6A5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0610;
 				ORGANIZATIONNAME = "Safx Developers";
 				TargetAttributes = {

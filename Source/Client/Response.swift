@@ -31,7 +31,7 @@ extension Client {
   //public typealias GetMentionsResponse           = [Mention]
   //public typealias SaveReadMentionResponse       = Mention
   //public typealias AcceptTeamInviteResponse      = ([Topic], TeamInvite)
-    public typealias DeclineTeamInviteResponse     = TeamInvite
+    public typealias DeclineTeamInviteResponse     = Invite //TeamInvite
   //public typealias AcceptTopicInviteResponse     = TopicInvite
     public typealias DeclineTopicInviteResponse    = AcceptTopicInviteResponse
     public typealias CreateTopicResponse           = TopicWithAccounts
@@ -53,7 +53,7 @@ extension Client {
     public typealias GetProfileCompletionClosure                =  ((GetProfileResponse?            , NSError?) -> Void)
     public typealias GetTopicsCompletionClosure                 =  ((GetTopicsResponse?             , NSError?) -> Void)
     public typealias GetMessagesCompletionClosure               =  ((GetMessagesResponse?           , NSError?) -> Void)
-    public typealias PostMessagesCompletionClosure              =  ((PostMessageResponse?           , NSError?) -> Void)
+    public typealias PostMessageCompletionClosure               =  ((PostMessageResponse?           , NSError?) -> Void)
     public typealias UploadAttachmentCompletionClosure          =  ((UploadAttachmentResponse?      , NSError?) -> Void)
     public typealias GetTopicMembersCompletionClosure           =  ((GetTopicMembersResponse?       , NSError?) -> Void)
     public typealias GetMessageCompletionClosure                =  ((GetMessageResponse?            , NSError?) -> Void)

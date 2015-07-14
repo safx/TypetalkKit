@@ -33,7 +33,7 @@ public class ErrorResponse {
             case "error": name = v as! String
             case "error_description": desc = v as! String
             default:
-                println("ERROR: \(k) = \(v)") // FIXME
+                print("ERROR: \(k) = \(v)") // FIXME
             }
         }
 

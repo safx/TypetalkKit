@@ -60,7 +60,7 @@ public enum OAuth2Router : URLRequestConvertible {
     }
     
     public var URLRequest: NSURLRequest {
-        var request = NSMutableURLRequest(URL: (NSURL(string: OAuth2Router.baseURLString + path))!)
+        let request = NSMutableURLRequest(URL: (NSURL(string: OAuth2Router.baseURLString + path))!)
         request.HTTPMethod = method.rawValue
             
         return Alamofire.ParameterEncoding.URL.encode(request, parameters: parameters).0

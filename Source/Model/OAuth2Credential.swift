@@ -8,6 +8,23 @@
 
 import Foundation
 
+
+extension Scope {
+    public static func scopesFromRaw(raw: String) -> [Scope] {
+        var r: [Scope] = []
+        for i in raw.componentsSeparatedByString(",") {
+            if let val = Scope(rawValue: i) {
+                r.append(val)
+            }
+        }
+        return r
+    }
+
+    public static func scopesToRaw(values: [Scope]) -> String {
+        return ",".join(values.map({ $0.rawValue }))
+    }
+}
+
 public class OAuth2Credential : NSObject, NSCoding {
     public let accessToken: String
     public let tokenType: String
@@ -30,7 +47,7 @@ public class OAuth2Credential : NSObject, NSCoding {
             case "refresh_token": refreshToken = v as! String
             case "scope": scopes = Scope.scopesFromRaw(v as! String)
             default:
-                println("ERROR: \(k) = \(v)") // FIXME
+                print("ERROR: \(k) = \(v)") // FIXME
             }
         }
         self.accessToken = accessToken
@@ -40,7 +57,7 @@ public class OAuth2Credential : NSObject, NSCoding {
         self.scopes = scopes
     }
 
-    required public init(coder: NSCoder) {
+    required public init?(coder: NSCoder) {
         accessToken  = coder.decodeObjectForKey("accessToken") as! String
         refreshToken = coder.decodeObjectForKey("refreshToken") as! String
         expiryDate   = coder.decodeObjectForKey("expiryDate") as! NSDate

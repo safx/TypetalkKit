@@ -57,7 +57,7 @@ extension TypetalkKit.Router {
     public var URLRequestForTests: NSURLRequest {
         let bundle = NSBundle(forClass: ClientTests.self)
         let path = bundle.pathForResource("api_\(name)", ofType: "json")
-        var request = NSMutableURLRequest(URL: (NSURL(fileURLWithPath: path!))!)
+        let request = NSMutableURLRequest(URL: NSURL(fileURLWithPath: path!))
         return request
     }
 }

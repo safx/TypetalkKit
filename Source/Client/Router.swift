@@ -89,9 +89,9 @@ public enum Router : URLRequestConvertible {
         case .DownloadAttachment(let (topicId, postId, attachmentId, filename, _))
                                                           : return (.GET   , .topic_read  , "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)")
         case .DownloadAttachmentWithURL(let (url, _)):
-            let u = url.absoluteString!
+            let u = url.absoluteString
             assert(u.hasPrefix(Router.baseURLString))
-            let len = count(Router.baseURLString)
+            let len = Router.baseURLString.characters.count
             let s = u.substringFromIndex(advance(u.startIndex, len))
             return (.GET, .topic_read, "\(s)")
         case .Streaming                                   : return (.GET   , .topic_read  , "streaming")
@@ -121,13 +121,13 @@ public enum Router : URLRequestConvertible {
             return p
         case InviteTopicMember(let (_, inviteNames, inviteMessage)):
             var p: [String: AnyObject] = [:]
-            if count(inviteNames) > 0 { p["inviteMembers"] = inviteNames }
-            if count(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
+            if inviteNames.count > 0 { p["inviteMembers"] = inviteNames }
+            if inviteMessage.characters.count > 0 { p["inviteMessage"] = inviteMessage }
             return p
         case .RemoveTopicMember(let (_, removeInviteIds, removeMemberIds)):
             var p: [String: AnyObject] = [:]
-            if count(removeInviteIds) > 0 { p["removeInviteIds"] = removeInviteIds }
-            if count(removeMemberIds) > 0 { p["removeMemberIds"] = removeMemberIds }
+            if removeInviteIds.count > 0 { p["removeInviteIds"] = removeInviteIds }
+            if removeMemberIds.count > 0 { p["removeMemberIds"] = removeMemberIds }
             return p
         case .SearchAccounts(let nameOrEmailAddress):
             return ["nameOrEmailAddress": nameOrEmailAddress]
@@ -168,7 +168,7 @@ public enum Router : URLRequestConvertible {
     }
 
     public var URLRequest: NSURLRequest {
-        var request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)
+        let request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)
         request.HTTPMethod = method.rawValue
 
         if parameters.isEmpty { return request }
@@ -176,7 +176,7 @@ public enum Router : URLRequestConvertible {
     }
 
     public func URLRequest(OAuth2Token: String) -> NSURLRequest {
-        var request = URLRequest.mutableCopy() as! NSMutableURLRequest
+        let request = URLRequest.mutableCopy() as! NSMutableURLRequest
         request.setValue("Bearer \(OAuth2Token)", forHTTPHeaderField: "Authorization")
         return request
     }
@@ -199,11 +199,11 @@ public enum Router : URLRequestConvertible {
         let tail = ["\r\n--\(boundary)--\r\n"]
 
         let formData = NSMutableData()
-        map(head) { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        head.map { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
         formData.appendData(fileContent)
-        map(tail) { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        tail.map { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
 
-        var request = URLRequest(OAuth2Token).mutableCopy() as! NSMutableURLRequest
+        let request = URLRequest(OAuth2Token).mutableCopy() as! NSMutableURLRequest
         assert(request.HTTPMethod == "POST")
 
         request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
@@ -212,17 +212,6 @@ public enum Router : URLRequestConvertible {
 
         return request
     }
-}
-
-public enum MessageDirection: String {
-    case Backward = "backward"
-    case Forward  = "forward"
-}
-
-public enum AttachmentType: String {
-    case Small  = "small"
-    case Medium = "medium"
-    case Large  = "large"
 }
 
 public struct GetMessagesForm {
@@ -260,8 +249,8 @@ public struct PostMessageForm {
     private func toObject() -> [String: AnyObject] {
         var p: [String: AnyObject] = [ "message": message ]
         replyTo.map { p["replyTo"] = $0 }
-        if count(fileKeys) > 0 { p["fileKeys"] = fileKeys }
-        if count(talkIds) > 0 { p["talkIds"] = talkIds }
+        if fileKeys.count > 0 { p["fileKeys"] = fileKeys }
+        if talkIds.count > 0 { p["talkIds"] = talkIds }
         return p
     }
 }
@@ -281,8 +270,8 @@ public struct CreateTopicForm {
     private func toObject() -> [String: AnyObject] {
         var p: [String: AnyObject] = [ "name": name ]
         teamId.map { p["teamId"] = $0 }
-        if count(inviteMembers) > 0 { p["inviteMembers"] = inviteMembers }
-        if count(inviteMessage) > 0 { p["inviteMessage"] = inviteMessage }
+        if inviteMembers.count > 0 { p["inviteMembers"] = inviteMembers }
+        if inviteMessage.characters.count > 0 { p["inviteMessage"] = inviteMessage }
         return p
     }
 }

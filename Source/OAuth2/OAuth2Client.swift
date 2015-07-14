@@ -30,9 +30,9 @@ public class OAuth2Client {
     private var _settings: DeveloperSettings = DeveloperSettings(clientId: "", clientSecret: "", redirectURI: "", scopes: [])
     public var settings: DeveloperSettings { return _settings }
     public var isInitialized: Bool {
-        return _settings.clientId != "" && _settings.clientSecret != "" && _settings.redirectURI != "" && count(_settings.scopes) > 0
+        return _settings.clientId != "" && _settings.clientSecret != "" && _settings.redirectURI != "" && _settings.scopes.count > 0
     }
-    public func setDeveloperSettings(#clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
+    public func setDeveloperSettings(clientId clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
         if isInitialized { return false }
         _settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
         return true
@@ -71,7 +71,7 @@ public class OAuth2Client {
     }
 
     public func isRedirectURL(url: NSURL) -> Bool {
-        let absurl = url.absoluteString!
+        let absurl = url.absoluteString
         return absurl.hasPrefix(_settings.redirectURI)
     }
 
@@ -92,10 +92,10 @@ public class OAuth2Client {
         var dic: [String:String] = [:]
         if let q = url.query {
             let ss = q.componentsSeparatedByString("&")
-            for s in ss {
+            for _ in ss {
                 let kv = q.componentsSeparatedByString("=")
-                switch count(kv) {
-                case 0: let nothing = 0
+                switch kv.count {
+                case 0: break
                 case 1: dic[kv[0]] = ""
                 case 2: dic[kv[0]] = kv[1]
                 default: dic[kv[0]] = kv[1] // FIXME

@@ -12,7 +12,7 @@ import TypetalkKit
 class TopicWithUserInfoTests: XCTestCase {
 
     func testExample() {
-        let model = TopicWithUserInfo(data: json("model_topic_with_userinfo"))
+        let model = try! TopicWithUserInfo.parseJSON(json("model_topic_with_userinfo"))
         
         XCTAssertEqual(model.topic.id, 202)
         XCTAssertEqual(model.topic.name, "Arts & Crafts Club")

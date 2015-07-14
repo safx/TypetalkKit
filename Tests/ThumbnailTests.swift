@@ -12,7 +12,7 @@ import TypetalkKit
 class ThumbnailTests: XCTestCase {
     
     func testExample() {
-        let model = Thumbnail(data: json("model_thumbnail"))
+        let model = try! Thumbnail.parseJSON(json("model_thumbnail"))
         
         XCTAssertEqual(model.type.rawValue, "small")
         XCTAssertEqual(model.fileSize, 10439)

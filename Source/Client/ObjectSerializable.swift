@@ -8,22 +8,30 @@
 
 import Foundation
 import Alamofire
-import JSONHelper
 
 public let ERROR_DOMAIN = "ErrorDomain.TypetalkKit"
 
-@objc public protocol ObjcBase {}
 
 extension Alamofire.Request {
-    public func responseObject<T where T: ObjcBase, T: Deserializable>(completionHandler: (NSURLRequest, NSHTTPURLResponse?, T?, NSError?) -> Void) -> Self {
-        let serializer: Serializer = objectResponseSerializer(nil as T?)
+    public func responseObject<T where T: JSONDecodable>(_: T?, _ completionHandler: (T.DecodedType?, NSError?) -> Void) {
+        let serializer = objectResponseSerializer()
 
-        return response(serializer: serializer, completionHandler: { (request, response, object, error) in
-            completionHandler(request, response, object as? T, error)
+        response(serializer: serializer, completionHandler: { (request, response, jsonObject, err) in
+            guard let j = jsonObject as? [String: AnyObject] else {
+                completionHandler(nil, err)
+                return
+            }
+
+            do {
+                let obj = try T.parseJSON(j)
+                completionHandler(obj, nil)
+            } catch {
+                completionHandler(nil, nil) // FIXME: NSError
+            }
         })
     }
 
-    private func objectResponseSerializer<T where T: ObjcBase, T: Deserializable>(_: T?) -> Request.Serializer {
+    private func objectResponseSerializer() -> Request.Serializer {
         return { (request, response, data) in
             if let r = response {
                 let statusCode = r.statusCode
@@ -34,10 +42,9 @@ extension Alamofire.Request {
             }
 
             let JSONSerializer = Request.JSONResponseSerializer(options: .AllowFragments)
-            let (JSON: AnyObject?, serializationError) = JSONSerializer(request, response, data)
+            let (JSON, serializationError) = JSONSerializer(request, response, data)
             if JSON != nil {
-                let obj = T(data: JSON as! [String: AnyObject])
-                return (obj, nil)
+                return (JSON, nil)
             } else {
                 return (nil, serializationError)
             }

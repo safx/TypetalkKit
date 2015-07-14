@@ -12,7 +12,7 @@ import TypetalkKit
 class TopicWithAccountsTests: XCTestCase {
     
     func testExample() {
-        let model = TopicWithAccounts(data: json("model_topic_with_accounts"))
+        let model = try! TopicWithAccounts.parseJSON(json("model_topic_with_accounts"))
         
         XCTAssertEqual(model.topic.id, 208)
         XCTAssertEqual(model.topic.name, "IT Peeps")
@@ -21,13 +21,13 @@ class TopicWithAccountsTests: XCTestCase {
         XCTAssertEqual(model.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
         XCTAssertEqual(model.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-        XCTAssertEqual(count(model.teams), 1)
-        XCTAssertEqual(count(model.accounts), 2)
+        XCTAssertEqual((model.teams).count, 1)
+        XCTAssertEqual((model.accounts).count, 2)
 
-        XCTAssertEqual(count(model.invites), 2)
+        XCTAssertEqual((model.invites).count, 2)
         let last = model.invites[1]
         XCTAssertEqual(last.id, 603)
-        XCTAssertNil(last.account)
+        XCTAssertTrue(nil == last.account)
         XCTAssertEqual(last.mailAddress!, "typetalk@example.com")
         XCTAssertEqual(last.status, "decline")
     }

@@ -27,7 +27,7 @@ public class OAuth2AccountStore {
         attrs[kSecReturnAttributes as String] = kCFBooleanTrue
 
         var result: AnyObject?
-        var status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
 
         if status == OSStatus(errSecSuccess) {
             let q = result as! NSDictionary
@@ -51,7 +51,7 @@ public class OAuth2AccountStore {
         attrs[kSecAttrGeneric as String] = NSKeyedArchiver.archivedDataWithRootObject(credential)
 
         var result: AnyObject?
-        var status = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
 
         if status != OSStatus(errSecDuplicateItem) {
             return status == OSStatus(errSecSuccess)

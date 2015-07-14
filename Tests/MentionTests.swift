@@ -12,7 +12,7 @@ import TypetalkKit
 class MentionTests: XCTestCase {
     
     func testExample() {
-        let model = Mention(data: json("model_mention"))
+        let model = try! Mention.parseJSON(json("model_mention"))
         
         XCTAssertEqual(model.id, 501)
         XCTAssertEqual(model.readAt!.description, "2014-07-25 03:38:52 +0000")
@@ -31,7 +31,7 @@ class MentionTests: XCTestCase {
         XCTAssertEqual(model.post!.account.name, "moss")
         XCTAssertEqual(model.post!.account.fullName, "Moss")
         XCTAssertEqual(model.post!.account.suggestion, "Moss")
-        XCTAssertEqual(model.post!.account.imageUrl.absoluteString!, "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000")
+        XCTAssertEqual(model.post!.account.imageUrl.absoluteString, "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000")
         XCTAssertEqual(model.post!.account.createdAt.description, "2014-06-26 02:32:29 +0000")
         XCTAssertEqual(model.post!.account.updatedAt.description, "2014-06-26 02:32:29 +0000")
         XCTAssertEqual(model.post!.attachments.count, 0)

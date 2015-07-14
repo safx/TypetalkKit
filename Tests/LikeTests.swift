@@ -12,7 +12,7 @@ import TypetalkKit
 class LikeTests: XCTestCase {
     
     func testExample() {
-        let model = Like(data: json("model_like"))
+        let model = try! Like.parseJSON(json("model_like"))
         
         XCTAssertEqual(model.id, 400)
         XCTAssertEqual(model.postId, 302)
@@ -22,7 +22,7 @@ class LikeTests: XCTestCase {
         XCTAssertEqual(model.account!.name, "jessica")
         XCTAssertEqual(model.account!.fullName, "Jessica Fitzherbert")
         XCTAssertEqual(model.account!.suggestion, "Jessica Fitzherbert")
-        XCTAssertEqual(model.account!.imageUrl.absoluteString!, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
+        XCTAssertEqual(model.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
         XCTAssertEqual(model.account!.createdAt.description, "2014-06-24 02:32:29 +0000")
         XCTAssertEqual(model.account!.updatedAt.description, "2014-06-24 02:32:29 +0000")
     }

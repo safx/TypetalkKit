@@ -12,7 +12,7 @@ import TypetalkKit
 class TalkMessagesTests: XCTestCase {
     
     func testExample() {
-        let model = TalkMessages(data: json("model_talk_messages"))
+        let model = try! TalkMessages.parseJSON(json("model_talk_messages"))
         
         XCTAssertEqual(model.topic.id, 208)
         XCTAssertEqual(model.topic.name, "IT Peeps")
@@ -27,7 +27,7 @@ class TalkMessagesTests: XCTestCase {
         XCTAssertEqual(model.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
         XCTAssertEqual(model.talk.updatedAt.description, "2014-07-02 03:52:29 +0000")
 
-        XCTAssertEqual(count(model.posts), 2)
+        XCTAssertEqual((model.posts).count, 2)
 
         XCTAssertEqual(model.hasNext, false)
     }
