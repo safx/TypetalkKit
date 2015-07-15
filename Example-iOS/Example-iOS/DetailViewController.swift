@@ -24,8 +24,8 @@ class DetailViewController: UITableViewController {
         
         Client.sharedClient.streaming { event in
             switch event {
-            case .Connected             : println("connected")
-            case .Disconnected(let err) : println("disconnected: \(err)")
+            case .Connected             : print("connected")
+            case .Disconnected(let err) : print("disconnected: \(err)")
             case .PostMessage(let res)  : self.appendNewPost(res.post!)
             default: ()
             }
@@ -38,12 +38,12 @@ class DetailViewController: UITableViewController {
     }
 
     func getMessages() {
-        if let topic = detailItem? {
+        if let topic = detailItem {
             let topicid = topic.topic.id
             Client.sharedClient.getMessages(topicid, count: nil, from: nil, direction: nil) { (messages, error) -> Void in
                 if error != nil {
                     // TODO
-                } else if let ms = messages? {
+                } else if let ms = messages {
                     self.posts = ms.posts
                     self.tableView.reloadData()
                 }
@@ -63,7 +63,7 @@ class DetailViewController: UITableViewController {
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let m = posts[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as MessageCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
         cell.model = m
         return cell
     }

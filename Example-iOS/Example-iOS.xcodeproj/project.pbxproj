@@ -287,6 +287,7 @@
 					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = "Example-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Example-iOS";
 			};
@@ -301,6 +302,7 @@
 					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
 				);
 				INFOPLIST_FILE = "Example-iOS/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "Example-iOS";
 			};

@@ -32,16 +32,16 @@ class MessageCell: UITableViewCell {
             dateFormatter.dateFormat = NSLocalizedString("MMM d yyyy", comment:"file date time (this format uses Unicode standard)")
             lastUpdate.text = dateFormatter.stringFromDate(model!.updatedAt)
 
-            let url = model!.account.imageUrl.absoluteString!
+            let url = model!.account.imageUrl.absoluteString
             let data = MessageCell._cache.objectForKey(url) as? NSData
             if data != nil {
                 self.accountImage.image = UIImage(data: data!)
             } else {
-                Alamofire.request(.GET, url)
+                Alamofire.request(.GET, URLString: url)
                          .response { (request, response, data, error) in
                             if error == nil {
                                 MessageCell._cache.setObject(data!, forKey: url)
-                                self.accountImage.image = UIImage(data: data as NSData)
+                                self.accountImage.image = UIImage(data: data as! NSData)
                             }
                 }
             }
