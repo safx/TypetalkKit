@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:IDL/IDL.xcodeproj">
+      location = "group:iOSExample/../TypetalkKit.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:iOSExample/../TypetalkKit.xcodeproj">
+      location = "group:IDL/IDL.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Example-iOS/Example-iOS.xcodeproj">

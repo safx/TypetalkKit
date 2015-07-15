@@ -9,14 +9,12 @@
 /* Begin PBXBuildFile section */
 		8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
 		8D39219119E57D2F006AA247 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D39219019E57D2F006AA247 /* Response.swift */; };
-		8D3B882D1B53FD490064C29F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882C1B53FD490064C29F /* Model.swift */; };
 		8D3B88301B5405C00064C29F /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882E1B5405C00064C29F /* JSONDecodable.swift */; };
 		8D3B88311B5405C00064C29F /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882F1B5405C00064C29F /* JSONEncodable.swift */; };
 		8D3B88321B5406680064C29F /* Client+Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47DBB11A8CC6D800201315 /* Client+Streaming.swift */; };
 		8D3B88331B5406680064C29F /* Client+Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47DBB11A8CC6D800201315 /* Client+Streaming.swift */; };
 		8D3B88341B553B680064C29F /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882E1B5405C00064C29F /* JSONDecodable.swift */; };
 		8D3B88351B553B680064C29F /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882F1B5405C00064C29F /* JSONEncodable.swift */; };
-		8D3B88361B553B680064C29F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882C1B53FD490064C29F /* Model.swift */; };
 		8D4218941AA21138009D2077 /* streaming-acceptTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */; };
 		8D4218951AA21138009D2077 /* streaming-acceptTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */; };
 		8D4218961AA21138009D2077 /* streaming-cancelTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218911AA21138009D2077 /* streaming-cancelTopicInvite.json */; };
@@ -26,6 +24,8 @@
 		8D42189A1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218931AA21138009D2077 /* streaming-requestTopicInvite.json */; };
 		8D42189B1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218931AA21138009D2077 /* streaming-requestTopicInvite.json */; };
 		8D451C4319DAFB16001611AD /* ErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D451C4219DAFB16001611AD /* ErrorResponse.swift */; };
+		8D4785371B56A33600B37898 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785361B56A33600B37898 /* Model.swift */; };
+		8D47853C1B56A33900B37898 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785361B56A33600B37898 /* Model.swift */; };
 		8D47DBAF1A8CBFA000201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBA81A8CBF8600201315 /* Starscream.framework */; };
 		8D47DBB01A8CBFAC00201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBAC1A8CBF8600201315 /* Starscream.framework */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
@@ -381,7 +381,6 @@
 /* Begin PBXFileReference section */
 		8D08E37119E0157B004F7CBC /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		8D39219019E57D2F006AA247 /* Response.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
-		8D3B882C1B53FD490064C29F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8D3B882E1B5405C00064C29F /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
 		8D3B882F1B5405C00064C29F /* JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodable.swift; sourceTree = "<group>"; };
 		8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-acceptTopicInvite.json"; sourceTree = "<group>"; };
@@ -389,6 +388,7 @@
 		8D4218921AA21138009D2077 /* streaming-declineTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-declineTopicInvite.json"; sourceTree = "<group>"; };
 		8D4218931AA21138009D2077 /* streaming-requestTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-requestTopicInvite.json"; sourceTree = "<group>"; };
 		8D451C4219DAFB16001611AD /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
+		8D4785361B56A33600B37898 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8D47DB9B1A8CBF8600201315 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = External/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		8D47DBB11A8CC6D800201315 /* Client+Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Streaming.swift"; sourceTree = "<group>"; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
@@ -586,12 +586,19 @@
 			children = (
 				8D3B882E1B5405C00064C29F /* JSONDecodable.swift */,
 				8D3B882F1B5405C00064C29F /* JSONEncodable.swift */,
-				8D3B882C1B53FD490064C29F /* Model.swift */,
+				8D08E37119E0157B004F7CBC /* Typealiases.swift */,
 				8D451C4219DAFB16001611AD /* ErrorResponse.swift */,
 				8D7E6DDB19D055C9004AAF35 /* OAuth2Credential.swift */,
-				8D08E37119E0157B004F7CBC /* Typealiases.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		8D7DA5CE1B56A2F8000C7A92 /* gen */ = {
+			isa = PBXGroup;
+			children = (
+				8D4785361B56A33600B37898 /* Model.swift */,
+			);
+			path = gen;
 			sourceTree = "<group>";
 		};
 		8D7E6DA919CD5032004AAF35 /* Products */ = {
@@ -630,6 +637,7 @@
 		8DBA516A19C5B47300BD88A3 /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				8D7DA5CE1B56A2F8000C7A92 /* gen */,
 				8DEF718319C9D95A00F179A6 /* Client */,
 				8D5C6E5019D83E470020BCA2 /* OAuth2 */,
 				8D6F3A8519F5609300DA5483 /* Model */,
@@ -1223,6 +1231,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D47853C1B56A33900B37898 /* Model.swift in Sources */,
 				8D9D18621A77D6AA00E3BCCF /* Router.swift in Sources */,
 				8D3B88321B5406680064C29F /* Client+Streaming.swift in Sources */,
 				8D9D18671A77D6B300E3BCCF /* OAuth2AccountStore.swift in Sources */,
@@ -1230,7 +1239,6 @@
 				8D9D18691A77D6B800E3BCCF /* OAuth2Credential.swift in Sources */,
 				8D9D18651A77D6B300E3BCCF /* OAuth2Client.swift in Sources */,
 				8D9D18641A77D6AA00E3BCCF /* ObjectSerializable.swift in Sources */,
-				8D3B88361B553B680064C29F /* Model.swift in Sources */,
 				8D9D18631A77D6AA00E3BCCF /* Response.swift in Sources */,
 				8D9D186B1A77D6B800E3BCCF /* Typealiases.swift in Sources */,
 				8D9D18611A77D6AA00E3BCCF /* Client.swift in Sources */,
@@ -1252,6 +1260,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D4785371B56A33600B37898 /* Model.swift in Sources */,
 				8D697A2419E40978006B6753 /* ObjectSerializable.swift in Sources */,
 				8D5C6E3C19D6FFD00020BCA2 /* OAuth2Client.swift in Sources */,
 				8D39219119E57D2F006AA247 /* Response.swift in Sources */,
@@ -1264,7 +1273,6 @@
 				8DEF718519C9D98B00F179A6 /* Client.swift in Sources */,
 				8D5C6E3819D6E4A30020BCA2 /* OAuth2Router.swift in Sources */,
 				8D7E6DDA19D04ABE004AAF35 /* OAuth2AccountStore.swift in Sources */,
-				8D3B882D1B53FD490064C29F /* Model.swift in Sources */,
 				8D7B031A19D45E67000A0F7C /* OAuth2Credential.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
