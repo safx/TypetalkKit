@@ -11,6 +11,7 @@
 		8D3B88271B53EC1D0064C29F /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B88261B53EC1D0064C29F /* Model.swift */; };
 		8D3B88291B53EC360064C29F /* IDLProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B88281B53EC360064C29F /* IDLProtocols.swift */; };
 		8D3B882B1B53ECC00064C29F /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D3B882A1B53ECC00064C29F /* Typealiases.swift */; };
+		8D47853E1B56A40100B37898 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47853D1B56A40100B37898 /* Router.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -20,6 +21,7 @@
 		8D3B88261B53EC1D0064C29F /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8D3B88281B53EC360064C29F /* IDLProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDLProtocols.swift; sourceTree = "<group>"; };
 		8D3B882A1B53ECC00064C29F /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		8D47853D1B56A40100B37898 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +54,7 @@
 		8D3B88171B53EBAD0064C29F /* IDL */ = {
 			isa = PBXGroup;
 			children = (
+				8D47853D1B56A40100B37898 /* Router.swift */,
 				8D3B88281B53EC360064C29F /* IDLProtocols.swift */,
 				8D3B88181B53EBAD0064C29F /* IDL.h */,
 				8D3B881A1B53EBAD0064C29F /* Info.plist */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8D47853E1B56A40100B37898 /* Router.swift in Sources */,
 				8D3B88271B53EC1D0064C29F /* Model.swift in Sources */,
 				8D3B88291B53EC360064C29F /* IDLProtocols.swift in Sources */,
 				8D3B882B1B53ECC00064C29F /* Typealiases.swift in Sources */,

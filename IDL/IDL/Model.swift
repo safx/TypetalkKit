@@ -10,18 +10,18 @@ import Foundation
 
 // MARK: - REST API
 
-public enum MessageDirection: String, JSONDecodable {
+public enum MessageDirection: String, JSONDecodable, JSONEncodable {
     case Backward = "backward"
     case Forward  = "forward"
 }
 
-public enum AttachmentType: String, JSONDecodable {
+public enum AttachmentType: String, JSONDecodable, JSONEncodable {
     case Small  = "small"
     case Medium = "medium"
     case Large  = "large"
 }
 
-public enum Scope: String, JSONDecodable {
+public enum Scope: String, JSONDecodable, JSONEncodable {
     case my = "my"
     case topic_read = "topic.read"
     case topic_post = "topic.post"

@@ -49,7 +49,7 @@ extension TypetalkKit.Router {
         case .GetTalk               : return "get-talk"
             
         case .DownloadAttachment       : return "get-talk" // whatever
-        case .DownloadAttachmentWithURL: return "get-talk" // whatever
+        //case .DownloadAttachmentWithURL: return "get-talk" // whatever
         default                        : return ""
         }
     }

@@ -12,6 +12,10 @@ public enum MessageDirection: String, JSONDecodable {
         }
         throw JSONDecodeError.ValueTranslationFailed(type: "MessageDirection")
     }
+
+    public func toJSON() -> String {
+        return rawValue
+    }
 }
 
 
@@ -25,6 +29,10 @@ public enum AttachmentType: String, JSONDecodable {
             return val
         }
         throw JSONDecodeError.ValueTranslationFailed(type: "AttachmentType")
+    }
+
+    public func toJSON() -> String {
+        return rawValue
     }
 }
 
@@ -41,6 +49,10 @@ public enum Scope: String, JSONDecodable {
             return val
         }
         throw JSONDecodeError.ValueTranslationFailed(type: "Scope")
+    }
+
+    public func toJSON() -> String {
+        return rawValue
     }
 }
 

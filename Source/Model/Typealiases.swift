@@ -17,6 +17,3 @@ public typealias TalkID  = Int
 public typealias TeamID  = Int
 public typealias TopicID = Int
 
-public typealias InviteName = String
-public typealias Message = String
-public typealias TopicName = String
