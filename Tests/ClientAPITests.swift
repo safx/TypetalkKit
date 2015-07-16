@@ -893,6 +893,38 @@ class ClientAPITests: XCTestCase {
         }
     }
 
+    func testCreateTalk() {
+        let expectation = expectationWithDescription("")
+
+        client.createTalk(0, talkName: "", postIds: []) { (response, error) -> Void in
+            if let r = response {
+                XCTAssertEqual(r.topic.id, 208)
+                XCTAssertEqual(r.topic.name, "IT Peeps")
+                XCTAssertEqual(r.topic.suggestion, "IT Peeps")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-05-21 06:30:49 +0000")
+                XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
+                XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
+
+                XCTAssertEqual(r.talk.id, 902)
+                XCTAssertEqual(r.talk.topicId, 208)
+                XCTAssertEqual(r.talk.name, "Feedback new design")
+                XCTAssertEqual(r.talk.suggestion, "Feedback new design")
+                XCTAssertEqual(r.talk.createdAt.description, "2015-05-21 06:31:07 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-05-21 06:31:07 +0000")
+
+                XCTAssertEqual(r.postIds.count, 2)
+                XCTAssertEqual(r.postIds[0], 300)
+                XCTAssertEqual(r.postIds[1], 301)
+
+                expectation.fulfill()
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
     func testDownloadAttachment() {
         let expectation = expectationWithDescription("")
         client.downloadAttachment(0, postId: 1, attachmentId: 2, filename: "aaaaaa", type: nil) { (response, error) -> Void in

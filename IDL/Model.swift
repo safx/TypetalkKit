@@ -317,12 +317,17 @@ public struct GetTeamsResponse: JSONDecodable {
 }
 
 public struct GetFriendsResponse: JSONDecodable {
-
     public let accounts: [Account]
 }
 
 public struct GetTalksResponse: JSONDecodable {
     public let talks: [Talk]
+}
+
+public struct CreateTalkResponse: JSONDecodable {
+    public let topic: Topic
+    public let talk: Talk
+    public let postIds: [PostID]
 }
 
 // MARK: - Event

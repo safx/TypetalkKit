@@ -257,6 +257,13 @@ extension Client {
             .responseObject(nil as GetTalkResponse?, completion)
     }
 
+    public func createTalk(topicId: TopicID, talkName: String, postIds: [Int], completion: CreateTalkCompletionClosure) {
+        _request(Router.CreateTalk(topicId: topicId, talkName: talkName, postIds: postIds))?
+            .responseObject(nil as CreateTalkResponse?, completion)
+    }
+
+
+
     public func downloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType?, completion: DownloadAttachmentCompletionClosure) {
         _request(Router.DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: type))?
             .response { (_, _, data, error) in

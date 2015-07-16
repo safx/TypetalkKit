@@ -3064,6 +3064,68 @@ public struct GetTalksResponse: JSONDecodable {
 }
 
 
+public struct CreateTalkResponse: JSONDecodable {
+    public let topic: Topic
+    public let talk: Talk
+    public let postIds: [PostID]
+
+    public static func parseJSON(data: AnyObject) throws -> CreateTalkResponse {
+        if !(data is NSDictionary) {
+            throw JSONDecodeError.TypeMismatch(key: "CreateTalkResponse", type: "NSDictionary")
+        }
+    
+        let topic: Topic
+        if let v: AnyObject = data["topic"] {
+            if v is NSNull {
+                throw JSONDecodeError.NonNullablle(key: "topic")
+            } else {
+                do {
+                    topic = try Topic.parseJSON(v)
+                } catch JSONDecodeError.ValueTranslationFailed {
+                    throw JSONDecodeError.TypeMismatch(key: "topic", type: "Topic")
+                }
+            }
+        } else {
+            throw JSONDecodeError.MissingKey(key: "topic")
+        }
+        
+        let talk: Talk
+        if let v: AnyObject = data["talk"] {
+            if v is NSNull {
+                throw JSONDecodeError.NonNullablle(key: "talk")
+            } else {
+                do {
+                    talk = try Talk.parseJSON(v)
+                } catch JSONDecodeError.ValueTranslationFailed {
+                    throw JSONDecodeError.TypeMismatch(key: "talk", type: "Talk")
+                }
+            }
+        } else {
+            throw JSONDecodeError.MissingKey(key: "talk")
+        }
+        
+        let postIds: [PostID]
+        if let v: AnyObject = data["postIds"] {
+            if v is NSNull {
+                throw JSONDecodeError.NonNullablle(key: "postIds")
+            } else {
+                do {
+                    postIds = try PostID.parseJSONArray(v)
+                } catch JSONDecodeError.NonNullablle {
+                    throw JSONDecodeError.NonNullablle(key: "postIds")
+                } catch JSONDecodeError.ValueTranslationFailed {
+                    throw JSONDecodeError.TypeMismatch(key: "postIds", type: "PostID")
+                }
+            }
+        } else {
+            throw JSONDecodeError.MissingKey(key: "postIds")
+        }
+        
+        return CreateTalkResponse(topic: topic, talk: talk, postIds: postIds)
+    }
+}
+
+
 public struct TalkPost: JSONDecodable {
     public let topic: Topic
     public let talk: Talk

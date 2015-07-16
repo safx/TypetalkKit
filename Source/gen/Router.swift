@@ -36,6 +36,7 @@ public enum Router: CustomStringConvertible {
     case SearchAccounts(nameOrEmailAddress: String)
     case GetTalks(topicId: TopicID)
     case GetTalk(topicId: TopicID, talkId: TalkID, count: Int?, from: PostID?, direction: MessageDirection?)
+    case CreateTalk(topicId: TopicID, talkName: String, postIds: [Int])
     case DownloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType?)
     case Streaming
 
@@ -74,6 +75,7 @@ public enum Router: CustomStringConvertible {
         case .SearchAccounts: return "GET"
         case .GetTalks: return "GET"
         case .GetTalk: return "GET"
+        case .CreateTalk: return "POST"
         case .DownloadAttachment: return "GET"
         case .Streaming: return "GET"
         }
@@ -113,6 +115,7 @@ public enum Router: CustomStringConvertible {
         case .SearchAccounts: return "search/accounts"
         case .GetTalks(let (topicId)): return "topics/\(topicId)/talks"
         case .GetTalk(let (topicId, talkId, _, _, _)): return "topics/\(topicId)/talks/\(talkId)/posts"
+        case .CreateTalk(let (topicId, _, _)): return "topics/\(topicId)/talks"
         case .DownloadAttachment(let (topicId, postId, attachmentId, filename, _)): return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
         case .Streaming: return "streaming"
         }
@@ -207,6 +210,8 @@ public enum Router: CustomStringConvertible {
             from.map { p["from"] = $0.toJSON() }
             direction.map { p["direction"] = $0.toJSON() }
             return p
+        case .CreateTalk(let (_, talkName, postIds)):
+            return ["talkName": talkName.toJSON(), "postIds": postIds.map { $0.toJSON() }]
         case .DownloadAttachment(let (_, _, _, _, type)):
             var p: [String: AnyObject] = [:]
             type.map { p["type"] = $0.toJSON() }
@@ -251,6 +256,7 @@ public enum Router: CustomStringConvertible {
         case .SearchAccounts(let v): return "SearchAccounts(nameOrEmailAddress=\(v.0))"
         case .GetTalks(let v): return "GetTalks(topicId=\(v.0))"
         case .GetTalk(let v): return "GetTalk(topicId=\(v.0), talkId=\(v.1), count=\(v.2), from=\(v.3), direction=\(v.4))"
+        case .CreateTalk(let v): return "CreateTalk(topicId=\(v.0), talkName=\(v.1), postIds=\(v.2))"
         case .DownloadAttachment(let v): return "DownloadAttachment(topicId=\(v.0), postId=\(v.1), attachmentId=\(v.2), filename=\(v.3), type=\(v.4))"
         case .Streaming: return "Streaming"
         }

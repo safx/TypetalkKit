@@ -35,6 +35,8 @@
 		8D4785571B57D17B00B37898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785561B57D17B00B37898 /* main.swift */; };
 		8D47DBAF1A8CBFA000201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBA81A8CBF8600201315 /* Starscream.framework */; };
 		8D47DBB01A8CBFAC00201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBAC1A8CBF8600201315 /* Starscream.framework */; };
+		8D5320971B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
+		8D5320981B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
 		8D5C5D651A6D290A003387DE /* ThumbnailTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C5D641A6D290A003387DE /* ThumbnailTests.swift */; };
 		8D5C5D661A6D2916003387DE /* model_thumbnail.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C5D621A6D28CB003387DE /* model_thumbnail.json */; };
@@ -413,6 +415,7 @@
 		8D4785561B57D17B00B37898 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8D47DB9B1A8CBF8600201315 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = External/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		8D47DBB11A8CC6D800201315 /* Client+Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Streaming.swift"; sourceTree = "<group>"; };
+		8D5320961B57FDC30093A538 /* api_create-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_create-talk.json"; sourceTree = "<group>"; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
 		8D57B3FE19C87E7F00E60736 /* model_topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic.json; sourceTree = "<group>"; };
 		8D5C5D621A6D28CB003387DE /* model_thumbnail.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_thumbnail.json; sourceTree = "<group>"; };
@@ -780,6 +783,7 @@
 				8DD221B01A90DA2400EA024C /* streaming-updateTopic.json */,
 				8D7B029D19D45DED000A0F7C /* api_accept-team-invite.json */,
 				8D7B029E19D45DED000A0F7C /* api_accept-topic-invite.json */,
+				8D5320961B57FDC30093A538 /* api_create-talk.json */,
 				8D7B029F19D45DED000A0F7C /* api_create-topic.json */,
 				8D7B02A019D45DED000A0F7C /* api_decline-team-invite.json */,
 				8D7B02A119D45DED000A0F7C /* api_decline-topic-invite.json */,
@@ -1159,6 +1163,7 @@
 				8DD221FD1A90DA3300EA024C /* api_open-notification.json in Resources */,
 				8D4218971AA21138009D2077 /* streaming-cancelTopicInvite.json in Resources */,
 				8DD221FF1A90DA3300EA024C /* api_remove-topic-member.json in Resources */,
+				8D5320981B57FDC30093A538 /* api_create-talk.json in Resources */,
 				8DD221F21A90DA3300EA024C /* api_get-notification-status.json in Resources */,
 				8DD222091A90DA3300EA024C /* model_topic.json in Resources */,
 				8DD221FC1A90DA3300EA024C /* api_like-message.json in Resources */,
@@ -1259,6 +1264,7 @@
 				8D7B02FD19D45DF5000A0F7C /* api_unlike-message.json in Resources */,
 				8D4218961AA21138009D2077 /* streaming-cancelTopicInvite.json in Resources */,
 				8DD221BF1A90DA2400EA024C /* streaming-deleteTopic.json in Resources */,
+				8D5320971B57FDC30093A538 /* api_create-talk.json in Resources */,
 				8DD221BD1A90DA2400EA024C /* streaming-deleteTalk.json in Resources */,
 				8D5C6E4519D800560020BCA2 /* model_mention.json in Resources */,
 				8D7B02F619D45DF5000A0F7C /* api_open-notification.json in Resources */,
@@ -1697,6 +1703,7 @@
 				8D47854E1B57D0DF00B37898 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8D9D185B1A77D54300E3BCCF /* Build configuration list for PBXNativeTarget "TypetalkKit-OSX" */ = {
 			isa = XCConfigurationList;

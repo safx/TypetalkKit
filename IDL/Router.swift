@@ -15,6 +15,7 @@ enum Router: URLRequestHelper, Printable {
                      count: Int?, from: PostID?, direction: MessageDirection?)
     case PostMessage(topicId: TopicID,                                                       // router:"POST,topics/\(topicId)"
                      message: String, replyTo: Int?, fileKeys: [String], talkIds: [TalkID])
+                    // TODO: attachments[0].fileUrl, attachments[0].fileName
     case UploadAttachment(topicId: TopicID)                                                  // router:"POST,topics/\(topicId)/attachments"
     case GetTopicMembers(topicId: TopicID)                                                   // router:",topics/\(topicId)/members/status"
     case GetMessage(topicId: TopicID, postId: PostID)                                        // router:",topics/\(topicId)/posts/\(postId)"
@@ -48,6 +49,7 @@ enum Router: URLRequestHelper, Printable {
     case GetTalks(topicId: TopicID)                                                          // router:",topics/\(topicId)/talks"
     case GetTalk(topicId: TopicID, talkId: TalkID,                                           // router:",topics/\(topicId)/talks/\(talkId)/posts"
                  count: Int?, from: PostID?, direction: MessageDirection?)
+    case CreateTalk(topicId: TopicID, talkName: String, postIds: [Int]                       // router:"POST,topics/\(topicId)/talks"
     case DownloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID,    // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
                             filename: String, type: AttachmentType?)
     case Streaming                                                                           // router:",streaming"

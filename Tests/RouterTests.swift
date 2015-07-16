@@ -11,20 +11,20 @@ import XCTest
 import TypetalkKit
 
 class RouterTests: XCTestCase {
-    
+
     func testGetProfile() {
         let req = Router.GetProfile.URLRequest("foobar")
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/profile")
         XCTAssertEqual(req.valueForHTTPHeaderField("Authorization")!, "Bearer foobar")
     }
-    
+
     func testGetTopics() {
         let req = Router.GetTopics.URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics")
     }
-    
+
     func testGetMessages() {
         let req = Router.GetMessages(topicId: 312, count: nil, from: nil, direction: nil).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
@@ -164,7 +164,7 @@ class RouterTests: XCTestCase {
         XCTAssertNotEqual(q.rangeOfString("topicId=345").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("postId=987").location, NSNotFound)
     }
-    
+
     func testGetMentions() {
         let req = Router.GetMentions(from: nil, unread: nil).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
@@ -204,13 +204,13 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/453/members/invite/796/accept")
     }
-    
+
     func testDeclineTopicInvite() {
         let req = Router.DeclineTopicInvite(topicId: 231, inviteId: 546).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/231/members/invite/546/decline")
     }
-    
+
     func testCreateTopic() {
         let req = Router.CreateTopic(name: "test topic", teamId: nil, inviteMembers: [], inviteMessage: "").URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
@@ -241,7 +241,7 @@ class RouterTests: XCTestCase {
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Yamada").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Tanaka").location, NSNotFound)
     }
-    
+
     func testUpdateTopic() {
         let req = Router.UpdateTopic(topicId: 3154, name: nil, teamId: nil).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "PUT")
@@ -366,6 +366,24 @@ class RouterTests: XCTestCase {
         let req = Router.GetTalk(topicId: 135, talkId: 468, count: nil, from: nil, direction: MessageDirection.Forward).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?direction=forward")
+    }
+
+    func testCreateTalk() {
+        let req = Router.CreateTalk(topicId: 135, talkName: "Sample!!!", postIds: []).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "POST")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/135/talks")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("talkName=Sample%21%21%21").location, NSNotFound)
+        XCTAssertEqual(q.rangeOfString("postIds%5B%5D=").location, NSNotFound)
+    }
+    func testCreateTalk2() {
+        let req = Router.CreateTalk(topicId: 965, talkName: "SampleTalk", postIds: [999,758]).URLRequest
+        XCTAssertEqual(req.HTTPMethod!, "POST")
+        XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/965/talks")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("talkName=SampleTalk").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=999").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=758").location, NSNotFound)
     }
 
     func testDownloadAttachment() {
