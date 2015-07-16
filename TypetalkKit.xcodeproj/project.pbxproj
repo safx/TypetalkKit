@@ -28,6 +28,11 @@
 		8D4785401B56A43800B37898 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47853F1B56A43800B37898 /* Router.swift */; };
 		8D4785421B56A43D00B37898 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785361B56A33600B37898 /* Model.swift */; };
 		8D4785431B56A43D00B37898 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47853F1B56A43800B37898 /* Router.swift */; };
+		8D4785521B57D12D00B37898 /* IDLProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47854F1B57D12D00B37898 /* IDLProtocols.swift */; };
+		8D4785531B57D12D00B37898 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785501B57D12D00B37898 /* Model.swift */; };
+		8D4785541B57D12D00B37898 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785511B57D12D00B37898 /* Router.swift */; };
+		8D4785551B57D13500B37898 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
+		8D4785571B57D17B00B37898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785561B57D17B00B37898 /* main.swift */; };
 		8D47DBAF1A8CBFA000201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBA81A8CBF8600201315 /* Starscream.framework */; };
 		8D47DBB01A8CBFAC00201315 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D47DBAC1A8CBF8600201315 /* Starscream.framework */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
@@ -357,6 +362,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		8D4785461B57D0DF00B37898 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		8D5CA26F19D850B8005A08B3 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -392,6 +406,11 @@
 		8D451C4219DAFB16001611AD /* ErrorResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorResponse.swift; sourceTree = "<group>"; };
 		8D4785361B56A33600B37898 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		8D47853F1B56A43800B37898 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		8D4785481B57D0DF00B37898 /* IDL */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = IDL; sourceTree = BUILT_PRODUCTS_DIR; };
+		8D47854F1B57D12D00B37898 /* IDLProtocols.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IDLProtocols.swift; sourceTree = "<group>"; };
+		8D4785501B57D12D00B37898 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		8D4785511B57D12D00B37898 /* Router.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		8D4785561B57D17B00B37898 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8D47DB9B1A8CBF8600201315 /* Starscream.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Starscream.xcodeproj; path = External/Starscream/Starscream.xcodeproj; sourceTree = "<group>"; };
 		8D47DBB11A8CC6D800201315 /* Client+Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+Streaming.swift"; sourceTree = "<group>"; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
@@ -526,6 +545,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8D4785451B57D0DF00B37898 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D9D18441A77D54200E3BCCF /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -563,6 +589,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D4785491B57D0DF00B37898 /* IDL */ = {
+			isa = PBXGroup;
+			children = (
+				8D4785561B57D17B00B37898 /* main.swift */,
+				8D47854F1B57D12D00B37898 /* IDLProtocols.swift */,
+				8D4785501B57D12D00B37898 /* Model.swift */,
+				8D4785511B57D12D00B37898 /* Router.swift */,
+			);
+			path = IDL;
+			sourceTree = "<group>";
+		};
 		8D47DB9C1A8CBF8600201315 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,6 +658,7 @@
 			children = (
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
+				8D4785491B57D0DF00B37898 /* IDL */,
 				8DBA516919C5B47300BD88A3 /* Products */,
 				8D7E6DA819CD5032004AAF35 /* Alamofire.xcodeproj */,
 				8D47DB9B1A8CBF8600201315 /* Starscream.xcodeproj */,
@@ -634,6 +672,7 @@
 				8DBA517319C5B47400BD88A3 /* TypetalkKitTests-iOS.xctest */,
 				8D9D18481A77D54200E3BCCF /* TypetalkKit.framework */,
 				8D9D18521A77D54200E3BCCF /* TypetalkKitTests-OSX.xctest */,
+				8D4785481B57D0DF00B37898 /* IDL */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -835,6 +874,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		8D4785471B57D0DF00B37898 /* IDL */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8D47854C1B57D0DF00B37898 /* Build configuration list for PBXNativeTarget "IDL" */;
+			buildPhases = (
+				8D4785441B57D0DF00B37898 /* Sources */,
+				8D4785451B57D0DF00B37898 /* Frameworks */,
+				8D4785461B57D0DF00B37898 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IDL;
+			productName = IDL;
+			productReference = 8D4785481B57D0DF00B37898 /* IDL */;
+			productType = "com.apple.product-type.tool";
+		};
 		8D9D18471A77D54200E3BCCF /* TypetalkKit-OSX */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8D9D185B1A77D54300E3BCCF /* Build configuration list for PBXNativeTarget "TypetalkKit-OSX" */;
@@ -924,6 +980,9 @@
 				LastUpgradeCheck = 0600;
 				ORGANIZATIONNAME = "Safx Developers";
 				TargetAttributes = {
+					8D4785471B57D0DF00B37898 = {
+						CreatedOnToolsVersion = 7.0;
+					};
 					8D9D18471A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
 					};
@@ -964,6 +1023,7 @@
 				8D9D18471A77D54200E3BCCF /* TypetalkKit-OSX */,
 				8DBA517219C5B47400BD88A3 /* TypetalkKitTests-iOS */,
 				8D9D18511A77D54200E3BCCF /* TypetalkKitTests-OSX */,
+				8D4785471B57D0DF00B37898 /* IDL */,
 			);
 		};
 /* End PBXProject section */
@@ -1231,6 +1291,18 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8D4785441B57D0DF00B37898 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8D4785541B57D12D00B37898 /* Router.swift in Sources */,
+				8D4785571B57D17B00B37898 /* main.swift in Sources */,
+				8D4785531B57D12D00B37898 /* Model.swift in Sources */,
+				8D4785551B57D13500B37898 /* Typealiases.swift in Sources */,
+				8D4785521B57D12D00B37898 /* IDLProtocols.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		8D9D18431A77D54200E3BCCF /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1358,6 +1430,30 @@
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
+		8D47854D1B57D0DF00B37898 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		8D47854E1B57D0DF00B37898 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
 		8D9D185C1A77D54300E3BCCF /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1594,6 +1690,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8D47854C1B57D0DF00B37898 /* Build configuration list for PBXNativeTarget "IDL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8D47854D1B57D0DF00B37898 /* Debug */,
+				8D47854E1B57D0DF00B37898 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		8D9D185B1A77D54300E3BCCF /* Build configuration list for PBXNativeTarget "TypetalkKit-OSX" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
