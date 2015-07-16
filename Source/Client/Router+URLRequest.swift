@@ -13,13 +13,24 @@ import Alamofire
 extension Router: URLRequestConvertible {
     private static let baseURLString = "https://typetalk.in/api/v1/"
 
-    /*static func makeDownloadAttachmen(url: String) -> Router {
+    public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> Router? {
         let u = url.absoluteString
-        assert(u.hasPrefix(Router2.baseURLString))
-        let len = Router2.baseURLString.characters.count
-        let s = u.substringFromIndex(advance(u.startIndex, len))
-        return (.GET, .topic_read, "\(s)")
-    }*/
+        assert(u.hasPrefix(Router.baseURLString))
+
+        let regexp = try! NSRegularExpression(pattern: baseURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
+        let ns = u as NSString
+        let ms = regexp.matchesInString(u, options: [], range: NSMakeRange(0, ns.length))
+
+        if ms.count != 1 || regexp.numberOfCaptureGroups != 4 { return .None }
+        let m = ms[0]
+
+        guard let topicId      = TopicID     (ns.substringWithRange(m.rangeAtIndex(1))) else { return .None }
+        guard let postId       = PostID      (ns.substringWithRange(m.rangeAtIndex(2))) else { return .None }
+        guard let attachmentId = AttachmentID(ns.substringWithRange(m.rangeAtIndex(3))) else { return .None }
+        let filename           = ns.substringWithRange(m.rangeAtIndex(4))
+
+        return Router.DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
+    }
 
     public var URLRequest: NSURLRequest {
         let request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)

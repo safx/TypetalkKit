@@ -264,10 +264,11 @@ extension Client {
         }
     }
 
-    /*public func downloadAttachmentWithURL(url: NSURL, type: AttachmentType?, completion: DownloadAttachmentWithURLCompletionClosure) {
-        _request(Router.DownloadAttachmentWithURL(url: url, type: type))?
+    public func downloadAttachmentWithURL(url: NSURL, type: AttachmentType?, completion: DownloadAttachmentWithURLCompletionClosure) {
+        guard let route = Router.makeDownloadAttachment(url, attachmentType: type) else { return }
+        _request(route)?
             .response { (_, _, data, error) in
                 completion(data as? NSData, error)
             }
-    }*/
+    }
 }

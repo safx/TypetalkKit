@@ -896,7 +896,7 @@ class ClientAPITests: XCTestCase {
     func testDownloadAttachment() {
         let expectation = expectationWithDescription("")
         client.downloadAttachment(0, postId: 1, attachmentId: 2, filename: "aaaaaa", type: nil) { (response, error) -> Void in
-            if let r = response {
+            if let _ = response {
                 expectation.fulfill()
             }
         }
@@ -906,10 +906,10 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    /*func testDownloadAttachmentWithURL() {
+    func testDownloadAttachmentWithURL() {
         let expectation = expectationWithDescription("")
         client.downloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, type: nil) { (response, error) -> Void in
-            if let r = response {
+            if let _ = response {
                 expectation.fulfill()
             }
         }
@@ -917,5 +917,5 @@ class ClientAPITests: XCTestCase {
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
-    }*/
+    }
 }
