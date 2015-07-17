@@ -26,6 +26,7 @@ extension Alamofire.Request {
                 let obj = try T.parseJSON(j)
                 completionHandler(obj, nil)
             } catch {
+                print(error)
                 completionHandler(nil, nil) // FIXME: NSError
             }
         })

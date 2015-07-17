@@ -49,7 +49,7 @@ enum Router: URLRequestHelper, Printable {
     case GetTalks(topicId: TopicID)                                                          // router:",topics/\(topicId)/talks"
     case GetTalk(topicId: TopicID, talkId: TalkID,                                           // router:",topics/\(topicId)/talks/\(talkId)/posts"
                  count: Int?, from: PostID?, direction: MessageDirection?)
-    case CreateTalk(topicId: TopicID, talkName: String, postIds: [Int]                       // router:"POST,topics/\(topicId)/talks"
+    case CreateTalk(topicId: TopicID, talkName: String, postIds: [Int])                      // router:"POST,topics/\(topicId)/talks"
     case DownloadAttachment(topicId: TopicID, postId: PostID, attachmentId: AttachmentID,    // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
                             filename: String, type: AttachmentType?)
     case Streaming                                                                           // router:",streaming"
