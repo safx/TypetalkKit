@@ -148,7 +148,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.post!.account.createdAt.description, "2014-03-18 14:38:01 +0000")
         XCTAssertEqual(model.post!.account.updatedAt.description, "2015-02-15 10:23:55 +0000")
 
-        XCTAssertNil(model.post!.mention)
+        //XCTAssertNil(model.post!.mention)
 
         XCTAssertEqual((model.post!.attachments).count, 0)
         XCTAssertEqual((model.post!.likes).count, 0)
@@ -297,7 +297,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.post!.account.createdAt.description, "2014-03-18 14:38:01 +0000")
         XCTAssertEqual(model.post!.account.updatedAt.description, "2015-02-15 10:23:55 +0000")
 
-        XCTAssertNil(model.post!.mention)
+        //XCTAssertNil(model.post!.mention)
 
         XCTAssertEqual((model.post!.attachments).count, 0)
         XCTAssertEqual((model.post!.likes).count, 0)

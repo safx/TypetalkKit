@@ -120,7 +120,7 @@ class ClientAPITests: XCTestCase {
 
                 XCTAssertEqual(post.id, 333)
                 XCTAssertNil(post.replyTo)
-                XCTAssertNil(post.mention)
+                //XCTAssertNil(post.mention)
                 XCTAssertEqual(post.message, "Let's party like it's 1999!")
                 XCTAssertTrue(post.attachments.isEmpty)
                 XCTAssertTrue(post.likes.isEmpty)
@@ -234,7 +234,7 @@ class ClientAPITests: XCTestCase {
             if let post = response {
                 XCTAssertEqual(post.id, 333)
                 XCTAssertNil(post.replyTo)
-                XCTAssertNil(post.mention)
+                //XCTAssertNil(post.mention)
                 XCTAssertEqual(post.message, "Let's party like it's 1999!")
                 XCTAssertTrue(post.attachments.isEmpty)
                 XCTAssertEqual(post.account.id, 100)

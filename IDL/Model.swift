@@ -161,9 +161,9 @@ public struct Post: JSONDecodable, ClassInit {
     public let topicId: TopicID = 0
     public let topic: Topic?
     public let replyTo: Int?
-    public let mention: String?
     public let message: String = ""
     public let account: Account = Account()
+    //public let mention: Mention? = nil // FIXME: Recursive value type 'Mention' is not allowed
     public let attachments: [URLAttachment] = []
     public let likes: [Like] = []
     public let talks: [Talk] = []
