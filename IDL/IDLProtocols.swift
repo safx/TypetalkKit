@@ -13,3 +13,4 @@ protocol JSONEncodable {}
 protocol JSONDecodable {}
 protocol URLRequestHelper {}
 protocol EnumStaticInit {}
+protocol APIKitHelper {}

@@ -110,30 +110,22 @@ public enum StreamingEvent {
 
 // MARK: Typetalk Streaming API
 
-extension Client : WebSocketDelegate {
+public class TypetalkStream : WebSocketDelegate {
+    public typealias EventClosure = StreamingEvent -> ()
 
-    private var socket : WebSocket {
-        struct Static {
-            static let instance = WebSocket(url: Router.Streaming.URLRequest.URL!)
-        }
-        return Static.instance
+    private var socket: WebSocket!
+    internal var streamingClosure: EventClosure?
+
+    public init(accessToken: String, closure: EventClosure) {
+        streamingClosure = closure
+        socket = WebSocket(url: NSURL(string: TypetalkAPI.baseURLString + "streaming")!)
+        socket.headers["Authorization"] = "Bearer \(accessToken)"
+        socket.delegate = self
+        socket.connect()
     }
 
     public var isConnected : Bool {
         return socket.isConnected
-    }
-
-    public func streaming(closure: StreamingEvent -> ()) -> Bool {
-        switch oauth2.state {
-        case .SignedIn(let (credential)):
-            streamingClosure = closure
-            socket.headers["Authorization"] = "Bearer \(credential.accessToken)"
-            socket.delegate = self
-            socket.connect()
-            return true
-        default:
-            return false
-        }
     }
 
     // MARK: WebSocketDelegate funcs

@@ -8,7 +8,7 @@
 
 import UIKit
 import XCTest
-import Alamofire
+import APIKit
 import TypetalkKit
 
 

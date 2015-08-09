@@ -21,13 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self
         
-        
-        Client.sharedClient.setDeveloperSettings(
+        TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
             redirectURI:  "Your custome scheme",    // e.g. typetalkkit://auth/success
             scopes: [Scope.my, Scope.topic_read])
-        Client.sharedClient.restoreTokenFromAccountStore()
+        TypetalkAPI.restoreTokenFromAccountStore()
 
         return true
     }
@@ -55,8 +54,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
 
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-        if Client.sharedClient.isRedirectURL(url) && sourceApplication == "com.apple.mobilesafari" {
-            return Client.sharedClient.authorizationDone(URL: url)
+        if TypetalkAPI.isRedirectURL(url) && sourceApplication == "com.apple.mobilesafari" {
+            return TypetalkAPI.authorizationDone(URL: url)
         }
         return false
     }

@@ -9,6 +9,7 @@
 import UIKit
 import TypetalkKit
 import Alamofire
+import APIKit
 
 class MessageCell: UITableViewCell {
     @IBOutlet private weak var message: UILabel!
@@ -37,11 +38,11 @@ class MessageCell: UITableViewCell {
             if data != nil {
                 self.accountImage.image = UIImage(data: data!)
             } else {
-                Alamofire.request(.GET, URLString: url)
+                Alamofire.request(.GET, url)
                          .response { (request, response, data, error) in
-                            if error == nil {
-                                MessageCell._cache.setObject(data!, forKey: url)
-                                self.accountImage.image = UIImage(data: data as! NSData)
+                            if let data = data {
+                                MessageCell._cache.setObject(data, forKey: url)
+                                self.accountImage.image = UIImage(data: data)
                             }
                 }
             }

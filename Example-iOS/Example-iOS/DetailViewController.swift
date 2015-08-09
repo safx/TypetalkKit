@@ -12,6 +12,7 @@ import TypetalkKit
 class DetailViewController: UITableViewController {
     var posts = [Post]()
     var detailItem: TopicWithUserInfo? = nil
+    var ws: TypetalkStream!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,17 @@ class DetailViewController: UITableViewController {
         
         self.title = detailItem?.topic.name
         getMessages()
-        
-        Client.sharedClient.streaming { event in
+
+        weak var weakTableView = self.tableView
+        ws = TypetalkStream(accessToken: TypetalkAPI.accessToken!) { (event) in
             switch event {
             case .Connected             : print("connected")
             case .Disconnected(let err) : print("disconnected: \(err)")
-            case .PostMessage(let res)  : self.appendNewPost(res.post!)
+            case .PostMessage(let res)  :
+                self.appendNewPost(res.post!)
+                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                    weakTableView?.reloadData()
+                }
             default: ()
             }
         }
@@ -40,12 +46,14 @@ class DetailViewController: UITableViewController {
     func getMessages() {
         if let topic = detailItem {
             let topicid = topic.topic.id
-            Client.sharedClient.getMessages(topicid, count: nil, from: nil, direction: nil) { (messages, error) -> Void in
-                if error != nil {
-                    // TODO
-                } else if let ms = messages {
+
+            TypetalkAPI.sendRequest(GetMessages(topicId: topicid)) { result -> Void in
+                switch result {
+                case .Success(let ms):
                     self.posts = ms.posts
                     self.tableView.reloadData()
+                case .Failure(let error):
+                    print(error)
                 }
             }
         }

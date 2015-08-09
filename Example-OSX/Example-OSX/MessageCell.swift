@@ -8,7 +8,7 @@
 
 import Cocoa
 import TypetalkKit
-import Alamofire
+import APIKit
 
 class MessageCell: NSTableCellView {
     

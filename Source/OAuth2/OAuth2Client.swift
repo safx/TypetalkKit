@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+//import APIKit
 
 public struct DeveloperSettings {
     let clientId: String
@@ -80,7 +81,7 @@ public class OAuth2Client {
         case .Authorizing(let cb):
             let d = OAuth2Client.parseQuery(url)
             if let code = d["code"] {
-                requestAuthorizationCode(code, completion: cb)
+                ////FIXME: requestAuthorizationCode(code, completion: cb)
                 return true
             }
         default: ()
@@ -124,7 +125,24 @@ public class OAuth2Client {
 
     private func _requestAccessToken(router: OAuth2Router, completion: CompletionClosure) {
         Alamofire.request(router)
-            .responseJSON { (request, response, json, error) -> Void in
+            .responseJSON { _, _, result in
+                switch result {
+                case .Success(let json):
+                    var err: NSError? = nil
+                    let credential = OAuth2Credential(dictionary: json as! [NSObject : AnyObject], error: &err)
+                    if err == nil {
+                        self.accountStore.saveCredential(credential)
+                        self.state = ClientState.SignedIn(credential)
+                        completion(nil)
+                    } else {
+                        self.authorize(completion) // FIXME: call iOS function
+                        return
+                    }
+                case .Failure(let (data, error)):
+                    completion(error)
+                }
+            }
+          /*  .responseJSON { (request, response, json, error) -> Void in
                 if error == nil {
                     let errorResponse = ErrorResponse.checkErrorResponse(json as! [String:AnyObject])
                     if errorResponse == nil {
@@ -140,7 +158,7 @@ public class OAuth2Client {
                     }
                 }
                 completion(error)
-        }
+        }*/
     }
 }
 

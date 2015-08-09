@@ -11,7 +11,7 @@ import XCTest
 import TypetalkKit
 
 class RouterTests: XCTestCase {
-
+/*
     func testGetProfile() {
         let req = Router.GetProfile.URLRequest("foobar")
         XCTAssertEqual(req.HTTPMethod!, "GET")
@@ -412,5 +412,5 @@ class RouterTests: XCTestCase {
         let req = Router.makeDownloadAttachment(NSURL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, attachmentType: AttachmentType.Large)!.URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URLString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
-    }
+    }*/
 }

@@ -7,17 +7,21 @@
 //
 
 import Foundation
-import Alamofire
+import APIKit
 
 
-extension Router: URLRequestConvertible {
-    private static let baseURLString = "https://typetalk.in/api/v1/"
 
-    public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> Router? {
+extension DownloadAttachment {
+    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
+        // FIXME
+        return nil
+    }
+
+    public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> DownloadAttachment? {
         let u = url.absoluteString
-        assert(u.hasPrefix(Router.baseURLString))
+        assert(u.hasPrefix(TypetalkAPI.baseURLString))
 
-        let regexp = try! NSRegularExpression(pattern: baseURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
+        let regexp = try! NSRegularExpression(pattern: TypetalkAPI.baseURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
         let ns = u as NSString
         let ms = regexp.matchesInString(u, options: [], range: NSMakeRange(0, ns.length))
 
@@ -29,54 +33,42 @@ extension Router: URLRequestConvertible {
         guard let attachmentId = AttachmentID(ns.substringWithRange(m.rangeAtIndex(3))) else { return .None }
         let filename           = ns.substringWithRange(m.rangeAtIndex(4))
 
-        return Router.DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
+        return DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
+    }
+}
+
+
+extension UploadAttachment {
+
+    public var requestBodyBuilder: RequestBodyBuilder {
+        let boundary = createBoundary()
+
+        return .Custom(contentTypeHeader: "multipart/form-data; boundary=\(boundary)", buildBodyFromObject: { (object: AnyObject) throws -> NSData in
+            return self.createFormData(boundary)
+        })
     }
 
-    public var URLRequest: NSURLRequest {
-        let request = NSMutableURLRequest(URL: (NSURL(string: Router.baseURLString + path))!)
-        request.HTTPMethod = method
-
-        if params.isEmpty { return request }
-        return Alamofire.ParameterEncoding.URL.encode(request, parameters: params).0
-    }
-
-    public func URLRequest(OAuth2Token: String) -> NSURLRequest {
-        let request = URLRequest.mutableCopy() as! NSMutableURLRequest
-        request.setValue("Bearer \(OAuth2Token)", forHTTPHeaderField: "Authorization")
-        return request
-    }
-
-    public func URLRequest(OAuth2Token: String, fileName: String, fileContent: NSData) -> NSURLRequest {
-        func generateBoundary() -> String {
-            let uuid = CFUUIDCreate(nil)
-            let uuidString = CFUUIDCreateString(nil, uuid)
-            return "Boundary-\(uuidString)"
-        }
-
-        let boundary = generateBoundary()
-
+    private func createFormData(boundary: String) -> NSData {
         let head = [
             "--\(boundary)\r\n",
-            "Content-Disposition: form-data; name=\"file\"; filename=\"\(fileName)\"\r\n",
+            "Content-Disposition: form-data; name=\"file\"; filename=\"\(self.name)\"\r\n",
             "Content-Type: application/octet-stream; charset=ISO-8859-1\r\n",
             "Content-Transfer-Encoding: binary\r\n\r\n",
         ]
         let tail = ["\r\n--\(boundary)--\r\n"]
 
-        let formData = NSMutableData()
-        head.map { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
-        formData.appendData(fileContent)
-        tail.map { formData.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        let data = NSMutableData()
+        head.map { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        data.appendData(self.contents)
+        tail.map { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
 
-        let request = URLRequest(OAuth2Token).mutableCopy() as! NSMutableURLRequest
-        assert(request.HTTPMethod == "POST")
-
-        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.setValue("\(formData.length)", forHTTPHeaderField: "Content-Length")
-        request.HTTPBody = formData
-
-        return request
+        return data
     }
+
+    private func createBoundary() -> String {
+        let uuid = CFUUIDCreate(nil)
+        let uuidString = CFUUIDCreateString(nil, uuid)
+        return "Boundary-\(uuidString)"
+    }
+
 }
-
-

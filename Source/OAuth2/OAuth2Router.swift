@@ -9,7 +9,7 @@
 import Foundation
 import Alamofire
 
-public enum OAuth2Router : URLRequestConvertible {
+public enum OAuth2Router: URLRequestConvertible {
     private static let baseURLString = "https://typetalk.in/oauth2/"
     
     case Authorize(DeveloperSettings)
@@ -59,7 +59,7 @@ public enum OAuth2Router : URLRequestConvertible {
         }
     }
     
-    public var URLRequest: NSURLRequest {
+    public var URLRequest: NSMutableURLRequest {
         let request = NSMutableURLRequest(URL: (NSURL(string: OAuth2Router.baseURLString + path))!)
         request.HTTPMethod = method.rawValue
             

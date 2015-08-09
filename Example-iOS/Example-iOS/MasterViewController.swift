@@ -36,21 +36,24 @@ class MasterViewController: UITableViewController {
     }
     
     func fetchData() {
-        if Client.sharedClient.isSignedIn {
-            Client.sharedClient.getTopics { (topics, error) -> Void in
-                if error != nil {
-                    Client.sharedClient.requestRefreshToken { (err) -> Void in
+
+        if TypetalkAPI.isSignedIn {
+            TypetalkAPI.sendRequest(GetTopics()) { result in
+                switch result {
+                case .Success(let ts):
+                    self.topics = ts.topics
+                    self.tableView.reloadData()
+                case .Failure(let error):
+                    print(error)
+                    TypetalkAPI.requestRefreshToken { (err) -> Void in
                         if err == nil {
                             self.fetchData()
                         }
                     }
-                } else if let ts = topics {
-                    self.topics = ts.topics
-                    self.tableView.reloadData()
                 }
             }
         } else {
-            Client.sharedClient.authorize { (error) -> Void in
+            TypetalkAPI.authorize { (error) -> Void in
                 if (error == nil) {
                     self.fetchData()
                 }

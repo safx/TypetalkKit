@@ -7,3 +7,6 @@
 [submodule "External/Starscream"]
 	path = External/Starscream
 	url = https://github.com/daltoniam/Starscream.git
+[submodule "External/APIKit"]
+	path = External/APIKit
+	url = https://github.com/ishkawa/APIKit.git

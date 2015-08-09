@@ -11,7 +11,7 @@ import XCTest
 import TypetalkKit
 
 class OAuth2RouterTests: XCTestCase {
-    let settings: DeveloperSettings = DeveloperSettings(
+    /*let settings: DeveloperSettings = DeveloperSettings(
             clientId: "aaaa",
             clientSecret: "bbbbbb",
             redirectURI: "http://exsample.com/typetalk",
@@ -34,5 +34,5 @@ class OAuth2RouterTests: XCTestCase {
         let req = OAuth2Router.RequestRefreshToken(settings, "YYY").URLRequest
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URLString, "https://typetalk.in/oauth2/access_token")
-    }
+    }*/
 }

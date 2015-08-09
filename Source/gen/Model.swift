@@ -18,7 +18,6 @@ public enum MessageDirection: String, JSONDecodable {
     }
 }
 
-
 public enum AttachmentType: String, JSONDecodable {
     case Small = "small"
     case Medium = "medium"
@@ -35,7 +34,6 @@ public enum AttachmentType: String, JSONDecodable {
         return rawValue
     }
 }
-
 
 public enum Scope: String, JSONDecodable {
     case my = "my"
@@ -56,7 +54,6 @@ public enum Scope: String, JSONDecodable {
     }
 }
 
-
 public struct Account: JSONDecodable {
     public let id: AccountID
     public let name: String
@@ -70,7 +67,7 @@ public struct Account: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Account", type: "NSDictionary")
         }
-    
+
         let id: AccountID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -85,7 +82,7 @@ public struct Account: JSONDecodable {
         } else {
             id = 0
         }
-        
+
         let name: String
         if let v: AnyObject = data["name"] {
             if v is NSNull {
@@ -100,7 +97,7 @@ public struct Account: JSONDecodable {
         } else {
             name = ""
         }
-        
+
         let fullName: String
         if let v: AnyObject = data["fullName"] {
             if v is NSNull {
@@ -115,7 +112,7 @@ public struct Account: JSONDecodable {
         } else {
             fullName = ""
         }
-        
+
         let suggestion: String
         if let v: AnyObject = data["suggestion"] {
             if v is NSNull {
@@ -130,7 +127,7 @@ public struct Account: JSONDecodable {
         } else {
             suggestion = ""
         }
-        
+
         let imageUrl: NSURL
         if let v: AnyObject = data["imageUrl"] {
             if v is NSNull {
@@ -145,7 +142,7 @@ public struct Account: JSONDecodable {
         } else {
             imageUrl = NSURL()
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -160,7 +157,7 @@ public struct Account: JSONDecodable {
         } else {
             createdAt = NSDate()
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -175,7 +172,7 @@ public struct Account: JSONDecodable {
         } else {
             updatedAt = NSDate()
         }
-        
+
         return Account(id: id, name: name, fullName: fullName, suggestion: suggestion, imageUrl: imageUrl, createdAt: createdAt, updatedAt: updatedAt)
     }
 
@@ -190,7 +187,6 @@ public struct Account: JSONDecodable {
     }
 }
 
-
 public struct AccountWithOnlineStatus: JSONDecodable {
     public let account: Account
     public let online: Bool
@@ -199,7 +195,7 @@ public struct AccountWithOnlineStatus: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "AccountWithOnlineStatus", type: "NSDictionary")
         }
-    
+
         let account: Account
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -214,7 +210,7 @@ public struct AccountWithOnlineStatus: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "account")
         }
-        
+
         let online: Bool
         if let v: AnyObject = data["online"] {
             if v is NSNull {
@@ -229,11 +225,10 @@ public struct AccountWithOnlineStatus: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "online")
         }
-        
+
         return AccountWithOnlineStatus(account: account, online: online)
     }
 }
-
 
 public struct AccountWithMailAddress: JSONDecodable {
     public let account: Account
@@ -243,7 +238,7 @@ public struct AccountWithMailAddress: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "AccountWithMailAddress", type: "NSDictionary")
         }
-    
+
         let account: Account
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -258,7 +253,7 @@ public struct AccountWithMailAddress: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "account")
         }
-        
+
         let mailAddress: String?
         if let v: AnyObject = data["mailAddress"] {
             if v is NSNull {
@@ -273,11 +268,10 @@ public struct AccountWithMailAddress: JSONDecodable {
         } else {
             mailAddress = nil
         }
-        
+
         return AccountWithMailAddress(account: account, mailAddress: mailAddress)
     }
 }
-
 
 public struct Attachment: JSONDecodable {
     public let contentType: String
@@ -289,7 +283,7 @@ public struct Attachment: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Attachment", type: "NSDictionary")
         }
-    
+
         let contentType: String
         if let v: AnyObject = data["contentType"] {
             if v is NSNull {
@@ -304,7 +298,7 @@ public struct Attachment: JSONDecodable {
         } else {
             contentType = ""
         }
-        
+
         let fileKey: String
         if let v: AnyObject = data["fileKey"] {
             if v is NSNull {
@@ -319,7 +313,7 @@ public struct Attachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "fileKey")
         }
-        
+
         let fileName: String
         if let v: AnyObject = data["fileName"] {
             if v is NSNull {
@@ -334,7 +328,7 @@ public struct Attachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "fileName")
         }
-        
+
         let fileSize: Int
         if let v: AnyObject = data["fileSize"] {
             if v is NSNull {
@@ -349,11 +343,10 @@ public struct Attachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "fileSize")
         }
-        
+
         return Attachment(contentType: contentType, fileKey: fileKey, fileName: fileName, fileSize: fileSize)
     }
 }
-
 
 public struct Bookmark: JSONDecodable {
     public let postId: PostID
@@ -363,7 +356,7 @@ public struct Bookmark: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Bookmark", type: "NSDictionary")
         }
-    
+
         let postId: PostID
         if let v: AnyObject = data["postId"] {
             if v is NSNull {
@@ -378,7 +371,7 @@ public struct Bookmark: JSONDecodable {
         } else {
             postId = 0
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -393,7 +386,7 @@ public struct Bookmark: JSONDecodable {
         } else {
             updatedAt = NSDate()
         }
-        
+
         return Bookmark(postId: postId, updatedAt: updatedAt)
     }
 
@@ -402,7 +395,6 @@ public struct Bookmark: JSONDecodable {
         self.updatedAt = updatedAt
     }
 }
-
 
 public struct Embed: JSONDecodable {
     public let type: String
@@ -420,7 +412,7 @@ public struct Embed: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Embed", type: "NSDictionary")
         }
-    
+
         let type: String
         if let v: AnyObject = data["type"] {
             if v is NSNull {
@@ -435,7 +427,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "type")
         }
-        
+
         let version: Float
         if let v: AnyObject = data["version"] {
             if v is NSNull {
@@ -450,7 +442,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "version")
         }
-        
+
         let providerName: String
         if let v: AnyObject = data["provider_name"] {
             if v is NSNull {
@@ -465,7 +457,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "provider_name")
         }
-        
+
         let providerURL: NSURL?
         if let v: AnyObject = data["provider_url"] {
             if v is NSNull {
@@ -480,7 +472,7 @@ public struct Embed: JSONDecodable {
         } else {
             providerURL = nil
         }
-        
+
         let title: String
         if let v: AnyObject = data["title"] {
             if v is NSNull {
@@ -495,7 +487,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "title")
         }
-        
+
         let authorName: String
         if let v: AnyObject = data["author_name"] {
             if v is NSNull {
@@ -510,7 +502,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "author_name")
         }
-        
+
         let authorURL: NSURL?
         if let v: AnyObject = data["author_url"] {
             if v is NSNull {
@@ -525,7 +517,7 @@ public struct Embed: JSONDecodable {
         } else {
             authorURL = nil
         }
-        
+
         let html: String
         if let v: AnyObject = data["html"] {
             if v is NSNull {
@@ -540,7 +532,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "html")
         }
-        
+
         let width: Int
         if let v: AnyObject = data["width"] {
             if v is NSNull {
@@ -555,7 +547,7 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "width")
         }
-        
+
         let height: Int
         if let v: AnyObject = data["height"] {
             if v is NSNull {
@@ -570,11 +562,10 @@ public struct Embed: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "height")
         }
-        
+
         return Embed(type: type, version: version, providerName: providerName, providerURL: providerURL, title: title, authorName: authorName, authorURL: authorURL, html: html, width: width, height: height)
     }
 }
-
 
 public struct Invite: JSONDecodable {
     public let id: InviteID
@@ -593,7 +584,7 @@ public struct Invite: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Invite", type: "NSDictionary")
         }
-    
+
         let id: InviteID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -608,7 +599,7 @@ public struct Invite: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "id")
         }
-        
+
         let sender: Account?
         if let v: AnyObject = data["sender"] {
             if v is NSNull {
@@ -623,7 +614,7 @@ public struct Invite: JSONDecodable {
         } else {
             sender = nil
         }
-        
+
         let account: Account?
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -638,7 +629,7 @@ public struct Invite: JSONDecodable {
         } else {
             account = nil
         }
-        
+
         let message: String
         if let v: AnyObject = data["message"] {
             if v is NSNull {
@@ -653,7 +644,7 @@ public struct Invite: JSONDecodable {
         } else {
             message = ""
         }
-        
+
         let createdAt: NSDate?
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -668,7 +659,7 @@ public struct Invite: JSONDecodable {
         } else {
             createdAt = nil
         }
-        
+
         let updatedAt: NSDate?
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -683,7 +674,7 @@ public struct Invite: JSONDecodable {
         } else {
             updatedAt = nil
         }
-        
+
         let mailAddress: String?
         if let v: AnyObject = data["mailAddress"] {
             if v is NSNull {
@@ -698,7 +689,7 @@ public struct Invite: JSONDecodable {
         } else {
             mailAddress = nil
         }
-        
+
         let status: String
         if let v: AnyObject = data["status"] {
             if v is NSNull {
@@ -713,7 +704,7 @@ public struct Invite: JSONDecodable {
         } else {
             status = ""
         }
-        
+
         let topic: Topic?
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -728,7 +719,7 @@ public struct Invite: JSONDecodable {
         } else {
             topic = nil
         }
-        
+
         let team: Team?
         if let v: AnyObject = data["team"] {
             if v is NSNull {
@@ -743,7 +734,7 @@ public struct Invite: JSONDecodable {
         } else {
             team = nil
         }
-        
+
         let role: String?
         if let v: AnyObject = data["role"] {
             if v is NSNull {
@@ -758,11 +749,10 @@ public struct Invite: JSONDecodable {
         } else {
             role = nil
         }
-        
+
         return Invite(id: id, sender: sender, account: account, message: message, createdAt: createdAt, updatedAt: updatedAt, mailAddress: mailAddress, status: status, topic: topic, team: team, role: role)
     }
 }
-
 
 public struct Like: JSONDecodable {
     public let id: LikeID
@@ -775,7 +765,7 @@ public struct Like: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Like", type: "NSDictionary")
         }
-    
+
         let id: LikeID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -790,7 +780,7 @@ public struct Like: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "id")
         }
-        
+
         let postId: PostID
         if let v: AnyObject = data["postId"] {
             if v is NSNull {
@@ -805,7 +795,7 @@ public struct Like: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "postId")
         }
-        
+
         let topicId: TopicID
         if let v: AnyObject = data["topicId"] {
             if v is NSNull {
@@ -820,7 +810,7 @@ public struct Like: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topicId")
         }
-        
+
         let comment: String?
         if let v: AnyObject = data["comment"] {
             if v is NSNull {
@@ -835,7 +825,7 @@ public struct Like: JSONDecodable {
         } else {
             comment = nil
         }
-        
+
         let account: Account?
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -850,11 +840,10 @@ public struct Like: JSONDecodable {
         } else {
             account = nil
         }
-        
+
         return Like(id: id, postId: postId, topicId: topicId, comment: comment, account: account)
     }
 }
-
 
 public struct Link: JSONDecodable {
     public let id: LinkID
@@ -871,7 +860,7 @@ public struct Link: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Link", type: "NSDictionary")
         }
-    
+
         let id: LinkID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -886,7 +875,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "id")
         }
-        
+
         let url: NSURL
         if let v: AnyObject = data["url"] {
             if v is NSNull {
@@ -901,7 +890,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "url")
         }
-        
+
         let contentType: String
         if let v: AnyObject = data["contentType"] {
             if v is NSNull {
@@ -916,7 +905,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "contentType")
         }
-        
+
         let title: String
         if let v: AnyObject = data["title"] {
             if v is NSNull {
@@ -931,7 +920,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "title")
         }
-        
+
         let description: String
         if let v: AnyObject = data["description"] {
             if v is NSNull {
@@ -946,7 +935,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "description")
         }
-        
+
         let imageUrl: NSURL
         if let v: AnyObject = data["imageUrl"] {
             if v is NSNull {
@@ -961,7 +950,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "imageUrl")
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -976,7 +965,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "createdAt")
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -991,7 +980,7 @@ public struct Link: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "updatedAt")
         }
-        
+
         let embed: Embed?
         if let v: AnyObject = data["embed"] {
             if v is NSNull {
@@ -1006,11 +995,10 @@ public struct Link: JSONDecodable {
         } else {
             embed = nil
         }
-        
+
         return Link(id: id, url: url, contentType: contentType, title: title, description: description, imageUrl: imageUrl, createdAt: createdAt, updatedAt: updatedAt, embed: embed)
     }
 }
-
 
 public struct Member: JSONDecodable {
     public let account: Account
@@ -1020,7 +1008,7 @@ public struct Member: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Member", type: "NSDictionary")
         }
-    
+
         let account: Account
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -1035,7 +1023,7 @@ public struct Member: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "account")
         }
-        
+
         let role: String
         if let v: AnyObject = data["role"] {
             if v is NSNull {
@@ -1050,11 +1038,10 @@ public struct Member: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "role")
         }
-        
+
         return Member(account: account, role: role)
     }
 }
-
 
 public struct Mention: JSONDecodable {
     public let id: MentionID
@@ -1065,7 +1052,7 @@ public struct Mention: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Mention", type: "NSDictionary")
         }
-    
+
         let id: MentionID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -1080,7 +1067,7 @@ public struct Mention: JSONDecodable {
         } else {
             id = 0
         }
-        
+
         let readAt: NSDate?
         if let v: AnyObject = data["readAt"] {
             if v is NSNull {
@@ -1095,7 +1082,7 @@ public struct Mention: JSONDecodable {
         } else {
             readAt = nil
         }
-        
+
         let post: Post?
         if let v: AnyObject = data["post"] {
             if v is NSNull {
@@ -1110,7 +1097,7 @@ public struct Mention: JSONDecodable {
         } else {
             post = nil
         }
-        
+
         return Mention(id: id, readAt: readAt, post: post)
     }
 
@@ -1121,7 +1108,6 @@ public struct Mention: JSONDecodable {
     }
 }
 
-
 public struct Notifications: JSONDecodable {
     public let mentions: [Mention]
     public let invites: Invites
@@ -1130,7 +1116,7 @@ public struct Notifications: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Notifications", type: "NSDictionary")
         }
-    
+
         let mentions: [Mention]
         if let v: AnyObject = data["mentions"] {
             if v is NSNull {
@@ -1147,7 +1133,7 @@ public struct Notifications: JSONDecodable {
         } else {
             mentions = []
         }
-        
+
         let invites: Invites
         if let v: AnyObject = data["invites"] {
             if v is NSNull {
@@ -1162,58 +1148,57 @@ public struct Notifications: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "invites")
         }
-        
+
         return Notifications(mentions: mentions, invites: invites)
     }
 
-public struct Invites: JSONDecodable {
-    public let teams: [Invite]
-    public let topics: [Invite]
+    public struct Invites: JSONDecodable {
+        public let teams: [Invite]
+        public let topics: [Invite]
 
-    public static func parseJSON(data: AnyObject) throws -> Invites {
-        if !(data is NSDictionary) {
-            throw JSONDecodeError.TypeMismatch(key: "Invites", type: "NSDictionary")
-        }
-    
-        let teams: [Invite]
-        if let v: AnyObject = data["teams"] {
-            if v is NSNull {
+        public static func parseJSON(data: AnyObject) throws -> Invites {
+            if !(data is NSDictionary) {
+                throw JSONDecodeError.TypeMismatch(key: "Invites", type: "NSDictionary")
+            }
+
+            let teams: [Invite]
+            if let v: AnyObject = data["teams"] {
+                if v is NSNull {
+                    teams = []
+                } else {
+                    do {
+                        teams = try Invite.parseJSONArray(v)
+                    } catch JSONDecodeError.NonNullablle {
+                        throw JSONDecodeError.NonNullablle(key: "teams")
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "teams", type: "Invite")
+                    }
+                }
+            } else {
                 teams = []
-            } else {
-                do {
-                    teams = try Invite.parseJSONArray(v)
-                } catch JSONDecodeError.NonNullablle {
-                    throw JSONDecodeError.NonNullablle(key: "teams")
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "teams", type: "Invite")
-                }
             }
-        } else {
-            teams = []
-        }
-        
-        let topics: [Invite]
-        if let v: AnyObject = data["topics"] {
-            if v is NSNull {
+
+            let topics: [Invite]
+            if let v: AnyObject = data["topics"] {
+                if v is NSNull {
+                    topics = []
+                } else {
+                    do {
+                        topics = try Invite.parseJSONArray(v)
+                    } catch JSONDecodeError.NonNullablle {
+                        throw JSONDecodeError.NonNullablle(key: "topics")
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "topics", type: "Invite")
+                    }
+                }
+            } else {
                 topics = []
-            } else {
-                do {
-                    topics = try Invite.parseJSONArray(v)
-                } catch JSONDecodeError.NonNullablle {
-                    throw JSONDecodeError.NonNullablle(key: "topics")
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "topics", type: "Invite")
-                }
             }
-        } else {
-            topics = []
+
+            return Invites(teams: teams, topics: topics)
         }
-        
-        return Invites(teams: teams, topics: topics)
     }
 }
-}
-
 
 public struct NotificationStatus: JSONDecodable {
     public let mention: Mention?
@@ -1224,7 +1209,7 @@ public struct NotificationStatus: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "NotificationStatus", type: "NSDictionary")
         }
-    
+
         let mention: Mention?
         if let v: AnyObject = data["mention"] {
             if v is NSNull {
@@ -1239,7 +1224,7 @@ public struct NotificationStatus: JSONDecodable {
         } else {
             mention = nil
         }
-        
+
         let access: Access?
         if let v: AnyObject = data["access"] {
             if v is NSNull {
@@ -1254,7 +1239,7 @@ public struct NotificationStatus: JSONDecodable {
         } else {
             access = nil
         }
-        
+
         let invite: Invite?
         if let v: AnyObject = data["invite"] {
             if v is NSNull {
@@ -1269,133 +1254,134 @@ public struct NotificationStatus: JSONDecodable {
         } else {
             invite = nil
         }
-        
+
         return NotificationStatus(mention: mention, access: access, invite: invite)
     }
 
-public struct Mention: JSONDecodable {
-    public let unread: Int?
+    public struct Mention: JSONDecodable {
+        public let unread: Int?
 
-    public static func parseJSON(data: AnyObject) throws -> Mention {
-        if !(data is NSDictionary) {
-            throw JSONDecodeError.TypeMismatch(key: "Mention", type: "NSDictionary")
-        }
-    
-        let unread: Int?
-        if let v: AnyObject = data["unread"] {
-            if v is NSNull {
+        public static func parseJSON(data: AnyObject) throws -> Mention {
+            if !(data is NSDictionary) {
+                throw JSONDecodeError.TypeMismatch(key: "Mention", type: "NSDictionary")
+            }
+
+            let unread: Int?
+            if let v: AnyObject = data["unread"] {
+                if v is NSNull {
+                    unread = nil
+                } else {
+                    do {
+                        unread = try Int.parseJSON(v)
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "unread", type: "Int")
+                    }
+                }
+            } else {
                 unread = nil
-            } else {
-                do {
-                    unread = try Int.parseJSON(v)
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "unread", type: "Int")
-                }
             }
-        } else {
-            unread = nil
-        }
-        
-        return Mention(unread: unread)
-    }
-}
-public struct Access: JSONDecodable {
-    public let unopened: Int?
 
-    public static func parseJSON(data: AnyObject) throws -> Access {
-        if !(data is NSDictionary) {
-            throw JSONDecodeError.TypeMismatch(key: "Access", type: "NSDictionary")
+            return Mention(unread: unread)
         }
-    
-        let unopened: Int?
-        if let v: AnyObject = data["unopened"] {
-            if v is NSNull {
+    }
+
+    public struct Access: JSONDecodable {
+        public let unopened: Int?
+
+        public static func parseJSON(data: AnyObject) throws -> Access {
+            if !(data is NSDictionary) {
+                throw JSONDecodeError.TypeMismatch(key: "Access", type: "NSDictionary")
+            }
+
+            let unopened: Int?
+            if let v: AnyObject = data["unopened"] {
+                if v is NSNull {
+                    unopened = nil
+                } else {
+                    do {
+                        unopened = try Int.parseJSON(v)
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "unopened", type: "Int")
+                    }
+                }
+            } else {
                 unopened = nil
-            } else {
-                do {
-                    unopened = try Int.parseJSON(v)
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "unopened", type: "Int")
-                }
             }
-        } else {
-            unopened = nil
-        }
-        
-        return Access(unopened: unopened)
-    }
-}
-public struct Invite: JSONDecodable {
-    public let team: PendingCount?
-    public let topic: PendingCount?
 
-    public static func parseJSON(data: AnyObject) throws -> Invite {
-        if !(data is NSDictionary) {
-            throw JSONDecodeError.TypeMismatch(key: "Invite", type: "NSDictionary")
+            return Access(unopened: unopened)
         }
-    
-        let team: PendingCount?
-        if let v: AnyObject = data["team"] {
-            if v is NSNull {
+    }
+
+    public struct Invite: JSONDecodable {
+        public let team: PendingCount?
+        public let topic: PendingCount?
+
+        public static func parseJSON(data: AnyObject) throws -> Invite {
+            if !(data is NSDictionary) {
+                throw JSONDecodeError.TypeMismatch(key: "Invite", type: "NSDictionary")
+            }
+
+            let team: PendingCount?
+            if let v: AnyObject = data["team"] {
+                if v is NSNull {
+                    team = nil
+                } else {
+                    do {
+                        team = try PendingCount.parseJSON(v)
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "team", type: "PendingCount")
+                    }
+                }
+            } else {
                 team = nil
-            } else {
-                do {
-                    team = try PendingCount.parseJSON(v)
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "team", type: "PendingCount")
-                }
             }
-        } else {
-            team = nil
-        }
-        
-        let topic: PendingCount?
-        if let v: AnyObject = data["topic"] {
-            if v is NSNull {
+
+            let topic: PendingCount?
+            if let v: AnyObject = data["topic"] {
+                if v is NSNull {
+                    topic = nil
+                } else {
+                    do {
+                        topic = try PendingCount.parseJSON(v)
+                    } catch JSONDecodeError.ValueTranslationFailed {
+                        throw JSONDecodeError.TypeMismatch(key: "topic", type: "PendingCount")
+                    }
+                }
+            } else {
                 topic = nil
-            } else {
-                do {
-                    topic = try PendingCount.parseJSON(v)
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "topic", type: "PendingCount")
+            }
+
+            return Invite(team: team, topic: topic)
+        }
+
+            public struct PendingCount: JSONDecodable {
+                public let pending: Int?
+
+                public static func parseJSON(data: AnyObject) throws -> PendingCount {
+                    if !(data is NSDictionary) {
+                        throw JSONDecodeError.TypeMismatch(key: "PendingCount", type: "NSDictionary")
+                    }
+
+                    let pending: Int?
+                    if let v: AnyObject = data["pending"] {
+                        if v is NSNull {
+                            pending = nil
+                        } else {
+                            do {
+                                pending = try Int.parseJSON(v)
+                            } catch JSONDecodeError.ValueTranslationFailed {
+                                throw JSONDecodeError.TypeMismatch(key: "pending", type: "Int")
+                            }
+                        }
+                    } else {
+                        pending = nil
+                    }
+
+                    return PendingCount(pending: pending)
                 }
             }
-        } else {
-            topic = nil
-        }
-        
-        return Invite(team: team, topic: topic)
-    }
-
-public struct PendingCount: JSONDecodable {
-    public let pending: Int?
-
-    public static func parseJSON(data: AnyObject) throws -> PendingCount {
-        if !(data is NSDictionary) {
-            throw JSONDecodeError.TypeMismatch(key: "PendingCount", type: "NSDictionary")
-        }
-    
-        let pending: Int?
-        if let v: AnyObject = data["pending"] {
-            if v is NSNull {
-                pending = nil
-            } else {
-                do {
-                    pending = try Int.parseJSON(v)
-                } catch JSONDecodeError.ValueTranslationFailed {
-                    throw JSONDecodeError.TypeMismatch(key: "pending", type: "Int")
-                }
-            }
-        } else {
-            pending = nil
-        }
-        
-        return PendingCount(pending: pending)
     }
 }
-}
-}
-
 
 public struct Post: JSONDecodable {
     public let id: PostID
@@ -1415,7 +1401,7 @@ public struct Post: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Post", type: "NSDictionary")
         }
-    
+
         let id: PostID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -1430,7 +1416,7 @@ public struct Post: JSONDecodable {
         } else {
             id = 0
         }
-        
+
         let topicId: TopicID
         if let v: AnyObject = data["topicId"] {
             if v is NSNull {
@@ -1445,7 +1431,7 @@ public struct Post: JSONDecodable {
         } else {
             topicId = 0
         }
-        
+
         let topic: Topic?
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -1460,7 +1446,7 @@ public struct Post: JSONDecodable {
         } else {
             topic = nil
         }
-        
+
         let replyTo: Int?
         if let v: AnyObject = data["replyTo"] {
             if v is NSNull {
@@ -1475,7 +1461,7 @@ public struct Post: JSONDecodable {
         } else {
             replyTo = nil
         }
-        
+
         let message: String
         if let v: AnyObject = data["message"] {
             if v is NSNull {
@@ -1490,7 +1476,7 @@ public struct Post: JSONDecodable {
         } else {
             message = ""
         }
-        
+
         let account: Account
         if let v: AnyObject = data["account"] {
             if v is NSNull {
@@ -1505,7 +1491,7 @@ public struct Post: JSONDecodable {
         } else {
             account = Account()
         }
-        
+
         let attachments: [URLAttachment]
         if let v: AnyObject = data["attachments"] {
             if v is NSNull {
@@ -1522,7 +1508,7 @@ public struct Post: JSONDecodable {
         } else {
             attachments = []
         }
-        
+
         let likes: [Like]
         if let v: AnyObject = data["likes"] {
             if v is NSNull {
@@ -1539,7 +1525,7 @@ public struct Post: JSONDecodable {
         } else {
             likes = []
         }
-        
+
         let talks: [Talk]
         if let v: AnyObject = data["talks"] {
             if v is NSNull {
@@ -1556,7 +1542,7 @@ public struct Post: JSONDecodable {
         } else {
             talks = []
         }
-        
+
         let links: [Link]
         if let v: AnyObject = data["links"] {
             if v is NSNull {
@@ -1573,7 +1559,7 @@ public struct Post: JSONDecodable {
         } else {
             links = []
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -1588,7 +1574,7 @@ public struct Post: JSONDecodable {
         } else {
             createdAt = NSDate()
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -1603,7 +1589,7 @@ public struct Post: JSONDecodable {
         } else {
             updatedAt = NSDate()
         }
-        
+
         return Post(id: id, topicId: topicId, topic: topic, replyTo: replyTo, message: message, account: account, attachments: attachments, likes: likes, talks: talks, links: links, createdAt: createdAt, updatedAt: updatedAt)
     }
 
@@ -1623,7 +1609,6 @@ public struct Post: JSONDecodable {
     }
 }
 
-
 public struct Talk: JSONDecodable {
     public let id: TalkID
     public let topicId: TopicID
@@ -1636,7 +1621,7 @@ public struct Talk: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Talk", type: "NSDictionary")
         }
-    
+
         let id: TalkID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -1651,7 +1636,7 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "id")
         }
-        
+
         let topicId: TopicID
         if let v: AnyObject = data["topicId"] {
             if v is NSNull {
@@ -1666,7 +1651,7 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topicId")
         }
-        
+
         let name: String
         if let v: AnyObject = data["name"] {
             if v is NSNull {
@@ -1681,7 +1666,7 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "name")
         }
-        
+
         let suggestion: String
         if let v: AnyObject = data["suggestion"] {
             if v is NSNull {
@@ -1696,7 +1681,7 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "suggestion")
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -1711,7 +1696,7 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "createdAt")
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -1726,11 +1711,10 @@ public struct Talk: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "updatedAt")
         }
-        
+
         return Talk(id: id, topicId: topicId, name: name, suggestion: suggestion, createdAt: createdAt, updatedAt: updatedAt)
     }
 }
-
 
 public struct TalkMessages: JSONDecodable {
     public let topic: Topic
@@ -1742,7 +1726,7 @@ public struct TalkMessages: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TalkMessages", type: "NSDictionary")
         }
-    
+
         let topic: Topic
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -1757,7 +1741,7 @@ public struct TalkMessages: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topic")
         }
-        
+
         let talk: Talk
         if let v: AnyObject = data["talk"] {
             if v is NSNull {
@@ -1772,7 +1756,7 @@ public struct TalkMessages: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "talk")
         }
-        
+
         let posts: [Post]
         if let v: AnyObject = data["posts"] {
             if v is NSNull {
@@ -1789,7 +1773,7 @@ public struct TalkMessages: JSONDecodable {
         } else {
             posts = []
         }
-        
+
         let hasNext: Bool
         if let v: AnyObject = data["hasNext"] {
             if v is NSNull {
@@ -1804,11 +1788,10 @@ public struct TalkMessages: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "hasNext")
         }
-        
+
         return TalkMessages(topic: topic, talk: talk, posts: posts, hasNext: hasNext)
     }
 }
-
 
 public struct Team: JSONDecodable {
     public let id: TeamID
@@ -1821,7 +1804,7 @@ public struct Team: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Team", type: "NSDictionary")
         }
-    
+
         let id: TeamID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -1836,7 +1819,7 @@ public struct Team: JSONDecodable {
         } else {
             id = 0
         }
-        
+
         let name: String
         if let v: AnyObject = data["name"] {
             if v is NSNull {
@@ -1851,7 +1834,7 @@ public struct Team: JSONDecodable {
         } else {
             name = ""
         }
-        
+
         let imageUrl: NSURL
         if let v: AnyObject = data["imageUrl"] {
             if v is NSNull {
@@ -1866,7 +1849,7 @@ public struct Team: JSONDecodable {
         } else {
             imageUrl = NSURL()
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -1881,7 +1864,7 @@ public struct Team: JSONDecodable {
         } else {
             createdAt = NSDate()
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -1896,7 +1879,7 @@ public struct Team: JSONDecodable {
         } else {
             updatedAt = NSDate()
         }
-        
+
         return Team(id: id, name: name, imageUrl: imageUrl, createdAt: createdAt, updatedAt: updatedAt)
     }
 
@@ -1909,7 +1892,6 @@ public struct Team: JSONDecodable {
     }
 }
 
-
 public struct TeamWithMembers: JSONDecodable {
     public let team: Team
     public let members: [Member]
@@ -1918,7 +1900,7 @@ public struct TeamWithMembers: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TeamWithMembers", type: "NSDictionary")
         }
-    
+
         let team: Team
         if let v: AnyObject = data["team"] {
             if v is NSNull {
@@ -1933,7 +1915,7 @@ public struct TeamWithMembers: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "team")
         }
-        
+
         let members: [Member]
         if let v: AnyObject = data["members"] {
             if v is NSNull {
@@ -1950,11 +1932,10 @@ public struct TeamWithMembers: JSONDecodable {
         } else {
             members = []
         }
-        
+
         return TeamWithMembers(team: team, members: members)
     }
 }
-
 
 public struct TeamWithCount: JSONDecodable {
     public let team: Team
@@ -1964,7 +1945,7 @@ public struct TeamWithCount: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TeamWithCount", type: "NSDictionary")
         }
-    
+
         let team: Team
         if let v: AnyObject = data["team"] {
             if v is NSNull {
@@ -1979,7 +1960,7 @@ public struct TeamWithCount: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "team")
         }
-        
+
         let memberCount: Int
         if let v: AnyObject = data["memberCount"] {
             if v is NSNull {
@@ -1994,11 +1975,10 @@ public struct TeamWithCount: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "memberCount")
         }
-        
+
         return TeamWithCount(team: team, memberCount: memberCount)
     }
 }
-
 
 public struct Thumbnail: JSONDecodable {
     public let type: AttachmentType
@@ -2010,7 +1990,7 @@ public struct Thumbnail: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Thumbnail", type: "NSDictionary")
         }
-    
+
         let type: AttachmentType
         if let v: AnyObject = data["type"] {
             if v is NSNull {
@@ -2025,7 +2005,7 @@ public struct Thumbnail: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "type")
         }
-        
+
         let fileSize: Int
         if let v: AnyObject = data["fileSize"] {
             if v is NSNull {
@@ -2040,7 +2020,7 @@ public struct Thumbnail: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "fileSize")
         }
-        
+
         let width: Int
         if let v: AnyObject = data["width"] {
             if v is NSNull {
@@ -2055,7 +2035,7 @@ public struct Thumbnail: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "width")
         }
-        
+
         let height: Int
         if let v: AnyObject = data["height"] {
             if v is NSNull {
@@ -2070,11 +2050,10 @@ public struct Thumbnail: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "height")
         }
-        
+
         return Thumbnail(type: type, fileSize: fileSize, width: width, height: height)
     }
 }
-
 
 public struct Topic: JSONDecodable {
     public let id: TopicID
@@ -2088,7 +2067,7 @@ public struct Topic: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Topic", type: "NSDictionary")
         }
-    
+
         let id: TopicID
         if let v: AnyObject = data["id"] {
             if v is NSNull {
@@ -2103,7 +2082,7 @@ public struct Topic: JSONDecodable {
         } else {
             id = 0
         }
-        
+
         let name: String
         if let v: AnyObject = data["name"] {
             if v is NSNull {
@@ -2118,7 +2097,7 @@ public struct Topic: JSONDecodable {
         } else {
             name = ""
         }
-        
+
         let suggestion: String
         if let v: AnyObject = data["suggestion"] {
             if v is NSNull {
@@ -2133,7 +2112,7 @@ public struct Topic: JSONDecodable {
         } else {
             suggestion = ""
         }
-        
+
         let lastPostedAt: NSDate?
         if let v: AnyObject = data["lastPostedAt"] {
             if v is NSNull {
@@ -2148,7 +2127,7 @@ public struct Topic: JSONDecodable {
         } else {
             lastPostedAt = nil
         }
-        
+
         let createdAt: NSDate
         if let v: AnyObject = data["createdAt"] {
             if v is NSNull {
@@ -2163,7 +2142,7 @@ public struct Topic: JSONDecodable {
         } else {
             createdAt = NSDate()
         }
-        
+
         let updatedAt: NSDate
         if let v: AnyObject = data["updatedAt"] {
             if v is NSNull {
@@ -2178,7 +2157,7 @@ public struct Topic: JSONDecodable {
         } else {
             updatedAt = NSDate()
         }
-        
+
         return Topic(id: id, name: name, suggestion: suggestion, lastPostedAt: lastPostedAt, createdAt: createdAt, updatedAt: updatedAt)
     }
 
@@ -2192,7 +2171,6 @@ public struct Topic: JSONDecodable {
     }
 }
 
-
 public struct TopicWithAccounts: JSONDecodable {
     public let topic: Topic
     public let teams: [TeamWithMembers]
@@ -2203,7 +2181,7 @@ public struct TopicWithAccounts: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TopicWithAccounts", type: "NSDictionary")
         }
-    
+
         let topic: Topic
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -2218,7 +2196,7 @@ public struct TopicWithAccounts: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topic")
         }
-        
+
         let teams: [TeamWithMembers]
         if let v: AnyObject = data["teams"] {
             if v is NSNull {
@@ -2235,7 +2213,7 @@ public struct TopicWithAccounts: JSONDecodable {
         } else {
             teams = []
         }
-        
+
         let accounts: [Account]
         if let v: AnyObject = data["accounts"] {
             if v is NSNull {
@@ -2252,7 +2230,7 @@ public struct TopicWithAccounts: JSONDecodable {
         } else {
             accounts = []
         }
-        
+
         let invites: [Invite]
         if let v: AnyObject = data["invites"] {
             if v is NSNull {
@@ -2269,11 +2247,10 @@ public struct TopicWithAccounts: JSONDecodable {
         } else {
             invites = []
         }
-        
+
         return TopicWithAccounts(topic: topic, teams: teams, accounts: accounts, invites: invites)
     }
 }
-
 
 public struct TopicWithUserInfo: JSONDecodable {
     public let topic: Topic
@@ -2284,7 +2261,7 @@ public struct TopicWithUserInfo: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TopicWithUserInfo", type: "NSDictionary")
         }
-    
+
         let topic: Topic
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -2299,7 +2276,7 @@ public struct TopicWithUserInfo: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topic")
         }
-        
+
         let favorite: Bool
         if let v: AnyObject = data["favorite"] {
             if v is NSNull {
@@ -2314,7 +2291,7 @@ public struct TopicWithUserInfo: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "favorite")
         }
-        
+
         let unread: Unread?
         if let v: AnyObject = data["unread"] {
             if v is NSNull {
@@ -2329,11 +2306,10 @@ public struct TopicWithUserInfo: JSONDecodable {
         } else {
             unread = nil
         }
-        
+
         return TopicWithUserInfo(topic: topic, favorite: favorite, unread: unread)
     }
 }
-
 
 public struct Unread: JSONDecodable {
     public let topicId: TopicID
@@ -2344,7 +2320,7 @@ public struct Unread: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "Unread", type: "NSDictionary")
         }
-    
+
         let topicId: TopicID
         if let v: AnyObject = data["topicId"] {
             if v is NSNull {
@@ -2359,7 +2335,7 @@ public struct Unread: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topicId")
         }
-        
+
         let postId: PostID
         if let v: AnyObject = data["postId"] {
             if v is NSNull {
@@ -2374,7 +2350,7 @@ public struct Unread: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "postId")
         }
-        
+
         let count: Int
         if let v: AnyObject = data["count"] {
             if v is NSNull {
@@ -2389,11 +2365,10 @@ public struct Unread: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "count")
         }
-        
+
         return Unread(topicId: topicId, postId: postId, count: count)
     }
 }
-
 
 public struct URLAttachment: JSONDecodable {
     public let attachment: Attachment
@@ -2405,7 +2380,7 @@ public struct URLAttachment: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "URLAttachment", type: "NSDictionary")
         }
-    
+
         let attachment: Attachment
         if let v: AnyObject = data["attachment"] {
             if v is NSNull {
@@ -2420,7 +2395,7 @@ public struct URLAttachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "attachment")
         }
-        
+
         let webUrl: NSURL
         if let v: AnyObject = data["webUrl"] {
             if v is NSNull {
@@ -2435,7 +2410,7 @@ public struct URLAttachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "webUrl")
         }
-        
+
         let apiUrl: NSURL
         if let v: AnyObject = data["apiUrl"] {
             if v is NSNull {
@@ -2450,7 +2425,7 @@ public struct URLAttachment: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "apiUrl")
         }
-        
+
         let thumbnails: [Thumbnail]
         if let v: AnyObject = data["thumbnails"] {
             if v is NSNull {
@@ -2467,11 +2442,10 @@ public struct URLAttachment: JSONDecodable {
         } else {
             thumbnails = []
         }
-        
+
         return URLAttachment(attachment: attachment, webUrl: webUrl, apiUrl: apiUrl, thumbnails: thumbnails)
     }
 }
-
 
 public struct TalkPost: JSONDecodable {
     public let topic: Topic
@@ -2482,7 +2456,7 @@ public struct TalkPost: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "TalkPost", type: "NSDictionary")
         }
-    
+
         let topic: Topic
         if let v: AnyObject = data["topic"] {
             if v is NSNull {
@@ -2497,7 +2471,7 @@ public struct TalkPost: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "topic")
         }
-        
+
         let talk: Talk
         if let v: AnyObject = data["talk"] {
             if v is NSNull {
@@ -2512,7 +2486,7 @@ public struct TalkPost: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "talk")
         }
-        
+
         let postIds: [PostID]
         if let v: AnyObject = data["postIds"] {
             if v is NSNull {
@@ -2529,11 +2503,10 @@ public struct TalkPost: JSONDecodable {
         } else {
             postIds = []
         }
-        
+
         return TalkPost(topic: topic, talk: talk, postIds: postIds)
     }
 }
-
 
 public struct PostLinksEvent: JSONDecodable {
     public let postId: PostID
@@ -2543,7 +2516,7 @@ public struct PostLinksEvent: JSONDecodable {
         if !(data is NSDictionary) {
             throw JSONDecodeError.TypeMismatch(key: "PostLinksEvent", type: "NSDictionary")
         }
-    
+
         let postId: PostID
         if let v: AnyObject = data["postId"] {
             if v is NSNull {
@@ -2558,7 +2531,7 @@ public struct PostLinksEvent: JSONDecodable {
         } else {
             throw JSONDecodeError.MissingKey(key: "postId")
         }
-        
+
         let links: [Link]
         if let v: AnyObject = data["links"] {
             if v is NSNull {
@@ -2575,9 +2548,8 @@ public struct PostLinksEvent: JSONDecodable {
         } else {
             links = []
         }
-        
+
         return PostLinksEvent(postId: postId, links: links)
     }
 }
-
 

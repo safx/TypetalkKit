@@ -8,26 +8,30 @@
 
 import UIKit
 import XCTest
-import Alamofire
+import APIKit
 import TypetalkKit
 
 
-class ClientAPITests: XCTestCase {
-    var client: Client!
-
-    override func setUp() {
-        super.setUp()
-
-        client = Client { (router) -> NSURLRequest in
-            return router.URLRequestForTests
-        }
+extension APIKitRequest {
+    public var baseURL: NSURL {
+        let bundle = NSBundle(forClass: ClientTests.self)
+        return bundle.bundleURL
     }
+
+    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+        return URLRequest
+    }
+}
+
+
+class ClientAPITests: XCTestCase {
 
     func testGetProfile() {
         let expectation = expectationWithDescription("")
 
-        client.getProfile { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetProfile()) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.account.id, 100)
                 XCTAssertEqual(r.account.name, "jessica")
                 XCTAssertEqual(r.account.fullName, "Jessica Fitzherbert")
@@ -37,6 +41,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.account.updatedAt.description, "2014-06-24 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -48,8 +54,9 @@ class ClientAPITests: XCTestCase {
     func testGetTopics() {
         let expectation = expectationWithDescription("")
 
-        client.getTopics { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetTopics()) { result in
+            switch result {
+            case .Success(let r):
                 let last = r.topics[8]
                 XCTAssertEqual(last.topic.id, 206)
                 XCTAssertEqual(last.topic.name, "VisualDesigners")
@@ -61,6 +68,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(nil == last.unread)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -72,8 +81,9 @@ class ClientAPITests: XCTestCase {
     func testGetMessages() {
         let expectation = expectationWithDescription("")
 
-        client.getMessages(0, count: nil, from: nil, direction: nil) { (response, error) -> Void in
-            if let messages = response {
+        API.sendRequest(GetMessages(topicId: 0, count: nil, from: nil, direction: nil)) { result in
+            switch result {
+            case .Success(let messages):
                 let first = messages.posts[0]
                 XCTAssertEqual(first.id, 300)
                 XCTAssertEqual(first.topicId, 208)
@@ -99,6 +109,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(last.replyTo!, 306)
                 XCTAssertEqual(last.message, "Hope it doesn't sound arrogant but I'm the greatest man in the world!")
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -110,8 +122,9 @@ class ClientAPITests: XCTestCase {
     func testPostMessage() {
         let expectation = expectationWithDescription("")
 
-        client.postMessage(0, message: "", replyTo: 0, fileKeys: [], talkIds: []) { (response, error) -> Void in
-            if let res = response {
+        API.sendRequest(PostMessage(topicId: 0, message: "", fileKeys: [], talkIds: [])) { result in
+            switch result {
+            case .Success(let res):
                 let topic = res.topic!
                 let post = res.post!
                 XCTAssertEqual(topic.id, 208)
@@ -131,6 +144,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(post.account.name, "jessica")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -142,13 +157,16 @@ class ClientAPITests: XCTestCase {
     func testUploadAttachment() {
         let expectation = expectationWithDescription("")
 
-        client.uploadAttachment(0, fileName: "", fileContent: NSData()) { (response, error) -> Void in
-            if let attachment = response {
+        API.sendRequest(UploadAttachment(topicId: 0, name: "", contents: NSData())) { result in
+            switch result {
+            case .Success(let attachment):
                 XCTAssertEqual(attachment.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
                 XCTAssertEqual(attachment.fileName, "sample.jpg")
                 XCTAssertEqual(attachment.fileSize, 472263)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -160,8 +178,9 @@ class ClientAPITests: XCTestCase {
     func testGetTopicMembers() {
         let expectation = expectationWithDescription("")
 
-        client.getTopicMembers(0) { (response, error) -> Void in
-            if let res = response {
+        API.sendRequest(GetTopicMembers(topicId: 0)) { result in
+            switch result {
+            case .Success(let res):
                 XCTAssertEqual(res.pendings.count, 1)
 
                 let last = res.accounts[5]
@@ -185,6 +204,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertNil(pending.mailAddress)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -196,8 +217,9 @@ class ClientAPITests: XCTestCase {
     func testGetMessage() {
         let expectation = expectationWithDescription("")
 
-        client.getMessage(0, postId: 0) { (response, error) -> Void in
-            if let message = response {
+        API.sendRequest(GetMessage(topicId: 0, postId: 0)) { result in
+            switch result {
+            case .Success(let message):
                 XCTAssertEqual(message.team.id, 700)
                 XCTAssertEqual(message.team.name, "Nulab Inc.")
                 XCTAssertEqual(message.team.imageUrl.absoluteString, "https://typetalk.in/teams/700/image.png?t=1402367549000")
@@ -219,6 +241,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(message.replies.count, 2)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -230,8 +254,9 @@ class ClientAPITests: XCTestCase {
     func testDeleteMessage() {
         let expectation = expectationWithDescription("")
 
-        client.deleteMessage(0, postId: 0) { (response, error) -> Void in
-            if let post = response {
+        API.sendRequest(DeleteMessage(topicId: 0, postId: 0)) { result in
+            switch result {
+            case .Success(let post):
                 XCTAssertEqual(post.id, 333)
                 XCTAssertNil(post.replyTo)
                 //XCTAssertNil(post.mention)
@@ -245,6 +270,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(post.links.isEmpty)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -256,8 +283,9 @@ class ClientAPITests: XCTestCase {
     func testLikeMessage() {
         let expectation = expectationWithDescription("")
 
-        client.likeMessage(0, postId: 0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(LikeMessage(topicId: 0, postId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.like.id, 604)
                 XCTAssertEqual(r.like.postId, 305)
                 XCTAssertEqual(r.like.topicId, 208)
@@ -271,6 +299,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.like.account!.updatedAt.description, "2014-06-24 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -282,8 +312,9 @@ class ClientAPITests: XCTestCase {
     func testUnlikeMessage() {
         let expectation = expectationWithDescription("")
 
-        client.unlikeMessage(0, postId: 0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(UnlikeMessage(topicId: 0, postId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.like.id, 604)
                 XCTAssertEqual(r.like.postId, 305)
                 XCTAssertEqual(r.like.topicId, 208)
@@ -297,6 +328,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.like.account!.updatedAt.description, "2014-06-24 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -308,8 +341,9 @@ class ClientAPITests: XCTestCase {
     func testFavoriteTopic() {
         let expectation = expectationWithDescription("")
 
-        client.favoriteTopic(0) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(FavoriteTopic(topicId: 0)) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 206)
                 XCTAssertEqual(topic.topic.name, "VisualDesigners")
                 XCTAssertEqual(topic.topic.suggestion, "VisualDesigners")
@@ -320,6 +354,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(topic.favorite)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -331,8 +367,9 @@ class ClientAPITests: XCTestCase {
     func testUnfavoriteTopic() {
         let expectation = expectationWithDescription("")
 
-        client.unfavoriteTopic(0) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(UnfavoriteTopic(topicId: 0)) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 206)
                 XCTAssertEqual(topic.topic.name, "VisualDesigners")
                 XCTAssertEqual(topic.topic.suggestion, "VisualDesigners")
@@ -343,6 +380,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertFalse(topic.favorite)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -354,8 +393,9 @@ class ClientAPITests: XCTestCase {
     func testGetNotifications() {
         let expectation = expectationWithDescription("")
 
-        client.getNotifications { (response, error) -> Void in
-            if let notifications = response {
+        API.sendRequest(GetNotifications()) { result in
+            switch result {
+            case .Success(let notifications):
                 XCTAssertEqual(notifications.mentions.count, 2)
                 let mention = notifications.mentions[1]
                 XCTAssertEqual(mention.id, 500)
@@ -390,6 +430,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.account!.name, "jessica")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -401,14 +443,17 @@ class ClientAPITests: XCTestCase {
     func testGetNotificationStatus() {
         let expectation = expectationWithDescription("")
 
-        client.getNotificationStatus { (response, error) -> Void in
-            if let status = response {
+        API.sendRequest(GetNotificationStatus()) { result in
+            switch result {
+            case .Success(let status):
                 XCTAssertEqual(status.mention!.unread!, 1)
                 XCTAssertEqual(status.access!.unopened!, 1)
                 XCTAssertEqual(status.invite!.team!.pending!, 2)
                 XCTAssertEqual(status.invite!.topic!.pending!, 2)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -420,13 +465,16 @@ class ClientAPITests: XCTestCase {
     func testOpenNotification() {
         let expectation = expectationWithDescription("")
 
-        client.openNotification { (response, error) -> Void in
-            if let status = response {
+        API.sendRequest(OpenNotification()) { result in
+            switch result {
+            case .Success(let status):
                 XCTAssertTrue(nil == status.mention)
                 XCTAssertEqual(status.access!.unopened!, 0)
                 XCTAssertTrue(nil == status.invite)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -438,13 +486,16 @@ class ClientAPITests: XCTestCase {
     func testSaveReadTopic() {
         let expectation = expectationWithDescription("")
 
-        client.saveReadTopic(0, postId: 0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(SaveReadTopic(topicId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.unread.topicId, 208)
                 XCTAssertEqual(r.unread.postId, 307)
                 XCTAssertEqual(r.unread.count, 0)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -456,8 +507,9 @@ class ClientAPITests: XCTestCase {
     func testGetMentions() {
         let expectation = expectationWithDescription("")
 
-        client.getMentions(0, unread: nil) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetMentions()) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.mentions.count, 2)
                 let mention = r.mentions[0]
 
@@ -474,6 +526,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(mention.post!.message, "@jessica Help me!")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -485,8 +539,9 @@ class ClientAPITests: XCTestCase {
     func testSaveReadMention() {
         let expectation = expectationWithDescription("")
 
-        client.saveReadMention(0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(SaveReadMention(mentionId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.mention.id, 501)
                 XCTAssertEqual(r.mention.post!.id, 309)
                 XCTAssertEqual(r.mention.post!.topicId, 203)
@@ -500,6 +555,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.mention.post!.message, "@jessica Help me!")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -511,8 +568,9 @@ class ClientAPITests: XCTestCase {
     func testAcceptTeamInvite() {
         let expectation = expectationWithDescription("")
 
-        client.acceptTeamInvite(0, inviteId: 0) { (response, error) -> Void in
-            if let res = response {
+        API.sendRequest(AcceptTeamInvite(teamId: 0, inviteId: 0)) { result in
+            switch result {
+            case .Success(let res):
                 let topics = res.topics
                 let invite = res.invite!
                 XCTAssertEqual(topics.count, 2)
@@ -536,6 +594,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(invite.message, "Hello. Please join us.")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -547,8 +607,10 @@ class ClientAPITests: XCTestCase {
     func testDeclineTeamInvite() {
         let expectation = expectationWithDescription("")
 
-        client.declineTeamInvite(0, inviteId: 0) { (response, error) -> Void in
-            if let invite = response {
+        API.sendRequest(DeclineTeamInvite(teamId: 0, inviteId: 0)) { result in
+            switch result {
+            case .Success(let res):
+                if let invite = res.invite {
                 XCTAssertEqual(invite.id, 801)
                 XCTAssertEqual(invite.team!.id, 703)
                 XCTAssertEqual(invite.team!.name, "WP Team")
@@ -561,6 +623,9 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(invite.message, "This team is for new project.")
 
                 expectation.fulfill()
+                }
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -572,8 +637,9 @@ class ClientAPITests: XCTestCase {
     func testAcceptTopicInvite() {
         let expectation = expectationWithDescription("")
 
-        client.acceptTopicInvite(0, inviteId: 0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(AcceptTopicInvite(topicId: 0, inviteId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.invite.id, 600)
                 XCTAssertEqual(r.invite.topic!.id, 209)
                 XCTAssertEqual(r.invite.topic!.name, "Web Site")
@@ -584,6 +650,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.invite.message, "It is a new project. Join us!")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -595,8 +663,9 @@ class ClientAPITests: XCTestCase {
     func testDeclineTopicInvite() {
         let expectation = expectationWithDescription("")
 
-        client.declineTopicInvite(0, inviteId: 0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(DeclineTopicInvite(topicId: 0, inviteId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.invite.id, 601)
                 XCTAssertEqual(r.invite.topic!.id, 210)
                 XCTAssertEqual(r.invite.topic!.name, "Development")
@@ -607,6 +676,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.invite.message, "It is a new project. Join us!")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -618,8 +689,10 @@ class ClientAPITests: XCTestCase {
     func testCreateTopic() {
         let expectation = expectationWithDescription("")
 
-        client.createTopic("", teamId: nil, inviteMembers: [], inviteMessage: "") { (response, error) -> Void in
-            if let topic = response {
+
+        API.sendRequest(CreateTopic(name: "", teamId: nil, inviteMembers: [], inviteMessage: "")) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 222)
                 XCTAssertEqual(topic.topic.name, "Test topic")
                 XCTAssertEqual(topic.topic.suggestion, "Test topic")
@@ -636,6 +709,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(team.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -647,8 +722,9 @@ class ClientAPITests: XCTestCase {
     func testUpdateTopic() {
         let expectation = expectationWithDescription("")
 
-        client.updateTopic(0, name: "", teamId: nil) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(UpdateTopic(topicId: 0)) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 222)
                 XCTAssertEqual(topic.topic.name, "Update test topic")
                 XCTAssertEqual(topic.topic.suggestion, "Update test topic")
@@ -661,6 +737,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.invites.count, 2)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -672,8 +750,9 @@ class ClientAPITests: XCTestCase {
     func testDeleteTopic() {
         let expectation = expectationWithDescription("")
 
-        client.deleteTopic(0) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(DeleteTopic(topicId: 0)) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.id, 222)
                 XCTAssertEqual(topic.name, "Update test topic")
                 XCTAssertEqual(topic.suggestion, "Update test topic")
@@ -682,6 +761,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -693,8 +774,9 @@ class ClientAPITests: XCTestCase {
     func testGetTopicDetails() {
         let expectation = expectationWithDescription("")
 
-        client.getTopicDetails(0) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(GetTopicDetails(topicId: 0)) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 208)
                 XCTAssertEqual(topic.topic.name, "IT Peeps")
                 XCTAssertEqual(topic.topic.suggestion, "IT Peeps")
@@ -707,6 +789,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.invites.count, 2)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -718,8 +802,9 @@ class ClientAPITests: XCTestCase {
     func testInviteTopicMember() {
         let expectation = expectationWithDescription("")
 
-        client.inviteTopicMember(0, inviteNames: [], inviteMessage: "") { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(InviteTopicMember(topicId: 0, inviteMembers: [])) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 207)
                 XCTAssertEqual(topic.topic.name, "Art Directors")
                 XCTAssertEqual(topic.topic.suggestion, "Art Directors")
@@ -732,6 +817,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.invites.count, 2)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -743,8 +830,9 @@ class ClientAPITests: XCTestCase {
     func testRemoveTopicMember() {
         let expectation = expectationWithDescription("")
 
-        client.removeTopicMember(0, removeInviteIds: [], removeMemberIds: []) { (response, error) -> Void in
-            if let topic = response {
+        API.sendRequest(RemoveTopicMember(topicId: 0, removeInviteIds: [], removeMemberIds: [])) { result in
+            switch result {
+            case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 208)
                 XCTAssertEqual(topic.topic.name, "IT Peeps")
                 XCTAssertEqual(topic.topic.suggestion, "IT Peeps")
@@ -757,6 +845,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.invites.count, 0)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -768,8 +858,9 @@ class ClientAPITests: XCTestCase {
     func testGetTerms() {
         let expectation = expectationWithDescription("")
 
-        client.getTeams { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetTeams()) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.teams.count, 3)
                 let first = r.teams[0]
                 XCTAssertEqual(first.memberCount, 4)
@@ -780,6 +871,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(first.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -791,8 +884,9 @@ class ClientAPITests: XCTestCase {
     func testGetFriends() {
         let expectation = expectationWithDescription("")
 
-        client.getFriends { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetFriends()) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.accounts.count, 5)
                 let last = r.accounts[4]
                 XCTAssertEqual(last.id, 103)
@@ -804,6 +898,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(last.updatedAt.description, "2014-06-27 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -815,8 +911,9 @@ class ClientAPITests: XCTestCase {
     func testSearchAccounts() {
         let expectation = expectationWithDescription("")
 
-        client.searchAccounts("") { (response, error) -> Void in
-            if let account = response {
+        API.sendRequest(SearchAccounts(nameOrEmailAddress: "")) { result in
+            switch result {
+            case .Success(let account):
                 XCTAssertEqual(account.id, 102)
                 XCTAssertEqual(account.name, "moss")
                 XCTAssertEqual(account.fullName, "Moss")
@@ -826,6 +923,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(account.updatedAt.description, "2014-06-26 02:32:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -837,8 +936,9 @@ class ClientAPITests: XCTestCase {
     func testGetTalks() {
         let expectation = expectationWithDescription("")
 
-        client.getTalks(0) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(GetTalks(topicId: 0)) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.talks.count, 2)
                 let last = r.talks[1]
                 XCTAssertEqual(last.id, 900)
@@ -849,6 +949,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(last.updatedAt.description, "2014-07-02 03:52:29 +0000")
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -860,8 +962,9 @@ class ClientAPITests: XCTestCase {
     func testGetTalk() {
         let expectation = expectationWithDescription("")
 
-        client.getTalk(0, talkId: 0, count: nil, from: nil, direction: nil) { (response, error) -> Void in
-            if let talk = response {
+        API.sendRequest(GetTalk(topicId: 0, talkId: 0)) { result in
+            switch result {
+            case .Success(let talk):
                 XCTAssertEqual(talk.topic.id, 208)
                 XCTAssertEqual(talk.topic.name, "IT Peeps")
                 XCTAssertEqual(talk.topic.suggestion, "IT Peeps")
@@ -885,6 +988,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(talk.hasNext, false)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -896,8 +1001,9 @@ class ClientAPITests: XCTestCase {
     func testCreateTalk() {
         let expectation = expectationWithDescription("")
 
-        client.createTalk(0, talkName: "", postIds: []) { (response, error) -> Void in
-            if let r = response {
+        API.sendRequest(CreateTalk(topicId: 0, talkName: "", postIds: [])) { result in
+            switch result {
+            case .Success(let r):
                 XCTAssertEqual(r.topic.id, 208)
                 XCTAssertEqual(r.topic.name, "IT Peeps")
                 XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -917,6 +1023,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.postIds[1], 301)
 
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -925,7 +1033,7 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    func testDownloadAttachment() {
+    /*func testDownloadAttachment() {
         let expectation = expectationWithDescription("")
         client.downloadAttachment(0, postId: 1, attachmentId: 2, filename: "aaaaaa", type: nil) { (response, error) -> Void in
             if let _ = response {
@@ -949,5 +1057,5 @@ class ClientAPITests: XCTestCase {
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
-    }
+    }*/
 }

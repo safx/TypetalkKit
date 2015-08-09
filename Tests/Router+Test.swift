@@ -7,10 +7,10 @@
 //
 
 import Foundation
-import Alamofire
+import APIKit
 import TypetalkKit
 
-
+/*
 extension TypetalkKit.Router {
     public var name : String {
         switch (self) {
@@ -61,5 +61,5 @@ extension TypetalkKit.Router {
         let request = NSMutableURLRequest(URL: NSURL(fileURLWithPath: path!))
         return request
     }
-}
+}*/
 
