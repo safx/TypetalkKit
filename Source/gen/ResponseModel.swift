@@ -2,6 +2,7 @@
 
 import Foundation
 
+
 public struct GetProfileResponse: JSONDecodable {
     public let account: Account
 

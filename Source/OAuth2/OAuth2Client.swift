@@ -7,8 +7,7 @@
 //
 
 import Foundation
-import Alamofire
-//import APIKit
+import APIKit
 
 public struct DeveloperSettings {
     let clientId: String
@@ -24,46 +23,45 @@ public struct DeveloperSettings {
     }
 }
 
-
-public class OAuth2Client {
-    public typealias CompletionClosure = ((NSError?) -> Void)
-
-    private var _settings: DeveloperSettings = DeveloperSettings(clientId: "", clientSecret: "", redirectURI: "", scopes: [])
-    public var settings: DeveloperSettings { return _settings }
-    public var isInitialized: Bool {
-        return _settings.clientId != "" && _settings.clientSecret != "" && _settings.redirectURI != "" && _settings.scopes.count > 0
+extension Authorize {
+    convenience init(settings: DeveloperSettings) {
+        self.init(
+            client_id: settings.clientId,
+            redirect_uri: settings.redirectURI,
+            scope: settings.scopes)
     }
-    public func setDeveloperSettings(clientId clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
-        if isInitialized { return false }
-        _settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
-        return true
+}
+
+extension TypetalkAPI {
+    public typealias CompletionClosure = (APIError?) -> Void
+
+    static var state: ClientState = .NotSignedIn
+    static private var settings: DeveloperSettings!
+    static private let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
+
+    public static var isInitialized: Bool {
+        return settings != nil
     }
-
-
-    enum ClientState {
-        case NotSignedIn
-        case Authorizing(CompletionClosure)
-        case RequestingAccessToken
-        case SignedIn(OAuth2Credential)
-        case RequestingTokenRefresh
-    }
-
-    var state: ClientState = .NotSignedIn
-    public var isSignedIn: Bool {
+    public static var isSignedIn: Bool {
         switch state {
         case .SignedIn: return true
         default: return false
         }
     }
-    public var accessToken: String? {
+    public static var accessToken: String? {
         switch state {
         case .SignedIn(let credential): return credential.accessToken
         default: return nil
         }
     }
-    private let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
+    public static func setDeveloperSettings(clientId clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
+        if isInitialized { return false }
+        settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
+        return true
+    }
 
-    public func restoreTokenFromAccountStore() -> Bool {
+    public static func restoreTokenFromAccountStore() -> Bool {
+        accountStore.removeCredential()
         if let credential = accountStore.queryCredential() {
             self.state = .SignedIn(credential)
             return true
@@ -71,23 +69,78 @@ public class OAuth2Client {
         return false
     }
 
-    public func isRedirectURL(url: NSURL) -> Bool {
+    public static func isRedirectURL(url: NSURL) -> Bool {
         let absurl = url.absoluteString
-        return absurl.hasPrefix(_settings.redirectURI)
+        return absurl.hasPrefix(settings.redirectURI)
     }
-
-    public func authorizationDone(URL url: NSURL) -> Bool {
+    public static func authorizationDone(URL url: NSURL) -> Bool {
         switch state {
         case .Authorizing(let cb):
-            let d = OAuth2Client.parseQuery(url)
+            let d = parseQuery(url)
             if let code = d["code"] {
-                ////FIXME: requestAuthorizationCode(code, completion: cb)
+                requestAuthorizationCode(code, completion: cb)
                 return true
             }
         default: ()
         }
         return false
     }
+
+    public static func requestAuthorizationCode(code: String, completion: CompletionClosure) {
+        state = .RequestingAccessToken
+        let request = RequestAuthorizationCode(
+            client_id: settings.clientId,
+            client_secret: settings.clientSecret,
+            redirect_uri: settings.redirectURI,
+            code: code)
+        self.sendRequest(request) { result -> Void in
+            switch result {
+            case .Success(let credential):
+                self.accountStore.saveCredential(credential)
+                self.state = ClientState.SignedIn(credential)
+                completion(nil)
+            case .Failure(let error):
+                completion(error)
+            }
+        }
+    }
+
+    public static func requestRefreshToken(completion: CompletionClosure) -> Bool {
+        switch state {
+        case .SignedIn(let (credential)):
+            state = .RequestingTokenRefresh
+            let request = RequestRefreshToken(
+                client_id: settings.clientId,
+                client_secret: settings.clientSecret,
+                refresh_token: credential.accessToken)
+            self.sendRequest(request) { result -> Void in
+                switch result {
+                case .Success(let credential):
+                    self.accountStore.saveCredential(credential)
+                    self.state = ClientState.SignedIn(credential)
+                case .Failure(let error):
+                    completion(error)
+                }
+            }
+            return true
+        default:
+            return false
+        }
+    }
+
+    public static func authorize(completion: CompletionClosure) {
+        state = .Authorizing(completion)
+        let request = Authorize(settings: settings)
+
+        let base = "https://typetalk.in/oauth2/" // FIXME
+        let path = request.path
+        var dic = request.parameters
+        dic["scope"] = ",".join(settings.scopes.map{ $0.rawValue })
+
+        let param = URLEncodedSerialization.stringFromDictionary(dic)
+        openURL(NSURL(string: base + path + "?" + param)!)
+    }
+
 
     public class func parseQuery(url: NSURL) -> [String:String] {
         var dic: [String:String] = [:]
@@ -106,80 +159,25 @@ public class OAuth2Client {
         return dic
     }
 
-    public func requestAuthorizationCode(code: String, completion: CompletionClosure) {
-        state = .RequestingAccessToken
-        _requestAccessToken(OAuth2Router.RequestAuthorizationCode(_settings, code), completion: completion)
+    enum ClientState {
+        case NotSignedIn
+        case Authorizing(CompletionClosure)
+        case RequestingAccessToken
+        case SignedIn(OAuth2Credential)
+        case RequestingTokenRefresh
     }
 
-    public func requestRefreshToken(completion: CompletionClosure) -> Bool {
-        switch state {
-        case .SignedIn(let (credential)):
-            state = .RequestingTokenRefresh
-            _requestAccessToken(OAuth2Router.RequestRefreshToken(_settings, credential.refreshToken), completion: completion)
-            return true
-        default:
-            // TODO: send error to completion block
-            return false
-        }
-    }
-
-    private func _requestAccessToken(router: OAuth2Router, completion: CompletionClosure) {
-        Alamofire.request(router)
-            .responseJSON { _, _, result in
-                switch result {
-                case .Success(let json):
-                    var err: NSError? = nil
-                    let credential = OAuth2Credential(dictionary: json as! [NSObject : AnyObject], error: &err)
-                    if err == nil {
-                        self.accountStore.saveCredential(credential)
-                        self.state = ClientState.SignedIn(credential)
-                        completion(nil)
-                    } else {
-                        self.authorize(completion) // FIXME: call iOS function
-                        return
-                    }
-                case .Failure(let (data, error)):
-                    completion(error)
-                }
-            }
-          /*  .responseJSON { (request, response, json, error) -> Void in
-                if error == nil {
-                    let errorResponse = ErrorResponse.checkErrorResponse(json as! [String:AnyObject])
-                    if errorResponse == nil {
-                        var err: NSError? = nil
-                        let credential = OAuth2Credential(dictionary: json as! [NSObject : AnyObject], error: &err)
-                        if err == nil {
-                            self.accountStore.saveCredential(credential)
-                            self.state = ClientState.SignedIn(credential)
-                        }
-                    } else {
-                        self.authorize(completion) // FIXME: call iOS function
-                        return
-                    }
-                }
-                completion(error)
-        }*/
-    }
 }
-
-// MARK: authorize
 
 #if os(iOS)
     import UIKit
     private func openURL(url: NSURL) {
         UIApplication.sharedApplication().openURL(url)
     }
-#else
+    #else
     import AppKit
     private func openURL(url: NSURL) {
         NSWorkspace.sharedWorkspace().openURL(url)
     }
 #endif
 
-extension OAuth2Client {
-    public func authorize(completion: CompletionClosure) {
-        state = .Authorizing(completion)
-        let request = OAuth2Router.Authorize(_settings).URLRequest
-        openURL(request.URL!)
-    }
-}

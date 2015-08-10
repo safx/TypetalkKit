@@ -12,7 +12,7 @@ import TypetalkKit
 
 class ScopeTests: XCTestCase {
 
-    func testFrowRaw() {
+    /*func testFrowRaw() {
         XCTAssertEqual(Scope.scopesFromRaw(""), [])
         XCTAssertEqual(Scope.scopesFromRaw("topic.read,my"), [Scope.topic_read, Scope.my])
     }
@@ -20,5 +20,5 @@ class ScopeTests: XCTestCase {
     func testToRaw() {
         XCTAssertEqual(Scope.scopesToRaw([]), "")
         XCTAssertEqual(Scope.scopesToRaw([Scope.topic_read, Scope.my]), "topic.read,my")
-    }
+    }*/
 }

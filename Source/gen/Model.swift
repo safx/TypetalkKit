@@ -2,6 +2,7 @@
 
 import Foundation
 
+
 public enum MessageDirection: String, JSONDecodable {
     case Backward = "backward"
     case Forward = "forward"

@@ -3,7 +3,8 @@
 import Foundation
 import APIKit
 
-public class GetProfile: APIKitRequest {
+
+public class GetProfile: TypetalkRequest {
     public typealias Response = GetProfileResponse
 
     public init() {
@@ -17,12 +18,12 @@ public class GetProfile: APIKitRequest {
         return "profile"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetTopics: APIKitRequest {
+public class GetTopics: TypetalkRequest {
     public typealias Response = GetTopicsResponse
 
     public init() {
@@ -36,12 +37,12 @@ public class GetTopics: APIKitRequest {
         return "topics"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetMessages: APIKitRequest {
+public class GetMessages: TypetalkRequest {
     public typealias Response = GetMessagesResponse
     public let topicId: TopicID
     public let count: Int?
@@ -63,7 +64,7 @@ public class GetMessages: APIKitRequest {
         return "topics/\(topicId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = [:]
         count.map { p["count"] = $0.toJSON() }
         from.map { p["from"] = $0.toJSON() }
@@ -72,7 +73,7 @@ public class GetMessages: APIKitRequest {
     }
 }
 
-public class PostMessage: APIKitRequest {
+public class PostMessage: TypetalkRequest {
     public typealias Response = PostMessageResponse
     public let topicId: TopicID
     public let message: String
@@ -80,7 +81,7 @@ public class PostMessage: APIKitRequest {
     public let fileKeys: [String]
     public let talkIds: [TalkID]
 
-    public init(topicId: TopicID, message: String, replyTo: Int? = nil, fileKeys: [String], talkIds: [TalkID]) {
+    public init(topicId: TopicID, message: String, replyTo: Int? = nil, fileKeys: [String] = [], talkIds: [TalkID] = []) {
         self.topicId = topicId
         self.message = message
         self.replyTo = replyTo
@@ -96,14 +97,14 @@ public class PostMessage: APIKitRequest {
         return "topics/\(topicId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = ["message": message.toJSON(), "fileKeys": fileKeys.map { $0.toJSON() }, "talkIds": talkIds.map { $0.toJSON() }]
         replyTo.map { p["replyTo"] = $0.toJSON() }
         return p
     }
 }
 
-public class UploadAttachment: APIKitRequest {
+public class UploadAttachment: TypetalkRequest {
     public typealias Response = Attachment
     public let topicId: TopicID
     public let name: String     // router:"-"
@@ -123,12 +124,12 @@ public class UploadAttachment: APIKitRequest {
         return "topics/\(topicId)/attachments"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetTopicMembers: APIKitRequest {
+public class GetTopicMembers: TypetalkRequest {
     public typealias Response = GetTopicMembersResponse
     public let topicId: TopicID
 
@@ -144,12 +145,12 @@ public class GetTopicMembers: APIKitRequest {
         return "topics/\(topicId)/members/status"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetMessage: APIKitRequest {
+public class GetMessage: TypetalkRequest {
     public typealias Response = GetMessageResponse
     public let topicId: TopicID
     public let postId: PostID
@@ -167,12 +168,12 @@ public class GetMessage: APIKitRequest {
         return "topics/\(topicId)/posts/\(postId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class DeleteMessage: APIKitRequest {
+public class DeleteMessage: TypetalkRequest {
     public typealias Response = Post
     public let topicId: TopicID
     public let postId: PostID
@@ -190,12 +191,12 @@ public class DeleteMessage: APIKitRequest {
         return "topics/\(topicId)/posts/\(postId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class LikeMessage: APIKitRequest {
+public class LikeMessage: TypetalkRequest {
     public typealias Response = LikeMessageResponse
     public let topicId: TopicID
     public let postId: PostID
@@ -213,12 +214,12 @@ public class LikeMessage: APIKitRequest {
         return "topics/\(topicId)/posts/\(postId)/like"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class UnlikeMessage: APIKitRequest {
+public class UnlikeMessage: TypetalkRequest {
     public typealias Response = LikeMessageResponse
     public let topicId: TopicID
     public let postId: PostID
@@ -236,12 +237,12 @@ public class UnlikeMessage: APIKitRequest {
         return "topics/\(topicId)/posts/\(postId)/like"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class FavoriteTopic: APIKitRequest {
+public class FavoriteTopic: TypetalkRequest {
     public typealias Response = TopicWithUserInfo
     public let topicId: TopicID
 
@@ -257,12 +258,12 @@ public class FavoriteTopic: APIKitRequest {
         return "topics/\(topicId)/favorite"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class UnfavoriteTopic: APIKitRequest {
+public class UnfavoriteTopic: TypetalkRequest {
     public typealias Response = TopicWithUserInfo
     public let topicId: TopicID
 
@@ -278,12 +279,12 @@ public class UnfavoriteTopic: APIKitRequest {
         return "topics/\(topicId)/favorite"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetNotifications: APIKitRequest {
+public class GetNotifications: TypetalkRequest {
     public typealias Response = Notifications
 
     public init() {
@@ -297,12 +298,12 @@ public class GetNotifications: APIKitRequest {
         return "notifications"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetNotificationStatus: APIKitRequest {
+public class GetNotificationStatus: TypetalkRequest {
     public typealias Response = NotificationStatus
 
     public init() {
@@ -316,12 +317,12 @@ public class GetNotificationStatus: APIKitRequest {
         return "notifications/status"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class OpenNotification: APIKitRequest {
+public class OpenNotification: TypetalkRequest {
     public typealias Response = NotificationStatus
 
     public init() {
@@ -335,12 +336,12 @@ public class OpenNotification: APIKitRequest {
         return "notifications"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class SaveReadTopic: APIKitRequest {
+public class SaveReadTopic: TypetalkRequest {
     public typealias Response = SaveReadTopicResponse
     public let topicId: TopicID
     public let postId: PostID?
@@ -358,14 +359,14 @@ public class SaveReadTopic: APIKitRequest {
         return "bookmarks"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = ["topicId": topicId.toJSON()]
         postId.map { p["postId"] = $0.toJSON() }
         return p
     }
 }
 
-public class GetMentions: APIKitRequest {
+public class GetMentions: TypetalkRequest {
     public typealias Response = GetMentionsResponse
     public let from: MentionID?
     public let unread: Bool?
@@ -383,7 +384,7 @@ public class GetMentions: APIKitRequest {
         return "mentions"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = [:]
         from.map { p["from"] = $0.toJSON() }
         unread.map { p["unread"] = $0.toJSON() }
@@ -391,7 +392,7 @@ public class GetMentions: APIKitRequest {
     }
 }
 
-public class SaveReadMention: APIKitRequest {
+public class SaveReadMention: TypetalkRequest {
     public typealias Response = SaveReadMentionResponse
     public let mentionId: MentionID
 
@@ -407,12 +408,12 @@ public class SaveReadMention: APIKitRequest {
         return "mentions/\(mentionId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class AcceptTeamInvite: APIKitRequest {
+public class AcceptTeamInvite: TypetalkRequest {
     public typealias Response = AcceptTeamInviteResponse
     public let teamId: TeamID
     public let inviteId: InviteID
@@ -430,12 +431,12 @@ public class AcceptTeamInvite: APIKitRequest {
         return "teams/\(teamId)/members/invite/\(inviteId)/accept"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class DeclineTeamInvite: APIKitRequest {
+public class DeclineTeamInvite: TypetalkRequest {
     public typealias Response = DeclineTeamInviteResponse
     public let teamId: TeamID
     public let inviteId: InviteID
@@ -453,12 +454,12 @@ public class DeclineTeamInvite: APIKitRequest {
         return "teams/\(teamId)/members/invite/\(inviteId)/decline"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class AcceptTopicInvite: APIKitRequest {
+public class AcceptTopicInvite: TypetalkRequest {
     public typealias Response = AcceptTopicInviteResponse
     public let topicId: TopicID
     public let inviteId: InviteID
@@ -476,12 +477,12 @@ public class AcceptTopicInvite: APIKitRequest {
         return "topics/\(topicId)/members/invite/\(inviteId)/accept"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class DeclineTopicInvite: APIKitRequest {
+public class DeclineTopicInvite: TypetalkRequest {
     public typealias Response = AcceptTopicInviteResponse
     public let topicId: TopicID
     public let inviteId: InviteID
@@ -499,19 +500,19 @@ public class DeclineTopicInvite: APIKitRequest {
         return "topics/\(topicId)/members/invite/\(inviteId)/decline"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class CreateTopic: APIKitRequest {
+public class CreateTopic: TypetalkRequest {
     public typealias Response = TopicWithAccounts
     public let name: String
     public let teamId: TeamID?
     public let inviteMembers: [String]
     public let inviteMessage: String
 
-    public init(name: String, teamId: TeamID? = nil, inviteMembers: [String], inviteMessage: String) {
+    public init(name: String, teamId: TeamID? = nil, inviteMembers: [String] = [], inviteMessage: String = "") {
         self.name = name
         self.teamId = teamId
         self.inviteMembers = inviteMembers
@@ -526,14 +527,14 @@ public class CreateTopic: APIKitRequest {
         return "topics"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = ["name": name.toJSON(), "inviteMembers": inviteMembers.map { $0.toJSON() }, "inviteMessage": inviteMessage.toJSON()]
         teamId.map { p["teamId"] = $0.toJSON() }
         return p
     }
 }
 
-public class UpdateTopic: APIKitRequest {
+public class UpdateTopic: TypetalkRequest {
     public typealias Response = TopicWithAccounts
     public let topicId: TopicID
     public let name: String?
@@ -553,7 +554,7 @@ public class UpdateTopic: APIKitRequest {
         return "topics/\(topicId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = [:]
         name.map { p["name"] = $0.toJSON() }
         teamId.map { p["teamId"] = $0.toJSON() }
@@ -561,7 +562,7 @@ public class UpdateTopic: APIKitRequest {
     }
 }
 
-public class DeleteTopic: APIKitRequest {
+public class DeleteTopic: TypetalkRequest {
     public typealias Response = Topic
     public let topicId: TopicID
 
@@ -577,12 +578,12 @@ public class DeleteTopic: APIKitRequest {
         return "topics/\(topicId)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetTopicDetails: APIKitRequest {
+public class GetTopicDetails: TypetalkRequest {
     public typealias Response = TopicWithAccounts
     public let topicId: TopicID
 
@@ -598,18 +599,18 @@ public class GetTopicDetails: APIKitRequest {
         return "topics/\(topicId)/details"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class InviteTopicMember: APIKitRequest {
+public class InviteTopicMember: TypetalkRequest {
     public typealias Response = TopicWithAccounts
     public let topicId: TopicID
     public let inviteMembers: [String]
     public let inviteMessage: String?
 
-    public init(topicId: TopicID, inviteMembers: [String], inviteMessage: String? = nil) {
+    public init(topicId: TopicID, inviteMembers: [String] = [], inviteMessage: String? = nil) {
         self.topicId = topicId
         self.inviteMembers = inviteMembers
         self.inviteMessage = inviteMessage
@@ -623,20 +624,20 @@ public class InviteTopicMember: APIKitRequest {
         return "topics/\(topicId)/members/invite"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = ["inviteMembers": inviteMembers.map { $0.toJSON() }]
         inviteMessage.map { p["inviteMessage"] = $0.toJSON() }
         return p
     }
 }
 
-public class RemoveTopicMember: APIKitRequest {
+public class RemoveTopicMember: TypetalkRequest {
     public typealias Response = TopicWithAccounts
     public let topicId: TopicID
     public let removeInviteIds: [InviteID]
     public let removeMemberIds: [AccountID]
 
-    public init(topicId: TopicID, removeInviteIds: [InviteID], removeMemberIds: [AccountID]) {
+    public init(topicId: TopicID, removeInviteIds: [InviteID] = [], removeMemberIds: [AccountID] = []) {
         self.topicId = topicId
         self.removeInviteIds = removeInviteIds
         self.removeMemberIds = removeMemberIds
@@ -650,12 +651,12 @@ public class RemoveTopicMember: APIKitRequest {
         return "topics/\(topicId)/members/remove"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return ["removeInviteIds": removeInviteIds.map { $0.toJSON() }, "removeMemberIds": removeMemberIds.map { $0.toJSON() }]
     }
 }
 
-public class GetTeams: APIKitRequest {
+public class GetTeams: TypetalkRequest {
     public typealias Response = GetTeamsResponse
 
     public init() {
@@ -669,12 +670,12 @@ public class GetTeams: APIKitRequest {
         return "teams"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetFriends: APIKitRequest {
+public class GetFriends: TypetalkRequest {
     public typealias Response = GetFriendsResponse
 
     public init() {
@@ -688,12 +689,12 @@ public class GetFriends: APIKitRequest {
         return "search/friends"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class SearchAccounts: APIKitRequest {
+public class SearchAccounts: TypetalkRequest {
     public typealias Response = Account
     public let nameOrEmailAddress: String
 
@@ -709,12 +710,12 @@ public class SearchAccounts: APIKitRequest {
         return "search/accounts"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return ["nameOrEmailAddress": nameOrEmailAddress.toJSON()]
     }
 }
 
-public class GetTalks: APIKitRequest {
+public class GetTalks: TypetalkRequest {
     public typealias Response = GetTalksResponse
     public let topicId: TopicID
 
@@ -730,12 +731,12 @@ public class GetTalks: APIKitRequest {
         return "topics/\(topicId)/talks"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return [:]
     }
 }
 
-public class GetTalk: APIKitRequest {
+public class GetTalk: TypetalkRequest {
     public typealias Response = TalkMessages
     public let topicId: TopicID
     public let talkId: TalkID
@@ -759,7 +760,7 @@ public class GetTalk: APIKitRequest {
         return "topics/\(topicId)/talks/\(talkId)/posts"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = [:]
         count.map { p["count"] = $0.toJSON() }
         from.map { p["from"] = $0.toJSON() }
@@ -768,13 +769,13 @@ public class GetTalk: APIKitRequest {
     }
 }
 
-public class CreateTalk: APIKitRequest {
+public class CreateTalk: TypetalkRequest {
     public typealias Response = CreateTalkResponse
     public let topicId: TopicID
     public let talkName: String
     public let postIds: [Int]
 
-    public init(topicId: TopicID, talkName: String, postIds: [Int]) {
+    public init(topicId: TopicID, talkName: String, postIds: [Int] = []) {
         self.topicId = topicId
         self.talkName = talkName
         self.postIds = postIds
@@ -788,12 +789,12 @@ public class CreateTalk: APIKitRequest {
         return "topics/\(topicId)/talks"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         return ["talkName": talkName.toJSON(), "postIds": postIds.map { $0.toJSON() }]
     }
 }
 
-public class DownloadAttachment: APIKitRequest {
+public class DownloadAttachment: TypetalkRequest {
     public typealias Response = NSData
     public let topicId: TopicID
     public let postId: PostID
@@ -817,7 +818,7 @@ public class DownloadAttachment: APIKitRequest {
         return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
     }
 
-    public var params: [String: AnyObject] {
+    public var parameters: [String: AnyObject] {
         var p: [String: AnyObject] = [:]
         type.map { p["type"] = $0.toJSON() }
         return p

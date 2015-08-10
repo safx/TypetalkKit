@@ -10,6 +10,33 @@ import Foundation
 import APIKit
 
 
+public protocol TypetalkRequest: APIKitRequest {}
+public protocol AuthRequest: APIKitRequest {}
+
+extension TypetalkRequest {
+    public var baseURL: NSURL { return NSURL(string: "https://typetalk.in/api/v1/")! }
+
+    public var requestBodyBuilder: RequestBodyBuilder {
+        return .URL(encoding: NSUTF8StringEncoding)
+    }
+
+    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+        guard let accessToken = TypetalkAPI.accessToken else {
+            throw TypetalkAPIError.CannotBuildURLRequest
+        }
+        URLRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+
+        return URLRequest
+    }
+}
+
+extension AuthRequest {
+    public var baseURL: NSURL { return NSURL(string: "https://typetalk.in/oauth2/")! }
+
+    public var requestBodyBuilder: RequestBodyBuilder {
+        return .URL(encoding: NSUTF8StringEncoding)
+    }
+}
 
 extension DownloadAttachment {
     public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
@@ -36,7 +63,6 @@ extension DownloadAttachment {
         return DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
     }
 }
-
 
 extension UploadAttachment {
 
