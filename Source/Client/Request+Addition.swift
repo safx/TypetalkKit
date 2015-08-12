@@ -14,7 +14,7 @@ public protocol TypetalkRequest: APIKitRequest {}
 public protocol AuthRequest: APIKitRequest {}
 
 extension TypetalkRequest {
-    public var baseURL: NSURL { return NSURL(string: "https://typetalk.in/api/v1/")! }
+    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.apiURLString)! }
 
     public var requestBodyBuilder: RequestBodyBuilder {
         return .URL(encoding: NSUTF8StringEncoding)
@@ -31,7 +31,7 @@ extension TypetalkRequest {
 }
 
 extension AuthRequest {
-    public var baseURL: NSURL { return NSURL(string: "https://typetalk.in/oauth2/")! }
+    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.authURLString)! }
 
     public var requestBodyBuilder: RequestBodyBuilder {
         return .URL(encoding: NSUTF8StringEncoding)
@@ -46,9 +46,9 @@ extension DownloadAttachment {
 
     public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> DownloadAttachment? {
         let u = url.absoluteString
-        assert(u.hasPrefix(TypetalkAPI.baseURLString))
+        assert(u.hasPrefix(TypetalkAPI.apiURLString))
 
-        let regexp = try! NSRegularExpression(pattern: TypetalkAPI.baseURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
+        let regexp = try! NSRegularExpression(pattern: TypetalkAPI.apiURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
         let ns = u as NSString
         let ms = regexp.matchesInString(u, options: [], range: NSMakeRange(0, ns.length))
 

@@ -118,7 +118,7 @@ public class TypetalkStream : WebSocketDelegate {
 
     public init(accessToken: String, closure: EventClosure) {
         streamingClosure = closure
-        socket = WebSocket(url: NSURL(string: TypetalkAPI.baseURLString + "streaming")!)
+        socket = WebSocket(url: NSURL(string: TypetalkAPI.apiURLString + "streaming")!)
         socket.headers["Authorization"] = "Bearer \(accessToken)"
         socket.delegate = self
         socket.connect()
