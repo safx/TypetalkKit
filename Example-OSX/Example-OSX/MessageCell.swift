@@ -7,6 +7,7 @@
 //
 
 import Cocoa
+import Alamofire
 import TypetalkKit
 import APIKit
 
@@ -20,11 +21,11 @@ class MessageCell: NSTableCellView {
             textField?.stringValue = model!.message
             accountName.stringValue = model!.account.name
             
-            let url = model!.account.imageUrl.absoluteString!
+            let url = model!.account.imageUrl.absoluteString
              Alamofire.request(.GET, url)
                 .response { (request, response, data, error) in
-                    if error == nil {
-                        self.accountImage.image = NSImage(data: data as NSData)
+                    if let d = data {
+                        self.accountImage.image = NSImage(data: d)
                     }
                 }
         }

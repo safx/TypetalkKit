@@ -32,14 +32,15 @@ class MessageViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
 
     func getMessages() {
-        if let topic = detailItem? {
+        if let topic = detailItem {
             let topicid = topic.topic.id
-            Client.sharedClient.getMessages(topicid, count: nil, from: nil, direction: nil) { (messages, error) -> Void in
-                if error != nil {
-                    // TODO
-                } else if let ms = messages? {
+            TypetalkAPI.sendRequest(GetMessages(topicId: topicid)) { result -> Void in
+                switch result {
+                case .Success(let ms):
                     self.messages = ms
                     self.tableView.reloadData()
+                case .Failure(let error):
+                    print(error)
                 }
             }
         }
@@ -48,22 +49,21 @@ class MessageViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     // MARK: - Table View
 
     func numberOfRowsInTableView(tableView: NSTableView) -> Int {
-        return messages? == nil ? 0 : messages!.posts.count
+        return messages == nil ? 0 : messages!.posts.count
     }
 
-    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn, row: Int) -> NSView {
-        var cell = tableView.makeViewWithIdentifier("MessageCell", owner: nil) as MessageCell
+    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = tableView.makeViewWithIdentifier("MessageCell", owner: nil) as! MessageCell
         cell.model = messages!.posts[row]
         return cell
     }
     
     func tableView(tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         let font = NSFont(name: "Helvetica", size: 13)!
-        let attr: [NSObject:AnyObject] = [NSFontAttributeName: font]
+        let attr: [String:AnyObject] = [NSFontAttributeName: font]
         let mes = messages!.posts[row].message
         
-        let size = (mes as NSString).boundingRectWithSize(NSSize(width: tableView.bounds.width - 80, height: 9999.0), options:
-            .UsesLineFragmentOrigin, attributes: attr)
+        let size = (mes as NSString).sizeWithAttributes(attr)
 
         return max(size.height + 32, 56)
     }

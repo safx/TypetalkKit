@@ -61,7 +61,6 @@ extension TypetalkAPI {
     }
 
     public static func restoreTokenFromAccountStore() -> Bool {
-        accountStore.removeCredential()
         if let credential = accountStore.queryCredential() {
             self.state = .SignedIn(credential)
             return true
@@ -87,6 +86,7 @@ extension TypetalkAPI {
     }
 
     public static func requestAuthorizationCode(code: String, completion: CompletionClosure) {
+        precondition(isInitialized)
         state = .RequestingAccessToken
         let request = RequestAuthorizationCode(
             client_id: settings.clientId,
@@ -106,6 +106,7 @@ extension TypetalkAPI {
     }
 
     public static func requestRefreshToken(completion: CompletionClosure) -> Bool {
+        precondition(isInitialized)
         switch state {
         case .SignedIn(let (credential)):
             state = .RequestingTokenRefresh
@@ -129,6 +130,7 @@ extension TypetalkAPI {
     }
 
     public static func authorize(completion: CompletionClosure) {
+        precondition(isInitialized)
         state = .Authorizing(completion)
         let request = Authorize(settings: settings)
 

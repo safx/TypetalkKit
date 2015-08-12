@@ -26,21 +26,23 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
 
     func fetchData() {
-        if Client.sharedClient.isSignedIn {
-            Client.sharedClient.getTopics { (topics, error) -> Void in
-                if error != nil {
-                    Client.sharedClient.requestRefreshToken { (err) -> Void in
+        if TypetalkAPI.isSignedIn {
+            TypetalkAPI.sendRequest(GetTopics()) { result in
+                switch result {
+                case .Success(let ts):
+                    self.topics = ts.topics
+                    self.tableView.reloadData()
+                case .Failure(let error):
+                    print(error)
+                    TypetalkAPI.requestRefreshToken { (err) -> Void in
                         if err == nil {
                             self.fetchData()
                         }
                     }
-                } else if let ts = topics? {
-                    self.topics = ts.topics
-                    self.tableView.reloadData()
                 }
             }
         } else {
-            Client.sharedClient.authorize { (error) -> Void in
+            TypetalkAPI.authorize { (error) -> Void in
                 if (error == nil) {
                     self.fetchData()
                 }
@@ -51,10 +53,10 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     // MARK: - Action
 
     @IBAction func columnChangeSelected(sender: NSTableView) {
-        if countElements(topics) <= sender.selectedRow { return }
+        if topics.count <= sender.selectedRow { return }
         
         let topic = topics[sender.selectedRow]
-        let controller = self.parentViewController?.childViewControllers[1] as MessageViewController
+        let controller = self.parentViewController?.childViewControllers[1] as! MessageViewController
         controller.detailItem = topic
     }
     
@@ -64,8 +66,8 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         return topics.count
     }
 
-    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn, row: Int) -> NSView {
-        var cell = tableView.makeViewWithIdentifier("TopicCell", owner: nil) as NSTableCellView
+    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = tableView.makeViewWithIdentifier("TopicCell", owner: nil) as! NSTableCellView
         cell.textField?.stringValue = topics[row].topic.name
         return cell
     }
