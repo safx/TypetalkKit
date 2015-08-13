@@ -19,15 +19,6 @@ extension TypetalkRequest {
     public var requestBodyBuilder: RequestBodyBuilder {
         return .URL(encoding: NSUTF8StringEncoding)
     }
-
-    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
-        guard let accessToken = TypetalkAPI.accessToken else {
-            throw TypetalkAPIError.CannotBuildURLRequest
-        }
-        URLRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-
-        return URLRequest
-    }
 }
 
 extension AuthRequest {
@@ -40,8 +31,7 @@ extension AuthRequest {
 
 extension DownloadAttachment {
     public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
-        // FIXME
-        return nil
+        fatalError("Not implement yet")
     }
 
     public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> DownloadAttachment? {

@@ -6,7 +6,6 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
-import UIKit
 import XCTest
 import TypetalkKit
 

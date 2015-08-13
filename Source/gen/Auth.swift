@@ -8,10 +8,10 @@ public class Authorize: AuthRequest {
     public typealias Response = OAuth2Credential
     public let client_id: String
     public let redirect_uri: String
-    public let scope: [Scope]
+    public let scope: String
     public let response_type: String
 
-    public init(client_id: String, redirect_uri: String, scope: [Scope], response_type: String = "code") {
+    public init(client_id: String, redirect_uri: String, scope: String, response_type: String = "code") {
         self.client_id = client_id
         self.redirect_uri = redirect_uri
         self.scope = scope
@@ -27,51 +27,26 @@ public class Authorize: AuthRequest {
     }
 
     public var parameters: [String: AnyObject] {
-        return ["client_id": client_id.toJSON(), "redirect_uri": redirect_uri.toJSON(), "scope": scope.map { $0.toJSON() }, "response_type": response_type.toJSON()]
+        return ["client_id": client_id.toJSON(), "redirect_uri": redirect_uri.toJSON(), "scope": scope.toJSON(), "response_type": response_type.toJSON()]
     }
 }
 
-public class RequestAuthorizationCode: AuthRequest {
+public class AccessToken: AuthRequest {
     public typealias Response = OAuth2Credential
+    public let grant_type: GrantType
     public let client_id: String
     public let client_secret: String
-    public let redirect_uri: String
-    public let code: String
-    public let grant_type: String
+    public let redirect_uri: String?
+    public let code: String?
+    public let refresh_token: String?
 
-    public init(client_id: String, client_secret: String, redirect_uri: String, code: String, grant_type: String = "authorization_code") {
+    public init(grant_type: GrantType, client_id: String, client_secret: String, redirect_uri: String? = nil, code: String? = nil, refresh_token: String? = nil) {
+        self.grant_type = grant_type
         self.client_id = client_id
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri
         self.code = code
-        self.grant_type = grant_type
-    }
-
-    public var method: HTTPMethod {
-        return .POST
-    }
-
-    public var path: String {
-        return "access_token"
-    }
-
-    public var parameters: [String: AnyObject] {
-        return ["client_id": client_id.toJSON(), "client_secret": client_secret.toJSON(), "redirect_uri": redirect_uri.toJSON(), "code": code.toJSON(), "grant_type": grant_type.toJSON()]
-    }
-}
-
-public class RequestRefreshToken: AuthRequest {
-    public typealias Response = OAuth2Credential
-    public let client_id: String
-    public let client_secret: String
-    public let refresh_token: String
-    public let grant_type: String
-
-    public init(client_id: String, client_secret: String, refresh_token: String, grant_type: String = "refresh_token") {
-        self.client_id = client_id
-        self.client_secret = client_secret
         self.refresh_token = refresh_token
-        self.grant_type = grant_type
     }
 
     public var method: HTTPMethod {
@@ -83,7 +58,11 @@ public class RequestRefreshToken: AuthRequest {
     }
 
     public var parameters: [String: AnyObject] {
-        return ["client_id": client_id.toJSON(), "client_secret": client_secret.toJSON(), "refresh_token": refresh_token.toJSON(), "grant_type": grant_type.toJSON()]
+        var p: [String: AnyObject] = ["grant_type": grant_type.toJSON(), "client_id": client_id.toJSON(), "client_secret": client_secret.toJSON()]
+        redirect_uri.map { p["redirect_uri"] = $0.toJSON() }
+        code.map { p["code"] = $0.toJSON() }
+        refresh_token.map { p["refresh_token"] = $0.toJSON() }
+        return p
     }
 }
 
@@ -208,6 +187,16 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
             "refresh_token": refreshToken.toJSON(),
             "expires_in": expiryIn.toJSON(),
         ]
+    }
+}
+
+public enum GrantType: String {
+    case AuthorizationCode = "authorization_code"
+    case ClientCredentials = "client_credentials"
+    case RefreshToken = "refresh_token"
+
+    public func toJSON() -> String {
+        return rawValue
     }
 }
 

@@ -14,27 +14,19 @@ class Authorize: ClassInit, APIKitHelper, AuthRequest { // router:",authorize"
     typealias Response = OAuth2Credential
     let client_id: String
     let redirect_uri: String
-    let scope: [Scope]
+    let scope: String
     let response_type: String = "code"
 }
 
-class RequestAuthorizationCode: ClassInit, APIKitHelper, AuthRequest { // router:"POST, access_token"
+class AccessToken: ClassInit, APIKitHelper, AuthRequest { // router:"POST, access_token"
     typealias Response = OAuth2Credential
+    let grant_type: GrantType
     let client_id: String
     let client_secret: String
-    let redirect_uri: String
-    let code: String
-    let grant_type: String = "authorization_code"
+    let redirect_uri: String? = nil   // AuthorizationCode
+    let code: String? = nil           // AuthorizationCode
+    let refresh_token: String? = nil  // RefreshToken
 }
-
-class RequestRefreshToken: ClassInit, APIKitHelper, AuthRequest { // router:"POST,access_token"
-    typealias Response = OAuth2Credential
-    let client_id: String
-    let client_secret: String
-    let refresh_token: String
-    let grant_type: String = "refresh_token"
-}
-
 
 class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncodable {
     public let accessToken: String    // json:"access_token"
@@ -42,4 +34,10 @@ class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncoda
     public let refreshToken: String   // json:"refresh_token"
     public let expiryIn: Int          // json:"expires_in"
     //public let scope: Scope
+}
+
+enum GrantType: String, JSONEncodable {
+    case AuthorizationCode = "authorization_code"
+    case ClientCredentials = "client_credentials"
+    case RefreshToken      = "refresh_token"
 }

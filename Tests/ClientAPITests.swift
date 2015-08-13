@@ -12,18 +12,6 @@ import APIKit
 import TypetalkKit
 
 
-extension APIKitRequest {
-    public var baseURL: NSURL {
-        let bundle = NSBundle(forClass: ClientTests.self)
-        return bundle.bundleURL
-    }
-
-    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
-        return URLRequest
-    }
-}
-
-
 class ClientAPITests: XCTestCase {
 
     func testGetProfile() {

@@ -9,26 +9,14 @@
 import Foundation
 import APIKit
 
-public struct DeveloperSettings {
-    let clientId: String
-    let clientSecret: String
-    let redirectURI: String
-    let scopes: [Scope]
+extension TypetalkRequest {
+    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+        guard let accessToken = TypetalkAPI.accessToken else {
+            throw TypetalkAPIError.CannotBuildURLRequest
+        }
+        URLRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
 
-    public init(clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) {
-        self.clientId = clientId
-        self.clientSecret = clientSecret
-        self.redirectURI = redirectURI
-        self.scopes = scopes
-    }
-}
-
-extension Authorize {
-    convenience init(settings: DeveloperSettings) {
-        self.init(
-            client_id: settings.clientId,
-            redirect_uri: settings.redirectURI,
-            scope: settings.scopes)
+        return URLRequest
     }
 }
 
@@ -88,11 +76,31 @@ extension TypetalkAPI {
     public static func requestAuthorizationCode(code: String, completion: CompletionClosure) {
         precondition(isInitialized)
         state = .RequestingAccessToken
-        let request = RequestAuthorizationCode(
+        accessToken(AccessToken(
+            grant_type: .AuthorizationCode,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             redirect_uri: settings.redirectURI,
-            code: code)
+            code: code), completion: completion)
+    }
+
+    public static func requestRefreshToken(completion: CompletionClosure) -> Bool {
+        precondition(isInitialized)
+        switch state {
+        case .SignedIn(let (credential)):
+            state = .RequestingTokenRefresh
+            accessToken(AccessToken(
+                grant_type: .RefreshToken,
+                client_id: settings.clientId,
+                client_secret: settings.clientSecret,
+                refresh_token: credential.refreshToken), completion: completion)
+            return true
+        default:
+            return false
+        }
+    }
+
+    public static func accessToken(request: AccessToken, completion: CompletionClosure) {
         self.sendRequest(request) { result -> Void in
             switch result {
             case .Success(let credential):
@@ -105,39 +113,14 @@ extension TypetalkAPI {
         }
     }
 
-    public static func requestRefreshToken(completion: CompletionClosure) -> Bool {
-        precondition(isInitialized)
-        switch state {
-        case .SignedIn(let (credential)):
-            state = .RequestingTokenRefresh
-            let request = RequestRefreshToken(
-                client_id: settings.clientId,
-                client_secret: settings.clientSecret,
-                refresh_token: credential.refreshToken)
-            self.sendRequest(request) { result -> Void in
-                switch result {
-                case .Success(let credential):
-                    self.accountStore.saveCredential(credential)
-                    self.state = ClientState.SignedIn(credential)
-                    completion(nil)
-                case .Failure(let error):
-                    completion(error)
-                }
-            }
-            return true
-        default:
-            return false
-        }
-    }
-
     public static func authorize(completion: CompletionClosure) {
         precondition(isInitialized)
         state = .Authorizing(completion)
-        let request = Authorize(settings: settings)
-        var dic = request.parameters
-        dic["scope"] = ",".join(settings.scopes.map{ $0.rawValue })
-
-        let param = URLEncodedSerialization.stringFromDictionary(dic)
+        let request = Authorize(
+            client_id: settings.clientId,
+            redirect_uri: settings.redirectURI,
+            scope: Scope.scopesToRaw(settings.scopes))
+        let param = URLEncodedSerialization.stringFromDictionary(request.parameters)
         let base = request.baseURL.absoluteString
         openURL(NSURL(string: base + "/" + request.path + "?" + param)!)
     }
@@ -160,7 +143,7 @@ extension TypetalkAPI {
         return dic
     }
 
-    enum ClientState {
+    internal enum ClientState {
         case NotSignedIn
         case Authorizing(CompletionClosure)
         case RequestingAccessToken
@@ -170,12 +153,36 @@ extension TypetalkAPI {
 
 }
 
+internal struct DeveloperSettings {
+    let clientId: String
+    let clientSecret: String
+    let redirectURI: String
+    let scopes: [Scope]
+
+    internal init(clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) {
+        self.clientId = clientId
+        self.clientSecret = clientSecret
+        self.redirectURI = redirectURI
+        self.scopes = scopes
+    }
+}
+
+extension Scope {
+    public static func scopesFromRaw(raw: String) -> [Scope] {
+        return raw.componentsSeparatedByString(",").flatMap { Scope(rawValue: $0) }
+    }
+
+    public static func scopesToRaw(values: [Scope]) -> String {
+        return ",".join(values.map({ $0.rawValue }))
+    }
+}
+
 #if os(iOS)
     import UIKit
     private func openURL(url: NSURL) {
         UIApplication.sharedApplication().openURL(url)
     }
-    #else
+#else
     import AppKit
     private func openURL(url: NSURL) {
         NSWorkspace.sharedWorkspace().openURL(url)
