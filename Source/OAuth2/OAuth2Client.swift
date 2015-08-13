@@ -113,12 +113,13 @@ extension TypetalkAPI {
             let request = RequestRefreshToken(
                 client_id: settings.clientId,
                 client_secret: settings.clientSecret,
-                refresh_token: credential.accessToken)
+                refresh_token: credential.refreshToken)
             self.sendRequest(request) { result -> Void in
                 switch result {
                 case .Success(let credential):
                     self.accountStore.saveCredential(credential)
                     self.state = ClientState.SignedIn(credential)
+                    completion(nil)
                 case .Failure(let error):
                     completion(error)
                 }
@@ -133,14 +134,12 @@ extension TypetalkAPI {
         precondition(isInitialized)
         state = .Authorizing(completion)
         let request = Authorize(settings: settings)
-
-        let base = "https://typetalk.in/oauth2/" // FIXME
-        let path = request.path
         var dic = request.parameters
         dic["scope"] = ",".join(settings.scopes.map{ $0.rawValue })
 
         let param = URLEncodedSerialization.stringFromDictionary(dic)
-        openURL(NSURL(string: base + path + "?" + param)!)
+        let base = request.baseURL.absoluteString
+        openURL(NSURL(string: base + "/" + request.path + "?" + param)!)
     }
 
 
