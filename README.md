@@ -15,20 +15,21 @@ TypetalkKit is an unofficial web API client for Typetalk.
 The following code gets user's topics and prints these.
 
 ```swift
-Client.sharedClient.getTopics { (topics, error) -> Void in
-    if error != nil {
-        // error
-    } else if let ts = topics? {
+TypetalkAPI.sendRequest(GetTopics()) { result in
+    switch result {
+    case .Success(let ts):
         for i in ts {
             println("\(i)")
         }
+    case .Failure(let error):
+        // error
     }
 }
 ```
 
-TypetalkKit supports all Typetalk API.
+TypetalkKit supports almost all Typetalk API.
 
-If you want information in detail, please visit [official page](http://developer.nulab-inc.com/docs/typetalk).
+If you want further information about API, please visit [official page](http://developer.nulab-inc.com/docs/typetalk).
 
 ## Features
 
@@ -40,7 +41,7 @@ If you want information in detail, please visit [official page](http://developer
 
 > TypetalkKit currently only supports "Authorization Code". "Client Credentials" is not supported.
 
-To use TypetalkKit, you need to register your app at [the Official Developer page](https://typetalk.in/my/develop/applications).
+To use TypetalkKit, you need to register your app at [the Official Developer page](https://typetalk.in/my/develop/applications) first.
 
 When you register your app, choose "Authorization Code" for Grant Type and set URI including custom URL scheme,
 which should be unique to complete authorization process.
@@ -48,7 +49,7 @@ which should be unique to complete authorization process.
 In your app, set developer settings:
 
 ```swift
-Client.sharedClient.setDeveloperSettings(
+TypetalkAPI.setDeveloperSettings(
     clientId:     "Your ClientID",
     clientSecret: "Your SecretID",
     redirectURI:  "Your custome scheme",    // e.g. typetalkkit+<YOUR_APP_ID>://auth/success
@@ -58,27 +59,38 @@ Client.sharedClient.setDeveloperSettings(
 And then call `authorize`.
 
 ```swift
-Client.sharedClient.authorize { (error) -> Void in
+TypetalkAPI.authorize { (error) -> Void in
    ...
 }
 ```
 
 TypetalkKit use Safari for Typetalk's authorization process.
-You, thearefore, have to add a custom URL scheme for "redirect URI" to your `Info.plist`
-in order to switch back to your app from Safari.
+You, thearefore, have to add a custom URL scheme for "redirect URI" to your `Info.plist` in order to switch back to your app from Safari.
 
-When your app is back from Safari, call `Client.sharedClient.authorizationDone` in your `application(openURL, sourceApplication, annotation)` as follows:
+When your app is back from Safari, call `TypetalkAPI.authorizationDone` in your `application(openURL, sourceApplication, annotation)` as follows:
 
 ```swift
 func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
-    if Client.sharedClient.isRedirectURL(url) && sourceApplication? == "com.apple.mobilesafari" {
-        return Client.sharedClient.authorizationDone(URL: url)
+    if TypetalkAPI.isRedirectURL(url) && sourceApplication? == "com.apple.mobilesafari" {
+        return TypetalkAPI.authorizationDone(URL: url)
     }
     return false
 }
 ```
 
 If you don't call `authorizationDone`, the callback of `authorize` never be called.
+
+In OS X, you can use `TypetalkAPI.authorizationDone` in `handleGetURLEvent` as follows:
+
+```swift
+func handleGetURLEvent(event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
+    if let ev = event,
+        url_str = ev.descriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue,
+        url = NSURL(string: url_str) where TypetalkAPI.isRedirectURL(url) {
+            TypetalkAPI.authorizationDone(URL: url)
+    }
+}
+```
 
 For more information of Typetalk's authorization, please see [official page](http://developer.nulab-inc.com/docs/typetalk/auth).
 

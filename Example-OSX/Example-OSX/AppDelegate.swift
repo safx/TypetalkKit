@@ -38,14 +38,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK - handleURL
     
     func handleGetURLEvent(event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
-        if let ev = event {
-            if let url_str = ev.descriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue {
-                if let url = NSURL(string: url_str) {
-                    if TypetalkAPI.isRedirectURL(url) {
-                        TypetalkAPI.authorizationDone(URL: url)
-                    }
-                }
-            }
+        if let ev = event,
+            url_str = ev.descriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue,
+            url = NSURL(string: url_str) where TypetalkAPI.isRedirectURL(url) {
+                TypetalkAPI.authorizationDone(URL: url)
         }
     }
 }
