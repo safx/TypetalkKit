@@ -1,5 +1,5 @@
 //
-//  Router.swift
+//  Request+Addition.swift
 //  TypetalkKit
 //
 //  Created by Safx Developer on 2014/09/27.
@@ -13,20 +13,18 @@ import APIKit
 public protocol TypetalkRequest: APIKitRequest {}
 public protocol AuthRequest: APIKitRequest {}
 
-extension TypetalkRequest {
-    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.apiURLString)! }
-
+extension APIKitRequest {
     public var requestBodyBuilder: RequestBodyBuilder {
         return .URL(encoding: NSUTF8StringEncoding)
     }
 }
 
+extension TypetalkRequest {
+    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.apiURLString)! }
+}
+
 extension AuthRequest {
     public var baseURL: NSURL { return NSURL(string: TypetalkAPI.authURLString)! }
-
-    public var requestBodyBuilder: RequestBodyBuilder {
-        return .URL(encoding: NSUTF8StringEncoding)
-    }
 }
 
 extension DownloadAttachment {
