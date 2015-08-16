@@ -32,7 +32,7 @@ class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,to
 }
 
 class UploadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/attachments"
-    typealias Response = Attachment
+    typealias APIKitResponse = Attachment
     let topicId: TopicID
     public let name: String     // router:"-"
     public let contents: NSData // router:"-"
@@ -48,7 +48,7 @@ class GetMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/
 }
 
 class DeleteMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/posts/\(postId)"
-    typealias Response = Post
+    typealias APIKitResponse = Post
     let topicId: TopicID
     let postId: PostID
 }
@@ -59,31 +59,31 @@ class LikeMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,to
 }
 
 class UnlikeMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/posts/\(postId)/like"
-    typealias Response = LikeMessageResponse
+    typealias APIKitResponse = LikeMessageResponse
     let topicId: TopicID
     let postId: PostID
 }
 
 class FavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/favorite"
-    typealias Response = TopicWithUserInfo
+    typealias APIKitResponse = TopicWithUserInfo
     let topicId: TopicID
 }
 
 class UnfavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/favorite"
-    typealias Response = TopicWithUserInfo
+    typealias APIKitResponse = TopicWithUserInfo
     let topicId: TopicID
 }
 
 class GetNotifications: ClassInit, APIKitHelper, TypetalkRequest { // router:",notifications"
-    typealias Response = Notifications
+    typealias APIKitResponse = Notifications
 }
 
 class GetNotificationStatus: ClassInit, APIKitHelper, TypetalkRequest { // router:",notifications/status"
-    typealias Response = NotificationStatus
+    typealias APIKitResponse = NotificationStatus
 }
 
 class OpenNotification: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,notifications"
-    typealias Response = NotificationStatus
+    typealias APIKitResponse = NotificationStatus
 }
 
 class SaveReadTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,bookmarks"
@@ -116,13 +116,13 @@ class AcceptTopicInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"P
 }
 
 class DeclineTopicInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite/\(inviteId)/decline"
-    typealias Response = AcceptTopicInviteResponse
+    typealias APIKitResponse = AcceptTopicInviteResponse
     let topicId: TopicID
     let inviteId: InviteID
 }
 
 class CreateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics"
-    typealias Response = TopicWithAccounts
+    typealias APIKitResponse = TopicWithAccounts
     let name: String
     let teamId: TeamID? = nil
     let inviteMembers: [String] = []
@@ -130,31 +130,31 @@ class CreateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,to
 }
 
 class UpdateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,topics/\(topicId)"
-    typealias Response = TopicWithAccounts
+    typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
     let name: String? = nil
     let teamId: TeamID? = nil
 }
 
 class DeleteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)"
-    typealias Response = Topic
+    typealias APIKitResponse = Topic
     let topicId: TopicID
 }
 
 class GetTopicDetails: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/details"
-    typealias Response = TopicWithAccounts
+    typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
 }
 
 class InviteTopicMember: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite"
-    typealias Response = TopicWithAccounts
+    typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
     let inviteMembers: [String] = []
     let inviteMessage: String? = nil
 }
 
 class RemoveTopicMember: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/remove"
-    typealias Response = TopicWithAccounts
+    typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
     let removeInviteIds: [InviteID] = []
     let removeMemberIds: [AccountID] = []
@@ -167,7 +167,7 @@ class GetFriends: ClassInit, APIKitHelper, TypetalkRequest { // router:",search/
 }
 
 class SearchAccounts: ClassInit, APIKitHelper, TypetalkRequest { // router:",search/accounts"
-    typealias Response = Account
+    typealias APIKitResponse = Account
     let nameOrEmailAddress: String
 }
 
@@ -176,7 +176,7 @@ class GetTalks: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(
 }
 
 class GetTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/talks/\(talkId)/posts"
-    typealias Response = TalkMessages
+    typealias APIKitResponse = TalkMessages
     let topicId: TopicID
     let talkId: TalkID
     let count: Int? = nil
@@ -191,7 +191,7 @@ class CreateTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,top
 }
 
 class DownloadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
-    typealias Response = NSData
+    typealias APIKitResponse = NSData
     let topicId: TopicID
     let postId: PostID
     let attachmentId: AttachmentID

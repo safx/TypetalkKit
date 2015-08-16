@@ -28,7 +28,7 @@ extension AuthRequest {
 }
 
 extension DownloadAttachment {
-    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
+    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> APIKitResponse? {
         fatalError("Not implement yet")
     }
 

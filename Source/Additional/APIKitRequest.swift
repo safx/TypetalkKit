@@ -9,6 +9,9 @@
 import APIKit
 
 public protocol APIKitRequest: Request {
+    typealias APIKitResponse
+    typealias Response = APIKitResponse
+    //typealias Response = Result<APIKitResponse>
 }
 
 extension APIKitRequest where Self.Response: JSONDecodable, Self.Response == Self.Response.DecodedType {
@@ -21,4 +24,3 @@ extension APIKitRequest where Self.Response: JSONDecodable, Self.Response == Sel
         return nil
     }
 }
-

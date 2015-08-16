@@ -125,6 +125,15 @@ extension TypetalkAPI {
         openURL(NSURL(string: base + "/" + request.path + "?" + param)!)
     }
 
+    public static func authorizeWithClientCredentials(completion: CompletionClosure) {
+        precondition(isInitialized)
+        state = .Authorizing(completion)
+        accessToken(AccessToken(
+            grant_type: .ClientCredentials,
+            client_id: settings.clientId,
+            client_secret: settings.clientSecret,
+            scope: Scope.scopesToRaw(settings.scopes)), completion: completion)
+    }
 
     public class func parseQuery(url: NSURL) -> [String:String] {
         var dic: [String:String] = [:]

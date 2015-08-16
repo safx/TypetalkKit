@@ -11,7 +11,7 @@ import APIKit
 
 
 class Authorize: ClassInit, APIKitHelper, AuthRequest { // router:",authorize"
-    typealias Response = OAuth2Credential
+    typealias APIKitResponse = OAuth2Credential
     let client_id: String
     let redirect_uri: String
     let scope: String
@@ -19,13 +19,14 @@ class Authorize: ClassInit, APIKitHelper, AuthRequest { // router:",authorize"
 }
 
 class AccessToken: ClassInit, APIKitHelper, AuthRequest { // router:"POST, access_token"
-    typealias Response = OAuth2Credential
+    typealias APIKitResponse = OAuth2Credential
     let grant_type: GrantType
     let client_id: String
     let client_secret: String
     let redirect_uri: String? = nil   // AuthorizationCode
     let code: String? = nil           // AuthorizationCode
     let refresh_token: String? = nil  // RefreshToken
+    let scope: String? = nil          // ClientCredentials
 }
 
 class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncodable {
