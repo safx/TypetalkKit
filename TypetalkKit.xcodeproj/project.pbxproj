@@ -393,6 +393,7 @@
 
 /* Begin PBXFileReference section */
 		8D08E37119E0157B004F7CBC /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
+		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-acceptTopicInvite.json"; sourceTree = "<group>"; };
 		8D4218911AA21138009D2077 /* streaming-cancelTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-cancelTopicInvite.json"; sourceTree = "<group>"; };
 		8D4218921AA21138009D2077 /* streaming-declineTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-declineTopicInvite.json"; sourceTree = "<group>"; };
@@ -663,6 +664,7 @@
 		8DBA515E19C5B47300BD88A3 = {
 			isa = PBXGroup;
 			children = (
+				8D0F05701B88D14A00435F66 /* Playground.playground */,
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
 				8D4785491B57D0DF00B37898 /* IDL */,
