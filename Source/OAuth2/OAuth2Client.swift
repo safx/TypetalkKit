@@ -42,9 +42,9 @@ extension TypetalkAPI {
         default: return nil
         }
     }
-    public static func setDeveloperSettings(clientId clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) -> Bool {
+    public static func setDeveloperSettings(clientId clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) -> Bool {
         if isInitialized { return false }
-        settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, redirectURI: redirectURI, scopes: scopes)
+        settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, scopes: scopes, redirectURI: redirectURI)
         return true
     }
 
@@ -57,8 +57,10 @@ extension TypetalkAPI {
     }
 
     public static func isRedirectURL(url: NSURL) -> Bool {
+        precondition(settings.redirectURI != nil)
+
         let absurl = url.absoluteString
-        return absurl.hasPrefix(settings.redirectURI)
+        return absurl.hasPrefix(settings.redirectURI!)
     }
     public static func authorizationDone(URL url: NSURL) -> Bool {
         switch state {
@@ -115,10 +117,12 @@ extension TypetalkAPI {
 
     public static func authorize(completion: CompletionClosure) {
         precondition(isInitialized)
+        precondition(settings.redirectURI != nil)
+
         state = .Authorizing(completion)
         let request = Authorize(
             client_id: settings.clientId,
-            redirect_uri: settings.redirectURI,
+            redirect_uri: settings.redirectURI!,
             scope: Scope.scopesToRaw(settings.scopes))
         let param = URLEncodedSerialization.stringFromDictionary(request.parameters)
         let base = request.baseURL.absoluteString
@@ -165,14 +169,14 @@ extension TypetalkAPI {
 internal struct DeveloperSettings {
     let clientId: String
     let clientSecret: String
-    let redirectURI: String
     let scopes: [Scope]
+    let redirectURI: String?
 
-    internal init(clientId: String, clientSecret: String, redirectURI: String, scopes: [Scope]) {
+    internal init(clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) {
         self.clientId = clientId
         self.clientSecret = clientSecret
-        self.redirectURI = redirectURI
         self.scopes = scopes
+        self.redirectURI = redirectURI
     }
 }
 
