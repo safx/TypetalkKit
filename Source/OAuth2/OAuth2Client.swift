@@ -56,6 +56,11 @@ extension TypetalkAPI {
         return false
     }
 
+    internal static func setDummyAccessTokenForTest() {
+        let credential = OAuth2Credential(accessToken: "", tokenType: "", refreshToken: "", expiryIn: 0)
+        self.state = .SignedIn(credential)
+    }
+
     public static func isRedirectURL(url: NSURL) -> Bool {
         precondition(settings.redirectURI != nil)
 

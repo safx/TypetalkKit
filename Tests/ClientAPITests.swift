@@ -6,18 +6,38 @@
 //  Copyright (c) 2014年 Safx Developers. All rights reserved.
 //
 
-import UIKit
+import Foundation
 import XCTest
 import APIKit
-import TypetalkKit
+import OHHTTPStubs
+@testable import TypetalkKit
 
 
 class ClientAPITests: XCTestCase {
 
-    func testGetProfile() {
-        let expectation = expectationWithDescription("")
+    func createStub(name: String) {
+        OHHTTPStubs.stubRequestsPassingTest({ _ in return true }) { _ in
+            let fixture = OHPathForFile("api_\(name).json", self.dynamicType)
+            return OHHTTPStubsResponse(fileAtPath: fixture!,
+                statusCode: 200, headers: ["Content-Type":"application/json"])
+        }
+    }
 
-        API.sendRequest(GetProfile()) { result in
+    override func setUp() {
+        TypetalkAPI.setDummyAccessTokenForTest()
+        super.setUp()
+    }
+
+    override func tearDown() {
+        OHHTTPStubs.removeAllStubs()
+        super.tearDown()
+    }
+
+    func testGetProfile() {
+        createStub("get-profile")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetProfile()) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.account.id, 100)
@@ -40,9 +60,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetTopics() {
-        let expectation = expectationWithDescription("")
+        createStub("get-topics")
 
-        API.sendRequest(GetTopics()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTopics()) { result in
             switch result {
             case .Success(let r):
                 let last = r.topics[8]
@@ -67,9 +88,11 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetMessages() {
+        createStub("get-messages")
+
         let expectation = expectationWithDescription("")
 
-        API.sendRequest(GetMessages(topicId: 0, count: nil, from: nil, direction: nil)) { result in
+        TypetalkAPI.sendRequest(GetMessages(topicId: 0, count: nil, from: nil, direction: nil)) { result in
             switch result {
             case .Success(let messages):
                 let first = messages.posts[0]
@@ -108,9 +131,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testPostMessage() {
-        let expectation = expectationWithDescription("")
+        createStub("post-message")
 
-        API.sendRequest(PostMessage(topicId: 0, message: "", fileKeys: [], talkIds: [])) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(PostMessage(topicId: 0, message: "", fileKeys: [], talkIds: [])) { result in
             switch result {
             case .Success(let res):
                 let topic = res.topic!
@@ -143,9 +167,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testUploadAttachment() {
-        let expectation = expectationWithDescription("")
+        createStub("upload-attachment")
 
-        API.sendRequest(UploadAttachment(topicId: 0, name: "", contents: NSData())) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(UploadAttachment(topicId: 0, name: "", contents: NSData())) { result in
             switch result {
             case .Success(let attachment):
                 XCTAssertEqual(attachment.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
@@ -164,9 +189,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetTopicMembers() {
-        let expectation = expectationWithDescription("")
+        createStub("get-topic-members")
 
-        API.sendRequest(GetTopicMembers(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTopicMembers(topicId: 0)) { result in
             switch result {
             case .Success(let res):
                 XCTAssertEqual(res.pendings.count, 1)
@@ -203,9 +229,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetMessage() {
-        let expectation = expectationWithDescription("")
+        createStub("get-message")
 
-        API.sendRequest(GetMessage(topicId: 0, postId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetMessage(topicId: 0, postId: 0)) { result in
             switch result {
             case .Success(let message):
                 XCTAssertEqual(message.team.id, 700)
@@ -240,9 +267,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testDeleteMessage() {
-        let expectation = expectationWithDescription("")
+        createStub("delete-message")
 
-        API.sendRequest(DeleteMessage(topicId: 0, postId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DeleteMessage(topicId: 0, postId: 0)) { result in
             switch result {
             case .Success(let post):
                 XCTAssertEqual(post.id, 333)
@@ -269,9 +297,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testLikeMessage() {
-        let expectation = expectationWithDescription("")
+        createStub("like-message")
 
-        API.sendRequest(LikeMessage(topicId: 0, postId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(LikeMessage(topicId: 0, postId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.like.id, 604)
@@ -298,9 +327,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testUnlikeMessage() {
-        let expectation = expectationWithDescription("")
+        createStub("unlike-message")
 
-        API.sendRequest(UnlikeMessage(topicId: 0, postId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(UnlikeMessage(topicId: 0, postId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.like.id, 604)
@@ -327,9 +357,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testFavoriteTopic() {
-        let expectation = expectationWithDescription("")
+        createStub("favorite-topic")
 
-        API.sendRequest(FavoriteTopic(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(FavoriteTopic(topicId: 0)) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 206)
@@ -353,9 +384,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testUnfavoriteTopic() {
-        let expectation = expectationWithDescription("")
+        createStub("unfavorite-topic")
 
-        API.sendRequest(UnfavoriteTopic(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(UnfavoriteTopic(topicId: 0)) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 206)
@@ -379,9 +411,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetNotifications() {
-        let expectation = expectationWithDescription("")
+        createStub("get-notifications")
 
-        API.sendRequest(GetNotifications()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetNotifications()) { result in
             switch result {
             case .Success(let notifications):
                 XCTAssertEqual(notifications.mentions.count, 2)
@@ -429,9 +462,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetNotificationStatus() {
-        let expectation = expectationWithDescription("")
+        createStub("get-notification-status")
 
-        API.sendRequest(GetNotificationStatus()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetNotificationStatus()) { result in
             switch result {
             case .Success(let status):
                 XCTAssertEqual(status.mention!.unread!, 1)
@@ -451,9 +485,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testOpenNotification() {
-        let expectation = expectationWithDescription("")
+        createStub("open-notification")
 
-        API.sendRequest(OpenNotification()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(OpenNotification()) { result in
             switch result {
             case .Success(let status):
                 XCTAssertTrue(nil == status.mention)
@@ -472,9 +507,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testSaveReadTopic() {
-        let expectation = expectationWithDescription("")
+        createStub("save-read-topic")
 
-        API.sendRequest(SaveReadTopic(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(SaveReadTopic(topicId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.unread.topicId, 208)
@@ -493,9 +529,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetMentions() {
-        let expectation = expectationWithDescription("")
+        createStub("get-mentions")
 
-        API.sendRequest(GetMentions()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetMentions()) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.mentions.count, 2)
@@ -525,9 +562,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testSaveReadMention() {
-        let expectation = expectationWithDescription("")
+        createStub("save-read-mention")
 
-        API.sendRequest(SaveReadMention(mentionId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(SaveReadMention(mentionId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.mention.id, 501)
@@ -554,9 +592,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testAcceptTeamInvite() {
-        let expectation = expectationWithDescription("")
+        createStub("accept-team-invite")
 
-        API.sendRequest(AcceptTeamInvite(teamId: 0, inviteId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(AcceptTeamInvite(teamId: 0, inviteId: 0)) { result in
             switch result {
             case .Success(let res):
                 let topics = res.topics
@@ -593,12 +632,12 @@ class ClientAPITests: XCTestCase {
     }
 
     func testDeclineTeamInvite() {
-        let expectation = expectationWithDescription("")
+        createStub("decline-team-invite")
 
-        API.sendRequest(DeclineTeamInvite(teamId: 0, inviteId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DeclineTeamInvite(teamId: 0, inviteId: 0)) { result in
             switch result {
-            case .Success(let res):
-                if let invite = res.invite {
+            case .Success(let invite):
                 XCTAssertEqual(invite.id, 801)
                 XCTAssertEqual(invite.team!.id, 703)
                 XCTAssertEqual(invite.team!.name, "WP Team")
@@ -611,7 +650,6 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(invite.message, "This team is for new project.")
 
                 expectation.fulfill()
-                }
             case .Failure(let error):
                 XCTFail("\(error)")
             }
@@ -623,9 +661,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testAcceptTopicInvite() {
-        let expectation = expectationWithDescription("")
+        createStub("accept-topic-invite")
 
-        API.sendRequest(AcceptTopicInvite(topicId: 0, inviteId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(AcceptTopicInvite(topicId: 0, inviteId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.invite.id, 600)
@@ -649,9 +688,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testDeclineTopicInvite() {
-        let expectation = expectationWithDescription("")
+        createStub("decline-topic-invite")
 
-        API.sendRequest(DeclineTopicInvite(topicId: 0, inviteId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DeclineTopicInvite(topicId: 0, inviteId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.invite.id, 601)
@@ -675,10 +715,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testCreateTopic() {
+        createStub("create-topic")
+
         let expectation = expectationWithDescription("")
-
-
-        API.sendRequest(CreateTopic(name: "", teamId: nil, inviteMembers: [], inviteMessage: "")) { result in
+        TypetalkAPI.sendRequest(CreateTopic(name: "", teamId: nil, inviteMembers: [], inviteMessage: "")) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 222)
@@ -708,9 +748,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testUpdateTopic() {
-        let expectation = expectationWithDescription("")
+        createStub("update-topic")
 
-        API.sendRequest(UpdateTopic(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(UpdateTopic(topicId: 0)) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 222)
@@ -736,9 +777,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testDeleteTopic() {
-        let expectation = expectationWithDescription("")
+        createStub("delete-topic")
 
-        API.sendRequest(DeleteTopic(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DeleteTopic(topicId: 0)) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.id, 222)
@@ -760,9 +802,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetTopicDetails() {
-        let expectation = expectationWithDescription("")
+        createStub("get-topic-details")
 
-        API.sendRequest(GetTopicDetails(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTopicDetails(topicId: 0)) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 208)
@@ -788,9 +831,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testInviteTopicMember() {
-        let expectation = expectationWithDescription("")
+        createStub("invite-topic-member")
 
-        API.sendRequest(InviteTopicMember(topicId: 0, inviteMembers: [])) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(InviteTopicMember(topicId: 0, inviteMembers: [])) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 207)
@@ -816,9 +860,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testRemoveTopicMember() {
-        let expectation = expectationWithDescription("")
+        createStub("remove-topic-member")
 
-        API.sendRequest(RemoveTopicMember(topicId: 0, removeInviteIds: [], removeMemberIds: [])) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(RemoveTopicMember(topicId: 0, removeInviteIds: [], removeMemberIds: [])) { result in
             switch result {
             case .Success(let topic):
                 XCTAssertEqual(topic.topic.id, 208)
@@ -843,10 +888,11 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    func testGetTerms() {
-        let expectation = expectationWithDescription("")
+    func testGetTeams() {
+        createStub("get-teams")
 
-        API.sendRequest(GetTeams()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTeams()) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.teams.count, 3)
@@ -870,9 +916,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetFriends() {
-        let expectation = expectationWithDescription("")
+        createStub("get-friends")
 
-        API.sendRequest(GetFriends()) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetFriends()) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.accounts.count, 5)
@@ -897,9 +944,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testSearchAccounts() {
-        let expectation = expectationWithDescription("")
+        createStub("search-accounts")
 
-        API.sendRequest(SearchAccounts(nameOrEmailAddress: "")) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(SearchAccounts(nameOrEmailAddress: "")) { result in
             switch result {
             case .Success(let account):
                 XCTAssertEqual(account.id, 102)
@@ -922,9 +970,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetTalks() {
-        let expectation = expectationWithDescription("")
+        createStub("get-talks")
 
-        API.sendRequest(GetTalks(topicId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTalks(topicId: 0)) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.talks.count, 2)
@@ -948,9 +997,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testGetTalk() {
-        let expectation = expectationWithDescription("")
+        createStub("get-talk")
 
-        API.sendRequest(GetTalk(topicId: 0, talkId: 0)) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(GetTalk(topicId: 0, talkId: 0)) { result in
             switch result {
             case .Success(let talk):
                 XCTAssertEqual(talk.topic.id, 208)
@@ -987,9 +1037,10 @@ class ClientAPITests: XCTestCase {
     }
 
     func testCreateTalk() {
-        let expectation = expectationWithDescription("")
+        createStub("create-talk")
 
-        API.sendRequest(CreateTalk(topicId: 0, talkName: "", postIds: [])) { result in
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(CreateTalk(topicId: 0, talkName: "", postIds: [])) { result in
             switch result {
             case .Success(let r):
                 XCTAssertEqual(r.topic.id, 208)

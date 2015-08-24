@@ -437,7 +437,7 @@ public class AcceptTeamInvite: TypetalkRequest {
 }
 
 public class DeclineTeamInvite: TypetalkRequest {
-	public typealias APIKitResponse = DeclineTeamInviteResponse
+	public typealias APIKitResponse = Invite
 	public let teamId: TeamID
 	public let inviteId: InviteID
 

@@ -106,6 +106,7 @@ class AcceptTeamInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"PO
 }
 
 class DeclineTeamInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,teams/\(teamId)/members/invite/\(inviteId)/decline"
+    typealias APIKitResponse = Invite
     let teamId: TeamID
     let inviteId: InviteID
 }

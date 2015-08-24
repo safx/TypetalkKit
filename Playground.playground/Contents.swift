@@ -4,7 +4,6 @@ import Cocoa
 import Result
 import TypetalkKit
 import XCPlayground
-XCPExecutionShouldContinueIndefinitely()
 XCPSetExecutionShouldContinueIndefinitely()
 
 

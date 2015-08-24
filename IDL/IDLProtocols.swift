@@ -17,6 +17,7 @@ protocol NSCoding {}
 
 protocol URLRequestHelper {}
 protocol APIKitHelper {}
+protocol WSHelper {}
 
 protocol ErrorType {}
 
