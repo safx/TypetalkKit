@@ -72,9 +72,9 @@ extension UploadAttachment {
         let tail = ["\r\n--\(boundary)--\r\n"]
 
         let data = NSMutableData()
-        head.map { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        head.forEach { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
         data.appendData(self.contents)
-        tail.map { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
+        tail.forEach { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
 
         return data
     }

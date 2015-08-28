@@ -61,10 +61,10 @@ public class AccessToken: AuthRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["grant_type": grant_type.toJSON(), "client_id": client_id.toJSON(), "client_secret": client_secret.toJSON()]
-		redirect_uri.map { p["redirect_uri"] = $0.toJSON() }
-		code.map { p["code"] = $0.toJSON() }
-		refresh_token.map { p["refresh_token"] = $0.toJSON() }
-		scope.map { p["scope"] = $0.toJSON() }
+		if let v = redirect_uri { p["redirect_uri"] = v.toJSON() }
+		if let v = code { p["code"] = v.toJSON() }
+		if let v = refresh_token { p["refresh_token"] = v.toJSON() }
+		if let v = scope { p["scope"] = v.toJSON() }
 		return p
 	}
 }

@@ -191,7 +191,7 @@ extension Scope {
     }
 
     public static func scopesToRaw(values: [Scope]) -> String {
-        return ",".join(values.map({ $0.rawValue }))
+        return values.map { $0.rawValue } .joinWithSeparator(",")
     }
 }
 

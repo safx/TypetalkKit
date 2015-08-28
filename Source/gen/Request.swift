@@ -66,9 +66,9 @@ public class GetMessages: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = [:]
-		count.map { p["count"] = $0.toJSON() }
-		from.map { p["from"] = $0.toJSON() }
-		direction.map { p["direction"] = $0.toJSON() }
+		if let v = count { p["count"] = v.toJSON() }
+		if let v = from { p["from"] = v.toJSON() }
+		if let v = direction { p["direction"] = v.toJSON() }
 		return p
 	}
 }
@@ -99,7 +99,7 @@ public class PostMessage: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["message": message.toJSON(), "fileKeys": fileKeys.map { $0.toJSON() }, "talkIds": talkIds.map { $0.toJSON() }]
-		replyTo.map { p["replyTo"] = $0.toJSON() }
+		if let v = replyTo { p["replyTo"] = v.toJSON() }
 		return p
 	}
 }
@@ -361,7 +361,7 @@ public class SaveReadTopic: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["topicId": topicId.toJSON()]
-		postId.map { p["postId"] = $0.toJSON() }
+		if let v = postId { p["postId"] = v.toJSON() }
 		return p
 	}
 }
@@ -386,8 +386,8 @@ public class GetMentions: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = [:]
-		from.map { p["from"] = $0.toJSON() }
-		unread.map { p["unread"] = $0.toJSON() }
+		if let v = from { p["from"] = v.toJSON() }
+		if let v = unread { p["unread"] = v.toJSON() }
 		return p
 	}
 }
@@ -529,7 +529,7 @@ public class CreateTopic: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["name": name.toJSON(), "inviteMembers": inviteMembers.map { $0.toJSON() }, "inviteMessage": inviteMessage.toJSON()]
-		teamId.map { p["teamId"] = $0.toJSON() }
+		if let v = teamId { p["teamId"] = v.toJSON() }
 		return p
 	}
 }
@@ -556,8 +556,8 @@ public class UpdateTopic: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = [:]
-		name.map { p["name"] = $0.toJSON() }
-		teamId.map { p["teamId"] = $0.toJSON() }
+		if let v = name { p["name"] = v.toJSON() }
+		if let v = teamId { p["teamId"] = v.toJSON() }
 		return p
 	}
 }
@@ -626,7 +626,7 @@ public class InviteTopicMember: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["inviteMembers": inviteMembers.map { $0.toJSON() }]
-		inviteMessage.map { p["inviteMessage"] = $0.toJSON() }
+		if let v = inviteMessage { p["inviteMessage"] = v.toJSON() }
 		return p
 	}
 }
@@ -762,9 +762,9 @@ public class GetTalk: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = [:]
-		count.map { p["count"] = $0.toJSON() }
-		from.map { p["from"] = $0.toJSON() }
-		direction.map { p["direction"] = $0.toJSON() }
+		if let v = count { p["count"] = v.toJSON() }
+		if let v = from { p["from"] = v.toJSON() }
+		if let v = direction { p["direction"] = v.toJSON() }
 		return p
 	}
 }
@@ -820,7 +820,7 @@ public class DownloadAttachment: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = [:]
-		type.map { p["type"] = $0.toJSON() }
+		if let v = type { p["type"] = v.toJSON() }
 		return p
 	}
 }
