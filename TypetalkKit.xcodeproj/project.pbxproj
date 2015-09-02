@@ -290,6 +290,8 @@
 		8DEF714B19C9B17C00F179A6 /* URLAttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */; };
 		8DEF715019C9B1EB00F179A6 /* model_urlattachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */; };
 		8DEF718519C9D98B00F179A6 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF718419C9D98B00F179A6 /* Client.swift */; };
+		8DF0E0BE1B974690007B7B97 /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0E0BD1B974690007B7B97 /* DecodeError.swift */; settings = {ASSET_TAGS = (); }; };
+		8DF0E0BF1B974690007B7B97 /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0E0BD1B974690007B7B97 /* DecodeError.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -577,6 +579,7 @@
 		8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachmentTests.swift; sourceTree = "<group>"; };
 		8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_urlattachment.json; sourceTree = "<group>"; };
 		8DEF718419C9D98B00F179A6 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
+		8DF0E0BD1B974690007B7B97 /* DecodeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -695,6 +698,7 @@
 			isa = PBXGroup;
 			children = (
 				8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */,
+				8DF0E0BD1B974690007B7B97 /* DecodeError.swift */,
 				8D97F3BD1B7E2529009A091E /* JSONDecodable.swift */,
 				8D97F3BE1B7E2529009A091E /* JSONEncodable.swift */,
 			);
@@ -1365,6 +1369,7 @@
 				8D9D18621A77D6AA00E3BCCF /* Request+Addition.swift in Sources */,
 				8D3B88321B5406680064C29F /* Streaming.swift in Sources */,
 				8D9D18671A77D6B300E3BCCF /* OAuth2AccountStore.swift in Sources */,
+				8DF0E0BF1B974690007B7B97 /* DecodeError.swift in Sources */,
 				8D9D18651A77D6B300E3BCCF /* OAuth2Client.swift in Sources */,
 				8D97F3C41B7E2529009A091E /* JSONEncodable.swift in Sources */,
 				8D93839E1B593BB900916D99 /* Request.swift in Sources */,
@@ -1424,6 +1429,7 @@
 				8D5C6E3C19D6FFD00020BCA2 /* OAuth2Client.swift in Sources */,
 				8D3B88331B5406680064C29F /* Streaming.swift in Sources */,
 				8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */,
+				8DF0E0BE1B974690007B7B97 /* DecodeError.swift in Sources */,
 				8D9383A21B593BBB00916D99 /* Request.swift in Sources */,
 				8D97F3C31B7E2529009A091E /* JSONEncodable.swift in Sources */,
 				8D9383A31B593BBB00916D99 /* ResponseModel.swift in Sources */,

@@ -61,10 +61,10 @@ public class AccessToken: AuthRequest {
 
 	public var parameters: [String: AnyObject] {
 		var p: [String: AnyObject] = ["grant_type": grant_type.toJSON(), "client_id": client_id.toJSON(), "client_secret": client_secret.toJSON()]
-		if let v = redirect_uri { p["redirect_uri"] = v.toJSON() }
-		if let v = code { p["code"] = v.toJSON() }
-		if let v = refresh_token { p["refresh_token"] = v.toJSON() }
-		if let v = scope { p["scope"] = v.toJSON() }
+		_ = redirect_uri.map { p["redirect_uri"] = $0.toJSON() }
+		_ = code.map { p["code"] = $0.toJSON() }
+		_ = refresh_token.map { p["refresh_token"] = $0.toJSON() }
+		_ = scope.map { p["scope"] = $0.toJSON() }
 		return p
 	}
 }
@@ -123,13 +123,9 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 		let accessToken: String
 		if let v: AnyObject = data["access_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullablle(key: "access_token")
+				throw JSONDecodeError.NonNullable(key: "access_token")
 			} else {
-				do {
-					accessToken = try String.parseJSON(v)
-				} catch JSONDecodeError.ValueTranslationFailed {
-					throw JSONDecodeError.TypeMismatch(key: "access_token", type: "String")
-				}
+				accessToken = try String.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "access_token")
@@ -138,13 +134,9 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 		let tokenType: String
 		if let v: AnyObject = data["token_type"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullablle(key: "token_type")
+				throw JSONDecodeError.NonNullable(key: "token_type")
 			} else {
-				do {
-					tokenType = try String.parseJSON(v)
-				} catch JSONDecodeError.ValueTranslationFailed {
-					throw JSONDecodeError.TypeMismatch(key: "token_type", type: "String")
-				}
+				tokenType = try String.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "token_type")
@@ -153,13 +145,9 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 		let refreshToken: String
 		if let v: AnyObject = data["refresh_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullablle(key: "refresh_token")
+				throw JSONDecodeError.NonNullable(key: "refresh_token")
 			} else {
-				do {
-					refreshToken = try String.parseJSON(v)
-				} catch JSONDecodeError.ValueTranslationFailed {
-					throw JSONDecodeError.TypeMismatch(key: "refresh_token", type: "String")
-				}
+				refreshToken = try String.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "refresh_token")
@@ -168,13 +156,9 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 		let expiryIn: Int
 		if let v: AnyObject = data["expires_in"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullablle(key: "expires_in")
+				throw JSONDecodeError.NonNullable(key: "expires_in")
 			} else {
-				do {
-					expiryIn = try Int.parseJSON(v)
-				} catch JSONDecodeError.ValueTranslationFailed {
-					throw JSONDecodeError.TypeMismatch(key: "expires_in", type: "Int")
-				}
+				expiryIn = try Int.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "expires_in")

@@ -40,6 +40,12 @@ public extension Float {
     }
 }
 
+public extension Double {
+    public func toJSON() -> NSNumber {
+        return NSNumber(double: self)
+    }
+}
+
 public extension Int {
     public func toJSON() -> NSNumber {
         return NSNumber(integer: self)

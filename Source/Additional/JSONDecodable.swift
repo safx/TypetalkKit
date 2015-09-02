@@ -23,7 +23,7 @@ public extension JSONDecodable {
         r.reserveCapacity(array.count)
         for e in array {
             if e is NSNull {
-                throw JSONDecodeError.NonNullablle(key: "(ROOT)")
+                throw JSONDecodeError.NonNullable(key: "(ROOT)")
             } else {
                 r.append(try Self.parseJSON(e))
             }
@@ -46,22 +46,6 @@ public extension JSONDecodable {
             }
         }
         return r
-    }
-}
-
-public enum JSONDecodeError: ErrorType, CustomStringConvertible {
-    case MissingKey(key: String)
-    case TypeMismatch(key: String, type: String)
-    case ValueTranslationFailed(type: String)
-    case NonNullablle(key: String)
-
-    public var description: String {
-        switch self {
-        case .MissingKey(let v): return "MissingKey(key=\(v))"
-        case .TypeMismatch(let v): return "TypeMismatch(key=\(v.key), type=\(v.type))"
-        case .ValueTranslationFailed(let v): return "ValueTranslationFailed(type=\(v))"
-        case .NonNullablle(let v): return "NonNullablle(key=\(v))"
-        }
     }
 }
 
@@ -104,6 +88,15 @@ extension Float: JSONDecodable {
             return v.floatValue
         }
         throw JSONDecodeError.ValueTranslationFailed(type: "Float")
+    }
+}
+
+extension Double: JSONDecodable {
+    public static func parseJSON(data: AnyObject) throws -> Double {
+        if let v = data as? NSNumber {
+            return v.doubleValue
+        }
+        throw JSONDecodeError.ValueTranslationFailed(type: "Double")
     }
 }
 
