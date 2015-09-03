@@ -10,17 +10,17 @@ import Foundation
 
 
 public enum JSONDecodeError: ErrorType, CustomStringConvertible {
-    case MissingKey(key: String)
-    case TypeMismatch(key: String, type: String)
-    case ValueTranslationFailed(type: String)
-    case NonNullable(key: String)
+    case MissingKey(key: String, object: AnyObject)
+    case TypeMismatch(key: String, object: AnyObject, expected: Any.Type, actual: Any.Type)
+    case ValueTranslationFailed(type: Any.Type, object: AnyObject)
+    case NonNullable(key: String, object: AnyObject)
 
     public var description: String {
         switch self {
-        case .MissingKey(let v): return "MissingKey(key=\(v))"
-        case .TypeMismatch(let v): return "TypeMismatch(key=\(v.key), type=\(v.type))"
-        case .ValueTranslationFailed(let v): return "ValueTranslationFailed(type=\(v))"
-        case .NonNullable(let v): return "NonNullable(key=\(v))"
+        case .MissingKey(let v): return "MissingKey(key=\(v), object=\(v.object))"
+        case .TypeMismatch(let v): return "TypeMismatch(key=\(v.key), object=\(v.object), expected=\(v.expected), actual=\(v.actual))"
+        case .ValueTranslationFailed(let v): return "ValueTranslationFailed(type=\(v), object=\(v.object))"
+        case .NonNullable(let v): return "NonNullable(key=\(v), object=\(v.object))"
         }
     }
 }

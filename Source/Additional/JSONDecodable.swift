@@ -16,14 +16,15 @@ public protocol JSONDecodable {
 public extension JSONDecodable {
     static func parseJSONArray(data: AnyObject) throws -> [Self.DecodedType] {
         guard let array = data as? [AnyObject] else {
-            throw JSONDecodeError.ValueTranslationFailed(type: "Array")
+            typealias Arr = [Self.DecodedType]
+            throw JSONDecodeError.ValueTranslationFailed(type: Arr.self, object: data)
         }
 
         var r: [Self.DecodedType] = []
         r.reserveCapacity(array.count)
         for e in array {
             if e is NSNull {
-                throw JSONDecodeError.NonNullable(key: "(ROOT)")
+                throw JSONDecodeError.NonNullable(key: "(ROOT)", object: data)
             } else {
                 r.append(try Self.parseJSON(e))
             }
@@ -33,7 +34,8 @@ public extension JSONDecodable {
 
     static func parseJSONArrayForNullable(data: AnyObject) throws -> [Self.DecodedType?] {
         guard let array = data as? [AnyObject] else {
-            throw JSONDecodeError.ValueTranslationFailed(type: "Array")
+            typealias Arr = [Self.DecodedType?]
+            throw JSONDecodeError.ValueTranslationFailed(type: Arr.self, object: data)
         }
 
         var r: [Self.DecodedType?] = []
@@ -56,7 +58,7 @@ extension NSURL: JSONDecodable {
         if let v = data as? String, val = NSURL(string: v) {
             return val
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "NSURL")
+        throw JSONDecodeError.ValueTranslationFailed(type: NSURL.self, object: data)
     }
 }
 
@@ -69,7 +71,7 @@ extension NSDate: JSONDecodable {
                 return newDate
             }
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "NSDate")
+        throw JSONDecodeError.ValueTranslationFailed(type: NSDate.self, object: data)
     }
 }
 
@@ -78,7 +80,7 @@ extension String: JSONDecodable {
         if let v = data as? String {
             return v
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "String")
+        throw JSONDecodeError.ValueTranslationFailed(type: String.self, object: data)
     }
 }
 
@@ -87,7 +89,7 @@ extension Float: JSONDecodable {
         if let v = data as? NSNumber {
             return v.floatValue
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "Float")
+        throw JSONDecodeError.ValueTranslationFailed(type: Float.self, object: data)
     }
 }
 
@@ -96,7 +98,7 @@ extension Double: JSONDecodable {
         if let v = data as? NSNumber {
             return v.doubleValue
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "Double")
+        throw JSONDecodeError.ValueTranslationFailed(type: Double.self, object: data)
     }
 }
 
@@ -105,7 +107,7 @@ extension Int: JSONDecodable {
         if let v = data as? NSNumber {
             return v.integerValue
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "Int")
+        throw JSONDecodeError.ValueTranslationFailed(type: Int.self, object: data)
     }
 }
 
@@ -114,7 +116,7 @@ extension UInt: JSONDecodable {
         if let v = data as? NSNumber {
             return UInt(v.unsignedIntegerValue)
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "UInt")
+        throw JSONDecodeError.ValueTranslationFailed(type: UInt.self, object: data)
     }
 }
 
@@ -123,6 +125,6 @@ extension Bool: JSONDecodable {
         if let v = data as? NSNumber {
             return v.boolValue
         }
-        throw JSONDecodeError.ValueTranslationFailed(type: "Bool")
+        throw JSONDecodeError.ValueTranslationFailed(type: Bool.self, object: data)
     }
 }

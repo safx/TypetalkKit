@@ -8,18 +8,18 @@ public struct GetProfileResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetProfileResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetProfileResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetProfileResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let account: Account
 		if let v: AnyObject = data["account"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "account")
+				throw JSONDecodeError.NonNullable(key: "account", object: data)
 			} else {
 				account = try Account.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "account")
+			throw JSONDecodeError.MissingKey(key: "account", object: data)
 		}
 
 		return GetProfileResponse(account: account)
@@ -31,18 +31,18 @@ public struct GetTopicsResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetTopicsResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetTopicsResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetTopicsResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let topics: [TopicWithUserInfo]
 		if let v: AnyObject = data["topics"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "topics")
+				throw JSONDecodeError.NonNullable(key: "topics", object: data)
 			} else {
 				topics = try TopicWithUserInfo.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "topics")
+			throw JSONDecodeError.MissingKey(key: "topics", object: data)
 		}
 
 		return GetTopicsResponse(topics: topics)
@@ -58,7 +58,7 @@ public struct GetMessagesResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetMessagesResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetMessagesResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetMessagesResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let team: Team
@@ -134,7 +134,7 @@ public struct PostMessageResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> PostMessageResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(PostMessageResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(PostMessageResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let topic: Topic?
@@ -169,7 +169,7 @@ public struct GetTopicMembersResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetTopicMembersResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetTopicMembersResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetTopicMembersResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let accounts: [AccountWithOnlineStatus]
@@ -206,40 +206,40 @@ public struct GetMessageResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetMessageResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetMessageResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetMessageResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let team: Team
 		if let v: AnyObject = data["team"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "team")
+				throw JSONDecodeError.NonNullable(key: "team", object: data)
 			} else {
 				team = try Team.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "team")
+			throw JSONDecodeError.MissingKey(key: "team", object: data)
 		}
 
 		let topic: Topic
 		if let v: AnyObject = data["topic"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "topic")
+				throw JSONDecodeError.NonNullable(key: "topic", object: data)
 			} else {
 				topic = try Topic.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "topic")
+			throw JSONDecodeError.MissingKey(key: "topic", object: data)
 		}
 
 		let post: Post
 		if let v: AnyObject = data["post"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "post")
+				throw JSONDecodeError.NonNullable(key: "post", object: data)
 			} else {
 				post = try Post.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "post")
+			throw JSONDecodeError.MissingKey(key: "post", object: data)
 		}
 
 		let replies: [Post]
@@ -262,18 +262,18 @@ public struct LikeMessageResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> LikeMessageResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(LikeMessageResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(LikeMessageResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let like: Like
 		if let v: AnyObject = data["like"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "like")
+				throw JSONDecodeError.NonNullable(key: "like", object: data)
 			} else {
 				like = try Like.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "like")
+			throw JSONDecodeError.MissingKey(key: "like", object: data)
 		}
 
 		return LikeMessageResponse(like: like)
@@ -285,18 +285,18 @@ public struct SaveReadTopicResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> SaveReadTopicResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(SaveReadTopicResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(SaveReadTopicResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let unread: Unread
 		if let v: AnyObject = data["unread"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "unread")
+				throw JSONDecodeError.NonNullable(key: "unread", object: data)
 			} else {
 				unread = try Unread.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "unread")
+			throw JSONDecodeError.MissingKey(key: "unread", object: data)
 		}
 
 		return SaveReadTopicResponse(unread: unread)
@@ -308,18 +308,18 @@ public struct GetMentionsResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetMentionsResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetMentionsResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetMentionsResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let mentions: [Mention]
 		if let v: AnyObject = data["mentions"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "mentions")
+				throw JSONDecodeError.NonNullable(key: "mentions", object: data)
 			} else {
 				mentions = try Mention.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "mentions")
+			throw JSONDecodeError.MissingKey(key: "mentions", object: data)
 		}
 
 		return GetMentionsResponse(mentions: mentions)
@@ -331,18 +331,18 @@ public struct SaveReadMentionResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> SaveReadMentionResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(SaveReadMentionResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(SaveReadMentionResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let mention: Mention
 		if let v: AnyObject = data["mention"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "mention")
+				throw JSONDecodeError.NonNullable(key: "mention", object: data)
 			} else {
 				mention = try Mention.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "mention")
+			throw JSONDecodeError.MissingKey(key: "mention", object: data)
 		}
 
 		return SaveReadMentionResponse(mention: mention)
@@ -355,7 +355,7 @@ public struct AcceptTeamInviteResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> AcceptTeamInviteResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(AcceptTeamInviteResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(AcceptTeamInviteResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let topics: [Topic]
@@ -389,7 +389,7 @@ public struct DeclineTeamInviteResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> DeclineTeamInviteResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(DeclineTeamInviteResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(DeclineTeamInviteResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let invite: Invite?
@@ -412,18 +412,18 @@ public struct AcceptTopicInviteResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> AcceptTopicInviteResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(AcceptTopicInviteResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(AcceptTopicInviteResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let invite: Invite
 		if let v: AnyObject = data["invite"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "invite")
+				throw JSONDecodeError.NonNullable(key: "invite", object: data)
 			} else {
 				invite = try Invite.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "invite")
+			throw JSONDecodeError.MissingKey(key: "invite", object: data)
 		}
 
 		return AcceptTopicInviteResponse(invite: invite)
@@ -435,18 +435,18 @@ public struct GetTeamsResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetTeamsResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetTeamsResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetTeamsResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let teams: [TeamWithCount]
 		if let v: AnyObject = data["teams"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "teams")
+				throw JSONDecodeError.NonNullable(key: "teams", object: data)
 			} else {
 				teams = try TeamWithCount.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "teams")
+			throw JSONDecodeError.MissingKey(key: "teams", object: data)
 		}
 
 		return GetTeamsResponse(teams: teams)
@@ -458,18 +458,18 @@ public struct GetFriendsResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetFriendsResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetFriendsResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetFriendsResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let accounts: [Account]
 		if let v: AnyObject = data["accounts"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "accounts")
+				throw JSONDecodeError.NonNullable(key: "accounts", object: data)
 			} else {
 				accounts = try Account.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "accounts")
+			throw JSONDecodeError.MissingKey(key: "accounts", object: data)
 		}
 
 		return GetFriendsResponse(accounts: accounts)
@@ -481,18 +481,18 @@ public struct GetTalksResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> GetTalksResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(GetTalksResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(GetTalksResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let talks: [Talk]
 		if let v: AnyObject = data["talks"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "talks")
+				throw JSONDecodeError.NonNullable(key: "talks", object: data)
 			} else {
 				talks = try Talk.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "talks")
+			throw JSONDecodeError.MissingKey(key: "talks", object: data)
 		}
 
 		return GetTalksResponse(talks: talks)
@@ -506,40 +506,40 @@ public struct CreateTalkResponse: JSONDecodable {
 
 	public static func parseJSON(data: AnyObject) throws -> CreateTalkResponse {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(CreateTalkResponse)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(CreateTalkResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let topic: Topic
 		if let v: AnyObject = data["topic"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "topic")
+				throw JSONDecodeError.NonNullable(key: "topic", object: data)
 			} else {
 				topic = try Topic.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "topic")
+			throw JSONDecodeError.MissingKey(key: "topic", object: data)
 		}
 
 		let talk: Talk
 		if let v: AnyObject = data["talk"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "talk")
+				throw JSONDecodeError.NonNullable(key: "talk", object: data)
 			} else {
 				talk = try Talk.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "talk")
+			throw JSONDecodeError.MissingKey(key: "talk", object: data)
 		}
 
 		let postIds: [PostID]
 		if let v: AnyObject = data["postIds"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "postIds")
+				throw JSONDecodeError.NonNullable(key: "postIds", object: data)
 			} else {
 				postIds = try PostID.parseJSONArray(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "postIds")
+			throw JSONDecodeError.MissingKey(key: "postIds", object: data)
 		}
 
 		return CreateTalkResponse(topic: topic, talk: talk, postIds: postIds)

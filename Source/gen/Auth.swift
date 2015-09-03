@@ -117,51 +117,51 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 
 	public class func parseJSON(data: AnyObject) throws -> OAuth2Credential {
 		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(OAuth2Credential)", type: "NSDictionary")
+			throw JSONDecodeError.TypeMismatch(key: "(OAuth2Credential)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
 		let accessToken: String
 		if let v: AnyObject = data["access_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "access_token")
+				throw JSONDecodeError.NonNullable(key: "access_token", object: data)
 			} else {
 				accessToken = try String.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "access_token")
+			throw JSONDecodeError.MissingKey(key: "access_token", object: data)
 		}
 
 		let tokenType: String
 		if let v: AnyObject = data["token_type"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "token_type")
+				throw JSONDecodeError.NonNullable(key: "token_type", object: data)
 			} else {
 				tokenType = try String.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "token_type")
+			throw JSONDecodeError.MissingKey(key: "token_type", object: data)
 		}
 
 		let refreshToken: String
 		if let v: AnyObject = data["refresh_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "refresh_token")
+				throw JSONDecodeError.NonNullable(key: "refresh_token", object: data)
 			} else {
 				refreshToken = try String.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "refresh_token")
+			throw JSONDecodeError.MissingKey(key: "refresh_token", object: data)
 		}
 
 		let expiryIn: Int
 		if let v: AnyObject = data["expires_in"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "expires_in")
+				throw JSONDecodeError.NonNullable(key: "expires_in", object: data)
 			} else {
 				expiryIn = try Int.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "expires_in")
+			throw JSONDecodeError.MissingKey(key: "expires_in", object: data)
 		}
 
 		return OAuth2Credential(accessToken: accessToken, tokenType: tokenType, refreshToken: refreshToken, expiryIn: expiryIn)
