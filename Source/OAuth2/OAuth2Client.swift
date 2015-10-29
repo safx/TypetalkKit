@@ -108,7 +108,7 @@ extension TypetalkAPI {
     }
 
     public static func accessToken(request: AccessToken, completion: CompletionClosure) {
-        self.sendRequest(request) { result -> Void in
+        sendRequest(request) { result -> Void in
             switch result {
             case .Success(let credential):
                 self.accountStore.saveCredential(credential)

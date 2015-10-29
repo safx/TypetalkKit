@@ -17,15 +17,9 @@ extension XCTestCase {
     }
 
     func json(name: String) -> [String:AnyObject] {
-        var error: NSError? = nil
-        let data: NSData?
-        do {
-            data = try NSData(contentsOfFile: path(name), options: [])
-        } catch let error1 as NSError {
-            error = error1
-            data = nil
-        }
-        
+        let data = try? NSData(contentsOfFile: path(name), options: [])
+        assert(data != nil)
+
         do {
             let dic = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSDictionary
             //assert(dic != nil && error == nil)

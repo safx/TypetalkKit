@@ -9,7 +9,7 @@
 import APIKit
 
 
-public class TypetalkAPI: API {
+public class TypetalkAPI: Session {
     internal static let apiURLString: String = "https://typetalk.in/api/v1/"
     internal static let authURLString: String = "https://typetalk.in/oauth2"
 }

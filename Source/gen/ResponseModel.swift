@@ -351,7 +351,7 @@ public struct SaveReadMentionResponse: JSONDecodable {
 
 public struct AcceptTeamInviteResponse: JSONDecodable {
 	public let topics: [Topic]
-	public let invite: Invite? //TeamInvite?
+	public let invite: Invite?
 
 	public static func parseJSON(data: AnyObject) throws -> AcceptTeamInviteResponse {
 		if !(data is NSDictionary) {
@@ -385,7 +385,7 @@ public struct AcceptTeamInviteResponse: JSONDecodable {
 }
 
 public struct DeclineTeamInviteResponse: JSONDecodable {
-	public let invite: Invite? //TeamInvite?
+	public let invite: Invite?
 
 	public static func parseJSON(data: AnyObject) throws -> DeclineTeamInviteResponse {
 		if !(data is NSDictionary) {
@@ -408,7 +408,7 @@ public struct DeclineTeamInviteResponse: JSONDecodable {
 }
 
 public struct AcceptTopicInviteResponse: JSONDecodable {
-	public let invite: Invite //TopicInvite
+	public let invite: Invite
 
 	public static func parseJSON(data: AnyObject) throws -> AcceptTopicInviteResponse {
 		if !(data is NSDictionary) {

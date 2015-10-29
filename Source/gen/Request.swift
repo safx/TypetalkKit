@@ -107,7 +107,7 @@ public class PostMessage: TypetalkRequest {
 public class UploadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Attachment
 	public let topicId: TopicID
-	public let name: String	 // router:"-"
+	public let name: String // router:"-"
 	public let contents: NSData // router:"-"
 
 	public init(topicId: TopicID, name: String, contents: NSData) {

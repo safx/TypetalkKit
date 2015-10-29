@@ -70,10 +70,10 @@ public class AccessToken: AuthRequest {
 }
 
 public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable {
-	public let accessToken: String	// json:"access_token"
-	public let tokenType: String	  // json:"token_type"
-	public let refreshToken: String   // json:"refresh_token"
-	public let expiryIn: Int		  // json:"expires_in"
+	public let accessToken: String // json:"access_token"
+	public let tokenType: String // json:"token_type"
+	public let refreshToken: String // json:"refresh_token"
+	public let expiryIn: Int // json:"expires_in"
 
 	public init(accessToken: String, tokenType: String, refreshToken: String, expiryIn: Int) {
 		self.accessToken = accessToken

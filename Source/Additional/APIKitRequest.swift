@@ -9,7 +9,7 @@
 import Foundation
 import APIKit
 
-public protocol APIKitRequest: Request {
+public protocol APIKitRequest: RequestType {
     typealias APIKitResponse
     typealias Response = APIKitResponse
     //typealias Response = Result<APIKitResponse>

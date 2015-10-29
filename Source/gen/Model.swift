@@ -332,11 +332,11 @@ public struct Bookmark: JSONDecodable {
 public struct Embed: JSONDecodable {
 	public let type: String
 	public let version: Float
-	public let providerName: String // JSON:"provider_name"
-	public let providerURL: NSURL?  // JSON:"provider_url"
+	public let providerName: String // json:"provider_name"
+	public let providerURL: NSURL? // json:"provider_url"
 	public let title: String
-	public let authorName: String   // JSON:"author_name"
-	public let authorURL: NSURL?	// JSON:"author_url"
+	public let authorName: String // json:"author_name"
+	public let authorURL: NSURL? // json:"author_url"
 	public let html: String
 	public let width: Int
 	public let height: Int
@@ -883,7 +883,7 @@ public struct Mention: JSONDecodable {
 
 public struct Notifications: JSONDecodable {
 	public let mentions: [Mention]
-	public let invites: Invites
+	public let invites: Notifications.Invites
 
 	public static func parseJSON(data: AnyObject) throws -> Notifications {
 		if !(data is NSDictionary) {
@@ -901,12 +901,12 @@ public struct Notifications: JSONDecodable {
 			mentions = []
 		}
 
-		let invites: Invites
+		let invites: Notifications.Invites
 		if let v: AnyObject = data["invites"] {
 			if v is NSNull {
 				throw JSONDecodeError.NonNullable(key: "invites", object: data)
 			} else {
-				invites = try Invites.parseJSON(v)
+				invites = try Notifications.Invites.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "invites", object: data)
@@ -952,43 +952,43 @@ public struct Notifications: JSONDecodable {
 }
 
 public struct NotificationStatus: JSONDecodable {
-	public let mention: Mention?
-	public let access: Access?
-	public let invite: Invite?
+	public let mention: NotificationStatus.Mention?
+	public let access: NotificationStatus.Access?
+	public let invite: NotificationStatus.Invite?
 
 	public static func parseJSON(data: AnyObject) throws -> NotificationStatus {
 		if !(data is NSDictionary) {
 			throw JSONDecodeError.TypeMismatch(key: "(NotificationStatus)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
-		let mention: Mention?
+		let mention: NotificationStatus.Mention?
 		if let v: AnyObject = data["mention"] {
 			if v is NSNull {
 				mention = nil
 			} else {
-				mention = try Mention.parseJSON(v)
+				mention = try NotificationStatus.Mention.parseJSON(v)
 			}
 		} else {
 			mention = nil
 		}
 
-		let access: Access?
+		let access: NotificationStatus.Access?
 		if let v: AnyObject = data["access"] {
 			if v is NSNull {
 				access = nil
 			} else {
-				access = try Access.parseJSON(v)
+				access = try NotificationStatus.Access.parseJSON(v)
 			}
 		} else {
 			access = nil
 		}
 
-		let invite: Invite?
+		let invite: NotificationStatus.Invite?
 		if let v: AnyObject = data["invite"] {
 			if v is NSNull {
 				invite = nil
 			} else {
-				invite = try Invite.parseJSON(v)
+				invite = try NotificationStatus.Invite.parseJSON(v)
 			}
 		} else {
 			invite = nil
@@ -1044,31 +1044,31 @@ public struct NotificationStatus: JSONDecodable {
 	}
 
 	public struct Invite: JSONDecodable {
-		public let team: PendingCount?
-		public let topic: PendingCount?
+		public let team: NotificationStatus.Invite.PendingCount?
+		public let topic: NotificationStatus.Invite.PendingCount?
 
 		public static func parseJSON(data: AnyObject) throws -> Invite {
 			if !(data is NSDictionary) {
 				throw JSONDecodeError.TypeMismatch(key: "(Invite)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 			}
 
-			let team: PendingCount?
+			let team: NotificationStatus.Invite.PendingCount?
 			if let v: AnyObject = data["team"] {
 				if v is NSNull {
 					team = nil
 				} else {
-					team = try PendingCount.parseJSON(v)
+					team = try NotificationStatus.Invite.PendingCount.parseJSON(v)
 				}
 			} else {
 				team = nil
 			}
 
-			let topic: PendingCount?
+			let topic: NotificationStatus.Invite.PendingCount?
 			if let v: AnyObject = data["topic"] {
 				if v is NSNull {
 					topic = nil
 				} else {
-					topic = try PendingCount.parseJSON(v)
+					topic = try NotificationStatus.Invite.PendingCount.parseJSON(v)
 				}
 			} else {
 				topic = nil
@@ -1996,12 +1996,12 @@ public struct PostLinksEvent: JSONDecodable {
 		let links: [Link]
 		if let v: AnyObject = data["links"] {
 			if v is NSNull {
-				links = []
+				throw JSONDecodeError.NonNullable(key: "links", object: data)
 			} else {
 				links = try Link.parseJSONArray(v)
 			}
 		} else {
-			links = []
+			throw JSONDecodeError.MissingKey(key: "links", object: data)
 		}
 
 		return PostLinksEvent(postId: postId, links: links)

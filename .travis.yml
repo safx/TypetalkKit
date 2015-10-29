@@ -1,17 +1,11 @@
 language: objective-c
-osx_image: xcode7
-
-before_install:
-- gem install xcpretty --no-rdoc --no-ri --no-document --quiet
-#- git clone https://github.com/realm/SwiftCov.git && cd SwiftCov && make && cd ..
+osx_image: xcode7.1
 
 script:
 - set -o pipefail
-#- sudo chown :travis /Library/Developer/CoreSimulator/Profiles/Runtimes/iOS\ *.simruntime/Contents/Resources/RuntimeRoot/usr/lib/dyld_sim
 - xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-OSX build -sdk macosx10.11     ONLY_ACTIVE_ARCH=YES | xcpretty -c
-- xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test  -sdk iphonesimulator9.0 -destination "platform=iOS Simulator,name=iPhone 6" ONLY_ACTIVE_ARCH=YES | xcpretty -c
-#- SwiftCov/swiftcov generage --output coverage xcodebuild test -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS -configuration Release -sdk iphonesimulator
+- xcodebuild -workspace TypetalkKit.xcworkspace -scheme TypetalkKit-iOS test  -sdk iphonesimulator9.1 -destination "platform=iOS Simulator,name=iPhone 6" ONLY_ACTIVE_ARCH=YES | xcpretty -c
 - pod lib lint --quick
 
-#after_success:
-#- bash <(curl -s https://codecov.io/bash)
+after_success:
+- bash <(curl -s https://codecov.io/bash)
