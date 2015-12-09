@@ -9,7 +9,6 @@
 import Foundation
 import XCTest
 
-
 extension XCTestCase {
     func path(name: String) -> String {
         let bundle = NSBundle(forClass: ClientTests.self)

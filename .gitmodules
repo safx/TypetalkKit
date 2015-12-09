@@ -1,12 +1,15 @@
-[submodule "External/Alamofire"]
-	path = External/Alamofire
-	url = https://github.com/Alamofire/Alamofire.git
-[submodule "External/JSONHelper"]
-	path = External/JSONHelper
-	url = https://github.com/isair/JSONHelper.git
-[submodule "External/Starscream"]
-	path = External/Starscream
+[submodule "Carthage/Checkouts/Result"]
+	path = Carthage/Checkouts/Result
+	url = https://github.com/antitypical/Result.git
+[submodule "Carthage/Checkouts/Starscream"]
+	path = Carthage/Checkouts/Starscream
 	url = https://github.com/daltoniam/Starscream.git
-[submodule "External/APIKit"]
-	path = External/APIKit
+[submodule "Carthage/Checkouts/APIKit"]
+	path = Carthage/Checkouts/APIKit
 	url = https://github.com/ishkawa/APIKit.git
+[submodule "Carthage/Checkouts/Alamofire"]
+	path = Carthage/Checkouts/Alamofire
+	url = https://github.com/Alamofire/Alamofire.git
+[submodule "Carthage/Checkouts/OHHTTPStubs"]
+	path = Carthage/Checkouts/OHHTTPStubs
+	url = https://github.com/AliSoftware/OHHTTPStubs.git
