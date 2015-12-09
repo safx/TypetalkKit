@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.source_files = "Source/**/*.swift"
   s.ios.deployment_target = "8.0"
   s.osx.deployment_target = "10.9"
-  s.dependency     "APIKit", '~> 1.0.0-beta.9'
-  s.dependency     "Starscream", '~> 1.0.1'
+  s.dependency     "APIKit", '~> 1.0.0-beta.13'
+  s.dependency     "Starscream", '~> 1.0.2'
   s.requires_arc = true
 end
