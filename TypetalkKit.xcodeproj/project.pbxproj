@@ -74,7 +74,6 @@
 		8D5C6E4519D800560020BCA2 /* model_mention.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C6E4319D800560020BCA2 /* model_mention.json */; };
 		8D5C6E4C19D805720020BCA2 /* model_team_invite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5C6E4A19D805720020BCA2 /* model_team_invite.json */; };
 		8D5C6E4F19D805B40020BCA2 /* InviteTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E4E19D805B40020BCA2 /* InviteTests.swift */; };
-		8D5CA27119D850CB005A08B3 /* TypetalkKit.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8D622B1E1C187EAB00A743C2 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D622B1B1C187EAB00A743C2 /* APIKit.framework */; };
 		8D622B1F1C187EAB00A743C2 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D622B1C1C187EAB00A743C2 /* Result.framework */; };
 		8D622B201C187EAB00A743C2 /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D622B1D1C187EAB00A743C2 /* Starscream.framework */; };
@@ -324,16 +323,6 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
-		};
-		8D5CA26F19D850B8005A08B3 /* CopyFiles */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				8D5CA27119D850CB005A08B3 /* TypetalkKit.framework in CopyFiles */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 		8DA638D719D5BA6500EA4C08 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -640,13 +629,13 @@
 		8DBA515E19C5B47300BD88A3 = {
 			isa = PBXGroup;
 			children = (
-				8D622B251C187ECF00A743C2 /* Frameworks-OSX */,
-				8D622B091C187B7D00A743C2 /* Frameworks-iOS */,
 				8D0F05701B88D14A00435F66 /* Playground.playground */,
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
 				8D4785491B57D0DF00B37898 /* IDL */,
 				8DBA516919C5B47300BD88A3 /* Products */,
+				8D622B091C187B7D00A743C2 /* Frameworks-iOS */,
+				8D622B251C187ECF00A743C2 /* Frameworks-OSX */,
 			);
 			sourceTree = "<group>";
 		};
@@ -900,6 +889,7 @@
 				8D9D184E1A77D54200E3BCCF /* Sources */,
 				8D9D184F1A77D54200E3BCCF /* Frameworks */,
 				8D9D18501A77D54200E3BCCF /* Resources */,
+				8D71A4EA1C20676800B0617D /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -937,7 +927,7 @@
 				8DBA516F19C5B47400BD88A3 /* Sources */,
 				8DBA517019C5B47400BD88A3 /* Frameworks */,
 				8DBA517119C5B47400BD88A3 /* Resources */,
-				8D5CA26F19D850B8005A08B3 /* CopyFiles */,
+				8D71A4E91C20648900B0617D /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -1202,6 +1192,47 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8D71A4E91C20648900B0617D /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Starscream.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/Alamofire.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+		8D71A4EA1C20676800B0617D /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/Mac/OHHTTPStubs.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/APIKit.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Result.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Starscream.framework",
+				"$(SRCROOT)/Carthage/Build/Mac/Alamofire.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D4785441B57D0DF00B37898 /* Sources */ = {

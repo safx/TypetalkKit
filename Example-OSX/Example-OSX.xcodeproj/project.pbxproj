@@ -14,15 +14,18 @@
 		8D40113B1A7C9748005D7EEC /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113A1A7C9748005D7EEC /* MessageViewController.swift */; };
 		8D40113F1A7CA3C9005D7EEC /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */; };
 		8D68D8C71C1873C3008ACB36 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */; };
+		8DABBF961C1FDBC800B99B8D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DABBF951C1FDBC800B99B8D /* Alamofire.framework */; };
+		8DABBF971C1FDBC800B99B8D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DABBF951C1FDBC800B99B8D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		8D3B515E1A7A80E600F7B6A5 /* Embed Frameworks */ = {
+		8DABBF981C1FDBC800B99B8D /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				8DABBF971C1FDBC800B99B8D /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -39,6 +42,7 @@
 		8D40113A1A7C9748005D7EEC /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TypetalkKit.framework; path = ../build/Debug/TypetalkKit.framework; sourceTree = "<group>"; };
+		8DABBF951C1FDBC800B99B8D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +51,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D68D8C71C1873C3008ACB36 /* TypetalkKit.framework in Frameworks */,
+				8DABBF961C1FDBC800B99B8D /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +61,7 @@
 		8D3B51241A7935A800F7B6A5 = {
 			isa = PBXGroup;
 			children = (
+				8DABBF951C1FDBC800B99B8D /* Alamofire.framework */,
 				8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */,
 				8D3B512F1A7935A800F7B6A5 /* Example-OSX */,
 				8D3B512E1A7935A800F7B6A5 /* Products */,
@@ -102,7 +108,7 @@
 				8D3B51291A7935A800F7B6A5 /* Sources */,
 				8D3B512A1A7935A800F7B6A5 /* Frameworks */,
 				8D3B512B1A7935A800F7B6A5 /* Resources */,
-				8D3B515E1A7A80E600F7B6A5 /* Embed Frameworks */,
+				8DABBF981C1FDBC800B99B8D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -268,8 +274,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					/Users/safx/src/TypetalkKit/build/Debug,
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = "Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
@@ -285,8 +290,7 @@
 				COMBINE_HIDPI_IMAGES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/Mac",
-					/Users/safx/src/TypetalkKit/build/Debug,
+					"$(PROJECT_DIR)/../Carthage/Build/Mac",
 				);
 				INFOPLIST_FILE = "Example-OSX/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";

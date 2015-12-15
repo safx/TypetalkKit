@@ -37,6 +37,12 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                     TypetalkAPI.requestRefreshToken { (err) -> Void in
                         if err == nil {
                             self.fetchData()
+                        } else {
+                            TypetalkAPI.authorize { (error) -> Void in
+                                if (error == nil) {
+                                    self.fetchData()
+                                }
+                            }
                         }
                     }
                 }

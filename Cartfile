@@ -1,0 +1,2 @@
+github "ishkawa/APIKit" ~> 1.1.1
+github "daltoniam/Starscream" >= 1.0.0

@@ -290,7 +290,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "Example-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
@@ -305,7 +305,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/safx/src/TypetalkKit/build/Debug-iphoneos",
+					"$(PROJECT_DIR)/../Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "Example-iOS/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.3;
