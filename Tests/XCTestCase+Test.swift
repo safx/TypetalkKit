@@ -8,10 +8,11 @@
 
 import Foundation
 import XCTest
+@testable import TypetalkKit
 
 extension XCTestCase {
     func path(name: String) -> String {
-        let bundle = NSBundle(forClass: ClientTests.self)
+        let bundle = NSBundle(forClass: ClientAPITests.self)
         return bundle.pathForResource(name, ofType: "json")!
     }
 

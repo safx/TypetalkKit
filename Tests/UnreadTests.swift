@@ -8,7 +8,7 @@
 
 import Foundation
 import XCTest
-import TypetalkKit
+@testable import TypetalkKit
 
 class UnreadTests: XCTestCase {
     

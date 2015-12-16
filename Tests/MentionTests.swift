@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import TypetalkKit
+@testable import TypetalkKit
 
 class MentionTests: XCTestCase {
     

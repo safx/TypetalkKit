@@ -7,21 +7,20 @@
 //
 
 import XCTest
-import TypetalkKit
+@testable import TypetalkKit
 
 class AccessTokenTests: XCTestCase {
 
-    /*func testProfile() {
-        var error: NSError? = nil
-        let model = OAuth2Credential(dictionary: json("model_access_token"), error: &error)
+    func testProfile() {
+        let model = try! OAuth2Credential.parseJSON(json("model_access_token"))
         
         XCTAssertEqual(model.accessToken, "@YOUR_ACCESS_TOKEN")
         XCTAssertEqual(model.tokenType, "Bearer")
-        //XCTAssertEqual(model.expiryDate, 3600)
+        XCTAssertEqual(model.expiryIn, 3600)
         XCTAssertEqual(model.refreshToken, "@YOUR_REFRESH_TOKEN")
 
-        XCTAssertEqual(model.scopes.count, 2)
-        XCTAssertEqual(model.scopes.filter({ $0 == Scope.my }).count, 1)
-        XCTAssertEqual(model.scopes.filter({ $0 == Scope.topic_read }).count, 1)
-    }*/
+        //XCTAssertEqual(model.scopes.count, 2)
+        //XCTAssertEqual(model.scopes.filter({ $0 == Scope.my }).count, 1)
+        //XCTAssertEqual(model.scopes.filter({ $0 == Scope.topic_read }).count, 1)
+    }
 }

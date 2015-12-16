@@ -8,7 +8,7 @@
 
 import XCTest
 import APIKit
-import TypetalkKit
+@testable import TypetalkKit
 
 
 class ClientStreamingAPITests: XCTestCase {

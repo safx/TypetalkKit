@@ -8,16 +8,16 @@
 
 import Foundation
 import XCTest
-import TypetalkKit
+@testable import TypetalkKit
 
 class OAuth2RouterTests: XCTestCase {
-    /*let settings: DeveloperSettings = DeveloperSettings(
+    let settings: DeveloperSettings = DeveloperSettings(
             clientId: "aaaa",
             clientSecret: "bbbbbb",
             redirectURI: "http://exsample.com/typetalk",
             scopes: [Scope.my, Scope.topic_read])
     
-    func testAuthorize() {
+    /*func testAuthorize() {
         let req = OAuth2Router.Authorize(settings).URLRequest
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URL!.host!, "typetalk.in")

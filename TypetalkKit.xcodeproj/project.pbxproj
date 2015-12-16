@@ -12,7 +12,6 @@
 		8D0F05831B8A1EB300435F66 /* StreamingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */; };
 		8D0F05911B8B343700435F66 /* ClientAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */; };
 		8D0F05AE1B8B447D00435F66 /* XCTestCase+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */; };
-		8D0F05AF1B8B447D00435F66 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9936219CC57FB0097E4B7 /* ClientTests.swift */; };
 		8D0F05B01B8B447D00435F66 /* ClientAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */; };
 		8D0F05B11B8B447D00435F66 /* Client+StreamingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD2221E1A90DF2B00EA024C /* Client+StreamingTest.swift */; };
 		8D0F05B21B8B447D00435F66 /* RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3519D6B58B0020BCA2 /* RouterTests.swift */; };
@@ -175,7 +174,6 @@
 		8DBA519D19C5E9D300BD88A3 /* XCTestCase+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */; };
 		8DBA519F19C5E9E600BD88A3 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */; };
 		8DBA51A219C5EA2C00BD88A3 /* model_account.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DBA51A119C5EA2C00BD88A3 /* model_account.json */; };
-		8DC9936319CC57FB0097E4B7 /* ClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DC9936219CC57FB0097E4B7 /* ClientTests.swift */; };
 		8DD221B11A90DA2400EA024C /* streaming-acceptTeamInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DD2219A1A90DA2300EA024C /* streaming-acceptTeamInvite.json */; };
 		8DD221B21A90DA2400EA024C /* streaming-acceptTeamInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DD2219A1A90DA2300EA024C /* streaming-acceptTeamInvite.json */; };
 		8DD221B31A90DA2400EA024C /* streaming-addTalkPost.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DD2219B1A90DA2300EA024C /* streaming-addTalkPost.json */; };
@@ -457,7 +455,6 @@
 		8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Test.swift"; sourceTree = "<group>"; };
 		8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccountTests.swift; sourceTree = "<group>"; };
 		8DBA51A119C5EA2C00BD88A3 /* model_account.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_account.json; sourceTree = "<group>"; };
-		8DC9936219CC57FB0097E4B7 /* ClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientTests.swift; sourceTree = "<group>"; };
 		8DD2219A1A90DA2300EA024C /* streaming-acceptTeamInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-acceptTeamInvite.json"; sourceTree = "<group>"; };
 		8DD2219B1A90DA2300EA024C /* streaming-addTalkPost.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-addTalkPost.json"; sourceTree = "<group>"; };
 		8DD2219C1A90DA2300EA024C /* streaming-createTalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-createTalk.json"; sourceTree = "<group>"; };
@@ -677,12 +674,13 @@
 			isa = PBXGroup;
 			children = (
 				8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */,
-				8DC9936219CC57FB0097E4B7 /* ClientTests.swift */,
 				8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */,
 				8DD2221E1A90DF2B00EA024C /* Client+StreamingTest.swift */,
 				8D5C6E3519D6B58B0020BCA2 /* RouterTests.swift */,
 				8D5C6E3D19D703200020BCA2 /* OAuth2ClientTests.swift */,
 				8D5C6E3919D6E4F10020BCA2 /* OAuth2RouterTests.swift */,
+				8D7E6DDD19D05677004AAF35 /* OAuth2CredentialTests.swift */,
+				8D7E6DE719D1BBB3004AAF35 /* ScopeTests.swift */,
 				8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */,
 				8DA0032F19DEEE6300844F14 /* MemberTests.swift */,
 				8DB501311AD41F61001F403E /* EmbedTests.swift */,
@@ -695,9 +693,7 @@
 				8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */,
 				8D7E6DBC19CF0E0F004AAF35 /* UnreadTests.swift */,
 				8D7E6DD019CF2891004AAF35 /* BookmarkTests.swift */,
-				8D7E6DDD19D05677004AAF35 /* OAuth2CredentialTests.swift */,
 				8D5C5D641A6D290A003387DE /* ThumbnailTests.swift */,
-				8D7E6DE719D1BBB3004AAF35 /* ScopeTests.swift */,
 				8D7E6E3519D2F8C8004AAF35 /* LinkTests.swift */,
 				8D7E6E2019D2F43A004AAF35 /* LikeTests.swift */,
 				8D7E6E2819D2F6F8004AAF35 /* TalkTests.swift */,
@@ -1281,7 +1277,6 @@
 				8D0F05C41B8B447D00435F66 /* LinkTests.swift in Sources */,
 				8D0F05B91B8B447D00435F66 /* TopicWithUserInfoTests.swift in Sources */,
 				8D0F05B21B8B447D00435F66 /* RouterTests.swift in Sources */,
-				8D0F05AF1B8B447D00435F66 /* ClientTests.swift in Sources */,
 				8D0F05B11B8B447D00435F66 /* Client+StreamingTest.swift in Sources */,
 				8D0F05B31B8B447D00435F66 /* OAuth2ClientTests.swift in Sources */,
 				8D0F05BA1B8B447D00435F66 /* TopicWithAccountsTests.swift in Sources */,
@@ -1354,7 +1349,6 @@
 				8D894A9119E2E4F70039D0ED /* NotificationStatusTests.swift in Sources */,
 				8D5C6E3619D6B58B0020BCA2 /* RouterTests.swift in Sources */,
 				8D7E6DD119CF2891004AAF35 /* BookmarkTests.swift in Sources */,
-				8DC9936319CC57FB0097E4B7 /* ClientTests.swift in Sources */,
 				8DBA519F19C5E9E600BD88A3 /* AccountTests.swift in Sources */,
 				8D85BA2019E04B1B0036745B /* TalkMaeeagesTests.swift in Sources */,
 				8D7E6E2919D2F6F8004AAF35 /* TalkTests.swift in Sources */,
