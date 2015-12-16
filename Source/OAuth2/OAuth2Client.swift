@@ -57,7 +57,7 @@ extension TypetalkAPI {
     }
 
     internal static func setDummyAccessTokenForTest() {
-        let credential = OAuth2Credential(accessToken: "", tokenType: "", refreshToken: "", expiryIn: 0)
+        let credential = OAuth2Credential(accessToken: "atfoo", tokenType: "ttbar", refreshToken: "rtbazz", expiryIn: 0)
         self.state = .SignedIn(credential)
     }
 

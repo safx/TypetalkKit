@@ -11,28 +11,16 @@ import XCTest
 @testable import TypetalkKit
 
 class OAuth2RouterTests: XCTestCase {
-    let settings: DeveloperSettings = DeveloperSettings(
-            clientId: "aaaa",
-            clientSecret: "bbbbbb",
-            redirectURI: "http://exsample.com/typetalk",
-            scopes: [Scope.my, Scope.topic_read])
-    
-    /*func testAuthorize() {
-        let req = OAuth2Router.Authorize(settings).URLRequest
+    func testAuthorize() {
+        let req = Authorize(client_id: "aaaa", redirect_uri: "http://exsample.com/typetalk", scope: [Scope.my, Scope.topic_read].description).buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URL!.host!, "typetalk.in")
         XCTAssertEqual(req.URL!.path!, "/oauth2/authorize")
     }
 
-    func testRequestAuthorizationCode() {
-        let req = OAuth2Router.RequestAuthorizationCode(settings, "XXX").URLRequest
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URLString, "https://typetalk.in/oauth2/access_token")
-    }
-
     func testRequestRefreshToken() {
-        let req = OAuth2Router.RequestRefreshToken(settings, "YYY").URLRequest
+        let req = AccessToken(grant_type: .RefreshToken, client_id: "bbb", client_secret: "ccc").buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URLString, "https://typetalk.in/oauth2/access_token")
-    }*/
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/oauth2/access_token")
+    }
 }

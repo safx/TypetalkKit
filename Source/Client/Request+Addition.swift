@@ -13,9 +13,10 @@ import APIKit
 public protocol TypetalkRequest: APIKitRequest {}
 public protocol AuthRequest: APIKitRequest {}
 
+
 extension APIKitRequest {
     public var requestBodyBuilder: RequestBodyBuilder {
-        return .URL(encoding: NSUTF8StringEncoding)
+        return .Custom(contentTypeHeader: "application/x-www-form-urlencoded", buildBodyFromObject: { try dataFromObject($0, encoding: NSUTF8StringEncoding) } )
     }
 }
 
@@ -32,7 +33,7 @@ extension DownloadAttachment {
         fatalError("Not implement yet")
     }
 
-    public static func makeDownloadAttachment(url: NSURL, attachmentType: AttachmentType? = nil) -> DownloadAttachment? {
+    public convenience init?(url: NSURL, attachmentType: AttachmentType? = nil) {
         let u = url.absoluteString
         assert(u.hasPrefix(TypetalkAPI.apiURLString))
 
@@ -40,15 +41,15 @@ extension DownloadAttachment {
         let ns = u as NSString
         let ms = regexp.matchesInString(u, options: [], range: NSMakeRange(0, ns.length))
 
-        if ms.count != 1 || regexp.numberOfCaptureGroups != 4 { return .None }
+        guard ms.count == 1 && regexp.numberOfCaptureGroups == 4 else { return nil }
         let m = ms[0]
 
-        guard let topicId      = TopicID     (ns.substringWithRange(m.rangeAtIndex(1))) else { return .None }
-        guard let postId       = PostID      (ns.substringWithRange(m.rangeAtIndex(2))) else { return .None }
-        guard let attachmentId = AttachmentID(ns.substringWithRange(m.rangeAtIndex(3))) else { return .None }
+        guard let topicId      = TopicID     (ns.substringWithRange(m.rangeAtIndex(1))) else { return nil }
+        guard let postId       = PostID      (ns.substringWithRange(m.rangeAtIndex(2))) else { return nil }
+        guard let attachmentId = AttachmentID(ns.substringWithRange(m.rangeAtIndex(3))) else { return nil }
         let filename           = ns.substringWithRange(m.rangeAtIndex(4))
 
-        return DownloadAttachment(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
+        self.init(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
     }
 }
 
@@ -84,5 +85,51 @@ extension UploadAttachment {
         let uuidString = CFUUIDCreateString(nil, uuid)
         return "Boundary-\(uuidString)"
     }
+}
 
+// APIKit
+private func escape(string: String) -> String {
+    // Reserved characters defined by RFC 3986
+    // Reference: https://www.ietf.org/rfc/rfc3986.txt
+    let generalDelimiters = ":/?#[]@"
+    let subDelimiters = "!$&'()*+,;="
+    let reservedCharacters = generalDelimiters + subDelimiters
+
+    let allowedCharacterSet = NSMutableCharacterSet()
+    allowedCharacterSet.formUnionWithCharacterSet(NSCharacterSet.URLQueryAllowedCharacterSet())
+    allowedCharacterSet.removeCharactersInString(reservedCharacters)
+
+    return string.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? string
+}
+
+internal func dataFromObject(object: AnyObject, encoding: NSStringEncoding) throws -> NSData {
+    guard let dictionary = object as? [String:AnyObject] else {
+        throw URLEncodedSerialization.Error.CannotCastObjectToDictionary(object)
+    }
+    let string = stringFromDictionary(dictionary)
+    guard let data = string.dataUsingEncoding(encoding, allowLossyConversion: false) else {
+        throw URLEncodedSerialization.Error.CannotGetDataFromString(string, encoding)
+    }
+
+    return data
+}
+
+internal func stringFromDictionary(dictionary: [String:AnyObject]) -> String {
+    let pairs = dictionary.map { key, value -> String in
+        if value is NSNull {
+            return "\(escape(key))"
+        }
+
+        if let arr = value as? [AnyObject] {
+            return arr.map { (e) -> String in
+                let valueAsString = (e as? String) ?? "\(e)"
+                return "\(escape(key + "[]"))=\(escape(valueAsString))"
+            }.joinWithSeparator("&")
+        }
+
+        let valueAsString = (value as? String) ?? "\(value)"
+        return "\(escape(key))=\(escape(valueAsString))"
+    }
+
+    return pairs.joinWithSeparator("&")
 }
