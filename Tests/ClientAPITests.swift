@@ -1072,11 +1072,16 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    /*func testDownloadAttachment() {
+    func testDownloadAttachment() {
+        createStub("download-attachment")
+
         let expectation = expectationWithDescription("")
-        client.downloadAttachment(0, postId: 1, attachmentId: 2, filename: "aaaaaa", type: nil) { (response, error) -> Void in
-            if let _ = response {
+        TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 1, attachmentId: 2, filename: "aaaaaa")) { result in
+            switch result {
+            case .Success:
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
@@ -1086,15 +1091,20 @@ class ClientAPITests: XCTestCase {
     }
 
     func testDownloadAttachmentWithURL() {
+        createStub("download-attachment")
+
         let expectation = expectationWithDescription("")
-        client.downloadAttachmentWithURL(NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, type: nil) { (response, error) -> Void in
-            if let _ = response {
+        TypetalkAPI.sendRequest(DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, attachmentType: .Large)!) { result -> Void in
+            switch result {
+            case .Success:
                 expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
             }
         }
 
         waitForExpectationsWithTimeout(3) { (error) in
             XCTAssertNil(error, "\(error)")
         }
-    }*/
+    }
 }

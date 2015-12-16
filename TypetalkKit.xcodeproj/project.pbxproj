@@ -283,6 +283,8 @@
 		8DE627A61A962DD7000EADC3 /* model_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A41A962DD7000EADC3 /* model_profile.json */; };
 		8DE9DE931C1881BF00CBFDAC /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE9DE911C1881BF00CBFDAC /* Alamofire.framework */; };
 		8DE9DE941C1881BF00CBFDAC /* OHHTTPStubs.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DE9DE921C1881BF00CBFDAC /* OHHTTPStubs.framework */; };
+		8DEB10181C21BD7B000A13CD /* api_download-attachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEB10171C21BD7B000A13CD /* api_download-attachment.json */; };
+		8DEB10191C21BD7B000A13CD /* api_download-attachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEB10171C21BD7B000A13CD /* api_download-attachment.json */; };
 		8DEF713A19C8815700F179A6 /* model_topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D57B3FE19C87E7F00E60736 /* model_topic.json */; };
 		8DEF713F19C9AB2C00F179A6 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF713B19C9AAC200F179A6 /* TeamTests.swift */; };
 		8DEF714219C9ABF200F179A6 /* model_team.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714019C9AB5000F179A6 /* model_team.json */; };
@@ -484,6 +486,7 @@
 		8DE627A41A962DD7000EADC3 /* model_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_profile.json; sourceTree = "<group>"; };
 		8DE9DE911C1881BF00CBFDAC /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		8DE9DE921C1881BF00CBFDAC /* OHHTTPStubs.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OHHTTPStubs.framework; path = Carthage/Build/iOS/OHHTTPStubs.framework; sourceTree = "<group>"; };
+		8DEB10171C21BD7B000A13CD /* api_download-attachment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_download-attachment.json"; sourceTree = "<group>"; };
 		8DEF713B19C9AAC200F179A6 /* TeamTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TeamTests.swift; sourceTree = "<group>"; };
 		8DEF714019C9AB5000F179A6 /* model_team.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_team.json; sourceTree = "<group>"; };
 		8DEF714319C9AD2C00F179A6 /* AttachmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AttachmentTests.swift; sourceTree = "<group>"; };
@@ -756,6 +759,7 @@
 				8D7B02A119D45DED000A0F7C /* api_decline-topic-invite.json */,
 				8D7B02A219D45DED000A0F7C /* api_delete-message.json */,
 				8D7B02A319D45DED000A0F7C /* api_delete-topic.json */,
+				8DEB10171C21BD7B000A13CD /* api_download-attachment.json */,
 				8D7B02A419D45DED000A0F7C /* api_favorite-topic.json */,
 				8D7B02A519D45DED000A0F7C /* api_get-friends.json */,
 				8D7B02A619D45DED000A0F7C /* api_get-mentions.json */,
@@ -1042,6 +1046,7 @@
 				8DD221E61A90DA3300EA024C /* api_accept-team-invite.json in Resources */,
 				8DD221C81A90DA2400EA024C /* streaming-likeMessage.json in Resources */,
 				8DD2220B1A90DA3300EA024C /* model_team_with_members.json in Resources */,
+				8DEB10191C21BD7B000A13CD /* api_download-attachment.json in Resources */,
 				8DD221E81A90DA3300EA024C /* api_create-topic.json in Resources */,
 				8DD221FA1A90DA3300EA024C /* api_get-topics.json in Resources */,
 				8DD222041A90DA3300EA024C /* api_unlike-message.json in Resources */,
@@ -1143,6 +1148,7 @@
 				8D7B02E119D45DF5000A0F7C /* api_create-topic.json in Resources */,
 				8DD221B91A90DA2400EA024C /* streaming-declineTeamInvite.json in Resources */,
 				8D7B02E319D45DF5000A0F7C /* api_decline-topic-invite.json in Resources */,
+				8DEB10181C21BD7B000A13CD /* api_download-attachment.json in Resources */,
 				8D7B02F919D45DF5000A0F7C /* api_save-read-mention.json in Resources */,
 				8D7B02E419D45DF5000A0F7C /* api_delete-message.json in Resources */,
 				8D7B02E019D45DF5000A0F7C /* api_accept-topic-invite.json in Resources */,

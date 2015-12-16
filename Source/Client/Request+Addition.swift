@@ -30,7 +30,11 @@ extension AuthRequest {
 
 extension DownloadAttachment {
     public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> APIKitResponse? {
-        fatalError("Not implement yet")
+        return object as? NSData
+    }
+
+    public var responseBodyParser: ResponseBodyParser {
+        return .Custom(acceptHeader: "application/octet-stream", parseData: { $0 })
     }
 
     public convenience init?(url: NSURL, attachmentType: AttachmentType? = nil) {
