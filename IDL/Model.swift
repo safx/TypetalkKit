@@ -41,17 +41,17 @@ public struct Account: JSONDecodable, ClassInit {
     public let updatedAt: NSDate = NSDate()
 }
 
-public struct AccountWithOnlineStatus: JSONDecodable {
+public struct AccountWithOnlineStatus: JSONDecodable, ClassInit {
     public let account: Account
     public let online: Bool
 }
 
-public struct AccountWithMailAddress: JSONDecodable {
+public struct AccountWithMailAddress: JSONDecodable, ClassInit {
     public let account: Account
     public let mailAddress: String?
 }
 
-public struct Attachment: JSONDecodable {
+public struct Attachment: JSONDecodable, ClassInit {
     public let contentType: String = ""
     public let fileKey: String
     public let fileName: String
@@ -63,7 +63,7 @@ public struct Bookmark: JSONDecodable, ClassInit {
     public let updatedAt: NSDate = NSDate()
 }
 
-public struct Embed: JSONDecodable {
+public struct Embed: JSONDecodable, ClassInit {
     public let type: String
     public let version: Float
     public let providerName: String // JSON:"provider_name"
@@ -76,7 +76,7 @@ public struct Embed: JSONDecodable {
     public let height: Int
 }
 
-public struct Invite: JSONDecodable {
+public struct Invite: JSONDecodable, ClassInit {
     public let id: InviteID
     public let sender: Account?
     public let account: Account?
@@ -92,7 +92,7 @@ public struct Invite: JSONDecodable {
     public let role: String?
 }
 
-public struct Like: JSONDecodable {
+public struct Like: JSONDecodable, ClassInit {
     public let id: LikeID
     public let postId: PostID
     public let topicId: TopicID
@@ -100,7 +100,7 @@ public struct Like: JSONDecodable {
     public let account: Account?
 }
 
-public struct Link: JSONDecodable {
+public struct Link: JSONDecodable, ClassInit {
     public let id: LinkID
     public let url: NSURL
     public let contentType: String
@@ -112,7 +112,7 @@ public struct Link: JSONDecodable {
     public let embed: Embed?
 }
 
-public struct Member: JSONDecodable {
+public struct Member: JSONDecodable, ClassInit {
     public let account: Account
     public let role: String
 }
@@ -123,34 +123,34 @@ public struct Mention: JSONDecodable, ClassInit {
     public let post: Post? = nil
 }
 
-public struct Notifications: JSONDecodable {
+public struct Notifications: JSONDecodable, ClassInit {
     public let mentions: [Mention] = []
     public let invites: Invites
 
-    public struct Invites: JSONDecodable {
+    public struct Invites: JSONDecodable, ClassInit {
         public let teams: [Invite] = []  // TeamInvite
         public let topics: [Invite] = [] // TopicInvite
     }
 }
 
-public struct NotificationStatus: JSONDecodable {
+public struct NotificationStatus: JSONDecodable, ClassInit {
     public let mention: Mention?
     public let access: Access?
     public let invite: Invite?
 
-    public struct Mention: JSONDecodable {
+    public struct Mention: JSONDecodable, ClassInit {
         public let unread: Int?
     }
 
-    public struct Access: JSONDecodable {
+    public struct Access: JSONDecodable, ClassInit {
         public let unopened: Int?
     }
 
-    public struct Invite: JSONDecodable {
+    public struct Invite: JSONDecodable, ClassInit {
         public let team: PendingCount?
         public let topic: PendingCount?
 
-        public struct PendingCount: JSONDecodable {
+        public struct PendingCount: JSONDecodable, ClassInit {
             public let pending: Int?
         }
     }
@@ -172,7 +172,7 @@ public struct Post: JSONDecodable, ClassInit {
     public let updatedAt: NSDate = NSDate()
 }
 
-public struct Talk: JSONDecodable {
+public struct Talk: JSONDecodable, ClassInit {
     public let id: TalkID
     public let topicId: TopicID
     public let name: String
@@ -181,7 +181,7 @@ public struct Talk: JSONDecodable {
     public let updatedAt: NSDate
 }
 
-public struct TalkMessages: JSONDecodable {
+public struct TalkMessages: JSONDecodable, ClassInit {
     public let topic: Topic
     public let talk: Talk
     public let posts: [Post] = []
@@ -196,17 +196,17 @@ public struct Team: JSONDecodable, ClassInit {
     public let updatedAt: NSDate = NSDate()
 }
 
-public struct TeamWithMembers: JSONDecodable {
+public struct TeamWithMembers: JSONDecodable, ClassInit {
     public let team: Team
     public let members: [Member] = []
 }
 
-public struct TeamWithCount: JSONDecodable {
+public struct TeamWithCount: JSONDecodable, ClassInit {
     public let team: Team
     public let memberCount: Int
 }
 
-public struct Thumbnail: JSONDecodable {
+public struct Thumbnail: JSONDecodable, ClassInit {
     public let type: AttachmentType
     public let fileSize: Int
     public let width: Int
@@ -222,26 +222,26 @@ public struct Topic: JSONDecodable, ClassInit {
     public let updatedAt: NSDate = NSDate()
 }
 
-public struct TopicWithAccounts: JSONDecodable {
+public struct TopicWithAccounts: JSONDecodable, ClassInit {
     public let topic: Topic
     public let teams: [TeamWithMembers] = []
     public let accounts: [Account] = []
     public let invites: [Invite] = [] //[TopicInvite]
 }
 
-public struct TopicWithUserInfo: JSONDecodable {
+public struct TopicWithUserInfo: JSONDecodable, ClassInit {
     public let topic: Topic
     public let favorite: Bool
     public let unread: Unread?
 }
 
-public struct Unread: JSONDecodable {
+public struct Unread: JSONDecodable, ClassInit {
     public let topicId: TopicID
     public let postId: PostID
     public let count: Int
 }
 
-public struct URLAttachment: JSONDecodable {
+public struct URLAttachment: JSONDecodable, ClassInit {
     public let attachment: Attachment
     public let webUrl: NSURL
     public let apiUrl: NSURL
@@ -250,13 +250,13 @@ public struct URLAttachment: JSONDecodable {
 
 // MARK: - Event
 
-public struct TalkPost: JSONDecodable {
+public struct TalkPost: JSONDecodable, ClassInit {
     public let topic: Topic
     public let talk: Talk
     public let postIds: [PostID] = []
 }
 
-public struct PostLinksEvent: JSONDecodable {
+public struct PostLinksEvent: JSONDecodable, ClassInit {
     public let postId: PostID
     public let links: [Link] = []
 }

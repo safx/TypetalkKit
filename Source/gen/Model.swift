@@ -193,6 +193,11 @@ public struct AccountWithOnlineStatus: JSONDecodable {
 
 		return AccountWithOnlineStatus(account: account, online: online)
 	}
+
+	public init(account: Account, online: Bool) {
+		self.account = account
+		self.online = online
+	}
 }
 
 public struct AccountWithMailAddress: JSONDecodable {
@@ -227,6 +232,11 @@ public struct AccountWithMailAddress: JSONDecodable {
 		}
 
 		return AccountWithMailAddress(account: account, mailAddress: mailAddress)
+	}
+
+	public init(account: Account, mailAddress: String? = nil) {
+		self.account = account
+		self.mailAddress = mailAddress
 	}
 }
 
@@ -286,6 +296,13 @@ public struct Attachment: JSONDecodable {
 		}
 
 		return Attachment(contentType: contentType, fileKey: fileKey, fileName: fileName, fileSize: fileSize)
+	}
+
+	public init(contentType: String = "", fileKey: String, fileName: String, fileSize: Int) {
+		self.contentType = contentType
+		self.fileKey = fileKey
+		self.fileName = fileName
+		self.fileSize = fileSize
 	}
 }
 
@@ -458,6 +475,19 @@ public struct Embed: JSONDecodable {
 
 		return Embed(type: type, version: version, providerName: providerName, providerURL: providerURL, title: title, authorName: authorName, authorURL: authorURL, html: html, width: width, height: height)
 	}
+
+	public init(type: String, version: Float, providerName: String, providerURL: NSURL? = nil, title: String, authorName: String, authorURL: NSURL? = nil, html: String, width: Int, height: Int) {
+		self.type = type
+		self.version = version
+		self.providerName = providerName
+		self.providerURL = providerURL
+		self.title = title
+		self.authorName = authorName
+		self.authorURL = authorURL
+		self.html = html
+		self.width = width
+		self.height = height
+	}
 }
 
 public struct Invite: JSONDecodable {
@@ -601,6 +631,20 @@ public struct Invite: JSONDecodable {
 
 		return Invite(id: id, sender: sender, account: account, message: message, createdAt: createdAt, updatedAt: updatedAt, mailAddress: mailAddress, status: status, topic: topic, team: team, role: role)
 	}
+
+	public init(id: InviteID, sender: Account? = nil, account: Account? = nil, message: String = "", createdAt: NSDate? = nil, updatedAt: NSDate? = nil, mailAddress: String? = nil, status: String = "", topic: Topic? = nil, team: Team? = nil, role: String? = nil) {
+		self.id = id
+		self.sender = sender
+		self.account = account
+		self.message = message
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+		self.mailAddress = mailAddress
+		self.status = status
+		self.topic = topic
+		self.team = team
+		self.role = role
+	}
 }
 
 public struct Like: JSONDecodable {
@@ -671,6 +715,14 @@ public struct Like: JSONDecodable {
 		}
 
 		return Like(id: id, postId: postId, topicId: topicId, comment: comment, account: account)
+	}
+
+	public init(id: LikeID, postId: PostID, topicId: TopicID, comment: String? = nil, account: Account? = nil) {
+		self.id = id
+		self.postId = postId
+		self.topicId = topicId
+		self.comment = comment
+		self.account = account
 	}
 }
 
@@ -791,6 +843,18 @@ public struct Link: JSONDecodable {
 
 		return Link(id: id, url: url, contentType: contentType, title: title, description: description, imageUrl: imageUrl, createdAt: createdAt, updatedAt: updatedAt, embed: embed)
 	}
+
+	public init(id: LinkID, url: NSURL, contentType: String, title: String, description: String, imageUrl: NSURL, createdAt: NSDate, updatedAt: NSDate, embed: Embed? = nil) {
+		self.id = id
+		self.url = url
+		self.contentType = contentType
+		self.title = title
+		self.description = description
+		self.imageUrl = imageUrl
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+		self.embed = embed
+	}
 }
 
 public struct Member: JSONDecodable {
@@ -825,6 +889,11 @@ public struct Member: JSONDecodable {
 		}
 
 		return Member(account: account, role: role)
+	}
+
+	public init(account: Account, role: String) {
+		self.account = account
+		self.role = role
 	}
 }
 
@@ -915,6 +984,11 @@ public struct Notifications: JSONDecodable {
 		return Notifications(mentions: mentions, invites: invites)
 	}
 
+	public init(mentions: [Mention] = [], invites: Notifications.Invites) {
+		self.mentions = mentions
+		self.invites = invites
+	}
+
 	public struct Invites: JSONDecodable {
 		public let teams: [Invite]
 		public let topics: [Invite]
@@ -947,6 +1021,11 @@ public struct Notifications: JSONDecodable {
 			}
 
 			return Invites(teams: teams, topics: topics)
+		}
+
+		public init(teams: [Invite] = [], topics: [Invite] = []) {
+			self.teams = teams
+			self.topics = topics
 		}
 	}
 }
@@ -997,6 +1076,12 @@ public struct NotificationStatus: JSONDecodable {
 		return NotificationStatus(mention: mention, access: access, invite: invite)
 	}
 
+	public init(mention: NotificationStatus.Mention? = nil, access: NotificationStatus.Access? = nil, invite: NotificationStatus.Invite? = nil) {
+		self.mention = mention
+		self.access = access
+		self.invite = invite
+	}
+
 	public struct Mention: JSONDecodable {
 		public let unread: Int?
 
@@ -1017,6 +1102,10 @@ public struct NotificationStatus: JSONDecodable {
 			}
 
 			return Mention(unread: unread)
+		}
+
+		public init(unread: Int? = nil) {
+			self.unread = unread
 		}
 	}
 
@@ -1040,6 +1129,10 @@ public struct NotificationStatus: JSONDecodable {
 			}
 
 			return Access(unopened: unopened)
+		}
+
+		public init(unopened: Int? = nil) {
+			self.unopened = unopened
 		}
 	}
 
@@ -1077,6 +1170,11 @@ public struct NotificationStatus: JSONDecodable {
 			return Invite(team: team, topic: topic)
 		}
 
+		public init(team: NotificationStatus.Invite.PendingCount? = nil, topic: NotificationStatus.Invite.PendingCount? = nil) {
+			self.team = team
+			self.topic = topic
+		}
+
 		public struct PendingCount: JSONDecodable {
 			public let pending: Int?
 
@@ -1097,6 +1195,10 @@ public struct NotificationStatus: JSONDecodable {
 				}
 
 				return PendingCount(pending: pending)
+			}
+
+			public init(pending: Int? = nil) {
+				self.pending = pending
 			}
 		}
 	}
@@ -1353,6 +1455,15 @@ public struct Talk: JSONDecodable {
 
 		return Talk(id: id, topicId: topicId, name: name, suggestion: suggestion, createdAt: createdAt, updatedAt: updatedAt)
 	}
+
+	public init(id: TalkID, topicId: TopicID, name: String, suggestion: String, createdAt: NSDate, updatedAt: NSDate) {
+		self.id = id
+		self.topicId = topicId
+		self.name = name
+		self.suggestion = suggestion
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+	}
 }
 
 public struct TalkMessages: JSONDecodable {
@@ -1411,6 +1522,13 @@ public struct TalkMessages: JSONDecodable {
 		}
 
 		return TalkMessages(topic: topic, talk: talk, posts: posts, hasNext: hasNext)
+	}
+
+	public init(topic: Topic, talk: Talk, posts: [Post] = [], hasNext: Bool) {
+		self.topic = topic
+		self.talk = talk
+		self.posts = posts
+		self.hasNext = hasNext
 	}
 }
 
@@ -1526,6 +1644,11 @@ public struct TeamWithMembers: JSONDecodable {
 
 		return TeamWithMembers(team: team, members: members)
 	}
+
+	public init(team: Team, members: [Member] = []) {
+		self.team = team
+		self.members = members
+	}
 }
 
 public struct TeamWithCount: JSONDecodable {
@@ -1560,6 +1683,11 @@ public struct TeamWithCount: JSONDecodable {
 		}
 
 		return TeamWithCount(team: team, memberCount: memberCount)
+	}
+
+	public init(team: Team, memberCount: Int) {
+		self.team = team
+		self.memberCount = memberCount
 	}
 }
 
@@ -1619,6 +1747,13 @@ public struct Thumbnail: JSONDecodable {
 		}
 
 		return Thumbnail(type: type, fileSize: fileSize, width: width, height: height)
+	}
+
+	public init(type: AttachmentType, fileSize: Int, width: Int, height: Int) {
+		self.type = type
+		self.fileSize = fileSize
+		self.width = width
+		self.height = height
 	}
 }
 
@@ -1771,6 +1906,13 @@ public struct TopicWithAccounts: JSONDecodable {
 
 		return TopicWithAccounts(topic: topic, teams: teams, accounts: accounts, invites: invites)
 	}
+
+	public init(topic: Topic, teams: [TeamWithMembers] = [], accounts: [Account] = [], invites: [Invite] = []) {
+		self.topic = topic
+		self.teams = teams
+		self.accounts = accounts
+		self.invites = invites
+	}
 }
 
 public struct TopicWithUserInfo: JSONDecodable {
@@ -1818,6 +1960,12 @@ public struct TopicWithUserInfo: JSONDecodable {
 
 		return TopicWithUserInfo(topic: topic, favorite: favorite, unread: unread)
 	}
+
+	public init(topic: Topic, favorite: Bool, unread: Unread? = nil) {
+		self.topic = topic
+		self.favorite = favorite
+		self.unread = unread
+	}
 }
 
 public struct Unread: JSONDecodable {
@@ -1864,6 +2012,12 @@ public struct Unread: JSONDecodable {
 		}
 
 		return Unread(topicId: topicId, postId: postId, count: count)
+	}
+
+	public init(topicId: TopicID, postId: PostID, count: Int) {
+		self.topicId = topicId
+		self.postId = postId
+		self.count = count
 	}
 }
 
@@ -1924,6 +2078,13 @@ public struct URLAttachment: JSONDecodable {
 
 		return URLAttachment(attachment: attachment, webUrl: webUrl, apiUrl: apiUrl, thumbnails: thumbnails)
 	}
+
+	public init(attachment: Attachment, webUrl: NSURL, apiUrl: NSURL, thumbnails: [Thumbnail] = []) {
+		self.attachment = attachment
+		self.webUrl = webUrl
+		self.apiUrl = apiUrl
+		self.thumbnails = thumbnails
+	}
 }
 
 public struct TalkPost: JSONDecodable {
@@ -1971,6 +2132,12 @@ public struct TalkPost: JSONDecodable {
 
 		return TalkPost(topic: topic, talk: talk, postIds: postIds)
 	}
+
+	public init(topic: Topic, talk: Talk, postIds: [PostID] = []) {
+		self.topic = topic
+		self.talk = talk
+		self.postIds = postIds
+	}
 }
 
 public struct PostLinksEvent: JSONDecodable {
@@ -2005,6 +2172,11 @@ public struct PostLinksEvent: JSONDecodable {
 		}
 
 		return PostLinksEvent(postId: postId, links: links)
+	}
+
+	public init(postId: PostID, links: [Link]) {
+		self.postId = postId
+		self.links = links
 	}
 }
 
