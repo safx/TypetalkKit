@@ -41,23 +41,41 @@ public typealias UpdateTalkEvent                 = TalkPost
 public typealias UpdateTopicEvent                = Topic
 
 
+extension TypetalkAPI {
+
+    static private var sharedStream : TypetalkStream {
+        struct Static {
+            static let instance = TypetalkStream()
+        }
+        return Static.instance
+    }
+
+    public static func streaming(closure: StreamingEvent -> ()) -> Bool {
+        guard let accessToken = accessToken else {
+            return false
+        }
+        sharedStream.connect(accessToken, closure: closure)
+        return true
+    }
+
+}
+
 // MARK: Typetalk Streaming API
 
-public class TypetalkStream : WebSocketDelegate {
-    public typealias EventClosure = StreamingEvent -> ()
+final private class TypetalkStream : WebSocketDelegate {
+    private typealias EventClosure = StreamingEvent -> ()
 
-    private var socket: WebSocket!
-    internal var streamingClosure: EventClosure?
+    private let socket = WebSocket(url: NSURL(string: TypetalkAPI.apiURLString + "streaming")!)
+    private var streamingClosure: EventClosure?
 
-    public init(accessToken: String, closure: EventClosure) {
+    private func connect(accessToken: String, closure: EventClosure) {
         streamingClosure = closure
-        socket = WebSocket(url: NSURL(string: TypetalkAPI.apiURLString + "streaming")!)
         socket.headers["Authorization"] = "Bearer \(accessToken)"
         socket.delegate = self
         socket.connect()
     }
 
-    public var isConnected : Bool {
+    private var isConnected : Bool {
         return socket.isConnected
     }
 
@@ -69,15 +87,15 @@ public class TypetalkStream : WebSocketDelegate {
         }
     }
 
-    public func websocketDidConnect(socket: WebSocket) {
+    private func websocketDidConnect(socket: WebSocket) {
         sendStreamEventIfPossible(.Connected)
     }
 
-    public func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    private func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
         sendStreamEventIfPossible(.Disconnected(error))
     }
 
-    public func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    private func websocketDidReceiveMessage(socket: WebSocket, text: String) {
         let jsondata = text.dataUsingEncoding(NSUnicodeStringEncoding)!
         do {
             let json = try NSJSONSerialization.JSONObjectWithData(jsondata, options: []) as! [String:AnyObject]
@@ -95,7 +113,7 @@ public class TypetalkStream : WebSocketDelegate {
         }
     }
 
-    public func websocketDidReceiveData(socket: WebSocket, data: NSData) {
+    private func websocketDidReceiveData(socket: WebSocket, data: NSData) {
         fatalError("Never be called")
     }
 
