@@ -1,11 +1,7 @@
-//: Playground - noun: a place where people can play
-
-import Cocoa
-import Result
 import TypetalkKit
 import XCPlayground
-XCPSetExecutionShouldContinueIndefinitely()
 
+XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 
 
 TypetalkAPI.setDeveloperSettings(
@@ -14,14 +10,13 @@ TypetalkAPI.setDeveloperSettings(
     scopes: [Scope.my, Scope.topic_read])
 
 
-
 TypetalkAPI.authorizeWithClientCredentials { (err) -> Void in
     if err != nil { print(err); return }
 
     TypetalkAPI.sendRequest(GetTopics()) { result in
         switch result {
         case .Success(let response):
-            response.topics.map{$0.topic.name}.map(print)
+            response.topics.forEach { print($0) }
         case .Failure(let error):
             print(error)
         }

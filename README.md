@@ -1,6 +1,7 @@
 # TypetalkKit
 
 [![TravisCI](http://img.shields.io/travis/safx/TypetalkKit.svg?style=flat)](https://travis-ci.org/safx/TypetalkKit)
+[![codecov.io](https://codecov.io/github/safx/TypetalkKit/coverage.svg?branch=master)](https://codecov.io/github/safx/TypetalkKit?branch=master)
 ![Platform](https://img.shields.io/cocoapods/p/TypetalkKit.svg?style=flat)
 ![License](https://img.shields.io/cocoapods/l/TypetalkKit.svg?style=flat)
 ![Version](https://img.shields.io/cocoapods/v/TypetalkKit.svg?style=flat)
@@ -19,7 +20,7 @@ TypetalkAPI.sendRequest(GetTopics()) { result in
     switch result {
     case .Success(let ts):
         for i in ts {
-            println("\(i)")
+            print(i)
         }
     case .Failure(let error):
         // error
@@ -29,17 +30,15 @@ TypetalkAPI.sendRequest(GetTopics()) { result in
 
 TypetalkKit supports almost all Typetalk API.
 
-If you want further information about API, please visit [official page](http://developer.nulab-inc.com/docs/typetalk).
+If you want to know further information about API, please visit [official page](http://developer.nulab-inc.com/docs/typetalk).
 
 ## Features
 
 * Pure Swift API
-* Full REST API support
-* Streaming API support (not completed)
+* Full REST API support with [APIKit](https://github.com/ishkawa/APIKit)
+* Streaming API support with [Starscream](https://github.com/daltoniam/Starscream)
 
 ## Authorization
-
-> TypetalkKit currently only supports "Authorization Code". "Client Credentials" is not supported.
 
 To use TypetalkKit, you need to register your app at [the Official Developer page](https://typetalk.in/my/develop/applications) first.
 
@@ -99,6 +98,10 @@ For more information of Typetalk's authorization, please see [official page](htt
 ### CocoaPods
 
     pod 'TypetalkKit'
+
+### Carthage
+
+	github "safx/TypetalkKit" ~> 0.3.0
 
 ### Manual Install
 

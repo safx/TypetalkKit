@@ -7,8 +7,8 @@ Pod::Spec.new do |s|
   s.author       = { "MATSUMOTO Yuji" => "safxdev@gmail.com" }
   s.source       = { :git => "https://github.com/safx/TypetalkKit.git", :tag => s.version }
   s.source_files = "Source/**/*.swift"
-  s.ios.deployment_target = "8.0"
-  s.osx.deployment_target = "10.9"
+  s.ios.deployment_target = "8.4"
+  s.osx.deployment_target = "10.10"
   s.dependency     "APIKit", '~> 1.1.1'
   s.dependency     "Starscream", '~> 1.0.2'
   s.requires_arc = true
