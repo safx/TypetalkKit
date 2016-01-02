@@ -22,6 +22,7 @@ public struct GetMessagesResponse: JSONDecodable, ClassInit {
     public let bookmark: Bookmark = Bookmark()
     public let posts: [Post] = []
     public let hasNext: Bool = false
+    public let exceedsAttachmentLimit: Bool = false
 }
 
 public struct PostMessageResponse: JSONDecodable {
@@ -86,4 +87,9 @@ public struct CreateTalkResponse: JSONDecodable {
     public let topic: Topic
     public let talk: Talk
     public let postIds: [PostID]
+}
+
+public struct UpdateTalkResponse: JSONDecodable {
+    public let topic: Topic
+    public let talk: Talk
 }

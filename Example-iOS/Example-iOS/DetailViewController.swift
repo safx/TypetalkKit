@@ -12,8 +12,7 @@ import TypetalkKit
 class DetailViewController: UITableViewController {
     var posts = [Post]()
     var detailItem: TopicWithUserInfo? = nil
-    var ws: TypetalkStream!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -24,7 +23,7 @@ class DetailViewController: UITableViewController {
         getMessages()
 
         weak var weakTableView = self.tableView
-        ws = TypetalkStream(accessToken: TypetalkAPI.accessToken!) { (event) in
+        TypetalkAPI.streaming { (event) in
             switch event {
             case .Connected             : print("connected")
             case .Disconnected(let err) : print("disconnected: \(err)")

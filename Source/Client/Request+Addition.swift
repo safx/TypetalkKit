@@ -8,7 +8,7 @@
 
 import Foundation
 import APIKit
-
+import Result
 
 public protocol TypetalkRequest: APIKitRequest {}
 public protocol AuthRequest: APIKitRequest {}
@@ -26,6 +26,43 @@ extension TypetalkRequest {
 
 extension AuthRequest {
     public var baseURL: NSURL { return NSURL(string: TypetalkAPI.authURLString)! }
+}
+
+extension RemoveMessageFromTalk {
+    // NOTE: Current APIKit imprementation doesn't allow to set to payload body on a DELETE request.
+    //       So we override `buildURLRequest` method from APIKit directly for customizing behavior.
+    public func buildURLRequest() -> Result<NSURLRequest, APIError> {
+        let URL = path.isEmpty ? baseURL : baseURL.URLByAppendingPathComponent(path)
+        guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else {
+            return .Failure(.InvalidBaseURL(baseURL))
+        }
+
+        let URLRequest = NSMutableURLRequest()
+        let parameters = self.parameters
+
+        do {
+            URLRequest.HTTPBody = try requestBodyBuilder.buildBodyFromObject(parameters)
+            URLRequest.setValue(requestBodyBuilder.contentTypeHeader, forHTTPHeaderField: "Content-Type")
+        } catch {
+            return .Failure(.RequestBodySerializationError(error))
+        }
+
+        URLRequest.URL = components.URL
+        URLRequest.HTTPMethod = method.rawValue
+        URLRequest.setValue(responseBodyParser.acceptHeader, forHTTPHeaderField: "Accept")
+
+        HTTPHeaderFields.forEach { key, value in
+            URLRequest.setValue(value, forHTTPHeaderField: key)
+        }
+
+        do {
+            try configureURLRequest(URLRequest)
+        } catch {
+            return .Failure(.ConfigurationError(error))
+        }
+
+        return .Success(URLRequest)
+    }
 }
 
 extension DownloadAttachment {

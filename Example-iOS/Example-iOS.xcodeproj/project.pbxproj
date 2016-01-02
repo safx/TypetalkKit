@@ -7,9 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8D68D8CC1C187413008ACB36 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D68D8CB1C187413008ACB36 /* TypetalkKit.framework */; };
-		8D68D8CE1C187424008ACB36 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D68D8CD1C187424008ACB36 /* Alamofire.framework */; };
-		8D68D8CF1C187424008ACB36 /* Alamofire.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8D68D8CD1C187424008ACB36 /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		8DA638C219D4704500EA4C08 /* TopicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA638C119D4704500EA4C08 /* TopicCell.swift */; };
 		8DEF716219C9CCD400F179A6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716119C9CCD400F179A6 /* AppDelegate.swift */; };
 		8DEF716419C9CCD400F179A6 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF716319C9CCD400F179A6 /* MasterViewController.swift */; };
@@ -27,15 +24,12 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8D68D8CF1C187424008ACB36 /* Alamofire.framework in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		8D68D8CB1C187413008ACB36 /* TypetalkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TypetalkKit.framework; path = "../build/Debug-iphoneos/TypetalkKit.framework"; sourceTree = "<group>"; };
-		8D68D8CD1C187424008ACB36 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
 		8DA638C119D4704500EA4C08 /* TopicCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicCell.swift; sourceTree = "<group>"; };
 		8DEF715C19C9CCD400F179A6 /* Example-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Example-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DEF716019C9CCD400F179A6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -53,8 +47,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D68D8CC1C187413008ACB36 /* TypetalkKit.framework in Frameworks */,
-				8D68D8CE1C187424008ACB36 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,8 +56,6 @@
 		8DEF715319C9CCD300F179A6 = {
 			isa = PBXGroup;
 			children = (
-				8D68D8CD1C187424008ACB36 /* Alamofire.framework */,
-				8D68D8CB1C187413008ACB36 /* TypetalkKit.framework */,
 				8DEF715E19C9CCD400F179A6 /* Example-iOS */,
 				8DEF715D19C9CCD400F179A6 /* Products */,
 			);
@@ -114,6 +104,7 @@
 				8DEF715919C9CCD400F179A6 /* Frameworks */,
 				8DEF715A19C9CCD400F179A6 /* Resources */,
 				8DA638C719D47B4700EA4C08 /* CopyFiles */,
+				8D8C934E1C37B95B006B75DF /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -169,6 +160,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8D8C934E1C37B95B006B75DF /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/iOS/Alamofire.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/APIKit.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/Result.framework",
+				"$(SRCROOT)/../Carthage/Build/iOS/Starscream.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8DEF715819C9CCD400F179A6 /* Sources */ = {

@@ -139,6 +139,16 @@
 		8D8BFBE11C187AE700C2BA7D /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8BFBE01C187AE700C2BA7D /* APIKit.framework */; };
 		8D8BFBE31C187AEB00C2BA7D /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8BFBE21C187AEB00C2BA7D /* Result.framework */; };
 		8D8BFBE51C187AEE00C2BA7D /* Starscream.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D8BFBE41C187AEE00C2BA7D /* Starscream.framework */; };
+		8D8C93341C37952C006B75DF /* api_update-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C93321C3794FF006B75DF /* api_update-message.json */; };
+		8D8C93351C37952C006B75DF /* api_update-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C93321C3794FF006B75DF /* api_update-message.json */; };
+		8D8C93381C37A6AA006B75DF /* api_update-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C93361C37A6A3006B75DF /* api_update-talk.json */; };
+		8D8C93391C37A6AB006B75DF /* api_update-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C93361C37A6A3006B75DF /* api_update-talk.json */; };
+		8D8C93401C37A983006B75DF /* api_add-message-to-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933A1C37A96D006B75DF /* api_add-message-to-talk.json */; };
+		8D8C93411C37A983006B75DF /* api_delete-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933B1C37A96D006B75DF /* api_delete-talk.json */; };
+		8D8C93421C37A983006B75DF /* api_remove-message-from-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933C1C37A96D006B75DF /* api_remove-message-from-talk.json */; };
+		8D8C93431C37A984006B75DF /* api_add-message-to-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933A1C37A96D006B75DF /* api_add-message-to-talk.json */; };
+		8D8C93441C37A984006B75DF /* api_delete-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933B1C37A96D006B75DF /* api_delete-talk.json */; };
+		8D8C93451C37A984006B75DF /* api_remove-message-from-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D8C933C1C37A96D006B75DF /* api_remove-message-from-talk.json */; };
 		8D93449D1B78290000EC478E /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93449B1B78251A00EC478E /* Auth.swift */; };
 		8D93449E1B78290300EC478E /* Auth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D93449B1B78251A00EC478E /* Auth.swift */; };
 		8D93839D1B593BB900916D99 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785361B56A33600B37898 /* Model.swift */; };
@@ -432,6 +442,11 @@
 		8D8BFBE01C187AE700C2BA7D /* APIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = APIKit.framework; path = Carthage/Build/iOS/APIKit.framework; sourceTree = "<group>"; };
 		8D8BFBE21C187AEB00C2BA7D /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		8D8BFBE41C187AEE00C2BA7D /* Starscream.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Starscream.framework; path = Carthage/Build/iOS/Starscream.framework; sourceTree = "<group>"; };
+		8D8C93321C3794FF006B75DF /* api_update-message.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_update-message.json"; sourceTree = "<group>"; };
+		8D8C93361C37A6A3006B75DF /* api_update-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_update-talk.json"; sourceTree = "<group>"; };
+		8D8C933A1C37A96D006B75DF /* api_add-message-to-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_add-message-to-talk.json"; sourceTree = "<group>"; };
+		8D8C933B1C37A96D006B75DF /* api_delete-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_delete-talk.json"; sourceTree = "<group>"; };
+		8D8C933C1C37A96D006B75DF /* api_remove-message-from-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_remove-message-from-talk.json"; sourceTree = "<group>"; };
 		8D9344991B7824E100EC478E /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		8D93449B1B78251A00EC478E /* Auth.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Auth.swift; sourceTree = "<group>"; };
 		8D9383921B593AD100916D99 /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
@@ -784,8 +799,13 @@
 				8D7B02B919D45DED000A0F7C /* api_search-accounts.json */,
 				8D7B02BA19D45DED000A0F7C /* api_unfavorite-topic.json */,
 				8D7B02BB19D45DED000A0F7C /* api_unlike-message.json */,
+				8D8C93321C3794FF006B75DF /* api_update-message.json */,
+				8D8C93361C37A6A3006B75DF /* api_update-talk.json */,
 				8D7B02BC19D45DED000A0F7C /* api_update-topic.json */,
 				8D7B02BD19D45DED000A0F7C /* api_upload-attachment.json */,
+				8D8C933A1C37A96D006B75DF /* api_add-message-to-talk.json */,
+				8D8C933B1C37A96D006B75DF /* api_delete-talk.json */,
+				8D8C933C1C37A96D006B75DF /* api_remove-message-from-talk.json */,
 				8DBA51A119C5EA2C00BD88A3 /* model_account.json */,
 				8DA0033119DEEEA500844F14 /* model_member.json */,
 				8DB501241AD41DF9001F403E /* model_embed.json */,
@@ -1012,6 +1032,7 @@
 				8DB501341AD41FBE001F403E /* model_embed.json in Resources */,
 				8DD222001A90DA3300EA024C /* api_save-read-mention.json in Resources */,
 				8DD221F71A90DA3300EA024C /* api_get-teams.json in Resources */,
+				8D8C93351C37952C006B75DF /* api_update-message.json in Resources */,
 				8DD221F51A90DA3300EA024C /* api_get-talk.json in Resources */,
 				8DD221CA1A90DA2400EA024C /* streaming-notifyMention.json in Resources */,
 				8DD222121A90DA3300EA024C /* model_like.json in Resources */,
@@ -1032,6 +1053,7 @@
 				8DD222171A90DA3300EA024C /* model_team_invite.json in Resources */,
 				8DD2220C1A90DA3300EA024C /* model_attachment.json in Resources */,
 				8DD2221C1A90DA3300EA024C /* model_notifications.json in Resources */,
+				8D8C93391C37A6AB006B75DF /* api_update-talk.json in Resources */,
 				8DD221F11A90DA3300EA024C /* api_get-messages.json in Resources */,
 				8DD2221B1A90DA3300EA024C /* model_talk_messages.json in Resources */,
 				8DD221F01A90DA3300EA024C /* api_get-message.json in Resources */,
@@ -1074,11 +1096,13 @@
 				8DD222021A90DA3300EA024C /* api_search-accounts.json in Resources */,
 				8DD222101A90DA3300EA024C /* model_bookmark.json in Resources */,
 				8DD2221A1A90DA3300EA024C /* model_topic_with_accounts.json in Resources */,
+				8D8C93451C37A984006B75DF /* api_remove-message-from-talk.json in Resources */,
 				8DD2220A1A90DA3300EA024C /* model_team.json in Resources */,
 				8DD221EB1A90DA3300EA024C /* api_delete-message.json in Resources */,
 				8DD221DC1A90DA2400EA024C /* streaming-updateTalk.json in Resources */,
 				8D42189B1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */,
 				8DD221CE1A90DA2400EA024C /* streaming-readMention.json in Resources */,
+				8D8C93441C37A984006B75DF /* api_delete-talk.json in Resources */,
 				8DD222131A90DA3300EA024C /* model_talk.json in Resources */,
 				8DD221F81A90DA3300EA024C /* api_get-topic-details.json in Resources */,
 				8DD222081A90DA3300EA024C /* model_member.json in Resources */,
@@ -1087,6 +1111,7 @@
 				8DD222161A90DA3300EA024C /* model_mention.json in Resources */,
 				8DD221EF1A90DA3300EA024C /* api_get-mentions.json in Resources */,
 				8DD221E91A90DA3300EA024C /* api_decline-team-invite.json in Resources */,
+				8D8C93431C37A984006B75DF /* api_add-message-to-talk.json in Resources */,
 				8DD221B21A90DA2400EA024C /* streaming-acceptTeamInvite.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1114,6 +1139,7 @@
 				8DB501331AD41FBD001F403E /* model_embed.json in Resources */,
 				8DD221DD1A90DA2400EA024C /* streaming-updateTopic.json in Resources */,
 				8D7B02E519D45DF5000A0F7C /* api_delete-topic.json in Resources */,
+				8D8C93341C37952C006B75DF /* api_update-message.json in Resources */,
 				8D7B02FB19D45DF5000A0F7C /* api_search-accounts.json in Resources */,
 				8DD221C91A90DA2400EA024C /* streaming-notifyMention.json in Resources */,
 				8D5C5D661A6D2916003387DE /* model_thumbnail.json in Resources */,
@@ -1134,6 +1160,7 @@
 				8DD221C11A90DA2400EA024C /* streaming-favoriteTopic.json in Resources */,
 				8DD221B31A90DA2400EA024C /* streaming-addTalkPost.json in Resources */,
 				8D7E6DD419CF28D3004AAF35 /* model_bookmark.json in Resources */,
+				8D8C93381C37A6AA006B75DF /* api_update-talk.json in Resources */,
 				8D7B02F419D45DF5000A0F7C /* api_invite-topic-member.json in Resources */,
 				8DD221B71A90DA2400EA024C /* streaming-createTopic.json in Resources */,
 				8DD221D51A90DA2400EA024C /* streaming-unfavoriteTopic.json in Resources */,
@@ -1176,11 +1203,13 @@
 				8DD221C31A90DA2400EA024C /* streaming-joinTopics.json in Resources */,
 				8D894A9419E2E52D0039D0ED /* model_notification_status.json in Resources */,
 				8D7B02F119D45DF5000A0F7C /* api_get-topic-details.json in Resources */,
+				8D8C93421C37A983006B75DF /* api_remove-message-from-talk.json in Resources */,
 				8DEF714219C9ABF200F179A6 /* model_team.json in Resources */,
 				8D79981519E192BF00DF9AB9 /* model_topic_invite.json in Resources */,
 				8DEF714919C9AE9600F179A6 /* model_attachment.json in Resources */,
 				8D42189A1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */,
 				8DD221D31A90DA2400EA024C /* streaming-saveBookmark.json in Resources */,
+				8D8C93411C37A983006B75DF /* api_delete-talk.json in Resources */,
 				8D7B02F719D45DF5000A0F7C /* api_post-message.json in Resources */,
 				8DEF715019C9B1EB00F179A6 /* model_urlattachment.json in Resources */,
 				8D7E6E3919D2F9BF004AAF35 /* model_post.json in Resources */,
@@ -1189,6 +1218,7 @@
 				8D7B02ED19D45DF5000A0F7C /* api_get-profile.json in Resources */,
 				8D7B02FE19D45DF5000A0F7C /* api_update-topic.json in Resources */,
 				8DD221CD1A90DA2400EA024C /* streaming-readMention.json in Resources */,
+				8D8C93401C37A983006B75DF /* api_add-message-to-talk.json in Resources */,
 				8DD221C71A90DA2400EA024C /* streaming-likeMessage.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

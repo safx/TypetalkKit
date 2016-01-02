@@ -15,7 +15,7 @@ class EmbedTests: XCTestCase {
         let model = try! Embed.parseJSON(json("model_embed"))
 
         XCTAssertEqual(model.type, "rich")
-        XCTAssertEqual(model.version, Float(1.0))
+        XCTAssertEqual(model.version, 1)
         XCTAssertEqual(model.providerName, "Speaker Deck")
         XCTAssertEqual(model.providerURL!.absoluteString, "https://speakerdeck.com/")
         XCTAssertEqual(model.title, "Nulab's Way of Working Remotely")

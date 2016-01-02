@@ -4,23 +4,23 @@
 
   },
   "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
-    "38C2A0D4F62B675E8C16C8BC1437C7753846C8AC" : 0,
     "877620D38CC1C6ECCA1384F6DAF4EE294A3FB94C" : 0,
     "F607A624BDF2624F7609EF66C123E17132AFE18F" : 0,
     "956D2B21DD155C49504BB67697A67F7C5351A353" : 0,
     "A11A2549D5CB40607BCC5ED8DF4A3BF3E6CE30E2" : 0,
     "67620B5EFA902936DF04070AF595B76AB0333747" : 0,
-    "C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D" : 0
+    "C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D" : 0,
+    "B3D9DB878A5C277C23A6A3314F26A479DD04CDD7" : 0
   },
   "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "22A26197-0ACE-4B95-AE1A-063E3BB59FF9",
   "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
-    "38C2A0D4F62B675E8C16C8BC1437C7753846C8AC" : "TypetalkKit\/External\/APIKit\/Carthage\/Checkouts\/OHHTTPStubs\/",
     "877620D38CC1C6ECCA1384F6DAF4EE294A3FB94C" : "TypetalkKit\/",
     "F607A624BDF2624F7609EF66C123E17132AFE18F" : "TypetalkKit\/External\/APIKit\/",
     "956D2B21DD155C49504BB67697A67F7C5351A353" : "TypetalkKit\/External\/APIKit\/Carthage\/Checkouts\/Result\/",
     "A11A2549D5CB40607BCC5ED8DF4A3BF3E6CE30E2" : "TypetalkKit\/Carthage\/Checkouts\/OHHTTPStubs\/",
     "67620B5EFA902936DF04070AF595B76AB0333747" : "TypetalkKit\/External\/Alamofire\/",
-    "C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D" : "TypetalkKit\/External\/Starscream\/"
+    "C86D95FCAEB1FEA0694B5D4AC7241D7E5F42F31D" : "TypetalkKit\/External\/Starscream\/",
+    "B3D9DB878A5C277C23A6A3314F26A479DD04CDD7" : "TypetalkApp\/"
   },
   "DVTSourceControlWorkspaceBlueprintNameKey" : "TypetalkKit",
   "DVTSourceControlWorkspaceBlueprintVersion" : 204,
@@ -45,6 +45,11 @@
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/AliSoftware\/OHHTTPStubs.git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "A11A2549D5CB40607BCC5ED8DF4A3BF3E6CE30E2"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:safx\/TypetalkApp.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "B3D9DB878A5C277C23A6A3314F26A479DD04CDD7"
     },
     {
       "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/daltoniam\/Starscream.git",

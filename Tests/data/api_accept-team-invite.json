@@ -1,52 +1,52 @@
 {
-    "topics": [
-        {
-            "id": 211,
-            "name": "Cycling",
-            "suggestion": "Cycling",
-            "lastPostedAt": "2014-06-12T03:32:29Z",
-            "createdAt": "2014-06-12T02:32:29Z",
-            "updatedAt": "2014-06-12T02:32:29Z"
-        },
-        {
-            "id": 212,
-            "name": "Races",
-            "suggestion": "Races",
-            "lastPostedAt": "2014-06-12T04:32:29Z",
-            "createdAt": "2014-06-12T03:32:29Z",
-            "updatedAt": "2014-06-12T03:32:29Z"
-        }
-    ],
-    "invite": {
-        "id": 800,
-        "team": {
-            "id": 702,
-            "name": "Cycling team",
-            "imageUrl": "https://typetalk.in/teams/702/image.png?t=1402540349000",
-            "createdAt": "2014-06-12T02:32:29Z",
-            "updatedAt": "2014-06-12T02:32:29Z"
-        },
-        "sender": {
-            "id": 106,
-            "name": "chelseab",
-            "fullName": "ChelseaB",
-            "suggestion": "ChelseaB",
-            "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
-            "createdAt": "2014-06-30T02:32:29Z",
-            "updatedAt": "2014-06-30T02:32:29Z"
-        },
-        "account": {
-            "id": 100,
-            "name": "jessica",
-            "fullName": "Jessica Fitzherbert",
-            "suggestion": "Jessica Fitzherbert",
-            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
-            "createdAt": "2014-06-24T02:32:29Z",
-            "updatedAt": "2014-06-24T02:32:29Z"
-        },
-        "role": "member",
-        "message": "Hello. Please join us.",
-        "createdAt": "2014-07-01T03:32:29Z",
-        "updatedAt": "2014-07-25T03:38:53Z"
+  "topics": [
+    {
+      "id": 212,
+      "name": "Races",
+      "suggestion": "Races",
+      "lastPostedAt": "2014-06-12T04:32:29Z",
+      "createdAt": "2014-06-12T03:32:29Z",
+      "updatedAt": "2014-06-12T03:32:29Z"
+    },
+    {
+      "id": 211,
+      "name": "Cycling",
+      "suggestion": "Cycling",
+      "lastPostedAt": "2014-06-12T03:32:29Z",
+      "createdAt": "2014-06-12T02:32:29Z",
+      "updatedAt": "2014-06-12T02:32:29Z"
     }
+  ],
+  "invite": {
+    "id": 800,
+    "team": {
+      "id": 702,
+      "name": "Cycling team",
+      "imageUrl": "https://typetalk.in/teams/702/image.png?t=1402540349000",
+      "createdAt": "2014-06-12T02:32:29Z",
+      "updatedAt": "2014-06-12T02:32:29Z"
+    },
+    "sender": {
+      "id": 106,
+      "name": "chelseab",
+      "fullName": "ChelseaB",
+      "suggestion": "ChelseaB",
+      "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
+      "createdAt": "2014-06-30T02:32:29Z",
+      "updatedAt": "2014-06-30T02:32:29Z"
+    },
+    "account": {
+      "id": 100,
+      "name": "jessica",
+      "fullName": "Jessica Fitzherbert",
+      "suggestion": "Jessica Fitzherbert",
+      "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+      "createdAt": "2014-06-24T02:32:29Z",
+      "updatedAt": "2014-06-24T02:32:29Z"
+    },
+    "role": "member",
+    "message": "Hello. Please join us.",
+    "createdAt": "2014-07-01T03:32:29Z",
+    "updatedAt": "2015-12-17T09:50:33Z"
+  }
 }

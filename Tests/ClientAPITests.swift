@@ -67,14 +67,16 @@ class ClientAPITests: XCTestCase {
             switch result {
             case .Success(let r):
                 let last = r.topics[8]
-                XCTAssertEqual(last.topic.id, 206)
-                XCTAssertEqual(last.topic.name, "VisualDesigners")
-                XCTAssertEqual(last.topic.suggestion, "VisualDesigners")
+                XCTAssertEqual(last.topic.id, 201)
+                XCTAssertEqual(last.topic.name, "Communications Team")
+                XCTAssertEqual(last.topic.suggestion, "Communications Team")
                 XCTAssertEqual(last.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
-                XCTAssertEqual(last.topic.createdAt.description, "2014-06-08 02:32:29 +0000")
-                XCTAssertEqual(last.topic.updatedAt.description, "2014-06-08 02:32:29 +0000")
+                XCTAssertEqual(last.topic.createdAt.description, "2014-06-03 02:32:29 +0000")
+                XCTAssertEqual(last.topic.updatedAt.description, "2014-06-03 02:32:29 +0000")
                 XCTAssertFalse(last.favorite)
-                XCTAssertTrue(nil == last.unread)
+                XCTAssertEqual(last.unread?.topicId, 201)
+                XCTAssertEqual(last.unread?.postId, 0)
+                XCTAssertEqual(last.unread?.count, 0)
 
                 expectation.fulfill()
             case .Failure(let error):
@@ -104,7 +106,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertTrue(nil != first.links[1].embed)
 
                 XCTAssertEqual(first.links[1].embed!.type, "rich")
-                XCTAssertEqual(first.links[1].embed!.version, Float(1.0))
+                XCTAssertEqual(first.links[1].embed!.version, 1)
                 XCTAssertEqual(first.links[1].embed!.providerName, "Speaker Deck")
                 XCTAssertEqual(first.links[1].embed!.providerURL!.absoluteString, "https://speakerdeck.com/")
                 XCTAssertEqual(first.links[1].embed!.title, "Nulab's Way of Working Remotely")
@@ -173,10 +175,46 @@ class ClientAPITests: XCTestCase {
         TypetalkAPI.sendRequest(UploadAttachment(topicId: 0, name: "", contents: NSData())) { result in
             switch result {
             case .Success(let attachment):
-                XCTAssertEqual(attachment.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
+                XCTAssertEqual(attachment.fileKey, "e3140c6ef324f1eb193375ff189ec6591732bb1b")
                 XCTAssertEqual(attachment.fileName, "sample.jpg")
                 XCTAssertEqual(attachment.fileSize, 472263)
 
+                expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
+    func testDownloadAttachment() {
+        createStub("download-attachment")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 1, attachmentId: 2, filename: "aaaaaa")) { result in
+            switch result {
+            case .Success:
+                expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+
+    func testDownloadAttachmentWithURL() {
+        createStub("download-attachment")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, attachmentType: .Large)!) { result -> Void in
+            switch result {
+            case .Success:
                 expectation.fulfill()
             case .Failure(let error):
                 XCTFail("\(error)")
@@ -244,7 +282,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(message.topic.id, 208)
                 XCTAssertEqual(message.topic.name, "IT Peeps")
                 XCTAssertEqual(message.topic.suggestion, "IT Peeps")
-                XCTAssertEqual(message.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
+                XCTAssertEqual(message.topic.lastPostedAt!.description, "2015-12-17 09:50:22 +0000")
                 XCTAssertEqual(message.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(message.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
@@ -266,6 +304,42 @@ class ClientAPITests: XCTestCase {
         }
     }
 
+    func testUpdateMessage() {
+        createStub("update-message")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(UpdateMessage(topicId: 0, postId: 0, message: "foobar")) { result in
+            switch result {
+            case .Success(let res):
+                let topic = res.topic!
+                let post = res.post!
+                XCTAssertEqual(topic.id, 208)
+                XCTAssertEqual(topic.name, "IT Peeps")
+                XCTAssertEqual(topic.suggestion, "IT Peeps")
+
+                XCTAssertEqual(post.id, 307)
+                XCTAssertEqual(post.replyTo, 306)
+                //XCTAssertNil(post.mention)
+                XCTAssertEqual(post.message, "your message")
+                XCTAssertTrue(post.attachments.isEmpty)
+                XCTAssertTrue(post.likes.isEmpty)
+                XCTAssertTrue(post.talks.isEmpty)
+                XCTAssertTrue(post.links.isEmpty)
+
+                XCTAssertEqual(post.account.id, 100)
+                XCTAssertEqual(post.account.name, "jessica")
+
+                expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
     func testDeleteMessage() {
         createStub("delete-message")
 
@@ -571,7 +645,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.mention.id, 501)
                 XCTAssertEqual(r.mention.post!.id, 309)
                 XCTAssertEqual(r.mention.post!.topicId, 203)
-                XCTAssertEqual(r.mention.readAt!.description, "2014-07-25 03:38:52 +0000")
+                XCTAssertEqual(r.mention.readAt!.description, "2015-12-17 09:50:32 +0000")
                 XCTAssertEqual(r.mention.post!.topic!.id, 203)
                 XCTAssertEqual(r.mention.post!.topic!.name, "Techies")
                 XCTAssertEqual(r.mention.post!.topic!.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
@@ -601,7 +675,7 @@ class ClientAPITests: XCTestCase {
                 let topics = res.topics
                 let invite = res.invite!
                 XCTAssertEqual(topics.count, 2)
-                let topic = topics[1]
+                let topic = topics[0]
                 XCTAssertEqual(topic.id, 212)
                 XCTAssertEqual(topic.name, "Races")
                 XCTAssertEqual(topic.suggestion, "Races")
@@ -725,8 +799,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.name, "Test topic")
                 XCTAssertEqual(topic.topic.suggestion, "Test topic")
                 XCTAssertNil(topic.topic.lastPostedAt)
-                XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
-                XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:55 +0000")
+                XCTAssertEqual(topic.topic.createdAt.description, "2015-12-17 09:50:35 +0000")
+                XCTAssertEqual(topic.topic.updatedAt.description, "2015-12-17 09:50:35 +0000")
 
                 XCTAssertEqual(topic.teams.count, 1)
                 let team = topic.teams[0]
@@ -758,12 +832,12 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.name, "Update test topic")
                 XCTAssertEqual(topic.topic.suggestion, "Update test topic")
                 XCTAssertNil(topic.topic.lastPostedAt)
-                XCTAssertEqual(topic.topic.createdAt.description, "2014-07-25 03:38:55 +0000")
-                XCTAssertEqual(topic.topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
+                XCTAssertEqual(topic.topic.createdAt.description, "2015-12-17 09:50:35 +0000")
+                XCTAssertEqual(topic.topic.updatedAt.description, "2015-12-17 09:50:36 +0000")
 
                 XCTAssertEqual(topic.teams.count, 0)
-                XCTAssertEqual(topic.accounts.count, 1)
-                XCTAssertEqual(topic.invites.count, 2)
+                XCTAssertEqual(topic.accounts.count, 2)
+                XCTAssertEqual(topic.invites.count, 1)
 
                 expectation.fulfill()
             case .Failure(let error):
@@ -787,8 +861,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.name, "Update test topic")
                 XCTAssertEqual(topic.suggestion, "Update test topic")
                 XCTAssertNil(topic.lastPostedAt)
-                XCTAssertEqual(topic.createdAt.description, "2014-07-25 03:38:55 +0000")
-                XCTAssertEqual(topic.updatedAt.description, "2014-07-25 03:38:56 +0000")
+                XCTAssertEqual(topic.createdAt.description, "2015-12-17 09:50:35 +0000")
+                XCTAssertEqual(topic.updatedAt.description, "2015-12-17 09:50:36 +0000")
 
                 expectation.fulfill()
             case .Failure(let error):
@@ -811,7 +885,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.id, 208)
                 XCTAssertEqual(topic.topic.name, "IT Peeps")
                 XCTAssertEqual(topic.topic.suggestion, "IT Peeps")
-                XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
+                XCTAssertEqual(topic.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
@@ -845,8 +919,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-09 02:32:29 +0000")
 
                 XCTAssertEqual(topic.teams.count, 0)
-                XCTAssertEqual(topic.accounts.count, 1)
-                XCTAssertEqual(topic.invites.count, 2)
+                XCTAssertEqual(topic.accounts.count, 2)
+                XCTAssertEqual(topic.invites.count, 1)
 
                 expectation.fulfill()
             case .Failure(let error):
@@ -869,7 +943,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(topic.topic.id, 208)
                 XCTAssertEqual(topic.topic.name, "IT Peeps")
                 XCTAssertEqual(topic.topic.suggestion, "IT Peeps")
-                XCTAssertEqual(topic.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
+                XCTAssertEqual(topic.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
                 XCTAssertEqual(topic.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(topic.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
@@ -922,8 +996,8 @@ class ClientAPITests: XCTestCase {
         TypetalkAPI.sendRequest(GetFriends()) { result in
             switch result {
             case .Success(let r):
-                XCTAssertEqual(r.accounts.count, 5)
-                let last = r.accounts[4]
+                XCTAssertEqual(r.accounts.count, 6)
+                let last = r.accounts[5]
                 XCTAssertEqual(last.id, 103)
                 XCTAssertEqual(last.name, "stefhull")
                 XCTAssertEqual(last.fullName, "StefHull")
@@ -1006,7 +1080,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(talk.topic.id, 208)
                 XCTAssertEqual(talk.topic.name, "IT Peeps")
                 XCTAssertEqual(talk.topic.suggestion, "IT Peeps")
-                XCTAssertEqual(talk.topic.lastPostedAt!.description, "2014-07-25 03:38:45 +0000")
+                XCTAssertEqual(talk.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
                 XCTAssertEqual(talk.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(talk.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
@@ -1046,7 +1120,7 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.topic.id, 208)
                 XCTAssertEqual(r.topic.name, "IT Peeps")
                 XCTAssertEqual(r.topic.suggestion, "IT Peeps")
-                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-05-21 06:30:49 +0000")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
                 XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
                 XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
@@ -1054,8 +1128,8 @@ class ClientAPITests: XCTestCase {
                 XCTAssertEqual(r.talk.topicId, 208)
                 XCTAssertEqual(r.talk.name, "Feedback new design")
                 XCTAssertEqual(r.talk.suggestion, "Feedback new design")
-                XCTAssertEqual(r.talk.createdAt.description, "2015-05-21 06:31:07 +0000")
-                XCTAssertEqual(r.talk.updatedAt.description, "2015-05-21 06:31:07 +0000")
+                XCTAssertEqual(r.talk.createdAt.description, "2015-12-17 09:50:42 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-12-17 09:50:42 +0000")
 
                 XCTAssertEqual(r.postIds.count, 2)
                 XCTAssertEqual(r.postIds[0], 300)
@@ -1072,13 +1146,27 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    func testDownloadAttachment() {
-        createStub("download-attachment")
+    func testUpdateTalk() {
+        createStub("update-talk")
 
         let expectation = expectationWithDescription("")
-        TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 1, attachmentId: 2, filename: "aaaaaa")) { result in
+        TypetalkAPI.sendRequest(UpdateTalk(topicId: 0, talkId: 0, talkName: "")) { result in
             switch result {
-            case .Success:
+            case .Success(let r):
+                XCTAssertEqual(r.topic.id, 208)
+                XCTAssertEqual(r.topic.name, "IT Peeps")
+                XCTAssertEqual(r.topic.suggestion, "IT Peeps")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
+                XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
+                XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
+
+                XCTAssertEqual(r.talk.id, 902)
+                XCTAssertEqual(r.talk.topicId, 208)
+                XCTAssertEqual(r.talk.name, "Feedback new site design")
+                XCTAssertEqual(r.talk.suggestion, "Feedback new site design")
+                XCTAssertEqual(r.talk.createdAt.description, "2015-12-17 09:50:42 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-12-17 09:50:43 +0000")
+
                 expectation.fulfill()
             case .Failure(let error):
                 XCTFail("\(error)")
@@ -1090,13 +1178,27 @@ class ClientAPITests: XCTestCase {
         }
     }
 
-    func testDownloadAttachmentWithURL() {
-        createStub("download-attachment")
+    func testDeleteTalk() {
+        createStub("delete-talk")
 
         let expectation = expectationWithDescription("")
-        TypetalkAPI.sendRequest(DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg")!, attachmentType: .Large)!) { result -> Void in
+        TypetalkAPI.sendRequest(DeleteTalk(topicId: 0, talkId: 0)) { result in
             switch result {
-            case .Success:
+            case .Success(let r):
+                XCTAssertEqual(r.topic.id, 208)
+                XCTAssertEqual(r.topic.name, "IT Peeps")
+                XCTAssertEqual(r.topic.suggestion, "IT Peeps")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
+                XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
+                XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
+
+                XCTAssertEqual(r.talk.id, 902)
+                XCTAssertEqual(r.talk.topicId, 208)
+                XCTAssertEqual(r.talk.name, "Feedback new site design")
+                XCTAssertEqual(r.talk.suggestion, "Feedback new site design")
+                XCTAssertEqual(r.talk.createdAt.description, "2015-12-17 09:50:42 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-12-17 09:50:43 +0000")
+
                 expectation.fulfill()
             case .Failure(let error):
                 XCTFail("\(error)")
@@ -1107,4 +1209,77 @@ class ClientAPITests: XCTestCase {
             XCTAssertNil(error, "\(error)")
         }
     }
+
+    func testAddMessageToTalk() {
+        createStub("add-message-to-talk")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(AddMessageToTalk(topicId: 0, talkId: 0, postIds: [])) { result in
+            switch result {
+            case .Success(let r):
+                XCTAssertEqual(r.topic.id, 208)
+                XCTAssertEqual(r.topic.name, "IT Peeps")
+                XCTAssertEqual(r.topic.suggestion, "IT Peeps")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
+                XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
+                XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
+
+                XCTAssertEqual(r.talk.id, 900)
+                XCTAssertEqual(r.talk.topicId, 208)
+                XCTAssertEqual(r.talk.name, "About us")
+                XCTAssertEqual(r.talk.suggestion, "About us")
+                XCTAssertEqual(r.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-12-17 09:50:44 +0000")
+
+                XCTAssertEqual(r.postIds.count, 2)
+                XCTAssertEqual(r.postIds[0], 300)
+                XCTAssertEqual(r.postIds[1], 301)
+
+                expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
+    func testRemoveMessageFromTalk() {
+        createStub("remove-message-from-talk")
+
+        let expectation = expectationWithDescription("")
+        TypetalkAPI.sendRequest(RemoveMessageFromTalk(topicId: 0, talkId: 0, postIds: [])) { result in
+            switch result {
+            case .Success(let r):
+                XCTAssertEqual(r.topic.id, 208)
+                XCTAssertEqual(r.topic.name, "IT Peeps")
+                XCTAssertEqual(r.topic.suggestion, "IT Peeps")
+                XCTAssertEqual(r.topic.lastPostedAt!.description, "2015-12-17 09:50:26 +0000")
+                XCTAssertEqual(r.topic.createdAt.description, "2014-06-10 02:32:29 +0000")
+                XCTAssertEqual(r.topic.updatedAt.description, "2014-06-10 02:32:29 +0000")
+
+                XCTAssertEqual(r.talk.id, 900)
+                XCTAssertEqual(r.talk.topicId, 208)
+                XCTAssertEqual(r.talk.name, "About us")
+                XCTAssertEqual(r.talk.suggestion, "About us")
+                XCTAssertEqual(r.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
+                XCTAssertEqual(r.talk.updatedAt.description, "2015-12-17 09:50:45 +0000")
+
+                XCTAssertEqual(r.postIds.count, 2)
+                XCTAssertEqual(r.postIds[0], 300)
+                XCTAssertEqual(r.postIds[1], 301)
+
+                expectation.fulfill()
+            case .Failure(let error):
+                XCTFail("\(error)")
+            }
+        }
+
+        waitForExpectationsWithTimeout(3) { (error) in
+            XCTAssertNil(error, "\(error)")
+        }
+    }
+    
 }

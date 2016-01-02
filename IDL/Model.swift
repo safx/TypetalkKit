@@ -65,7 +65,7 @@ public struct Bookmark: JSONDecodable, ClassInit {
 
 public struct Embed: JSONDecodable, ClassInit {
     public let type: String
-    public let version: Float
+    public let version: Int
     public let providerName: String // JSON:"provider_name"
     public let providerURL: NSURL?  // JSON:"provider_url"
     public let title: String
@@ -179,6 +179,7 @@ public struct Talk: JSONDecodable, ClassInit {
     public let suggestion: String
     public let createdAt: NSDate
     public let updatedAt: NSDate
+    public let backlog: String?
 }
 
 public struct TalkMessages: JSONDecodable, ClassInit {
@@ -227,6 +228,9 @@ public struct TopicWithAccounts: JSONDecodable, ClassInit {
     public let teams: [TeamWithMembers] = []
     public let accounts: [Account] = []
     public let invites: [Invite] = [] //[TopicInvite]
+
+    public let accountsForApi: [Account] = []
+    public let integrations: [Account] = []
 }
 
 public struct TopicWithUserInfo: JSONDecodable, ClassInit {

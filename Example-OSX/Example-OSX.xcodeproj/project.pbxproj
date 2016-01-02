@@ -13,9 +13,6 @@
 		8D3B513A1A7935A800F7B6A5 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8D3B51381A7935A800F7B6A5 /* Main.storyboard */; };
 		8D40113B1A7C9748005D7EEC /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113A1A7C9748005D7EEC /* MessageViewController.swift */; };
 		8D40113F1A7CA3C9005D7EEC /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */; };
-		8D68D8C71C1873C3008ACB36 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */; };
-		8DABBF961C1FDBC800B99B8D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DABBF951C1FDBC800B99B8D /* Alamofire.framework */; };
-		8DABBF971C1FDBC800B99B8D /* Alamofire.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8DABBF951C1FDBC800B99B8D /* Alamofire.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,7 +22,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				8DABBF971C1FDBC800B99B8D /* Alamofire.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -41,8 +37,6 @@
 		8D3B51391A7935A800F7B6A5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8D40113A1A7C9748005D7EEC /* MessageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
 		8D40113E1A7CA3C9005D7EEC /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
-		8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = TypetalkKit.framework; path = ../build/Debug/TypetalkKit.framework; sourceTree = "<group>"; };
-		8DABBF951C1FDBC800B99B8D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = ../Carthage/Build/Mac/Alamofire.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -50,8 +44,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8D68D8C71C1873C3008ACB36 /* TypetalkKit.framework in Frameworks */,
-				8DABBF961C1FDBC800B99B8D /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,8 +53,6 @@
 		8D3B51241A7935A800F7B6A5 = {
 			isa = PBXGroup;
 			children = (
-				8DABBF951C1FDBC800B99B8D /* Alamofire.framework */,
-				8D68D8C61C1873C3008ACB36 /* TypetalkKit.framework */,
 				8D3B512F1A7935A800F7B6A5 /* Example-OSX */,
 				8D3B512E1A7935A800F7B6A5 /* Products */,
 			);
@@ -109,6 +99,7 @@
 				8D3B512A1A7935A800F7B6A5 /* Frameworks */,
 				8D3B512B1A7935A800F7B6A5 /* Resources */,
 				8DABBF981C1FDBC800B99B8D /* Embed Frameworks */,
+				8D8C934F1C37BA75006B75DF /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -163,6 +154,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8D8C934F1C37BA75006B75DF /* Carthage */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/../Carthage/Build/Mac/Alamofire.framework",
+				"$(SRCROOT)/../Carthage/Build/Mac/APIKit.framework",
+				"$(SRCROOT)/../Carthage/Build/Mac/Result.framework",
+				"$(SRCROOT)/../Carthage/Build/Mac/Starscream.framework",
+			);
+			name = Carthage;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8D3B51291A7935A800F7B6A5 /* Sources */ = {

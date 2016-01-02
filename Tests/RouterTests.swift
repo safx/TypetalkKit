@@ -88,16 +88,46 @@ class RouterTests: XCTestCase {
         XCTAssertNotEqual(q.rangeOfString("talkIds%5B%5D=321").location, NSNotFound)
     }
 
-    /*func testUploadAttachment() {
-        let req = UploadAttachment(topicId: 185).buildURLRequest().value!
+    func testUploadAttachment() {
+        let req = UploadAttachment(topicId: 185, name: "foobar.jpg", contents: NSData()).buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/185/attachments")
-    }*/
+    }
+
+    func testDownloadAttachment() {
+        let req = DownloadAttachment(topicId: 111, postId: 222, attachmentId: 333, filename: "ReadMe.md", type: nil).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
+    }
+    func testDownloadAttachment2() {
+        let req = DownloadAttachment(topicId: 300, postId: 400, attachmentId: 100, filename: "image.png", type: AttachmentType.Large).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
+    }
+
+    func testDownloadAttachmentWithURL() {
+        let req = DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")!)!.buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
+    }
+    func testDownloadAttachmentWithURL2() {
+        let req = DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, attachmentType: .Large)!.buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "GET")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
+    }
 
     func testGetTopicMembers() {
         let req = GetTopicMembers(topicId: 777).buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/777/members/status")
+    }
+
+    func testUpdateMessages() {
+        let req = UpdateMessage(topicId: 758, postId: 123, message: "It's a test message!").buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "PUT")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/758/posts/123")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertEqual(q.rangeOfString("message=It%27s%20a%20test%20message%21").location, 0)
     }
 
     func testGetMessage() {
@@ -397,15 +427,51 @@ class RouterTests: XCTestCase {
         XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=758").location, NSNotFound)
     }
 
-    func testDownloadAttachment() {
-        let req = DownloadAttachment(topicId: 111, postId: 222, attachmentId: 333, filename: "ReadMe.md", type: nil).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
+    func testUpdateTalk() {
+        let req = UpdateTalk(topicId: 135, talkId: 648, talkName: "Sample!!!").buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "PUT")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/648")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("talkName=Sample%21%21%21").location, NSNotFound)
+        XCTAssertEqual(q.rangeOfString("postIds%5B%5D=").location, NSNotFound)
     }
-    func testDownloadAttachment2() {
-        let req = DownloadAttachment(topicId: 300, postId: 400, attachmentId: 100, filename: "image.png", type: AttachmentType.Large).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
+
+    func testDeleteTalk() {
+        let req = DeleteTalk(topicId: 135, talkId: 648).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "DELETE")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/648")
+    }
+
+    func testAddMessageToTalk() {
+        let req = AddMessageToTalk(topicId: 135, talkId: 987, postIds: []).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "POST")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/987/posts")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertEqual(q.rangeOfString("postIds%5B%5D=").location, NSNotFound)
+    }
+    func testAddMessageToTalk2() {
+        let req = AddMessageToTalk(topicId: 965, talkId: 987, postIds: [123,758]).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "POST")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/965/talks/987/posts")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=123").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=758").location, NSNotFound)
+    }
+
+    func testRemoveMessageFromTalk() {
+        let req = RemoveMessageFromTalk(topicId: 135, talkId: 987, postIds: []).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "DELETE")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/987/posts")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertEqual(q.rangeOfString("postIds%5B%5D=").location, NSNotFound)
+    }
+    func testRemoveMessageFromTalk2() {
+        let req = RemoveMessageFromTalk(topicId: 965, talkId: 987, postIds: [123,758]).buildURLRequest().value!
+        XCTAssertEqual(req.HTTPMethod!, "DELETE")
+        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/965/talks/987/posts")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=123").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("postIds%5B%5D=758").location, NSNotFound)
     }
 
     /*func testStreaming() {
@@ -413,15 +479,4 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/streaming")
     }*/
-
-    func testDownloadAttachmentWithURL() {
-        let req = DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")!)!.buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
-    }
-    func testDownloadAttachmentWithURL2() {
-        let req = DownloadAttachment(url: NSURL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, attachmentType: .Large)!.buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
-    }
 }

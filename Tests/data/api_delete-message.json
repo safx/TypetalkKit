@@ -1,14 +1,6 @@
 {
   "id": 333,
   "topicId": 208,
-  "topic": {
-    "id": 208,
-    "name": "IT Peeps",
-    "suggestion": "IT Peeps",
-    "lastPostedAt": "2014-07-25T03:38:45Z",
-    "createdAt": "2014-06-10T02:32:29Z",
-    "updatedAt": "2014-06-10T02:32:29Z"
-  },
   "replyTo": null,
   "message": "Let's party like it's 1999!",
   "account": {
@@ -20,7 +12,11 @@
     "createdAt": "2014-06-24T02:32:29Z",
     "updatedAt": "2014-06-24T02:32:29Z"
   },
+  "mention": null,
   "attachments": [],
-  "createdAt": "2014-07-25T03:38:45Z",
-  "updatedAt": "2014-07-25T03:38:45Z"
+  "likes": [],
+  "talks": [],
+  "links": [],
+  "createdAt": "2015-12-17T09:50:22Z",
+  "updatedAt": "2015-12-17T09:50:22Z"
 }

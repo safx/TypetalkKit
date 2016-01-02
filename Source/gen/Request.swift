@@ -78,13 +78,15 @@ public class PostMessage: TypetalkRequest {
 	public let topicId: TopicID
 	public let message: String
 	public let replyTo: Int?
+	public let showLinkMeta: Bool
 	public let fileKeys: [String]
 	public let talkIds: [TalkID]
 
-	public init(topicId: TopicID, message: String, replyTo: Int? = nil, fileKeys: [String] = [], talkIds: [TalkID] = []) {
+	public init(topicId: TopicID, message: String, replyTo: Int? = nil, showLinkMeta: Bool = true, fileKeys: [String] = [], talkIds: [TalkID] = []) {
 		self.topicId = topicId
 		self.message = message
 		self.replyTo = replyTo
+		self.showLinkMeta = showLinkMeta
 		self.fileKeys = fileKeys
 		self.talkIds = talkIds
 	}
@@ -98,7 +100,7 @@ public class PostMessage: TypetalkRequest {
 	}
 
 	public var parameters: [String: AnyObject] {
-		var p: [String: AnyObject] = ["message": message.toJSON(), "fileKeys": fileKeys.map { $0.toJSON() }, "talkIds": talkIds.map { $0.toJSON() }]
+		var p: [String: AnyObject] = ["message": message.toJSON(), "showLinkMeta": showLinkMeta.toJSON(), "fileKeys": fileKeys.map { $0.toJSON() }, "talkIds": talkIds.map { $0.toJSON() }]
 		_ = replyTo.map { p["replyTo"] = $0.toJSON() }
 		return p
 	}
@@ -126,6 +128,37 @@ public class UploadAttachment: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		return [:]
+	}
+}
+
+public class DownloadAttachment: TypetalkRequest {
+	public typealias APIKitResponse = NSData
+	public let topicId: TopicID
+	public let postId: PostID
+	public let attachmentId: AttachmentID
+	public let filename: String
+	public let type: AttachmentType?
+
+	public init(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType? = nil) {
+		self.topicId = topicId
+		self.postId = postId
+		self.attachmentId = attachmentId
+		self.filename = filename
+		self.type = type
+	}
+
+	public var method: HTTPMethod {
+		return .GET
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
+	}
+
+	public var parameters: [String: AnyObject] {
+		var p: [String: AnyObject] = [:]
+		_ = type.map { p["type"] = $0.toJSON() }
+		return p
 	}
 }
 
@@ -170,6 +203,31 @@ public class GetMessage: TypetalkRequest {
 
 	public var parameters: [String: AnyObject] {
 		return [:]
+	}
+}
+
+public class UpdateMessage: TypetalkRequest {
+	public typealias APIKitResponse = PostMessageResponse
+	public let topicId: TopicID
+	public let postId: PostID
+	public let message: String
+
+	public init(topicId: TopicID, postId: PostID, message: String) {
+		self.topicId = topicId
+		self.postId = postId
+		self.message = message
+	}
+
+	public var method: HTTPMethod {
+		return .PUT
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/posts/\(postId)"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return ["message": message.toJSON()]
 	}
 }
 
@@ -773,9 +831,9 @@ public class CreateTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
 	public let topicId: TopicID
 	public let talkName: String
-	public let postIds: [Int]
+	public let postIds: [PostID]
 
-	public init(topicId: TopicID, talkName: String, postIds: [Int] = []) {
+	public init(topicId: TopicID, talkName: String, postIds: [PostID] = []) {
 		self.topicId = topicId
 		self.talkName = talkName
 		self.postIds = postIds
@@ -794,34 +852,101 @@ public class CreateTalk: TypetalkRequest {
 	}
 }
 
-public class DownloadAttachment: TypetalkRequest {
-	public typealias APIKitResponse = NSData
+public class UpdateTalk: TypetalkRequest {
+	public typealias APIKitResponse = UpdateTalkResponse
 	public let topicId: TopicID
-	public let postId: PostID
-	public let attachmentId: AttachmentID
-	public let filename: String
-	public let type: AttachmentType?
+	public let talkId: TalkID
+	public let talkName: String
 
-	public init(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType? = nil) {
+	public init(topicId: TopicID, talkId: TalkID, talkName: String) {
 		self.topicId = topicId
-		self.postId = postId
-		self.attachmentId = attachmentId
-		self.filename = filename
-		self.type = type
+		self.talkId = talkId
+		self.talkName = talkName
 	}
 
 	public var method: HTTPMethod {
-		return .GET
+		return .PUT
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
+		return "topics/\(topicId)/talks/\(talkId)"
 	}
 
 	public var parameters: [String: AnyObject] {
-		var p: [String: AnyObject] = [:]
-		_ = type.map { p["type"] = $0.toJSON() }
-		return p
+		return ["talkName": talkName.toJSON()]
+	}
+}
+
+public class DeleteTalk: TypetalkRequest {
+	public typealias APIKitResponse = UpdateTalkResponse
+	public let topicId: TopicID
+	public let talkId: TalkID
+
+	public init(topicId: TopicID, talkId: TalkID) {
+		self.topicId = topicId
+		self.talkId = talkId
+	}
+
+	public var method: HTTPMethod {
+		return .DELETE
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/talks/\(talkId)"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return [:]
+	}
+}
+
+public class AddMessageToTalk: TypetalkRequest {
+	public typealias APIKitResponse = CreateTalkResponse
+	public let topicId: TopicID
+	public let talkId: TalkID
+	public let postIds: [PostID]
+
+	public init(topicId: TopicID, talkId: TalkID, postIds: [PostID] = []) {
+		self.topicId = topicId
+		self.talkId = talkId
+		self.postIds = postIds
+	}
+
+	public var method: HTTPMethod {
+		return .POST
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/talks/\(talkId)/posts"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return ["postIds": postIds.map { $0.toJSON() }]
+	}
+}
+
+public class RemoveMessageFromTalk: TypetalkRequest {
+	public typealias APIKitResponse = CreateTalkResponse
+	public let topicId: TopicID
+	public let talkId: TalkID
+	public let postIds: [PostID]
+
+	public init(topicId: TopicID, talkId: TalkID, postIds: [PostID]) {
+		self.topicId = topicId
+		self.talkId = talkId
+		self.postIds = postIds
+	}
+
+	public var method: HTTPMethod {
+		return .DELETE
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/talks/\(talkId)/posts"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return ["postIds": postIds.map { $0.toJSON() }]
 	}
 }
 

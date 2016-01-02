@@ -10,6 +10,15 @@
   "teams": [],
   "accounts": [
     {
+      "id": 104,
+      "name": "cooper",
+      "fullName": "CooperDaChopper",
+      "suggestion": "CooperDaChopper",
+      "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+      "createdAt": "2014-06-28T02:32:29Z",
+      "updatedAt": "2014-06-28T02:32:29Z"
+    },
+    {
       "id": 100,
       "name": "jessica",
       "fullName": "Jessica Fitzherbert",
@@ -21,24 +30,12 @@
   ],
   "invites": [
     {
-      "id": 147,
-      "account": {
-        "id": 104,
-        "name": "cooper",
-        "fullName": "CooperDaChopper",
-        "suggestion": "CooperDaChopper",
-        "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
-        "createdAt": "2014-06-28T02:32:29Z",
-        "updatedAt": "2014-06-28T02:32:29Z"
-      },
-      "mailAddress": null,
-      "status": "invite"
-    },
-    {
-      "id": 148,
+      "id": 2,
       "account": null,
       "mailAddress": "typetalk@example.com",
       "status": "invite"
     }
-  ]
+  ],
+  "accountsForApi": [],
+  "integrations": []
 }

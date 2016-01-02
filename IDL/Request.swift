@@ -26,6 +26,7 @@ class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,to
     let topicId: TopicID
     let message: String
     let replyTo: Int? = nil
+    let showLinkMeta: Bool = true
     let fileKeys: [String] = []
     let talkIds: [TalkID] = []
     // TODO: attachments[0].fileUrl, attachments[0].fileName
@@ -38,6 +39,15 @@ class UploadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:"PO
     public let contents: NSData // router:"-"
 }
 
+class DownloadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
+    typealias APIKitResponse = NSData
+    let topicId: TopicID
+    let postId: PostID
+    let attachmentId: AttachmentID
+    let filename: String
+    let type: AttachmentType? = nil
+}
+
 class GetTopicMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/members/status"
     let topicId: TopicID
 }
@@ -45,6 +55,13 @@ class GetTopicMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",to
 class GetMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)"
     let topicId: TopicID
     let postId: PostID
+}
+
+class UpdateMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,topics/\(topicId)/posts/\(postId)"
+    typealias APIKitResponse = PostMessageResponse
+    let topicId: TopicID
+    let postId: PostID
+    let message: String
 }
 
 class DeleteMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/posts/\(postId)"
@@ -188,14 +205,31 @@ class GetTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(t
 class CreateTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/talks"
     let topicId: TopicID
     let talkName: String
-    let postIds: [Int] = []
+    let postIds: [PostID] = []
 }
 
-class DownloadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
-    typealias APIKitResponse = NSData
+class UpdateTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,topics/\(topicId)/talks/\(talkId)"
     let topicId: TopicID
-    let postId: PostID
-    let attachmentId: AttachmentID
-    let filename: String
-    let type: AttachmentType? = nil
+    let talkId: TalkID
+    let talkName: String
+}
+
+class DeleteTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/talks/\(talkId)"
+    typealias APIKitResponse = UpdateTalkResponse
+    let topicId: TopicID
+    let talkId: TalkID
+}
+
+class AddMessageToTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/talks/\(talkId)/posts"
+    typealias APIKitResponse = CreateTalkResponse
+    let topicId: TopicID
+    let talkId: TalkID
+    let postIds: [PostID] = []
+}
+
+class RemoveMessageFromTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/talks/\(talkId)/posts"
+    typealias APIKitResponse = CreateTalkResponse
+    let topicId: TopicID
+    let talkId: TalkID
+    let postIds: [PostID] = []
 }

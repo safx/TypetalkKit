@@ -3,15 +3,15 @@
     "id": 208,
     "name": "IT Peeps",
     "suggestion": "IT Peeps",
-    "lastPostedAt": "2015-12-17T09:50:22Z",
+    "lastPostedAt": "2015-12-17T09:50:26Z",
     "createdAt": "2014-06-10T02:32:29Z",
     "updatedAt": "2014-06-10T02:32:29Z"
   },
   "post": {
-    "id": 333,
+    "id": 307,
     "topicId": 208,
-    "replyTo": null,
-    "message": "Let's party like it's 1999!",
+    "replyTo": 306,
+    "message": "your message",
     "account": {
       "id": 100,
       "name": "jessica",
@@ -26,9 +26,8 @@
     "likes": [],
     "talks": [],
     "links": [],
-    "createdAt": "2015-12-17T09:50:22Z",
-    "updatedAt": "2015-12-17T09:50:22Z"
+    "createdAt": "2014-07-01T02:32:29Z",
+    "updatedAt": "2015-12-17T09:50:26Z"
   },
-  "mentions": [],
-  "exceedsAttachmentLimit": false
+  "mentions": []
 }

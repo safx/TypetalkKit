@@ -55,6 +55,7 @@ public struct GetMessagesResponse: JSONDecodable {
 	public let bookmark: Bookmark
 	public let posts: [Post]
 	public let hasNext: Bool
+	public let exceedsAttachmentLimit: Bool
 
 	public static func parseJSON(data: AnyObject) throws -> GetMessagesResponse {
 		if !(data is NSDictionary) {
@@ -116,15 +117,27 @@ public struct GetMessagesResponse: JSONDecodable {
 			hasNext = false
 		}
 
-		return GetMessagesResponse(team: team, topic: topic, bookmark: bookmark, posts: posts, hasNext: hasNext)
+		let exceedsAttachmentLimit: Bool
+		if let v: AnyObject = data["exceedsAttachmentLimit"] {
+			if v is NSNull {
+				exceedsAttachmentLimit = false
+			} else {
+				exceedsAttachmentLimit = try Bool.parseJSON(v)
+			}
+		} else {
+			exceedsAttachmentLimit = false
+		}
+
+		return GetMessagesResponse(team: team, topic: topic, bookmark: bookmark, posts: posts, hasNext: hasNext, exceedsAttachmentLimit: exceedsAttachmentLimit)
 	}
 
-	public init(team: Team = Team(), topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false) {
+	public init(team: Team = Team(), topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
 		self.team = team
 		self.topic = topic
 		self.bookmark = bookmark
 		self.posts = posts
 		self.hasNext = hasNext
+		self.exceedsAttachmentLimit = exceedsAttachmentLimit
 	}
 }
 
@@ -543,6 +556,41 @@ public struct CreateTalkResponse: JSONDecodable {
 		}
 
 		return CreateTalkResponse(topic: topic, talk: talk, postIds: postIds)
+	}
+}
+
+public struct UpdateTalkResponse: JSONDecodable {
+	public let topic: Topic
+	public let talk: Talk
+
+	public static func parseJSON(data: AnyObject) throws -> UpdateTalkResponse {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(UpdateTalkResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let topic: Topic
+		if let v: AnyObject = data["topic"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "topic", object: data)
+			} else {
+				topic = try Topic.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "topic", object: data)
+		}
+
+		let talk: Talk
+		if let v: AnyObject = data["talk"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "talk", object: data)
+			} else {
+				talk = try Talk.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "talk", object: data)
+		}
+
+		return UpdateTalkResponse(topic: topic, talk: talk)
 	}
 }
 

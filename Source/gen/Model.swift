@@ -348,7 +348,7 @@ public struct Bookmark: JSONDecodable {
 
 public struct Embed: JSONDecodable {
 	public let type: String
-	public let version: Float
+	public let version: Int
 	public let providerName: String // json:"provider_name"
 	public let providerURL: NSURL? // json:"provider_url"
 	public let title: String
@@ -374,12 +374,12 @@ public struct Embed: JSONDecodable {
 			throw JSONDecodeError.MissingKey(key: "type", object: data)
 		}
 
-		let version: Float
+		let version: Int
 		if let v: AnyObject = data["version"] {
 			if v is NSNull {
 				throw JSONDecodeError.NonNullable(key: "version", object: data)
 			} else {
-				version = try Float.parseJSON(v)
+				version = try Int.parseJSON(v)
 			}
 		} else {
 			throw JSONDecodeError.MissingKey(key: "version", object: data)
@@ -476,7 +476,7 @@ public struct Embed: JSONDecodable {
 		return Embed(type: type, version: version, providerName: providerName, providerURL: providerURL, title: title, authorName: authorName, authorURL: authorURL, html: html, width: width, height: height)
 	}
 
-	public init(type: String, version: Float, providerName: String, providerURL: NSURL? = nil, title: String, authorName: String, authorURL: NSURL? = nil, html: String, width: Int, height: Int) {
+	public init(type: String, version: Int, providerName: String, providerURL: NSURL? = nil, title: String, authorName: String, authorURL: NSURL? = nil, html: String, width: Int, height: Int) {
 		self.type = type
 		self.version = version
 		self.providerName = providerName
@@ -1381,6 +1381,7 @@ public struct Talk: JSONDecodable {
 	public let suggestion: String
 	public let createdAt: NSDate
 	public let updatedAt: NSDate
+	public let backlog: String?
 
 	public static func parseJSON(data: AnyObject) throws -> Talk {
 		if !(data is NSDictionary) {
@@ -1453,16 +1454,28 @@ public struct Talk: JSONDecodable {
 			throw JSONDecodeError.MissingKey(key: "updatedAt", object: data)
 		}
 
-		return Talk(id: id, topicId: topicId, name: name, suggestion: suggestion, createdAt: createdAt, updatedAt: updatedAt)
+		let backlog: String?
+		if let v: AnyObject = data["backlog"] {
+			if v is NSNull {
+				backlog = nil
+			} else {
+				backlog = try String.parseJSON(v)
+			}
+		} else {
+			backlog = nil
+		}
+
+		return Talk(id: id, topicId: topicId, name: name, suggestion: suggestion, createdAt: createdAt, updatedAt: updatedAt, backlog: backlog)
 	}
 
-	public init(id: TalkID, topicId: TopicID, name: String, suggestion: String, createdAt: NSDate, updatedAt: NSDate) {
+	public init(id: TalkID, topicId: TopicID, name: String, suggestion: String, createdAt: NSDate, updatedAt: NSDate, backlog: String? = nil) {
 		self.id = id
 		self.topicId = topicId
 		self.name = name
 		self.suggestion = suggestion
 		self.createdAt = createdAt
 		self.updatedAt = updatedAt
+		self.backlog = backlog
 	}
 }
 
@@ -1854,6 +1867,8 @@ public struct TopicWithAccounts: JSONDecodable {
 	public let teams: [TeamWithMembers]
 	public let accounts: [Account]
 	public let invites: [Invite]
+	public let accountsForApi: [Account]
+	public let integrations: [Account]
 
 	public static func parseJSON(data: AnyObject) throws -> TopicWithAccounts {
 		if !(data is NSDictionary) {
@@ -1904,14 +1919,38 @@ public struct TopicWithAccounts: JSONDecodable {
 			invites = []
 		}
 
-		return TopicWithAccounts(topic: topic, teams: teams, accounts: accounts, invites: invites)
+		let accountsForApi: [Account]
+		if let v: AnyObject = data["accountsForApi"] {
+			if v is NSNull {
+				accountsForApi = []
+			} else {
+				accountsForApi = try Account.parseJSONArray(v)
+			}
+		} else {
+			accountsForApi = []
+		}
+
+		let integrations: [Account]
+		if let v: AnyObject = data["integrations"] {
+			if v is NSNull {
+				integrations = []
+			} else {
+				integrations = try Account.parseJSONArray(v)
+			}
+		} else {
+			integrations = []
+		}
+
+		return TopicWithAccounts(topic: topic, teams: teams, accounts: accounts, invites: invites, accountsForApi: accountsForApi, integrations: integrations)
 	}
 
-	public init(topic: Topic, teams: [TeamWithMembers] = [], accounts: [Account] = [], invites: [Invite] = []) {
+	public init(topic: Topic, teams: [TeamWithMembers] = [], accounts: [Account] = [], invites: [Invite] = [], accountsForApi: [Account] = [], integrations: [Account] = []) {
 		self.topic = topic
 		self.teams = teams
 		self.accounts = accounts
 		self.invites = invites
+		self.accountsForApi = accountsForApi
+		self.integrations = integrations
 	}
 }
 
