@@ -73,18 +73,5 @@
       "online": false
     }
   ],
-  "pendings": [
-    {
-      "account": {
-        "id": 106,
-        "name": "chelseab",
-        "fullName": "ChelseaB",
-        "suggestion": "ChelseaB",
-        "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
-        "createdAt": "2014-06-30T02:32:29Z",
-        "updatedAt": "2014-06-30T02:32:29Z"
-      },
-      "mailAddress": null
-    }
-  ]
+  "pendings": []
 }

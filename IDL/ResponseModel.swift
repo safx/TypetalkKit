@@ -17,7 +17,8 @@ public struct GetTopicsResponse: JSONDecodable {
 }
 
 public struct GetMessagesResponse: JSONDecodable, ClassInit {
-    public let team: Team = Team()
+    public let mySpace: Space
+    public let team: Team? = nil
     public let topic: Topic = Topic()
     public let bookmark: Bookmark = Bookmark()
     public let posts: [Post] = []
@@ -28,6 +29,8 @@ public struct GetMessagesResponse: JSONDecodable, ClassInit {
 public struct PostMessageResponse: JSONDecodable {
     public let topic: Topic?
     public let post: Post?
+    public let mentions: [Mention] = []
+    public let exceedsAttachmentLimit: Bool = false
 }
 
 public struct GetTopicMembersResponse: JSONDecodable {
@@ -36,10 +39,12 @@ public struct GetTopicMembersResponse: JSONDecodable {
 }
 
 public struct GetMessageResponse: JSONDecodable {
-    public let team: Team
+    public let mySpace: Space
+    public let team: Team? = nil
     public let topic: Topic
     public let post: Post
     public let replies: [Post] = []
+    public let exceedsAttachmentLimit: Bool = false
 }
 
 public struct LikeMessageResponse: JSONDecodable {
@@ -71,6 +76,17 @@ public struct AcceptTopicInviteResponse: JSONDecodable {
     public let invite: Invite //TopicInvite
 }
 
+
+public struct GetSpacesResponse: JSONDecodable {
+    public let mySpaces: [Space]
+}
+
+public struct GetSpaceMembersResponse: JSONDecodable {
+    public let accounts: [Account]
+    public let groups: [GroupWithCount]
+}
+
+
 public struct GetTeamsResponse: JSONDecodable {
     public let teams: [TeamWithCount]
 }
@@ -83,6 +99,14 @@ public struct GetTalksResponse: JSONDecodable {
     public let talks: [Talk]
 }
 
+public struct GetTalkResponse: JSONDecodable, ClassInit {
+    public let mySpace: Space
+    public let topic: Topic
+    public let talk: Talk
+    public let posts: [Post] = []
+    public let hasNext: Bool
+}
+
 public struct CreateTalkResponse: JSONDecodable {
     public let topic: Topic
     public let talk: Talk
@@ -93,3 +117,4 @@ public struct UpdateTalkResponse: JSONDecodable {
     public let topic: Topic
     public let talk: Talk
 }
+

@@ -1,11 +1,29 @@
 {
-  "team": {
-    "id": 700,
-    "name": "Nulab Inc.",
-    "imageUrl": "https://typetalk.in/teams/700/image.png?t=1402367549000",
-    "createdAt": "2014-06-10T02:32:29Z",
-    "updatedAt": "2014-06-10T02:32:29Z"
+  "mySpace": {
+    "space": {
+      "key": "abcdefghij",
+      "name": "Joe Tech Inc.",
+      "enabled": true,
+      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+    },
+    "myRole": "ADMIN",
+    "isPaymentAdmin": true,
+    "myPlan": {
+      "plan": {
+        "key": "typetalk.free",
+        "name": "Free Plan",
+        "limitNumberOfUsers": 10,
+        "limitTotalAttachmentSize": 1073741824
+      },
+      "enabled": true,
+      "trial": null,
+      "numberOfUsers": 7,
+      "totalAttachmentSize": 0,
+      "createdAt": "2016-01-10T02:32:29Z",
+      "updatedAt": "2016-01-20T02:32:29Z"
+    }
   },
+  "team": null,
   "topic": {
     "id": 208,
     "name": "IT Peeps",
@@ -16,7 +34,7 @@
   },
   "bookmark": {
     "postId": 304,
-    "updatedAt": "2015-12-17T09:50:07Z"
+    "updatedAt": "2016-03-04T02:36:38Z"
   },
   "posts": [
     {
@@ -160,18 +178,18 @@
       "talks": [],
       "links": [
         {
-          "id": 11,
+          "id": 112,
           "url": "http://nulab-inc.com",
           "contentType": "text/html; charset=UTF-8",
           "title": "Fun. Creative. Collaboration. | Nulab Inc.",
           "description": "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.",
           "imageUrl": "http://nulab-inc.com/ogp_dft.png",
           "embed": null,
-          "createdAt": "2015-12-17T09:50:07Z",
-          "updatedAt": "2015-12-17T09:50:07Z"
+          "createdAt": "2016-03-04T02:36:38Z",
+          "updatedAt": "2016-03-04T02:36:38Z"
         },
         {
-          "id": 12,
+          "id": 113,
           "url": "https://speakerdeck.com/nulabinc/nulabs-way-of-working-remotely",
           "contentType": "text/html; charset=utf-8",
           "title": "Nulab's Way of Working Remotely",
@@ -189,8 +207,8 @@
             "width": 710,
             "height": 596
           },
-          "createdAt": "2015-12-17T09:50:07Z",
-          "updatedAt": "2015-12-17T09:50:07Z"
+          "createdAt": "2016-03-04T02:36:38Z",
+          "updatedAt": "2016-03-04T02:36:38Z"
         }
       ],
       "createdAt": "2014-06-29T00:32:29Z",

@@ -50,7 +50,8 @@ public struct GetTopicsResponse: JSONDecodable {
 }
 
 public struct GetMessagesResponse: JSONDecodable {
-	public let team: Team
+	public let mySpace: Space
+	public let team: Team?
 	public let topic: Topic
 	public let bookmark: Bookmark
 	public let posts: [Post]
@@ -62,15 +63,26 @@ public struct GetMessagesResponse: JSONDecodable {
 			throw JSONDecodeError.TypeMismatch(key: "(GetMessagesResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
-		let team: Team
+		let mySpace: Space
+		if let v: AnyObject = data["mySpace"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "mySpace", object: data)
+			} else {
+				mySpace = try Space.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "mySpace", object: data)
+		}
+
+		let team: Team?
 		if let v: AnyObject = data["team"] {
 			if v is NSNull {
-				team = Team()
+				team = nil
 			} else {
 				team = try Team.parseJSON(v)
 			}
 		} else {
-			team = Team()
+			team = nil
 		}
 
 		let topic: Topic
@@ -128,10 +140,11 @@ public struct GetMessagesResponse: JSONDecodable {
 			exceedsAttachmentLimit = false
 		}
 
-		return GetMessagesResponse(team: team, topic: topic, bookmark: bookmark, posts: posts, hasNext: hasNext, exceedsAttachmentLimit: exceedsAttachmentLimit)
+		return GetMessagesResponse(mySpace: mySpace, team: team, topic: topic, bookmark: bookmark, posts: posts, hasNext: hasNext, exceedsAttachmentLimit: exceedsAttachmentLimit)
 	}
 
-	public init(team: Team = Team(), topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
+	public init(mySpace: Space, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
+		self.mySpace = mySpace
 		self.team = team
 		self.topic = topic
 		self.bookmark = bookmark
@@ -144,6 +157,8 @@ public struct GetMessagesResponse: JSONDecodable {
 public struct PostMessageResponse: JSONDecodable {
 	public let topic: Topic?
 	public let post: Post?
+	public let mentions: [Mention]
+	public let exceedsAttachmentLimit: Bool
 
 	public static func parseJSON(data: AnyObject) throws -> PostMessageResponse {
 		if !(data is NSDictionary) {
@@ -172,7 +187,29 @@ public struct PostMessageResponse: JSONDecodable {
 			post = nil
 		}
 
-		return PostMessageResponse(topic: topic, post: post)
+		let mentions: [Mention]
+		if let v: AnyObject = data["mentions"] {
+			if v is NSNull {
+				mentions = []
+			} else {
+				mentions = try Mention.parseJSONArray(v)
+			}
+		} else {
+			mentions = []
+		}
+
+		let exceedsAttachmentLimit: Bool
+		if let v: AnyObject = data["exceedsAttachmentLimit"] {
+			if v is NSNull {
+				exceedsAttachmentLimit = false
+			} else {
+				exceedsAttachmentLimit = try Bool.parseJSON(v)
+			}
+		} else {
+			exceedsAttachmentLimit = false
+		}
+
+		return PostMessageResponse(topic: topic, post: post, mentions: mentions, exceedsAttachmentLimit: exceedsAttachmentLimit)
 	}
 }
 
@@ -212,25 +249,38 @@ public struct GetTopicMembersResponse: JSONDecodable {
 }
 
 public struct GetMessageResponse: JSONDecodable {
-	public let team: Team
+	public let mySpace: Space
+	public let team: Team?
 	public let topic: Topic
 	public let post: Post
 	public let replies: [Post]
+	public let exceedsAttachmentLimit: Bool
 
 	public static func parseJSON(data: AnyObject) throws -> GetMessageResponse {
 		if !(data is NSDictionary) {
 			throw JSONDecodeError.TypeMismatch(key: "(GetMessageResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
 
-		let team: Team
+		let mySpace: Space
+		if let v: AnyObject = data["mySpace"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "mySpace", object: data)
+			} else {
+				mySpace = try Space.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "mySpace", object: data)
+		}
+
+		let team: Team?
 		if let v: AnyObject = data["team"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "team", object: data)
+				team = nil
 			} else {
 				team = try Team.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "team", object: data)
+			team = nil
 		}
 
 		let topic: Topic
@@ -266,7 +316,18 @@ public struct GetMessageResponse: JSONDecodable {
 			replies = []
 		}
 
-		return GetMessageResponse(team: team, topic: topic, post: post, replies: replies)
+		let exceedsAttachmentLimit: Bool
+		if let v: AnyObject = data["exceedsAttachmentLimit"] {
+			if v is NSNull {
+				exceedsAttachmentLimit = false
+			} else {
+				exceedsAttachmentLimit = try Bool.parseJSON(v)
+			}
+		} else {
+			exceedsAttachmentLimit = false
+		}
+
+		return GetMessageResponse(mySpace: mySpace, team: team, topic: topic, post: post, replies: replies, exceedsAttachmentLimit: exceedsAttachmentLimit)
 	}
 }
 
@@ -443,6 +504,64 @@ public struct AcceptTopicInviteResponse: JSONDecodable {
 	}
 }
 
+public struct GetSpacesResponse: JSONDecodable {
+	public let mySpaces: [Space]
+
+	public static func parseJSON(data: AnyObject) throws -> GetSpacesResponse {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(GetSpacesResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let mySpaces: [Space]
+		if let v: AnyObject = data["mySpaces"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "mySpaces", object: data)
+			} else {
+				mySpaces = try Space.parseJSONArray(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "mySpaces", object: data)
+		}
+
+		return GetSpacesResponse(mySpaces: mySpaces)
+	}
+}
+
+public struct GetSpaceMembersResponse: JSONDecodable {
+	public let accounts: [Account]
+	public let groups: [GroupWithCount]
+
+	public static func parseJSON(data: AnyObject) throws -> GetSpaceMembersResponse {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(GetSpaceMembersResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let accounts: [Account]
+		if let v: AnyObject = data["accounts"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "accounts", object: data)
+			} else {
+				accounts = try Account.parseJSONArray(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "accounts", object: data)
+		}
+
+		let groups: [GroupWithCount]
+		if let v: AnyObject = data["groups"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "groups", object: data)
+			} else {
+				groups = try GroupWithCount.parseJSONArray(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "groups", object: data)
+		}
+
+		return GetSpaceMembersResponse(accounts: accounts, groups: groups)
+	}
+}
+
 public struct GetTeamsResponse: JSONDecodable {
 	public let teams: [TeamWithCount]
 
@@ -509,6 +628,85 @@ public struct GetTalksResponse: JSONDecodable {
 		}
 
 		return GetTalksResponse(talks: talks)
+	}
+}
+
+public struct GetTalkResponse: JSONDecodable {
+	public let mySpace: Space
+	public let topic: Topic
+	public let talk: Talk
+	public let posts: [Post]
+	public let hasNext: Bool
+
+	public static func parseJSON(data: AnyObject) throws -> GetTalkResponse {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(GetTalkResponse)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let mySpace: Space
+		if let v: AnyObject = data["mySpace"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "mySpace", object: data)
+			} else {
+				mySpace = try Space.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "mySpace", object: data)
+		}
+
+		let topic: Topic
+		if let v: AnyObject = data["topic"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "topic", object: data)
+			} else {
+				topic = try Topic.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "topic", object: data)
+		}
+
+		let talk: Talk
+		if let v: AnyObject = data["talk"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "talk", object: data)
+			} else {
+				talk = try Talk.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "talk", object: data)
+		}
+
+		let posts: [Post]
+		if let v: AnyObject = data["posts"] {
+			if v is NSNull {
+				posts = []
+			} else {
+				posts = try Post.parseJSONArray(v)
+			}
+		} else {
+			posts = []
+		}
+
+		let hasNext: Bool
+		if let v: AnyObject = data["hasNext"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "hasNext", object: data)
+			} else {
+				hasNext = try Bool.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "hasNext", object: data)
+		}
+
+		return GetTalkResponse(mySpace: mySpace, topic: topic, talk: talk, posts: posts, hasNext: hasNext)
+	}
+
+	public init(mySpace: Space, topic: Topic, talk: Talk, posts: [Post] = [], hasNext: Bool) {
+		self.mySpace = mySpace
+		self.topic = topic
+		self.talk = talk
+		self.posts = posts
+		self.hasNext = hasNext
 	}
 }
 

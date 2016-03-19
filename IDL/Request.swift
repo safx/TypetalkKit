@@ -164,6 +164,23 @@ class GetTopicDetails: ClassInit, APIKitHelper, TypetalkRequest { // router:",to
     let topicId: TopicID
 }
 
+class UpdateTopicMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/update"
+    typealias APIKitResponse = TopicWithAccounts
+    let topicId: TopicID
+    let addAccountIds: [String] = []
+    let addGroupIds: [String] = []
+    let removeAccountIds: [Int] = []
+    let removeGroupIds: [Int] = []
+}
+
+class GetSpaces: ClassInit, APIKitHelper, TypetalkRequest { // router:",spaces"
+    let excludesGuest: Bool = false
+}
+
+class GetSpaceMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",spaces/\(spaceKey)/members"
+    let spaceKey: String
+}
+
 class InviteTopicMember: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite"
     typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
@@ -194,7 +211,7 @@ class GetTalks: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(
 }
 
 class GetTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/talks/\(talkId)/posts"
-    typealias APIKitResponse = TalkMessages
+    //typealias APIKitResponse = TalkMessages
     let topicId: TopicID
     let talkId: TalkID
     let count: Int? = nil

@@ -4,38 +4,62 @@
     "name": "Update test topic",
     "suggestion": "Update test topic",
     "lastPostedAt": null,
-    "createdAt": "2015-12-17T09:50:35Z",
-    "updatedAt": "2015-12-17T09:50:36Z"
+    "createdAt": "2016-03-04T02:37:05Z",
+    "updatedAt": "2016-03-04T02:37:06Z"
+  },
+  "mySpace": {
+    "space": {
+      "key": "abcdefghij",
+      "name": "Joe Tech Inc.",
+      "enabled": true,
+      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+    },
+    "myRole": "ADMIN",
+    "isPaymentAdmin": true,
+    "myPlan": {
+      "plan": {
+        "key": "typetalk.free",
+        "name": "Free Plan",
+        "limitNumberOfUsers": 10,
+        "limitTotalAttachmentSize": 1073741824
+      },
+      "enabled": true,
+      "trial": null,
+      "numberOfUsers": 7,
+      "totalAttachmentSize": 0,
+      "createdAt": "2016-01-10T02:32:29Z",
+      "updatedAt": "2016-03-04T02:37:05Z"
+    }
   },
   "teams": [],
+  "groups": [
+    {
+      "group": {
+        "id": 1100,
+        "key": "groupkey01",
+        "name": "Joe Tech Inc. All",
+        "suggestion": "Joe Tech Inc. All",
+        "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/groups/groupkey01/photo/medium",
+        "createdAt": "2014-06-10T02:32:29Z",
+        "updatedAt": "2014-06-10T02:32:29Z"
+      },
+      "memberCount": 4
+    }
+  ],
   "accounts": [
     {
-      "id": 104,
-      "name": "cooper",
-      "fullName": "CooperDaChopper",
-      "suggestion": "CooperDaChopper",
-      "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
-      "createdAt": "2014-06-28T02:32:29Z",
-      "updatedAt": "2014-06-28T02:32:29Z"
-    },
-    {
-      "id": 100,
-      "name": "jessica",
-      "fullName": "Jessica Fitzherbert",
-      "suggestion": "Jessica Fitzherbert",
-      "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
-      "createdAt": "2014-06-24T02:32:29Z",
-      "updatedAt": "2014-06-24T02:32:29Z"
+      "id": 106,
+      "name": "chelseab",
+      "fullName": "ChelseaB",
+      "suggestion": "ChelseaB",
+      "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
+      "createdAt": "2014-06-30T02:32:29Z",
+      "updatedAt": "2014-06-30T02:32:29Z"
     }
   ],
-  "invites": [
-    {
-      "id": 1,
-      "account": null,
-      "mailAddress": "typetalk@example.com",
-      "status": "invite"
-    }
-  ],
+  "invitingAccounts": [],
+  "invites": [],
   "accountsForApi": [],
-  "integrations": []
+  "integrations": [],
+  "remainingInvitations": null
 }

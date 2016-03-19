@@ -120,7 +120,7 @@ public struct Member: JSONDecodable, ClassInit {
 public struct Mention: JSONDecodable, ClassInit {
     public let id: MentionID = 0
     public let readAt: NSDate? = nil
-    public let post: Post? = nil
+    public let post: Post
 }
 
 public struct Notifications: JSONDecodable, ClassInit {
@@ -156,14 +156,15 @@ public struct NotificationStatus: JSONDecodable, ClassInit {
     }
 }
 
-public struct Post: JSONDecodable, ClassInit {
+// Using `class` allows us to use recursive value `Mention`
+public class Post: JSONDecodable, ClassInit {
     public let id: PostID = 0
     public let topicId: TopicID = 0
-    public let topic: Topic?
+    public let topic: Topic?    // Non-nil from Mention
     public let replyTo: Int?
     public let message: String = ""
     public let account: Account = Account()
-    //public let mention: Mention? = nil // FIXME: Recursive value type 'Mention' is not allowed
+    public let mention: Mention? = nil
     public let attachments: [URLAttachment] = []
     public let likes: [Like] = []
     public let talks: [Talk] = []
@@ -182,12 +183,12 @@ public struct Talk: JSONDecodable, ClassInit {
     public let backlog: String?
 }
 
-public struct TalkMessages: JSONDecodable, ClassInit {
+/*public struct TalkMessages: JSONDecodable, ClassInit {
     public let topic: Topic
     public let talk: Talk
     public let posts: [Post] = []
     public let hasNext: Bool
-}
+}*/
 
 public struct Team: JSONDecodable, ClassInit {
     public let id: TeamID = 0
@@ -225,12 +226,15 @@ public struct Topic: JSONDecodable, ClassInit {
 
 public struct TopicWithAccounts: JSONDecodable, ClassInit {
     public let topic: Topic
+    public let mySpace: Space
     public let teams: [TeamWithMembers] = []
+    public let groups: [GroupWithCount] = []
     public let accounts: [Account] = []
+    public let invitingAccounts: [Account] = []
     public let invites: [Invite] = [] //[TopicInvite]
-
     public let accountsForApi: [Account] = []
     public let integrations: [Account] = []
+    public let remainingInvitations: Bool? // FIXME
 }
 
 public struct TopicWithUserInfo: JSONDecodable, ClassInit {
@@ -250,6 +254,57 @@ public struct URLAttachment: JSONDecodable, ClassInit {
     public let webUrl: NSURL
     public let apiUrl: NSURL
     public let thumbnails: [Thumbnail] = []
+}
+
+public struct SpaceBasicInfo: JSONDecodable, ClassInit {
+    public let key: String
+    public let name: String
+    public let enabled: Bool
+    public let imageUrl: NSURL
+}
+
+public struct Space: JSONDecodable, ClassInit {
+    public let space: SpaceBasicInfo
+    public let myRole: String
+    public let isPaymentAdmin: Bool
+    public let myPlan: PaymentPlan
+}
+
+public struct Group: JSONDecodable, ClassInit {
+    public let id: GroupID
+    public let key: String = ""
+    public let name: String = ""
+    public let suggestion: String = ""
+    public let imageUrl: NSURL = NSURL()
+    public let createdAt: NSDate = NSDate()
+    public let updatedAt: NSDate = NSDate()
+}
+
+public struct GroupWithCount: JSONDecodable, ClassInit {
+    public let group: Group
+    public let memberCount: Int
+}
+
+public struct PaymentPlan: JSONDecodable, ClassInit {
+    public let plan: PlanInformation
+    public let enabled: Bool
+    public let trial: TrialInfo?
+    public let numberOfUsers: Int
+    public let totalAttachmentSize: Int
+    public let createdAt: NSDate = NSDate()
+    public let updatedAt: NSDate = NSDate()
+}
+
+public struct TrialInfo: JSONDecodable, ClassInit {
+    public let endDate: String
+    public let daysLeft: Int
+}
+
+public struct PlanInformation: JSONDecodable, ClassInit {
+    public let key: String
+    public let name: String
+    public let limitNumberOfUsers: Int
+    public let limitTotalAttachmentSize: Int
 }
 
 // MARK: - Event

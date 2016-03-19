@@ -3,11 +3,11 @@
     "unread": 1
   },
   "access": {
-    "unopened": 1
+    "unopened": 0
   },
   "invite": {
     "team": {
-      "pending": 2
+      "pending": 0
     },
     "topic": {
       "pending": 2

@@ -900,7 +900,7 @@ public struct Member: JSONDecodable {
 public struct Mention: JSONDecodable {
 	public let id: MentionID
 	public let readAt: NSDate?
-	public let post: Post?
+	public let post: Post
 
 	public static func parseJSON(data: AnyObject) throws -> Mention {
 		if !(data is NSDictionary) {
@@ -929,21 +929,21 @@ public struct Mention: JSONDecodable {
 			readAt = nil
 		}
 
-		let post: Post?
+		let post: Post
 		if let v: AnyObject = data["post"] {
 			if v is NSNull {
-				post = nil
+				throw JSONDecodeError.NonNullable(key: "post", object: data)
 			} else {
 				post = try Post.parseJSON(v)
 			}
 		} else {
-			post = nil
+			throw JSONDecodeError.MissingKey(key: "post", object: data)
 		}
 
 		return Mention(id: id, readAt: readAt, post: post)
 	}
 
-	public init(id: MentionID = 0, readAt: NSDate? = nil, post: Post? = nil) {
+	public init(id: MentionID = 0, readAt: NSDate? = nil, post: Post) {
 		self.id = id
 		self.readAt = readAt
 		self.post = post
@@ -1204,13 +1204,14 @@ public struct NotificationStatus: JSONDecodable {
 	}
 }
 
-public struct Post: JSONDecodable {
+public class Post: JSONDecodable {
 	public let id: PostID
 	public let topicId: TopicID
 	public let topic: Topic?
 	public let replyTo: Int?
 	public let message: String
 	public let account: Account
+	public let mention: Mention?
 	public let attachments: [URLAttachment]
 	public let likes: [Like]
 	public let talks: [Talk]
@@ -1218,7 +1219,7 @@ public struct Post: JSONDecodable {
 	public let createdAt: NSDate
 	public let updatedAt: NSDate
 
-	public static func parseJSON(data: AnyObject) throws -> Post {
+	public class func parseJSON(data: AnyObject) throws -> Post {
 		if !(data is NSDictionary) {
 			throw JSONDecodeError.TypeMismatch(key: "(Post)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
 		}
@@ -1289,6 +1290,17 @@ public struct Post: JSONDecodable {
 			account = Account()
 		}
 
+		let mention: Mention?
+		if let v: AnyObject = data["mention"] {
+			if v is NSNull {
+				mention = nil
+			} else {
+				mention = try Mention.parseJSON(v)
+			}
+		} else {
+			mention = nil
+		}
+
 		let attachments: [URLAttachment]
 		if let v: AnyObject = data["attachments"] {
 			if v is NSNull {
@@ -1355,16 +1367,17 @@ public struct Post: JSONDecodable {
 			updatedAt = NSDate()
 		}
 
-		return Post(id: id, topicId: topicId, topic: topic, replyTo: replyTo, message: message, account: account, attachments: attachments, likes: likes, talks: talks, links: links, createdAt: createdAt, updatedAt: updatedAt)
+		return Post(id: id, topicId: topicId, topic: topic, replyTo: replyTo, message: message, account: account, mention: mention, attachments: attachments, likes: likes, talks: talks, links: links, createdAt: createdAt, updatedAt: updatedAt)
 	}
 
-	public init(id: PostID = 0, topicId: TopicID = 0, topic: Topic? = nil, replyTo: Int? = nil, message: String = "", account: Account = Account(), attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
+	public init(id: PostID = 0, topicId: TopicID = 0, topic: Topic? = nil, replyTo: Int? = nil, message: String = "", account: Account = Account(), mention: Mention? = nil, attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
 		self.id = id
 		self.topicId = topicId
 		self.topic = topic
 		self.replyTo = replyTo
 		self.message = message
 		self.account = account
+		self.mention = mention
 		self.attachments = attachments
 		self.likes = likes
 		self.talks = talks
@@ -1476,72 +1489,6 @@ public struct Talk: JSONDecodable {
 		self.createdAt = createdAt
 		self.updatedAt = updatedAt
 		self.backlog = backlog
-	}
-}
-
-public struct TalkMessages: JSONDecodable {
-	public let topic: Topic
-	public let talk: Talk
-	public let posts: [Post]
-	public let hasNext: Bool
-
-	public static func parseJSON(data: AnyObject) throws -> TalkMessages {
-		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(TalkMessages)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
-		}
-
-		let topic: Topic
-		if let v: AnyObject = data["topic"] {
-			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "topic", object: data)
-			} else {
-				topic = try Topic.parseJSON(v)
-			}
-		} else {
-			throw JSONDecodeError.MissingKey(key: "topic", object: data)
-		}
-
-		let talk: Talk
-		if let v: AnyObject = data["talk"] {
-			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "talk", object: data)
-			} else {
-				talk = try Talk.parseJSON(v)
-			}
-		} else {
-			throw JSONDecodeError.MissingKey(key: "talk", object: data)
-		}
-
-		let posts: [Post]
-		if let v: AnyObject = data["posts"] {
-			if v is NSNull {
-				posts = []
-			} else {
-				posts = try Post.parseJSONArray(v)
-			}
-		} else {
-			posts = []
-		}
-
-		let hasNext: Bool
-		if let v: AnyObject = data["hasNext"] {
-			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "hasNext", object: data)
-			} else {
-				hasNext = try Bool.parseJSON(v)
-			}
-		} else {
-			throw JSONDecodeError.MissingKey(key: "hasNext", object: data)
-		}
-
-		return TalkMessages(topic: topic, talk: talk, posts: posts, hasNext: hasNext)
-	}
-
-	public init(topic: Topic, talk: Talk, posts: [Post] = [], hasNext: Bool) {
-		self.topic = topic
-		self.talk = talk
-		self.posts = posts
-		self.hasNext = hasNext
 	}
 }
 
@@ -1864,11 +1811,15 @@ public struct Topic: JSONDecodable {
 
 public struct TopicWithAccounts: JSONDecodable {
 	public let topic: Topic
+	public let mySpace: Space
 	public let teams: [TeamWithMembers]
+	public let groups: [GroupWithCount]
 	public let accounts: [Account]
+	public let invitingAccounts: [Account]
 	public let invites: [Invite]
 	public let accountsForApi: [Account]
 	public let integrations: [Account]
+	public let remainingInvitations: Bool?
 
 	public static func parseJSON(data: AnyObject) throws -> TopicWithAccounts {
 		if !(data is NSDictionary) {
@@ -1886,6 +1837,17 @@ public struct TopicWithAccounts: JSONDecodable {
 			throw JSONDecodeError.MissingKey(key: "topic", object: data)
 		}
 
+		let mySpace: Space
+		if let v: AnyObject = data["mySpace"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "mySpace", object: data)
+			} else {
+				mySpace = try Space.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "mySpace", object: data)
+		}
+
 		let teams: [TeamWithMembers]
 		if let v: AnyObject = data["teams"] {
 			if v is NSNull {
@@ -1897,6 +1859,17 @@ public struct TopicWithAccounts: JSONDecodable {
 			teams = []
 		}
 
+		let groups: [GroupWithCount]
+		if let v: AnyObject = data["groups"] {
+			if v is NSNull {
+				groups = []
+			} else {
+				groups = try GroupWithCount.parseJSONArray(v)
+			}
+		} else {
+			groups = []
+		}
+
 		let accounts: [Account]
 		if let v: AnyObject = data["accounts"] {
 			if v is NSNull {
@@ -1906,6 +1879,17 @@ public struct TopicWithAccounts: JSONDecodable {
 			}
 		} else {
 			accounts = []
+		}
+
+		let invitingAccounts: [Account]
+		if let v: AnyObject = data["invitingAccounts"] {
+			if v is NSNull {
+				invitingAccounts = []
+			} else {
+				invitingAccounts = try Account.parseJSONArray(v)
+			}
+		} else {
+			invitingAccounts = []
 		}
 
 		let invites: [Invite]
@@ -1941,16 +1925,31 @@ public struct TopicWithAccounts: JSONDecodable {
 			integrations = []
 		}
 
-		return TopicWithAccounts(topic: topic, teams: teams, accounts: accounts, invites: invites, accountsForApi: accountsForApi, integrations: integrations)
+		let remainingInvitations: Bool?
+		if let v: AnyObject = data["remainingInvitations"] {
+			if v is NSNull {
+				remainingInvitations = nil
+			} else {
+				remainingInvitations = try Bool.parseJSON(v)
+			}
+		} else {
+			remainingInvitations = nil
+		}
+
+		return TopicWithAccounts(topic: topic, mySpace: mySpace, teams: teams, groups: groups, accounts: accounts, invitingAccounts: invitingAccounts, invites: invites, accountsForApi: accountsForApi, integrations: integrations, remainingInvitations: remainingInvitations)
 	}
 
-	public init(topic: Topic, teams: [TeamWithMembers] = [], accounts: [Account] = [], invites: [Invite] = [], accountsForApi: [Account] = [], integrations: [Account] = []) {
+	public init(topic: Topic, mySpace: Space, teams: [TeamWithMembers] = [], groups: [GroupWithCount] = [], accounts: [Account] = [], invitingAccounts: [Account] = [], invites: [Invite] = [], accountsForApi: [Account] = [], integrations: [Account] = [], remainingInvitations: Bool? = nil) {
 		self.topic = topic
+		self.mySpace = mySpace
 		self.teams = teams
+		self.groups = groups
 		self.accounts = accounts
+		self.invitingAccounts = invitingAccounts
 		self.invites = invites
 		self.accountsForApi = accountsForApi
 		self.integrations = integrations
+		self.remainingInvitations = remainingInvitations
 	}
 }
 
@@ -2123,6 +2122,494 @@ public struct URLAttachment: JSONDecodable {
 		self.webUrl = webUrl
 		self.apiUrl = apiUrl
 		self.thumbnails = thumbnails
+	}
+}
+
+public struct SpaceBasicInfo: JSONDecodable {
+	public let key: String
+	public let name: String
+	public let enabled: Bool
+	public let imageUrl: NSURL
+
+	public static func parseJSON(data: AnyObject) throws -> SpaceBasicInfo {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(SpaceBasicInfo)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let key: String
+		if let v: AnyObject = data["key"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "key", object: data)
+			} else {
+				key = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "key", object: data)
+		}
+
+		let name: String
+		if let v: AnyObject = data["name"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "name", object: data)
+			} else {
+				name = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "name", object: data)
+		}
+
+		let enabled: Bool
+		if let v: AnyObject = data["enabled"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "enabled", object: data)
+			} else {
+				enabled = try Bool.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "enabled", object: data)
+		}
+
+		let imageUrl: NSURL
+		if let v: AnyObject = data["imageUrl"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "imageUrl", object: data)
+			} else {
+				imageUrl = try NSURL.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "imageUrl", object: data)
+		}
+
+		return SpaceBasicInfo(key: key, name: name, enabled: enabled, imageUrl: imageUrl)
+	}
+
+	public init(key: String, name: String, enabled: Bool, imageUrl: NSURL) {
+		self.key = key
+		self.name = name
+		self.enabled = enabled
+		self.imageUrl = imageUrl
+	}
+}
+
+public struct Space: JSONDecodable {
+	public let space: SpaceBasicInfo
+	public let myRole: String
+	public let isPaymentAdmin: Bool
+	public let myPlan: PaymentPlan
+
+	public static func parseJSON(data: AnyObject) throws -> Space {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(Space)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let space: SpaceBasicInfo
+		if let v: AnyObject = data["space"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "space", object: data)
+			} else {
+				space = try SpaceBasicInfo.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "space", object: data)
+		}
+
+		let myRole: String
+		if let v: AnyObject = data["myRole"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "myRole", object: data)
+			} else {
+				myRole = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "myRole", object: data)
+		}
+
+		let isPaymentAdmin: Bool
+		if let v: AnyObject = data["isPaymentAdmin"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "isPaymentAdmin", object: data)
+			} else {
+				isPaymentAdmin = try Bool.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "isPaymentAdmin", object: data)
+		}
+
+		let myPlan: PaymentPlan
+		if let v: AnyObject = data["myPlan"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "myPlan", object: data)
+			} else {
+				myPlan = try PaymentPlan.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "myPlan", object: data)
+		}
+
+		return Space(space: space, myRole: myRole, isPaymentAdmin: isPaymentAdmin, myPlan: myPlan)
+	}
+
+	public init(space: SpaceBasicInfo, myRole: String, isPaymentAdmin: Bool, myPlan: PaymentPlan) {
+		self.space = space
+		self.myRole = myRole
+		self.isPaymentAdmin = isPaymentAdmin
+		self.myPlan = myPlan
+	}
+}
+
+public struct Group: JSONDecodable {
+	public let id: GroupID
+	public let key: String
+	public let name: String
+	public let suggestion: String
+	public let imageUrl: NSURL
+	public let createdAt: NSDate
+	public let updatedAt: NSDate
+
+	public static func parseJSON(data: AnyObject) throws -> Group {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(Group)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let id: GroupID
+		if let v: AnyObject = data["id"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "id", object: data)
+			} else {
+				id = try GroupID.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "id", object: data)
+		}
+
+		let key: String
+		if let v: AnyObject = data["key"] {
+			if v is NSNull {
+				key = ""
+			} else {
+				key = try String.parseJSON(v)
+			}
+		} else {
+			key = ""
+		}
+
+		let name: String
+		if let v: AnyObject = data["name"] {
+			if v is NSNull {
+				name = ""
+			} else {
+				name = try String.parseJSON(v)
+			}
+		} else {
+			name = ""
+		}
+
+		let suggestion: String
+		if let v: AnyObject = data["suggestion"] {
+			if v is NSNull {
+				suggestion = ""
+			} else {
+				suggestion = try String.parseJSON(v)
+			}
+		} else {
+			suggestion = ""
+		}
+
+		let imageUrl: NSURL
+		if let v: AnyObject = data["imageUrl"] {
+			if v is NSNull {
+				imageUrl = NSURL()
+			} else {
+				imageUrl = try NSURL.parseJSON(v)
+			}
+		} else {
+			imageUrl = NSURL()
+		}
+
+		let createdAt: NSDate
+		if let v: AnyObject = data["createdAt"] {
+			if v is NSNull {
+				createdAt = NSDate()
+			} else {
+				createdAt = try NSDate.parseJSON(v)
+			}
+		} else {
+			createdAt = NSDate()
+		}
+
+		let updatedAt: NSDate
+		if let v: AnyObject = data["updatedAt"] {
+			if v is NSNull {
+				updatedAt = NSDate()
+			} else {
+				updatedAt = try NSDate.parseJSON(v)
+			}
+		} else {
+			updatedAt = NSDate()
+		}
+
+		return Group(id: id, key: key, name: name, suggestion: suggestion, imageUrl: imageUrl, createdAt: createdAt, updatedAt: updatedAt)
+	}
+
+	public init(id: GroupID, key: String = "", name: String = "", suggestion: String = "", imageUrl: NSURL = NSURL(), createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
+		self.id = id
+		self.key = key
+		self.name = name
+		self.suggestion = suggestion
+		self.imageUrl = imageUrl
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+	}
+}
+
+public struct GroupWithCount: JSONDecodable {
+	public let group: Group
+	public let memberCount: Int
+
+	public static func parseJSON(data: AnyObject) throws -> GroupWithCount {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(GroupWithCount)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let group: Group
+		if let v: AnyObject = data["group"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "group", object: data)
+			} else {
+				group = try Group.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "group", object: data)
+		}
+
+		let memberCount: Int
+		if let v: AnyObject = data["memberCount"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "memberCount", object: data)
+			} else {
+				memberCount = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "memberCount", object: data)
+		}
+
+		return GroupWithCount(group: group, memberCount: memberCount)
+	}
+
+	public init(group: Group, memberCount: Int) {
+		self.group = group
+		self.memberCount = memberCount
+	}
+}
+
+public struct PaymentPlan: JSONDecodable {
+	public let plan: PlanInformation
+	public let enabled: Bool
+	public let trial: TrialInfo?
+	public let numberOfUsers: Int
+	public let totalAttachmentSize: Int
+	public let createdAt: NSDate
+	public let updatedAt: NSDate
+
+	public static func parseJSON(data: AnyObject) throws -> PaymentPlan {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(PaymentPlan)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let plan: PlanInformation
+		if let v: AnyObject = data["plan"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "plan", object: data)
+			} else {
+				plan = try PlanInformation.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "plan", object: data)
+		}
+
+		let enabled: Bool
+		if let v: AnyObject = data["enabled"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "enabled", object: data)
+			} else {
+				enabled = try Bool.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "enabled", object: data)
+		}
+
+		let trial: TrialInfo?
+		if let v: AnyObject = data["trial"] {
+			if v is NSNull {
+				trial = nil
+			} else {
+				trial = try TrialInfo.parseJSON(v)
+			}
+		} else {
+			trial = nil
+		}
+
+		let numberOfUsers: Int
+		if let v: AnyObject = data["numberOfUsers"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "numberOfUsers", object: data)
+			} else {
+				numberOfUsers = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "numberOfUsers", object: data)
+		}
+
+		let totalAttachmentSize: Int
+		if let v: AnyObject = data["totalAttachmentSize"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "totalAttachmentSize", object: data)
+			} else {
+				totalAttachmentSize = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "totalAttachmentSize", object: data)
+		}
+
+		let createdAt: NSDate
+		if let v: AnyObject = data["createdAt"] {
+			if v is NSNull {
+				createdAt = NSDate()
+			} else {
+				createdAt = try NSDate.parseJSON(v)
+			}
+		} else {
+			createdAt = NSDate()
+		}
+
+		let updatedAt: NSDate
+		if let v: AnyObject = data["updatedAt"] {
+			if v is NSNull {
+				updatedAt = NSDate()
+			} else {
+				updatedAt = try NSDate.parseJSON(v)
+			}
+		} else {
+			updatedAt = NSDate()
+		}
+
+		return PaymentPlan(plan: plan, enabled: enabled, trial: trial, numberOfUsers: numberOfUsers, totalAttachmentSize: totalAttachmentSize, createdAt: createdAt, updatedAt: updatedAt)
+	}
+
+	public init(plan: PlanInformation, enabled: Bool, trial: TrialInfo? = nil, numberOfUsers: Int, totalAttachmentSize: Int, createdAt: NSDate = NSDate(), updatedAt: NSDate = NSDate()) {
+		self.plan = plan
+		self.enabled = enabled
+		self.trial = trial
+		self.numberOfUsers = numberOfUsers
+		self.totalAttachmentSize = totalAttachmentSize
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+	}
+}
+
+public struct TrialInfo: JSONDecodable {
+	public let endDate: String
+	public let daysLeft: Int
+
+	public static func parseJSON(data: AnyObject) throws -> TrialInfo {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(TrialInfo)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let endDate: String
+		if let v: AnyObject = data["endDate"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "endDate", object: data)
+			} else {
+				endDate = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "endDate", object: data)
+		}
+
+		let daysLeft: Int
+		if let v: AnyObject = data["daysLeft"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "daysLeft", object: data)
+			} else {
+				daysLeft = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "daysLeft", object: data)
+		}
+
+		return TrialInfo(endDate: endDate, daysLeft: daysLeft)
+	}
+
+	public init(endDate: String, daysLeft: Int) {
+		self.endDate = endDate
+		self.daysLeft = daysLeft
+	}
+}
+
+public struct PlanInformation: JSONDecodable {
+	public let key: String
+	public let name: String
+	public let limitNumberOfUsers: Int
+	public let limitTotalAttachmentSize: Int
+
+	public static func parseJSON(data: AnyObject) throws -> PlanInformation {
+		if !(data is NSDictionary) {
+			throw JSONDecodeError.TypeMismatch(key: "(PlanInformation)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+		}
+
+		let key: String
+		if let v: AnyObject = data["key"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "key", object: data)
+			} else {
+				key = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "key", object: data)
+		}
+
+		let name: String
+		if let v: AnyObject = data["name"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "name", object: data)
+			} else {
+				name = try String.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "name", object: data)
+		}
+
+		let limitNumberOfUsers: Int
+		if let v: AnyObject = data["limitNumberOfUsers"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "limitNumberOfUsers", object: data)
+			} else {
+				limitNumberOfUsers = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "limitNumberOfUsers", object: data)
+		}
+
+		let limitTotalAttachmentSize: Int
+		if let v: AnyObject = data["limitTotalAttachmentSize"] {
+			if v is NSNull {
+				throw JSONDecodeError.NonNullable(key: "limitTotalAttachmentSize", object: data)
+			} else {
+				limitTotalAttachmentSize = try Int.parseJSON(v)
+			}
+		} else {
+			throw JSONDecodeError.MissingKey(key: "limitTotalAttachmentSize", object: data)
+		}
+
+		return PlanInformation(key: key, name: name, limitNumberOfUsers: limitNumberOfUsers, limitTotalAttachmentSize: limitTotalAttachmentSize)
+	}
+
+	public init(key: String, name: String, limitNumberOfUsers: Int, limitTotalAttachmentSize: Int) {
+		self.key = key
+		self.name = name
+		self.limitNumberOfUsers = limitNumberOfUsers
+		self.limitTotalAttachmentSize = limitTotalAttachmentSize
 	}
 }
 
