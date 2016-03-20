@@ -19,12 +19,12 @@ class NotificationTests: XCTestCase {
         let mention = model.mentions[1]
         XCTAssertEqual(mention.id, 500)
         XCTAssertEqual(mention.readAt!.description, "2014-06-30 15:00:00 +0000")
-        XCTAssertEqual(mention.post.id, 308)
-        XCTAssertEqual(mention.post.topicId, 202)
-        XCTAssertNil(mention.post.replyTo)
-        XCTAssertEqual(mention.post.message, "@jessica What do you think about this?")
-        XCTAssertEqual(mention.post.account.id, 101)
-        XCTAssertEqual(mention.post.account.name, "ahorowitz")
+        XCTAssertEqual(mention.post!.id, 308)
+        XCTAssertEqual(mention.post!.topicId, 202)
+        XCTAssertNil(mention.post!.replyTo)
+        XCTAssertEqual(mention.post!.message, "@jessica What do you think about this?")
+        XCTAssertEqual(mention.post!.account.id, 101)
+        XCTAssertEqual(mention.post!.account.name, "ahorowitz")
         
         XCTAssertEqual((model.invites.teams).count, 2)
         let team = model.invites.teams[1]

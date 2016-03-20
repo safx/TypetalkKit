@@ -120,7 +120,7 @@ public struct Member: JSONDecodable, ClassInit {
 public struct Mention: JSONDecodable, ClassInit {
     public let id: MentionID = 0
     public let readAt: NSDate? = nil
-    public let post: Post
+    public let post: Post?
 }
 
 public struct Notifications: JSONDecodable, ClassInit {
@@ -226,7 +226,7 @@ public struct Topic: JSONDecodable, ClassInit {
 
 public struct TopicWithAccounts: JSONDecodable, ClassInit {
     public let topic: Topic
-    public let mySpace: Space
+    public let mySpace: Space?
     public let teams: [TeamWithMembers] = []
     public let groups: [GroupWithCount] = []
     public let accounts: [Account] = []

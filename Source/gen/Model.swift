@@ -900,7 +900,7 @@ public struct Member: JSONDecodable {
 public struct Mention: JSONDecodable {
 	public let id: MentionID
 	public let readAt: NSDate?
-	public let post: Post
+	public let post: Post?
 
 	public static func parseJSON(data: AnyObject) throws -> Mention {
 		if !(data is NSDictionary) {
@@ -929,21 +929,21 @@ public struct Mention: JSONDecodable {
 			readAt = nil
 		}
 
-		let post: Post
+		let post: Post?
 		if let v: AnyObject = data["post"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "post", object: data)
+				post = nil
 			} else {
 				post = try Post.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "post", object: data)
+			post = nil
 		}
 
 		return Mention(id: id, readAt: readAt, post: post)
 	}
 
-	public init(id: MentionID = 0, readAt: NSDate? = nil, post: Post) {
+	public init(id: MentionID = 0, readAt: NSDate? = nil, post: Post? = nil) {
 		self.id = id
 		self.readAt = readAt
 		self.post = post
@@ -1811,7 +1811,7 @@ public struct Topic: JSONDecodable {
 
 public struct TopicWithAccounts: JSONDecodable {
 	public let topic: Topic
-	public let mySpace: Space
+	public let mySpace: Space?
 	public let teams: [TeamWithMembers]
 	public let groups: [GroupWithCount]
 	public let accounts: [Account]
@@ -1837,15 +1837,15 @@ public struct TopicWithAccounts: JSONDecodable {
 			throw JSONDecodeError.MissingKey(key: "topic", object: data)
 		}
 
-		let mySpace: Space
+		let mySpace: Space?
 		if let v: AnyObject = data["mySpace"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "mySpace", object: data)
+				mySpace = nil
 			} else {
 				mySpace = try Space.parseJSON(v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "mySpace", object: data)
+			mySpace = nil
 		}
 
 		let teams: [TeamWithMembers]
@@ -1939,7 +1939,7 @@ public struct TopicWithAccounts: JSONDecodable {
 		return TopicWithAccounts(topic: topic, mySpace: mySpace, teams: teams, groups: groups, accounts: accounts, invitingAccounts: invitingAccounts, invites: invites, accountsForApi: accountsForApi, integrations: integrations, remainingInvitations: remainingInvitations)
 	}
 
-	public init(topic: Topic, mySpace: Space, teams: [TeamWithMembers] = [], groups: [GroupWithCount] = [], accounts: [Account] = [], invitingAccounts: [Account] = [], invites: [Invite] = [], accountsForApi: [Account] = [], integrations: [Account] = [], remainingInvitations: Bool? = nil) {
+	public init(topic: Topic, mySpace: Space? = nil, teams: [TeamWithMembers] = [], groups: [GroupWithCount] = [], accounts: [Account] = [], invitingAccounts: [Account] = [], invites: [Invite] = [], accountsForApi: [Account] = [], integrations: [Account] = [], remainingInvitations: Bool? = nil) {
 		self.topic = topic
 		self.mySpace = mySpace
 		self.teams = teams

@@ -17,7 +17,7 @@ public struct GetTopicsResponse: JSONDecodable {
 }
 
 public struct GetMessagesResponse: JSONDecodable, ClassInit {
-    public let mySpace: Space
+    public let mySpace: Space?
     public let team: Team? = nil
     public let topic: Topic = Topic()
     public let bookmark: Bookmark = Bookmark()
@@ -39,7 +39,7 @@ public struct GetTopicMembersResponse: JSONDecodable {
 }
 
 public struct GetMessageResponse: JSONDecodable {
-    public let mySpace: Space
+    public let mySpace: Space?
     public let team: Team? = nil
     public let topic: Topic
     public let post: Post
@@ -100,7 +100,7 @@ public struct GetTalksResponse: JSONDecodable {
 }
 
 public struct GetTalkResponse: JSONDecodable, ClassInit {
-    public let mySpace: Space
+    public let mySpace: Space?
     public let topic: Topic
     public let talk: Talk
     public let posts: [Post] = []
