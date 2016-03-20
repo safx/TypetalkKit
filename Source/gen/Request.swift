@@ -662,6 +662,77 @@ public class GetTopicDetails: TypetalkRequest {
 	}
 }
 
+public class UpdateTopicMembers: TypetalkRequest {
+	public typealias APIKitResponse = TopicWithAccounts
+	public let topicId: TopicID
+	public let addAccountIds: [String]
+	public let addGroupIds: [String]
+	public let removeAccountIds: [Int]
+	public let removeGroupIds: [Int]
+
+	public init(topicId: TopicID, addAccountIds: [String] = [], addGroupIds: [String] = [], removeAccountIds: [Int] = [], removeGroupIds: [Int] = []) {
+		self.topicId = topicId
+		self.addAccountIds = addAccountIds
+		self.addGroupIds = addGroupIds
+		self.removeAccountIds = removeAccountIds
+		self.removeGroupIds = removeGroupIds
+	}
+
+	public var method: HTTPMethod {
+		return .POST
+	}
+
+	public var path: String {
+		return "topics/\(topicId)/members/update"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return ["addAccountIds": addAccountIds.map { $0.toJSON() }, "addGroupIds": addGroupIds.map { $0.toJSON() }, "removeAccountIds": removeAccountIds.map { $0.toJSON() }, "removeGroupIds": removeGroupIds.map { $0.toJSON() }]
+	}
+}
+
+public class GetSpaces: TypetalkRequest {
+	public typealias APIKitResponse = GetSpacesResponse
+	public let excludesGuest: Bool
+
+	public init(excludesGuest: Bool = false) {
+		self.excludesGuest = excludesGuest
+	}
+
+	public var method: HTTPMethod {
+		return .GET
+	}
+
+	public var path: String {
+		return "spaces"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return ["excludesGuest": excludesGuest.toJSON()]
+	}
+}
+
+public class GetSpaceMembers: TypetalkRequest {
+	public typealias APIKitResponse = GetSpaceMembersResponse
+	public let spaceKey: String
+
+	public init(spaceKey: String) {
+		self.spaceKey = spaceKey
+	}
+
+	public var method: HTTPMethod {
+		return .GET
+	}
+
+	public var path: String {
+		return "spaces/\(spaceKey)/members"
+	}
+
+	public var parameters: [String: AnyObject] {
+		return [:]
+	}
+}
+
 public class InviteTopicMember: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
 	public let topicId: TopicID
@@ -795,7 +866,7 @@ public class GetTalks: TypetalkRequest {
 }
 
 public class GetTalk: TypetalkRequest {
-	public typealias APIKitResponse = TalkMessages
+	public typealias APIKitResponse = GetTalkResponse
 	public let topicId: TopicID
 	public let talkId: TalkID
 	public let count: Int?

@@ -261,16 +261,14 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertNil(model.mention.readAt)
-        XCTAssertEqual(model.mention.post!.id, 999999)
-        XCTAssertEqual(model.mention.post!.topicId, 10033)
-        XCTAssertEqual(model.mention.post!.topic!.id, 10000)
-        XCTAssertEqual(model.mention.post!.topic!.name, "Sample")
-        XCTAssertNil(model.mention.post!.replyTo)
-        XCTAssertEqual(model.mention.post!.message, "@someone hello")
-        XCTAssertEqual(model.mention.post!.account.id, 3333)
-        XCTAssertEqual(model.mention.post!.account.name, "user")
-        XCTAssertEqual(model.mention.post!.createdAt.description, "2015-02-15 11:17:05 +0000")
-        XCTAssertEqual(model.mention.post!.updatedAt.description, "2015-02-15 11:17:05 +0000")
+        XCTAssertEqual(model.mention.post.id, 999999)
+        XCTAssertEqual(model.mention.post.topicId, 10033)
+        XCTAssertNil(model.mention.post.replyTo)
+        XCTAssertEqual(model.mention.post.message, "@someone hello")
+        XCTAssertEqual(model.mention.post.account.id, 3333)
+        XCTAssertEqual(model.mention.post.account.name, "user")
+        XCTAssertEqual(model.mention.post.createdAt.description, "2015-02-15 11:17:05 +0000")
+        XCTAssertEqual(model.mention.post.updatedAt.description, "2015-02-15 11:17:05 +0000")
     }
 
     func testPostMessageEvent() {
@@ -327,21 +325,19 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertEqual(model.mention.readAt!.description, "2015-02-15 11:47:18 +0000")
-        XCTAssertEqual(model.mention.post!.id, 999999)
-        XCTAssertEqual(model.mention.post!.topicId, 10999)
-        XCTAssertEqual(model.mention.post!.topic!.id, 10999)
-        XCTAssertEqual(model.mention.post!.topic!.name, "foo")
-        XCTAssertNil(model.mention.post!.replyTo)
-        XCTAssertEqual(model.mention.post!.message, "@user hello")
-        XCTAssertEqual(model.mention.post!.account.id, 2222)
-        XCTAssertEqual(model.mention.post!.account.name, "someone")
-        XCTAssertEqual(model.mention.post!.account.fullName, "someone")
-        XCTAssertEqual(model.mention.post!.account.suggestion, "someone")
-        XCTAssertEqual(model.mention.post!.account.imageUrl.absoluteString, "https://typetalk.in/accounts/2222/profile_image.png?t=1418350277470")
+        XCTAssertEqual(model.mention.post.id, 999999)
+        XCTAssertEqual(model.mention.post.topicId, 10999)
+        XCTAssertNil(model.mention.post.replyTo)
+        XCTAssertEqual(model.mention.post.message, "@user hello")
+        XCTAssertEqual(model.mention.post.account.id, 2222)
+        XCTAssertEqual(model.mention.post.account.name, "someone")
+        XCTAssertEqual(model.mention.post.account.fullName, "someone")
+        XCTAssertEqual(model.mention.post.account.suggestion, "someone")
+        XCTAssertEqual(model.mention.post.account.imageUrl.absoluteString, "https://typetalk.in/accounts/2222/profile_image.png?t=1418350277470")
 
-        XCTAssertEqual((model.mention.post!.attachments).count, 0)
-        XCTAssertEqual(model.mention.post!.createdAt.description, "2015-02-15 11:47:17 +0000")
-        XCTAssertEqual(model.mention.post!.updatedAt.description, "2015-02-15 11:47:17 +0000")
+        XCTAssertEqual((model.mention.post.attachments).count, 0)
+        XCTAssertEqual(model.mention.post.createdAt.description, "2015-02-15 11:47:17 +0000")
+        XCTAssertEqual(model.mention.post.updatedAt.description, "2015-02-15 11:47:17 +0000")
     }
 
     func testRemoveTalkPostEvent() {

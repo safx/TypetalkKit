@@ -1,16 +1,34 @@
 {
-  "team": {
-    "id": 700,
-    "name": "Nulab Inc.",
-    "imageUrl": "https://typetalk.in/teams/700/image.png?t=1402367549000",
-    "createdAt": "2014-06-10T02:32:29Z",
-    "updatedAt": "2014-06-10T02:32:29Z"
+  "mySpace": {
+    "space": {
+      "key": "abcdefghij",
+      "name": "Joe Tech Inc.",
+      "enabled": true,
+      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+    },
+    "myRole": "ADMIN",
+    "isPaymentAdmin": true,
+    "myPlan": {
+      "plan": {
+        "key": "typetalk.free",
+        "name": "Free Plan",
+        "limitNumberOfUsers": 10,
+        "limitTotalAttachmentSize": 1073741824
+      },
+      "enabled": true,
+      "trial": null,
+      "numberOfUsers": 7,
+      "totalAttachmentSize": 0,
+      "createdAt": "2016-01-10T02:32:29Z",
+      "updatedAt": "2016-01-20T02:32:29Z"
+    }
   },
+  "team": null,
   "topic": {
     "id": 208,
     "name": "IT Peeps",
     "suggestion": "IT Peeps",
-    "lastPostedAt": "2015-12-17T09:50:22Z",
+    "lastPostedAt": "2016-03-04T02:36:51Z",
     "createdAt": "2014-06-10T02:32:29Z",
     "updatedAt": "2014-06-10T02:32:29Z"
   },

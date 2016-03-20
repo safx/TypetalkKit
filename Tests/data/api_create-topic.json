@@ -4,89 +4,62 @@
     "name": "Test topic",
     "suggestion": "Test topic",
     "lastPostedAt": null,
-    "createdAt": "2015-12-17T09:50:35Z",
-    "updatedAt": "2015-12-17T09:50:35Z"
+    "createdAt": "2016-03-04T02:37:05Z",
+    "updatedAt": "2016-03-04T02:37:05Z"
   },
-  "teams": [
+  "mySpace": {
+    "space": {
+      "key": "abcdefghij",
+      "name": "Joe Tech Inc.",
+      "enabled": true,
+      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+    },
+    "myRole": "ADMIN",
+    "isPaymentAdmin": true,
+    "myPlan": {
+      "plan": {
+        "key": "typetalk.free",
+        "name": "Free Plan",
+        "limitNumberOfUsers": 10,
+        "limitTotalAttachmentSize": 1073741824
+      },
+      "enabled": true,
+      "trial": null,
+      "numberOfUsers": 7,
+      "totalAttachmentSize": 0,
+      "createdAt": "2016-01-10T02:32:29Z",
+      "updatedAt": "2016-01-20T02:32:29Z"
+    }
+  },
+  "teams": [],
+  "groups": [
     {
-      "team": {
-        "id": 700,
-        "name": "Nulab Inc.",
-        "imageUrl": "https://typetalk.in/teams/700/image.png?t=1402367549000",
+      "group": {
+        "id": 1100,
+        "key": "groupkey01",
+        "name": "Joe Tech Inc. All",
+        "suggestion": "Joe Tech Inc. All",
+        "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/groups/groupkey01/photo/medium",
         "createdAt": "2014-06-10T02:32:29Z",
         "updatedAt": "2014-06-10T02:32:29Z"
       },
-      "members": [
-        {
-          "account": {
-            "id": 101,
-            "name": "ahorowitz",
-            "fullName": "AHorowitz",
-            "suggestion": "AHorowitz",
-            "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
-            "createdAt": "2014-06-25T02:32:29Z",
-            "updatedAt": "2014-06-25T02:32:29Z"
-          },
-          "role": "admin"
-        },
-        {
-          "account": {
-            "id": 100,
-            "name": "jessica",
-            "fullName": "Jessica Fitzherbert",
-            "suggestion": "Jessica Fitzherbert",
-            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
-            "createdAt": "2014-06-24T02:32:29Z",
-            "updatedAt": "2014-06-24T02:32:29Z"
-          },
-          "role": "member"
-        },
-        {
-          "account": {
-            "id": 102,
-            "name": "moss",
-            "fullName": "Moss",
-            "suggestion": "Moss",
-            "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
-            "createdAt": "2014-06-26T02:32:29Z",
-            "updatedAt": "2014-06-26T02:32:29Z"
-          },
-          "role": "owner"
-        },
-        {
-          "account": {
-            "id": 103,
-            "name": "stefhull",
-            "fullName": "StefHull",
-            "suggestion": "StefHull",
-            "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
-            "createdAt": "2014-06-27T02:32:29Z",
-            "updatedAt": "2014-06-27T02:32:29Z"
-          },
-          "role": "admin"
-        }
-      ]
+      "memberCount": 4
     }
   ],
   "accounts": [
     {
-      "id": 104,
-      "name": "cooper",
-      "fullName": "CooperDaChopper",
-      "suggestion": "CooperDaChopper",
-      "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
-      "createdAt": "2014-06-28T02:32:29Z",
-      "updatedAt": "2014-06-28T02:32:29Z"
+      "id": 106,
+      "name": "chelseab",
+      "fullName": "ChelseaB",
+      "suggestion": "ChelseaB",
+      "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
+      "createdAt": "2014-06-30T02:32:29Z",
+      "updatedAt": "2014-06-30T02:32:29Z"
     }
   ],
-  "invites": [
-    {
-      "id": 1,
-      "account": null,
-      "mailAddress": "typetalk@example.com",
-      "status": "invite"
-    }
-  ],
+  "invitingAccounts": [],
+  "invites": [],
   "accountsForApi": [],
-  "integrations": []
+  "integrations": [],
+  "remainingInvitations": null
 }

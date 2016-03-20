@@ -18,32 +18,16 @@
     },
     {
       "topic": {
-        "id": 205,
-        "name": "UI/UX",
-        "suggestion": "UI/UX",
+        "id": 206,
+        "name": "VisualDesigners",
+        "suggestion": "VisualDesigners",
         "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-07T02:32:29Z",
-        "updatedAt": "2014-06-07T02:32:29Z"
+        "createdAt": "2014-06-08T02:32:29Z",
+        "updatedAt": "2014-06-08T02:32:29Z"
       },
-      "favorite": true,
+      "favorite": false,
       "unread": {
-        "topicId": 205,
-        "postId": 0,
-        "count": 0
-      }
-    },
-    {
-      "topic": {
-        "id": 207,
-        "name": "Art Directors",
-        "suggestion": "Art Directors",
-        "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-09T02:32:29Z",
-        "updatedAt": "2014-06-09T02:32:29Z"
-      },
-      "favorite": true,
-      "unread": {
-        "topicId": 207,
+        "topicId": 206,
         "postId": 0,
         "count": 0
       }
@@ -66,48 +50,32 @@
     },
     {
       "topic": {
-        "id": 203,
-        "name": "Techies",
-        "suggestion": "Techies",
+        "id": 201,
+        "name": "Communications Team",
+        "suggestion": "Communications Team",
         "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-05T02:32:29Z",
-        "updatedAt": "2014-06-05T02:32:29Z"
+        "createdAt": "2014-06-03T02:32:29Z",
+        "updatedAt": "2014-06-03T02:32:29Z"
       },
       "favorite": false,
       "unread": {
-        "topicId": 203,
-        "postId": 0,
-        "count": 1
-      }
-    },
-    {
-      "topic": {
-        "id": 200,
-        "name": "Creative Technologists",
-        "suggestion": "Creative Technologists",
-        "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-02T02:32:29Z",
-        "updatedAt": "2014-06-02T02:32:29Z"
-      },
-      "favorite": false,
-      "unread": {
-        "topicId": 200,
+        "topicId": 201,
         "postId": 0,
         "count": 0
       }
     },
     {
       "topic": {
-        "id": 206,
-        "name": "VisualDesigners",
-        "suggestion": "VisualDesigners",
+        "id": 207,
+        "name": "Art Directors",
+        "suggestion": "Art Directors",
         "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-08T02:32:29Z",
-        "updatedAt": "2014-06-08T02:32:29Z"
+        "createdAt": "2014-06-09T02:32:29Z",
+        "updatedAt": "2014-06-09T02:32:29Z"
       },
-      "favorite": false,
+      "favorite": true,
       "unread": {
-        "topicId": 206,
+        "topicId": 207,
         "postId": 0,
         "count": 0
       }
@@ -130,18 +98,50 @@
     },
     {
       "topic": {
-        "id": 201,
-        "name": "Communications Team",
-        "suggestion": "Communications Team",
+        "id": 205,
+        "name": "UI/UX",
+        "suggestion": "UI/UX",
         "lastPostedAt": "2014-06-30T02:32:29Z",
-        "createdAt": "2014-06-03T02:32:29Z",
-        "updatedAt": "2014-06-03T02:32:29Z"
+        "createdAt": "2014-06-07T02:32:29Z",
+        "updatedAt": "2014-06-07T02:32:29Z"
+      },
+      "favorite": true,
+      "unread": {
+        "topicId": 205,
+        "postId": 0,
+        "count": 0
+      }
+    },
+    {
+      "topic": {
+        "id": 200,
+        "name": "Creative Technologists",
+        "suggestion": "Creative Technologists",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-02T02:32:29Z",
+        "updatedAt": "2014-06-02T02:32:29Z"
       },
       "favorite": false,
       "unread": {
-        "topicId": 201,
+        "topicId": 200,
         "postId": 0,
         "count": 0
+      }
+    },
+    {
+      "topic": {
+        "id": 203,
+        "name": "Techies",
+        "suggestion": "Techies",
+        "lastPostedAt": "2014-06-30T02:32:29Z",
+        "createdAt": "2014-06-05T02:32:29Z",
+        "updatedAt": "2014-06-05T02:32:29Z"
+      },
+      "favorite": false,
+      "unread": {
+        "topicId": 203,
+        "postId": 0,
+        "count": 1
       }
     }
   ]

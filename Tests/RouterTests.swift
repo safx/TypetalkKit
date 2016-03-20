@@ -228,30 +228,6 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/mentions/9851")
     }
 
-    func testAcceptTeamInvite() {
-        let req = AcceptTeamInvite(teamId: 543, inviteId: 976).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/teams/543/members/invite/976/accept")
-    }
-
-    func testDeclineTeamInvite() {
-        let req = DeclineTeamInvite(teamId: 123, inviteId: 4566).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/teams/123/members/invite/4566/decline")
-    }
-
-    func testAcceptTopicInvite() {
-        let req = AcceptTopicInvite(topicId: 453, inviteId: 796).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/453/members/invite/796/accept")
-    }
-
-    func testDeclineTopicInvite() {
-        let req = DeclineTopicInvite(topicId: 231, inviteId: 546).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/231/members/invite/546/decline")
-    }
-
     func testCreateTopic() {
         let req = CreateTopic(name: "test topic", teamId: nil, inviteMembers: [], inviteMessage: "").buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "POST")
@@ -315,59 +291,6 @@ class RouterTests: XCTestCase {
         let req = GetTopicDetails(topicId: 914).buildURLRequest().value!
         XCTAssertEqual(req.HTTPMethod!, "GET")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/914/details")
-    }
-
-    func testInviteTopicMember() {
-        let req = InviteTopicMember(topicId: 345, inviteMembers: [], inviteMessage: "").buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/345/members/invite")
-    }
-    func testInviteTopicMember2() {
-        let req = InviteTopicMember(topicId: 345, inviteMembers: ["Foo", "Bar"], inviteMessage: nil).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/345/members/invite")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
-        XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Foo").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Bar").location, NSNotFound)
-        XCTAssertEqual(q.rangeOfString("inviteMessage=").location, NSNotFound)
-    }
-    func testInviteTopicMember3() {
-        let req = InviteTopicMember(topicId: 345, inviteMembers: [], inviteMessage: "HelloWorld").buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/345/members/invite")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
-        XCTAssertEqual(q.rangeOfString("inviteMembers%5B%5D=").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("inviteMessage=HelloWorld").location, NSNotFound)
-    }
-
-    func testRemoveTopicMember() {
-        let req = RemoveTopicMember(topicId: 953, removeInviteIds: [], removeMemberIds: []).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/953/members/remove")
-    }
-    func testRemoveTopicMember2() {
-        let req = RemoveTopicMember(topicId: 953, removeInviteIds: [123,789], removeMemberIds: []).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/953/members/remove")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
-        XCTAssertNotEqual(q.rangeOfString("removeInviteIds%5B%5D=123").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("removeInviteIds%5B%5D=789").location, NSNotFound)
-        XCTAssertEqual(q.rangeOfString("removeMemberIds%5B%5D=").location, NSNotFound)
-    }
-    func testRemoveTopicMember3() {
-        let req = RemoveTopicMember(topicId: 953, removeInviteIds: [], removeMemberIds: [543,678]).buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "POST")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics/953/members/remove")
-        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
-        XCTAssertEqual(q.rangeOfString("removeInviteIds%5B%5D=").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("removeMemberIds%5B%5D=543").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("removeMemberIds%5B%5D=678").location, NSNotFound)
-    }
-
-    func testGetTeams() {
-        let req = GetTeams().buildURLRequest().value!
-        XCTAssertEqual(req.HTTPMethod!, "GET")
-        XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/teams")
     }
 
     func testGetFriends() {

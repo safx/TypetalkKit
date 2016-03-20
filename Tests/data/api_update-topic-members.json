@@ -32,20 +32,7 @@
     }
   },
   "teams": [],
-  "groups": [
-    {
-      "group": {
-        "id": 1100,
-        "key": "groupkey01",
-        "name": "Joe Tech Inc. All",
-        "suggestion": "Joe Tech Inc. All",
-        "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/groups/groupkey01/photo/medium",
-        "createdAt": "2014-06-10T02:32:29Z",
-        "updatedAt": "2014-06-10T02:32:29Z"
-      },
-      "memberCount": 4
-    }
-  ],
+  "groups": [],
   "accounts": [
     {
       "id": 105,
@@ -64,6 +51,15 @@
       "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
       "createdAt": "2014-06-28T02:32:29Z",
       "updatedAt": "2014-06-28T02:32:29Z"
+    },
+    {
+      "id": 100,
+      "name": "jessica",
+      "fullName": "Jessica Fitzherbert",
+      "suggestion": "Jessica Fitzherbert",
+      "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+      "createdAt": "2014-06-24T02:32:29Z",
+      "updatedAt": "2014-06-24T02:32:29Z"
     }
   ],
   "invitingAccounts": [],

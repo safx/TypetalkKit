@@ -16,4 +16,5 @@ public typealias PostID  = Int
 public typealias TalkID  = Int
 public typealias TeamID  = Int
 public typealias TopicID = Int
+public typealias GroupID = Int
 

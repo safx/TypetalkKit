@@ -30,38 +30,19 @@ extension AuthRequest {
 
 extension RemoveMessageFromTalk {
     // NOTE: Current APIKit imprementation doesn't allow to set to payload body on a DELETE request.
-    //       So we override `buildURLRequest` method from APIKit directly for customizing behavior.
-    public func buildURLRequest() -> Result<NSURLRequest, APIError> {
+    //       So we add them by using `configureURLRequest`.
+    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
         let URL = path.isEmpty ? baseURL : baseURL.URLByAppendingPathComponent(path)
         guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else {
-            return .Failure(.InvalidBaseURL(baseURL))
+            throw APIError.InvalidBaseURL(baseURL)
         }
-
-        let URLRequest = NSMutableURLRequest()
-        let parameters = self.parameters
-
-        do {
-            URLRequest.HTTPBody = try requestBodyBuilder.buildBodyFromObject(parameters)
-            URLRequest.setValue(requestBodyBuilder.contentTypeHeader, forHTTPHeaderField: "Content-Type")
-        } catch {
-            return .Failure(.RequestBodySerializationError(error))
-        }
-
         URLRequest.URL = components.URL
-        URLRequest.HTTPMethod = method.rawValue
-        URLRequest.setValue(responseBodyParser.acceptHeader, forHTTPHeaderField: "Accept")
 
-        HTTPHeaderFields.forEach { key, value in
-            URLRequest.setValue(value, forHTTPHeaderField: key)
-        }
+        let (contentTypeHeader, body) = try requestBodyBuilder.buildBodyFromObject(parameters)
+        URLRequest.HTTPBody = body
+        URLRequest.setValue(contentTypeHeader, forHTTPHeaderField: "Content-Type")
 
-        do {
-            try configureURLRequest(URLRequest)
-        } catch {
-            return .Failure(.ConfigurationError(error))
-        }
-
-        return .Success(URLRequest)
+        return URLRequest
     }
 }
 
