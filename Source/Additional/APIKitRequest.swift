@@ -10,8 +10,8 @@ import Foundation
 import APIKit
 
 public protocol APIKitRequest: RequestType {
-    typealias APIKitResponse
-    typealias Response = APIKitResponse
+    associatedtype APIKitResponse
+    associatedtype Response = APIKitResponse
     //typealias Response = Result<APIKitResponse>
 }
 

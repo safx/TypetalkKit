@@ -9,7 +9,7 @@
 import Foundation
 
 public protocol JSONDecodable {
-    typealias DecodedType = Self
+    associatedtype DecodedType = Self
     static func parseJSON(data: AnyObject) throws -> DecodedType
 }
 
