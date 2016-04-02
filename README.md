@@ -101,7 +101,7 @@ For more information of Typetalk's authorization, please see [official page](htt
 
 ### Carthage
 
-	github "safx/TypetalkKit" ~> 0.3.0
+	github "safx/TypetalkKit"
 
 ### Manual Install
 
