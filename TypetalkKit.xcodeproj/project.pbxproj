@@ -271,6 +271,8 @@
 		8DD2221C1A90DA3300EA024C /* model_notifications.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D79981B19E2BD5800DF9AB9 /* model_notifications.json */; };
 		8DD2221D1A90DA3300EA024C /* model_notification_status.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D894A9219E2E52D0039D0ED /* model_notification_status.json */; };
 		8DD2221F1A90DF2B00EA024C /* Client+StreamingTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DD2221E1A90DF2B00EA024C /* Client+StreamingTest.swift */; };
+		8DD3E8021D0DB7E700105579 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD3E8001D0DB7E200105579 /* image.png */; };
+		8DD3E8031D0DB7E800105579 /* image.png in Resources */ = {isa = PBXBuildFile; fileRef = 8DD3E8001D0DB7E200105579 /* image.png */; };
 		8DE627A21A962DC1000EADC3 /* streaming-postLinks.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */; };
 		8DE627A31A962DC1000EADC3 /* streaming-postLinks.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */; };
 		8DE627A51A962DD7000EADC3 /* model_profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DE627A41A962DD7000EADC3 /* model_profile.json */; };
@@ -472,6 +474,7 @@
 		8DD221AF1A90DA2400EA024C /* streaming-updateTalk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-updateTalk.json"; sourceTree = "<group>"; };
 		8DD221B01A90DA2400EA024C /* streaming-updateTopic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-updateTopic.json"; sourceTree = "<group>"; };
 		8DD2221E1A90DF2B00EA024C /* Client+StreamingTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Client+StreamingTest.swift"; sourceTree = "<group>"; };
+		8DD3E8001D0DB7E200105579 /* image.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = image.png; sourceTree = "<group>"; };
 		8DD6AC4B19EADC4C00D9A9A4 /* ClientAPITests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClientAPITests.swift; sourceTree = "<group>"; };
 		8DE627A11A962DC1000EADC3 /* streaming-postLinks.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-postLinks.json"; sourceTree = "<group>"; };
 		8DE627A41A962DD7000EADC3 /* model_profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_profile.json; sourceTree = "<group>"; };
@@ -712,6 +715,7 @@
 		8DBA51A019C5E9FD00BD88A3 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				8DD3E8001D0DB7E200105579 /* image.png */,
 				8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */,
 				8D4218911AA21138009D2077 /* streaming-cancelTopicInvite.json */,
 				8D4218921AA21138009D2077 /* streaming-declineTopicInvite.json */,
@@ -1011,6 +1015,7 @@
 				8DD222051A90DA3300EA024C /* api_update-topic.json in Resources */,
 				8D4218951AA21138009D2077 /* streaming-acceptTopicInvite.json in Resources */,
 				8DD221FE1A90DA3300EA024C /* api_post-message.json in Resources */,
+				8DD3E8031D0DB7E800105579 /* image.png in Resources */,
 				8DD222011A90DA3300EA024C /* api_save-read-topic.json in Resources */,
 				8DD221F31A90DA3300EA024C /* api_get-notifications.json in Resources */,
 				8DD221EC1A90DA3300EA024C /* api_delete-topic.json in Resources */,
@@ -1112,6 +1117,7 @@
 				8DD221D71A90DA2400EA024C /* streaming-unlikeMessage.json in Resources */,
 				8D4218941AA21138009D2077 /* streaming-acceptTopicInvite.json in Resources */,
 				8D5C6E4C19D805720020BCA2 /* model_team_invite.json in Resources */,
+				8DD3E8021D0DB7E700105579 /* image.png in Resources */,
 				8D7B02FA19D45DF5000A0F7C /* api_save-read-topic.json in Resources */,
 				8D7B02FC19D45DF5000A0F7C /* api_unfavorite-topic.json in Resources */,
 				8DD221DB1A90DA2400EA024C /* streaming-updateTalk.json in Resources */,

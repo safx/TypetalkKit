@@ -23,6 +23,13 @@ class ClientAPITests: XCTestCase {
         }
     }
 
+    func createStubBinary(name: String) {
+        OHHTTPStubs.stubRequestsPassingTest({ _ in return true }) { _ in
+            let fixture = OHPathForFile(name, self.dynamicType)
+            return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type": "application/octet-stream"])
+        }
+    }
+
     override func setUp() {
         TypetalkAPI.setDummyAccessTokenForTest()
         super.setUp()
@@ -269,10 +276,10 @@ class ClientAPITests: XCTestCase {
 
 
 	func testDownloadAttachment() {
-		createStub("download-attachment")
+		createStubBinary("image.png")
 
 		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 0, attachmentId: 0, filename: "")) { result in
+		TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 0, attachmentId: 0, filename: "image.png")) { result in
 			switch result {
 			case .Success:
 

@@ -22,12 +22,12 @@ extension APIKitRequest {
 */
 
 extension APIKitRequest where Self.Response: JSONDecodable, Self.Response == Self.Response.DecodedType {
-    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> Response? {
+    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> Response {
         do {
             return try Response.parseJSON(object)
         } catch {
             print(error)
+            throw ResponseError.UnexpectedObject(object)
         }
-        return nil
     }
 }

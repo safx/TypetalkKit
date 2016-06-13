@@ -26,7 +26,7 @@ public class Authorize: AuthRequest {
 		return "authorize"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["client_id": client_id.toJSON(), "redirect_uri": redirect_uri.toJSON(), "scope": scope.toJSON(), "response_type": response_type.toJSON()]
 	}
 }
@@ -59,7 +59,7 @@ public class AccessToken: AuthRequest {
 		return "access_token"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = ["grant_type": grant_type.toJSON(), "client_id": client_id.toJSON(), "client_secret": client_secret.toJSON()]
 		_ = redirect_uri.map { p["redirect_uri"] = $0.toJSON() }
 		_ = code.map { p["code"] = $0.toJSON() }
