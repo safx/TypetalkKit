@@ -15,8 +15,9 @@ public protocol AuthRequest: APIKitRequest {}
 
 
 extension APIKitRequest {
-    public var requestBodyBuilder: RequestBodyBuilder {
-        return .Custom(contentTypeHeader: "application/x-www-form-urlencoded", buildBodyFromObject: { try dataFromObject($0, encoding: NSUTF8StringEncoding) } )
+    public var bodyParameters: BodyParametersType? {
+        let ps = self.parameters as? [String: AnyObject] ?? [:]
+        return FormURLArrayEncodedBodyParameters(formObject: ps, encoding: NSUTF8StringEncoding)
     }
 }
 
@@ -29,30 +30,39 @@ extension AuthRequest {
 }
 
 extension RemoveMessageFromTalk {
-    // NOTE: Current APIKit imprementation doesn't allow to set to payload body on a DELETE request.
-    //       So we add them by using `configureURLRequest`.
-    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+    // force rewrite URL
+    public func interceptURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
         let URL = path.isEmpty ? baseURL : baseURL.URLByAppendingPathComponent(path)
         guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else {
-            throw APIError.InvalidBaseURL(baseURL)
+            throw RequestError.InvalidBaseURL(baseURL)
         }
+
+        let ps = parameters as? [String: AnyObject] ?? [:]
+        if let postIds = ps["postIds"] as? [Int] where postIds.count > 0 {
+            components.query = postIds.map { (e) -> String in
+                return "postIds[]=\(e)"
+            }.joinWithSeparator("&")
+        }
+
         URLRequest.URL = components.URL
-
-        let (contentTypeHeader, body) = try requestBodyBuilder.buildBodyFromObject(parameters)
-        URLRequest.HTTPBody = body
-        URLRequest.setValue(contentTypeHeader, forHTTPHeaderField: "Content-Type")
-
         return URLRequest
     }
 }
 
 extension DownloadAttachment {
-    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) -> APIKitResponse? {
-        return object as? NSData
+    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> APIKitResponse {
+        guard let obj = object as? NSData else {
+            throw ResponseError.UnexpectedObject(object)
+        }
+        return obj
     }
 
-    public var responseBodyParser: ResponseBodyParser {
-        return .Custom(acceptHeader: "application/octet-stream", parseData: { $0 })
+    public var headerFields: [String: String] {
+        return ["Content-Type": "application/octet-stream"]
+    }
+
+    public var dataParser: DataParserType {
+        return RawDataParser()
     }
 
     public convenience init?(url: NSURL, attachmentType: AttachmentType? = nil) {
@@ -76,40 +86,49 @@ extension DownloadAttachment {
 }
 
 extension UploadAttachment {
-
-    public var requestBodyBuilder: RequestBodyBuilder {
-        let boundary = createBoundary()
-
-        return .Custom(contentTypeHeader: "multipart/form-data; boundary=\(boundary)", buildBodyFromObject: { (object: AnyObject) throws -> NSData in
-            return self.createFormData(boundary)
-        })
-    }
-
-    private func createFormData(boundary: String) -> NSData {
-        let head = [
-            "--\(boundary)\r\n",
-            "Content-Disposition: form-data; name=\"file\"; filename=\"\(self.name)\"\r\n",
-            "Content-Type: application/octet-stream; charset=ISO-8859-1\r\n",
-            "Content-Transfer-Encoding: binary\r\n\r\n",
-        ]
-        let tail = ["\r\n--\(boundary)--\r\n"]
-
-        let data = NSMutableData()
-        head.forEach { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
-        data.appendData(self.contents)
-        tail.forEach { data.appendData($0.dataUsingEncoding(NSUTF8StringEncoding)!) }
-
-        return data
-    }
-
-    private func createBoundary() -> String {
-        let uuid = CFUUIDCreate(nil)
-        let uuidString = CFUUIDCreateString(nil, uuid)
-        return "Boundary-\(uuidString)"
+    public var bodyParameters: BodyParametersType? {
+        return MultipartFormDataBodyParameters(parts: [MultipartFormDataBodyParameters.Part(data: self.contents, name: self.name)])
     }
 }
 
-// APIKit
+// Helper funcs
+
+public class RawDataParser: DataParserType {
+    public var contentType: String? {
+        return nil
+    }
+
+    public func parseData(data: NSData) throws -> AnyObject {
+        return data
+    }
+}
+
+public struct FormURLArrayEncodedBodyParameters: BodyParametersType {
+    public let form: [String: AnyObject]
+    public let encoding: NSStringEncoding
+
+    public init(formObject: [String: AnyObject], encoding: NSStringEncoding = NSUTF8StringEncoding) {
+        self.form = formObject
+        self.encoding = encoding
+    }
+
+    public var contentType: String {
+        return "application/x-www-form-urlencoded"
+    }
+
+    public func buildEntity() throws -> RequestBodyEntity {
+        return .Data(try dataFromObject(form, encoding: encoding))
+    }
+}
+
+private func dataFromObject(object: [String: AnyObject], encoding: NSStringEncoding) throws -> NSData {
+    let string = stringFromDictionary(object)
+    guard let data = string.dataUsingEncoding(encoding, allowLossyConversion: false) else {
+        throw URLEncodedSerialization.Error.CannotGetDataFromString(string, encoding)
+    }
+    return data
+}
+
 private func escape(string: String) -> String {
     // Reserved characters defined by RFC 3986
     // Reference: https://www.ietf.org/rfc/rfc3986.txt
@@ -124,19 +143,7 @@ private func escape(string: String) -> String {
     return string.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? string
 }
 
-internal func dataFromObject(object: AnyObject, encoding: NSStringEncoding) throws -> NSData {
-    guard let dictionary = object as? [String:AnyObject] else {
-        throw URLEncodedSerialization.Error.CannotCastObjectToDictionary(object)
-    }
-    let string = stringFromDictionary(dictionary)
-    guard let data = string.dataUsingEncoding(encoding, allowLossyConversion: false) else {
-        throw URLEncodedSerialization.Error.CannotGetDataFromString(string, encoding)
-    }
-
-    return data
-}
-
-internal func stringFromDictionary(dictionary: [String:AnyObject]) -> String {
+private func stringFromDictionary(dictionary: [String:AnyObject]) -> String {
     let pairs = dictionary.map { key, value -> String in
         if value is NSNull {
             return "\(escape(key))"

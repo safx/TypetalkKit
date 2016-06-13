@@ -18,7 +18,7 @@ public class GetProfile: TypetalkRequest {
 		return "profile"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -37,7 +37,7 @@ public class GetTopics: TypetalkRequest {
 		return "topics"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -64,7 +64,7 @@ public class GetMessages: TypetalkRequest {
 		return "topics/\(topicId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = [:]
 		_ = count.map { p["count"] = $0.toJSON() }
 		_ = from.map { p["from"] = $0.toJSON() }
@@ -78,11 +78,11 @@ public class PostMessage: TypetalkRequest {
 	public let topicId: TopicID
 	public let message: String
 	public let replyTo: Int?
-	public let showLinkMeta: Bool
+	public let showLinkMeta: Bool?
 	public let fileKeys: [String]
 	public let talkIds: [TalkID]
 
-	public init(topicId: TopicID, message: String, replyTo: Int? = nil, showLinkMeta: Bool = true, fileKeys: [String] = [], talkIds: [TalkID] = []) {
+	public init(topicId: TopicID, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [TalkID] = []) {
 		self.topicId = topicId
 		self.message = message
 		self.replyTo = replyTo
@@ -99,9 +99,10 @@ public class PostMessage: TypetalkRequest {
 		return "topics/\(topicId)"
 	}
 
-	public var parameters: [String: AnyObject] {
-		var p: [String: AnyObject] = ["message": message.toJSON(), "showLinkMeta": showLinkMeta.toJSON(), "fileKeys": fileKeys.map { $0.toJSON() }, "talkIds": talkIds.map { $0.toJSON() }]
+	public var parameters: AnyObject? {
+		var p: [String: AnyObject] = ["message": message, "fileKeys": fileKeys, "talkIds": talkIds]
 		_ = replyTo.map { p["replyTo"] = $0.toJSON() }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() }
 		return p
 	}
 }
@@ -126,7 +127,7 @@ public class UploadAttachment: TypetalkRequest {
 		return "topics/\(topicId)/attachments"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -155,7 +156,7 @@ public class DownloadAttachment: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = [:]
 		_ = type.map { p["type"] = $0.toJSON() }
 		return p
@@ -178,7 +179,7 @@ public class GetTopicMembers: TypetalkRequest {
 		return "topics/\(topicId)/members/status"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -201,7 +202,7 @@ public class GetMessage: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -226,7 +227,7 @@ public class UpdateMessage: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["message": message.toJSON()]
 	}
 }
@@ -249,7 +250,7 @@ public class DeleteMessage: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -272,7 +273,7 @@ public class LikeMessage: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)/like"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -295,7 +296,7 @@ public class UnlikeMessage: TypetalkRequest {
 		return "topics/\(topicId)/posts/\(postId)/like"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -316,7 +317,7 @@ public class FavoriteTopic: TypetalkRequest {
 		return "topics/\(topicId)/favorite"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -337,7 +338,7 @@ public class UnfavoriteTopic: TypetalkRequest {
 		return "topics/\(topicId)/favorite"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -356,7 +357,7 @@ public class GetNotifications: TypetalkRequest {
 		return "notifications"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -375,7 +376,7 @@ public class GetNotificationStatus: TypetalkRequest {
 		return "notifications/status"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -394,7 +395,7 @@ public class OpenNotification: TypetalkRequest {
 		return "notifications"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -417,7 +418,7 @@ public class SaveReadTopic: TypetalkRequest {
 		return "bookmarks"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = ["topicId": topicId.toJSON()]
 		_ = postId.map { p["postId"] = $0.toJSON() }
 		return p
@@ -442,7 +443,7 @@ public class GetMentions: TypetalkRequest {
 		return "mentions"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = [:]
 		_ = from.map { p["from"] = $0.toJSON() }
 		_ = unread.map { p["unread"] = $0.toJSON() }
@@ -466,7 +467,7 @@ public class SaveReadMention: TypetalkRequest {
 		return "mentions/\(mentionId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -489,7 +490,7 @@ public class AcceptTeamInvite: TypetalkRequest {
 		return "teams/\(teamId)/members/invite/\(inviteId)/accept"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -512,7 +513,7 @@ public class DeclineTeamInvite: TypetalkRequest {
 		return "teams/\(teamId)/members/invite/\(inviteId)/decline"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -535,7 +536,7 @@ public class AcceptTopicInvite: TypetalkRequest {
 		return "topics/\(topicId)/members/invite/\(inviteId)/accept"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -558,7 +559,7 @@ public class DeclineTopicInvite: TypetalkRequest {
 		return "topics/\(topicId)/members/invite/\(inviteId)/decline"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -585,7 +586,7 @@ public class CreateTopic: TypetalkRequest {
 		return "topics"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = ["name": name.toJSON(), "inviteMembers": inviteMembers.map { $0.toJSON() }, "inviteMessage": inviteMessage.toJSON()]
 		_ = teamId.map { p["teamId"] = $0.toJSON() }
 		return p
@@ -612,7 +613,7 @@ public class UpdateTopic: TypetalkRequest {
 		return "topics/\(topicId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = [:]
 		_ = name.map { p["name"] = $0.toJSON() }
 		_ = teamId.map { p["teamId"] = $0.toJSON() }
@@ -636,7 +637,7 @@ public class DeleteTopic: TypetalkRequest {
 		return "topics/\(topicId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -657,7 +658,7 @@ public class GetTopicDetails: TypetalkRequest {
 		return "topics/\(topicId)/details"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -686,7 +687,7 @@ public class UpdateTopicMembers: TypetalkRequest {
 		return "topics/\(topicId)/members/update"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["addAccountIds": addAccountIds.map { $0.toJSON() }, "addGroupIds": addGroupIds.map { $0.toJSON() }, "removeAccountIds": removeAccountIds.map { $0.toJSON() }, "removeGroupIds": removeGroupIds.map { $0.toJSON() }]
 	}
 }
@@ -707,7 +708,7 @@ public class GetSpaces: TypetalkRequest {
 		return "spaces"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["excludesGuest": excludesGuest.toJSON()]
 	}
 }
@@ -728,7 +729,7 @@ public class GetSpaceMembers: TypetalkRequest {
 		return "spaces/\(spaceKey)/members"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -753,7 +754,7 @@ public class InviteTopicMember: TypetalkRequest {
 		return "topics/\(topicId)/members/invite"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = ["inviteMembers": inviteMembers.map { $0.toJSON() }]
 		_ = inviteMessage.map { p["inviteMessage"] = $0.toJSON() }
 		return p
@@ -780,7 +781,7 @@ public class RemoveTopicMember: TypetalkRequest {
 		return "topics/\(topicId)/members/remove"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["removeInviteIds": removeInviteIds.map { $0.toJSON() }, "removeMemberIds": removeMemberIds.map { $0.toJSON() }]
 	}
 }
@@ -799,7 +800,7 @@ public class GetTeams: TypetalkRequest {
 		return "teams"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -818,7 +819,7 @@ public class GetFriends: TypetalkRequest {
 		return "search/friends"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -839,7 +840,7 @@ public class SearchAccounts: TypetalkRequest {
 		return "search/accounts"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["nameOrEmailAddress": nameOrEmailAddress.toJSON()]
 	}
 }
@@ -860,7 +861,7 @@ public class GetTalks: TypetalkRequest {
 		return "topics/\(topicId)/talks"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -889,7 +890,7 @@ public class GetTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		var p: [String: AnyObject] = [:]
 		_ = count.map { p["count"] = $0.toJSON() }
 		_ = from.map { p["from"] = $0.toJSON() }
@@ -918,7 +919,7 @@ public class CreateTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["talkName": talkName.toJSON(), "postIds": postIds.map { $0.toJSON() }]
 	}
 }
@@ -943,7 +944,7 @@ public class UpdateTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks/\(talkId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["talkName": talkName.toJSON()]
 	}
 }
@@ -966,7 +967,7 @@ public class DeleteTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks/\(talkId)"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return [:]
 	}
 }
@@ -991,7 +992,7 @@ public class AddMessageToTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["postIds": postIds.map { $0.toJSON() }]
 	}
 }
@@ -1016,7 +1017,7 @@ public class RemoveMessageFromTalk: TypetalkRequest {
 		return "topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
-	public var parameters: [String: AnyObject] {
+	public var parameters: AnyObject? {
 		return ["postIds": postIds.map { $0.toJSON() }]
 	}
 }

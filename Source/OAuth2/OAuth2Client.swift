@@ -10,7 +10,7 @@ import Foundation
 import APIKit
 
 extension TypetalkRequest {
-    public func configureURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+    public func interceptURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
         guard let accessToken = TypetalkAPI.accessToken else {
             throw TypetalkAPIError.CannotBuildURLRequest
         }
@@ -21,7 +21,7 @@ extension TypetalkRequest {
 }
 
 extension TypetalkAPI {
-    public typealias CompletionClosure = (APIError?) -> Void
+    public typealias CompletionClosure = (SessionTaskError?) -> Void
 
     static var state: ClientState = .NotSignedIn
     static private var settings: DeveloperSettings!
@@ -129,7 +129,7 @@ extension TypetalkAPI {
             client_id: settings.clientId,
             redirect_uri: settings.redirectURI!,
             scope: Scope.scopesToRaw(settings.scopes))
-        let param = URLEncodedSerialization.stringFromDictionary(request.parameters)
+        let param = URLEncodedSerialization.stringFromDictionary(request.parameters as! [String: AnyObject])
         let base = request.baseURL.absoluteString
         openURL(NSURL(string: base + "/" + request.path + "?" + param)!)
     }
@@ -206,4 +206,3 @@ extension Scope {
         NSWorkspace.sharedWorkspace().openURL(url)
     }
 #endif
-

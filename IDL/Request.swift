@@ -22,11 +22,11 @@ class GetMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics
     let direction: MessageDirection? = nil
 }
 
-class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)"
+class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId),form"
     let topicId: TopicID
     let message: String
     let replyTo: Int? = nil
-    let showLinkMeta: Bool = true
+    let showLinkMeta: Bool? = nil
     let fileKeys: [String] = []
     let talkIds: [TalkID] = []
     // TODO: attachments[0].fileUrl, attachments[0].fileName
