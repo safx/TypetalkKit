@@ -10,13 +10,11 @@ import Foundation
 import APIKit
 
 extension TypetalkRequest {
-    public func interceptURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
+    public var headerFields: [String : String] {
         guard let accessToken = TypetalkAPI.accessToken else {
-            throw TypetalkAPIError.CannotBuildURLRequest
+            return [:]
         }
-        URLRequest.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
-
-        return URLRequest
+        return ["Authorization": "Bearer \(accessToken)"]
     }
 }
 

@@ -57,8 +57,8 @@ extension DownloadAttachment {
         return obj
     }
 
-    public var headerFields: [String: String] {
-        return ["Content-Type": "application/octet-stream"]
+    public var bodyParameters: BodyParametersType? {
+        return nil
     }
 
     public var dataParser: DataParserType {

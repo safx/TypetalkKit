@@ -56,7 +56,11 @@ public class OAuth2AccountStore {
         if status != OSStatus(errSecDuplicateItem) {
             return status == OSStatus(errSecSuccess)
         }
+        guard removeCredential() else {
+            return false
+        }
 
-        return SecItemUpdate(attributes, attrs) == OSStatus(errSecSuccess)
+        let retryStatus = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
+        return retryStatus == OSStatus(errSecSuccess)
     }
 }
