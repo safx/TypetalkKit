@@ -117,7 +117,7 @@ class ClientAPITests: XCTestCase {
 		createStub("create-topic")
 
 		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(CreateTopic(name: "")) { result in
+		TypetalkAPI.sendRequest(CreateTopic(name: "", spaceKey: "")) { result in
 			switch result {
 			case .Success(let r):
 				XCTAssertEqual(r.integrations.count, 0)

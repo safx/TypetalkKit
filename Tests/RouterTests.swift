@@ -229,32 +229,36 @@ class RouterTests: XCTestCase {
     }
 
     func testCreateTopic() {
-        let req = try! CreateTopic(name: "test topic", teamId: nil, inviteMembers: [], inviteMessage: "").buildURLRequest()
+        let req = try! CreateTopic(name: "test topic", spaceKey: "coffee", inviteMembers: [], inviteMessage: "").buildURLRequest()
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics")
+        let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
+        XCTAssertNotEqual(q.rangeOfString("spaceKey=coffee").location, NSNotFound)
     }
     func testCreateTopic2() {
-        let req = try! CreateTopic(name: "FooBar", teamId: nil, inviteMembers: [], inviteMessage: "").buildURLRequest()
+        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: [], inviteMessage: "").buildURLRequest()
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("spaceKey=coffee").location, NSNotFound)
     }
     func testCreateTopic3() {
-        let req = try! CreateTopic(name: "FooBar", teamId: 919, inviteMembers: [], inviteMessage: "SomeMessage").buildURLRequest()
+        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: [], inviteMessage: "SomeMessage").buildURLRequest()
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
-        XCTAssertNotEqual(q.rangeOfString("teamId=919").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("spaceKey=coffee").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMessage=SomeMessage").location, NSNotFound)
     }
     func testCreateTopic4() {
-        let req = try! CreateTopic(name: "FooBar", teamId: nil, inviteMembers: ["Yamada", "Tanaka"], inviteMessage: "").buildURLRequest()
+        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: ["Yamada", "Tanaka"], inviteMessage: "").buildURLRequest()
         XCTAssertEqual(req.HTTPMethod!, "POST")
         XCTAssertEqual(req.URL!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.HTTPBody!, encoding: NSUTF8StringEncoding)!
         XCTAssertNotEqual(q.rangeOfString("name=FooBar").location, NSNotFound)
+        XCTAssertNotEqual(q.rangeOfString("spaceKey=coffee").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Yamada").location, NSNotFound)
         XCTAssertNotEqual(q.rangeOfString("inviteMembers%5B%5D=Tanaka").location, NSNotFound)
     }

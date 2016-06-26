@@ -567,13 +567,13 @@ public class DeclineTopicInvite: TypetalkRequest {
 public class CreateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
 	public let name: String
-	public let teamId: TeamID?
+	public let spaceKey: String
 	public let inviteMembers: [String]
 	public let inviteMessage: String
 
-	public init(name: String, teamId: TeamID? = nil, inviteMembers: [String] = [], inviteMessage: String = "") {
+	public init(name: String, spaceKey: String, inviteMembers: [String] = [], inviteMessage: String = "") {
 		self.name = name
-		self.teamId = teamId
+		self.spaceKey = spaceKey
 		self.inviteMembers = inviteMembers
 		self.inviteMessage = inviteMessage
 	}
@@ -587,9 +587,7 @@ public class CreateTopic: TypetalkRequest {
 	}
 
 	public var parameters: AnyObject? {
-		var p: [String: AnyObject] = ["name": name.toJSON(), "inviteMembers": inviteMembers.map { $0.toJSON() }, "inviteMessage": inviteMessage.toJSON()]
-		_ = teamId.map { p["teamId"] = $0.toJSON() }
-		return p
+		return ["name": name.toJSON(), "spaceKey": spaceKey.toJSON(), "inviteMembers": inviteMembers.map { $0.toJSON() }, "inviteMessage": inviteMessage.toJSON()]
 	}
 }
 

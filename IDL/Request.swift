@@ -142,7 +142,7 @@ class DeclineTopicInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"
 class CreateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics"
     typealias APIKitResponse = TopicWithAccounts
     let name: String
-    let teamId: TeamID? = nil
+    let spaceKey: String
     let inviteMembers: [String] = []
     let inviteMessage: String = ""
 }
