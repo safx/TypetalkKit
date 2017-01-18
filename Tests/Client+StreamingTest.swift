@@ -14,7 +14,7 @@ import APIKit
 class ClientStreamingAPITests: XCTestCase {
 
     func testAcceptTeamInvite() {
-        let model = try! AcceptTeamInviteEvent.parseJSON(streaming_json("acceptTeamInvite"))
+        let model = try! AcceptTeamInviteEvent.parse(with: streaming_json("acceptTeamInvite"))
 
         XCTAssertEqual(model.topics.count, 1)
         XCTAssertEqual(model.topics[0].name, "Sample topic")
@@ -36,7 +36,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testAddTalkPost() {
-        let model = try! AddTalkPostEvent.parseJSON(streaming_json("addTalkPost"))
+        let model = try! AddTalkPostEvent.parse(with: streaming_json("addTalkPost"))
 
         XCTAssertEqual(model.topic.id, 10999)
         XCTAssertEqual(model.topic.name, "foo")
@@ -57,7 +57,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testCreateTalk() {
-        let model = try! CreateTalkEvent.parseJSON(streaming_json("createTalk"))
+        let model = try! CreateTalkEvent.parse(with: streaming_json("createTalk"))
 
         XCTAssertEqual(model.topic.id, 10000)
         XCTAssertEqual(model.topic.name, "Sample Topic")
@@ -77,7 +77,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testCreateTopic() {
-        let model = try! CreateTopicEvent.parseJSON(streaming_json("createTopic"))
+        let model = try! CreateTopicEvent.parse(with: streaming_json("createTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -94,7 +94,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeclineTeamInvite() {
-        let model = try! DeclineTeamInviteEvent.parseJSON(streaming_json("declineTeamInvite"))
+        let model = try! DeclineTeamInviteEvent.parse(with: streaming_json("declineTeamInvite"))
 
         XCTAssertEqual(model.invite!.id, 9999)
         XCTAssertEqual(model.invite!.team!.id, 1000)
@@ -126,7 +126,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteMessageEvent() {
-        let model = try! DeleteMessageEvent.parseJSON(streaming_json("deleteMessage"))
+        let model = try! DeleteMessageEvent.parse(with: streaming_json("deleteMessage"))
 
         XCTAssertEqual(model.topic!.id, 11111)
         XCTAssertEqual(model.topic!.name, "foobar")
@@ -165,7 +165,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteTalkEvent() {
-        let model = try! DeleteTalkEvent.parseJSON(streaming_json("deleteTalk"))
+        let model = try! DeleteTalkEvent.parse(with: streaming_json("deleteTalk"))
 
         XCTAssertEqual(model.topic.id, 3333)
         XCTAssertEqual(model.topic.name, "Sample topic")
@@ -183,7 +183,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteTopicEvent() {
-        let model = try! DeleteTopicEvent.parseJSON(streaming_json("deleteTopic"))
+        let model = try! DeleteTopicEvent.parse(with: streaming_json("deleteTopic"))
 
         XCTAssertEqual(model.id, 11111)
         XCTAssertEqual(model.name, "Good Topic")
@@ -194,7 +194,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testFavoriteTopicEvent() {
-        let model = try! FavoriteTopicEvent.parseJSON(streaming_json("favoriteTopic"))
+        let model = try! FavoriteTopicEvent.parse(with: streaming_json("favoriteTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -207,7 +207,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testJoinTopicsEvent() {
-        let model = try! JoinTopicsEvent.parseJSON(streaming_json("joinTopics"))
+        let model = try! JoinTopicsEvent.parse(with: streaming_json("joinTopics"))
 
         XCTAssertEqual(model.topics.count, 1)
         let topic = model.topics[0]
@@ -227,7 +227,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testLeaveTopicsEvent() {
-        let model = try! LeaveTopicsEvent.parseJSON(streaming_json("leaveTopics"))
+        let model = try! LeaveTopicsEvent.parse(with: streaming_json("leaveTopics"))
 
         XCTAssertEqual(model.topics.count, 1)
         let topic = model.topics[0]
@@ -241,7 +241,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testLikeMessageEvent() {
-        let model = try! LikeMessageEvent.parseJSON(streaming_json("likeMessage"))
+        let model = try! LikeMessageEvent.parse(with: streaming_json("likeMessage"))
 
         XCTAssertEqual(model.like.id, 111111)
         XCTAssertEqual(model.like.postId, 999999)
@@ -257,7 +257,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testNotifyMentionEvent() {
-        let model = try! NotifyMentionEvent.parseJSON(streaming_json("notifyMention"))
+        let model = try! NotifyMentionEvent.parse(with: streaming_json("notifyMention"))
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertNil(model.mention.readAt)
@@ -272,7 +272,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testPostMessageEvent() {
-        let model = try! PostMessageEvent.parseJSON(streaming_json("postMessage"))
+        let model = try! PostMessageEvent.parse(with: streaming_json("postMessage"))
 
         XCTAssertEqual(model.topic!.id, 3333)
         XCTAssertEqual(model.topic!.name, "Sample topic")
@@ -306,7 +306,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testPostLinksEvent() {
-        let model = try! PostLinksEvent.parseJSON(streaming_json("postLinks"))
+        let model = try! PostLinksEvent.parse(with: streaming_json("postLinks"))
 
         XCTAssertEqual(model.postId, 567899)
         XCTAssertEqual(model.links.count, 1)
@@ -321,7 +321,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testReadMentionEvent() {
-        let model = try! ReadMentionEvent.parseJSON(streaming_json("readMention"))
+        let model = try! ReadMentionEvent.parse(with: streaming_json("readMention"))
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertEqual(model.mention.readAt!.description, "2015-02-15 11:47:18 +0000")
@@ -341,7 +341,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRemoveTalkPostEvent() {
-        let model = try! RemoveTalkPostEvent.parseJSON(streaming_json("removeTalkPost"))
+        let model = try! RemoveTalkPostEvent.parse(with: streaming_json("removeTalkPost"))
 
         XCTAssertEqual(model.topic.id, 10999)
         XCTAssertEqual(model.topic.name, "foo")
@@ -362,7 +362,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRequestTeamInviteEvent() {
-        let model = try! RequestTeamInviteEvent.parseJSON(streaming_json("requestTeamInvite"))
+        let model = try! RequestTeamInviteEvent.parse(with: streaming_json("requestTeamInvite"))
 
         XCTAssertEqual(model.id, 9999)
         XCTAssertEqual(model.team!.id, 1000)
@@ -394,7 +394,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testSaveBookmarkEvent() {
-        let model = try! SaveBookmarkEvent.parseJSON(streaming_json("saveBookmark"))
+        let model = try! SaveBookmarkEvent.parse(with: streaming_json("saveBookmark"))
 
         XCTAssertEqual(model.unread.topicId, 3333)
         XCTAssertEqual(model.unread.postId, 999999)
@@ -402,7 +402,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUnfavoriteTopicEvent() {
-        let model = try! UnfavoriteTopicEvent.parseJSON(streaming_json("unfavoriteTopic"))
+        let model = try! UnfavoriteTopicEvent.parse(with: streaming_json("unfavoriteTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -415,7 +415,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUnlikeMessageEvent() {
-        let model = try! UnlikeMessageEvent.parseJSON(streaming_json("unlikeMessage"))
+        let model = try! UnlikeMessageEvent.parse(with: streaming_json("unlikeMessage"))
 
         XCTAssertEqual(model.like.id, 111111)
         XCTAssertEqual(model.like.postId, 999999)
@@ -431,7 +431,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateNotificationAccessEvent() {
-        let model = try! UpdateNotificationAccessEvent.parseJSON(streaming_json("updateNotificationAccess"))
+        let model = try! UpdateNotificationAccessEvent.parse(with: streaming_json("updateNotificationAccess"))
 
         XCTAssertEqual(model.access!.unopened!, 8)
         XCTAssertTrue(nil == model.mention)
@@ -439,7 +439,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateTalkEvent() {
-        let model = try! UpdateTalkEvent.parseJSON(streaming_json("updateTalk"))
+        let model = try! UpdateTalkEvent.parse(with: streaming_json("updateTalk"))
 
         XCTAssertEqual(model.topic.id, 3333)
         XCTAssertEqual(model.topic.name, "Sample topic")
@@ -459,7 +459,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateTopicEvent() {
-        let model = try! UpdateTopicEvent.parseJSON(streaming_json("updateTopic"))
+        let model = try! UpdateTopicEvent.parse(with: streaming_json("updateTopic"))
 
         XCTAssertEqual(model.id, 11111)
         XCTAssertEqual(model.name, "Super Topic")
@@ -470,7 +470,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRequestTopicInviteEvent() {
-        let model = try! RequestTopicInviteEvent.parseJSON(streaming_json("requestTopicInvite"))
+        let model = try! RequestTopicInviteEvent.parse(with: streaming_json("requestTopicInvite"))
 
         XCTAssertEqual(model.id, 4321)
         XCTAssertEqual(model.topic!.name, "SampleTopic")
@@ -501,7 +501,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testAcceptTopicInviteEvent() {
-        let model = try! AcceptTopicInviteEvent.parseJSON(streaming_json("acceptTopicInvite"))
+        let model = try! AcceptTopicInviteEvent.parse(with: streaming_json("acceptTopicInvite"))
 
         XCTAssertEqual(model.invite.id, 4321)
         XCTAssertEqual(model.invite.topic!.name, "サンプルトピック")
@@ -532,7 +532,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeclineTopicInviteEvent() {
-        let model = try! DeclineTopicInviteEvent.parseJSON(streaming_json("declineTopicInvite"))
+        let model = try! DeclineTopicInviteEvent.parse(with: streaming_json("declineTopicInvite"))
 
         XCTAssertEqual(model.invite.id, 4321)
         XCTAssertEqual(model.invite.topic!.name, "SampleTopic")
@@ -563,7 +563,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testCancelTopicInviteEvent() {
-        let model = try! CancelTopicInviteEvent.parseJSON(streaming_json("cancelTopicInvite"))
+        let model = try! CancelTopicInviteEvent.parse(with: streaming_json("cancelTopicInvite"))
 
         XCTAssertEqual(model.invite.id, 4321)
         XCTAssertEqual(model.invite.topic!.name, "サンプルトピック")

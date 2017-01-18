@@ -8,32 +8,32 @@
 
 import Foundation
 
-public class OAuth2AccountStore {
-    private let serviceName: String
+open class OAuth2AccountStore {
+    fileprivate let serviceName: String
     
     init(serviceName: String) {
         self.serviceName = serviceName
     }
     
-    private var attributes: [String:AnyObject] {
+    fileprivate var attributes: [String:AnyObject] {
         return [
             kSecClass as String: kSecClassGenericPassword,
-            kSecAttrService as String: serviceName,
+            kSecAttrService as String: serviceName as AnyObject,
         ]
     }
     
-    public func queryCredential() -> OAuth2Credential? {
+    open func queryCredential() -> OAuth2Credential? {
         var attrs = attributes
         attrs[kSecReturnAttributes as String] = kCFBooleanTrue
 
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemCopyMatching(attrs, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(to: &result) { SecItemCopyMatching(attrs as CFDictionary, UnsafeMutablePointer($0)) }
 
         if status == OSStatus(errSecSuccess) {
             let q = result as! NSDictionary
             let k = String(kSecAttrGeneric)
-            if let data = q[k] as? NSData {
-                return NSKeyedUnarchiver.unarchiveObjectWithData(data) as! OAuth2Credential?
+            if let data = q[k] as? Data {
+                return NSKeyedUnarchiver.unarchiveObject(with: data) as! OAuth2Credential?
             }
         } else if status != OSStatus(errSecItemNotFound) {
             //
@@ -42,16 +42,16 @@ public class OAuth2AccountStore {
         return nil
     }
 
-    public func removeCredential() -> Bool {
-        return SecItemDelete(attributes) == OSStatus(errSecSuccess)
+    open func removeCredential() -> Bool {
+        return SecItemDelete(attributes as CFDictionary) == OSStatus(errSecSuccess)
     }
     
-    public func saveCredential(credential: OAuth2Credential) -> Bool {
+    open func saveCredential(_ credential: OAuth2Credential) -> Bool {
         var attrs = attributes
-        attrs[kSecAttrGeneric as String] = NSKeyedArchiver.archivedDataWithRootObject(credential)
+        attrs[kSecAttrGeneric as String] = NSKeyedArchiver.archivedData(withRootObject: credential) as AnyObject?
 
         var result: AnyObject?
-        let status = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
+        let status = withUnsafeMutablePointer(to: &result) { SecItemAdd(attrs as CFDictionary, UnsafeMutablePointer($0)) }
 
         if status != OSStatus(errSecDuplicateItem) {
             return status == OSStatus(errSecSuccess)
@@ -60,7 +60,7 @@ public class OAuth2AccountStore {
             return false
         }
 
-        let retryStatus = withUnsafeMutablePointer(&result) { SecItemAdd(attrs, UnsafeMutablePointer($0)) }
+        let retryStatus = withUnsafeMutablePointer(to: &result) { SecItemAdd(attrs as CFDictionary, UnsafeMutablePointer($0)) }
         return retryStatus == OSStatus(errSecSuccess)
     }
 }

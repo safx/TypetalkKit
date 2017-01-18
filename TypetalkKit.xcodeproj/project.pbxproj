@@ -336,6 +336,10 @@
 		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
 		8D0F057B1B8A1D8300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
 		8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
+		8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TypetalkKit-tvos.h"; sourceTree = "<group>"; };
+		8D1C98691E25224C0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypetalkKit_tvosTests.swift; sourceTree = "<group>"; };
+		8D1C98751E25224D0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D4218901AA21138009D2077 /* streaming-acceptTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-acceptTopicInvite.json"; sourceTree = "<group>"; };
 		8D4218911AA21138009D2077 /* streaming-cancelTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-cancelTopicInvite.json"; sourceTree = "<group>"; };
 		8D4218921AA21138009D2077 /* streaming-declineTopicInvite.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "streaming-declineTopicInvite.json"; sourceTree = "<group>"; };
@@ -542,6 +546,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8D1C98671E25224C0036CADD /* TypetalkKit-tvos */ = {
+			isa = PBXGroup;
+			children = (
+				8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */,
+				8D1C98691E25224C0036CADD /* Info.plist */,
+			);
+			path = "TypetalkKit-tvos";
+			sourceTree = "<group>";
+		};
+		8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */ = {
+			isa = PBXGroup;
+			children = (
+				8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */,
+				8D1C98751E25224D0036CADD /* Info.plist */,
+			);
+			path = "TypetalkKit-tvosTests";
+			sourceTree = "<group>";
+		};
 		8D4785491B57D0DF00B37898 /* IDL */ = {
 			isa = PBXGroup;
 			children = (
@@ -627,6 +649,8 @@
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
 				8D4785491B57D0DF00B37898 /* IDL */,
+				8D1C98671E25224C0036CADD /* TypetalkKit-tvos */,
+				8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */,
 				8DBA516919C5B47300BD88A3 /* Products */,
 				8D622B091C187B7D00A743C2 /* Frameworks-iOS */,
 				8D622B251C187ECF00A743C2 /* Frameworks-OSX */,
@@ -938,12 +962,13 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftMigration = 0700;
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Safx Developers";
 				TargetAttributes = {
 					8D4785471B57D0DF00B37898 = {
 						CreatedOnToolsVersion = 7.0;
+						LastSwiftMigration = 0820;
 					};
 					8D9D18471A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -953,9 +978,11 @@
 					};
 					8DBA516719C5B47300BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0820;
 					};
 					8DBA517219C5B47400BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
+						LastSwiftMigration = 0820;
 					};
 				};
 			};
@@ -1383,6 +1410,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1395,6 +1423,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1602,6 +1631,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1623,6 +1653,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -1642,6 +1673,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -1657,6 +1689,7 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};

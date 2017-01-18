@@ -12,7 +12,7 @@ import XCTest
 class InviteTests: XCTestCase {
     
     func testTeamInvite() {
-        let model = try! Invite.parseJSON(json("model_team_invite"))
+        let model = try! Invite.parse(with: json("model_team_invite"))
         
         XCTAssertEqual(model.id, 800)
         XCTAssertEqual(model.team!.id, 702)
@@ -40,7 +40,7 @@ class InviteTests: XCTestCase {
     }
 
     func testTopicInvite() {
-        let model = try! Invite.parseJSON(json("model_topic_invite"))
+        let model = try! Invite.parse(with: json("model_topic_invite"))
         
         XCTAssertEqual(model.id, 601)
         XCTAssertEqual(model.topic!.id, 210)

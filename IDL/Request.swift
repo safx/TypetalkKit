@@ -35,12 +35,12 @@ class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,to
 class UploadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/attachments"
     typealias APIKitResponse = Attachment
     let topicId: TopicID
-    public let name: String     // router:"-"
-    public let contents: NSData // router:"-"
+    open let name: String     // router:"-"
+    open let contents: Data // router:"-"
 }
 
 class DownloadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
-    typealias APIKitResponse = NSData
+    typealias APIKitResponse = Data
     let topicId: TopicID
     let postId: PostID
     let attachmentId: AttachmentID

@@ -12,7 +12,7 @@ import XCTest
 class AccessTokenTests: XCTestCase {
 
     func testProfile() {
-        let model = try! OAuth2Credential.parseJSON(json("model_access_token"))
+        let model = try! OAuth2Credential.parse(with: json("model_access_token"))
         
         XCTAssertEqual(model.accessToken, "@YOUR_ACCESS_TOKEN")
         XCTAssertEqual(model.tokenType, "Bearer")

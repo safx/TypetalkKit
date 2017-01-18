@@ -15,17 +15,17 @@ import OHHTTPStubs
 
 class ClientAPITests: XCTestCase {
 
-    func createStub(name: String) {
-        OHHTTPStubs.stubRequestsPassingTest({ _ in return true }) { _ in
-            let fixture = OHPathForFile("api_\(name).json", self.dynamicType)
+    func createStub(_ name: String) {
+        OHHTTPStubs.stubRequests(passingTest: { _ in return true }) { _ in
+            let fixture = OHPathForFile("api_\(name).json", type(of: self))
             return OHHTTPStubsResponse(fileAtPath: fixture!,
                 statusCode: 200, headers: ["Content-Type":"application/json"])
         }
     }
 
-    func createStubBinary(name: String) {
-        OHHTTPStubs.stubRequestsPassingTest({ _ in return true }) { _ in
-            let fixture = OHPathForFile(name, self.dynamicType)
+    func createStubBinary(_ name: String) {
+        OHHTTPStubs.stubRequests(passingTest: { _ in return true }) { _ in
+            let fixture = OHPathForFile(name, type(of: self))
             return OHHTTPStubsResponse(fileAtPath: fixture!, statusCode: 200, headers: ["Content-Type": "application/octet-stream"])
         }
     }
@@ -44,10 +44,10 @@ class ClientAPITests: XCTestCase {
 	func testAddMessageToTalk() {
 		createStub("add-message-to-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(AddMessageToTalk(topicId: 0, talkId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(AddMessageToTalk(topicId: 0, talkId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -66,12 +66,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -80,10 +80,10 @@ class ClientAPITests: XCTestCase {
 	func testCreateTalk() {
 		createStub("create-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(CreateTalk(topicId: 0, talkName: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(CreateTalk(topicId: 0, talkName: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -102,12 +102,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2016-03-04 02:37:12 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -116,10 +116,10 @@ class ClientAPITests: XCTestCase {
 	func testCreateTopic() {
 		createStub("create-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(CreateTopic(name: "", spaceKey: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(CreateTopic(name: "", spaceKey: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.integrations.count, 0)
 				XCTAssertNil(r.remainingInvitations)
 				XCTAssertEqual(r.groups.count, 1)
@@ -167,12 +167,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.invites.count, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -181,10 +181,10 @@ class ClientAPITests: XCTestCase {
 	func testDeleteMessage() {
 		createStub("delete-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(DeleteMessage(topicId: 0, postId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(DeleteMessage(topicId: 0, postId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topicId, 208)
 				XCTAssertEqual(r.account.name, "jessica")
 				XCTAssertEqual(r.account.imageUrl.absoluteString, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
@@ -205,12 +205,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.createdAt.description, "2016-03-04 02:36:51 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -219,10 +219,10 @@ class ClientAPITests: XCTestCase {
 	func testDeleteTalk() {
 		createStub("delete-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(DeleteTalk(topicId: 0, talkId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(DeleteTalk(topicId: 0, talkId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -238,12 +238,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2016-03-04 02:37:12 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -252,10 +252,10 @@ class ClientAPITests: XCTestCase {
 	func testDeleteTopic() {
 		createStub("delete-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(DeleteTopic(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(DeleteTopic(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.name, "Update test topic")
 				XCTAssertNil(r.lastPostedAt)
 				XCTAssertEqual(r.suggestion, "Update test topic")
@@ -264,12 +264,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.createdAt.description, "2016-03-04 02:37:05 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -278,18 +278,18 @@ class ClientAPITests: XCTestCase {
 	func testDownloadAttachment() {
 		createStubBinary("image.png")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(DownloadAttachment(topicId: 0, postId: 0, attachmentId: 0, filename: "image.png")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(DownloadAttachment(topicId: 0, postId: 0, attachmentId: 0, filename: "image.png")) { result in
 			switch result {
-			case .Success:
+			case .success:
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -298,10 +298,10 @@ class ClientAPITests: XCTestCase {
 	func testFavoriteTopic() {
 		createStub("favorite-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(FavoriteTopic(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(FavoriteTopic(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "VisualDesigners")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
 				XCTAssertEqual(r.topic.suggestion, "VisualDesigners")
@@ -311,12 +311,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.favorite, true)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -325,10 +325,10 @@ class ClientAPITests: XCTestCase {
 	func testGetFriends() {
 		createStub("get-friends")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetFriends()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetFriends()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.accounts.count, 3)
 				XCTAssertEqual(r.accounts[0].name, "brad")
 				XCTAssertEqual(r.accounts[0].imageUrl.absoluteString, "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000")
@@ -353,12 +353,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.accounts[2].createdAt.description, "2014-06-24 02:32:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -367,10 +367,10 @@ class ClientAPITests: XCTestCase {
 	func testGetMentions() {
 		createStub("get-mentions")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetMentions()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetMentions()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.mentions.count, 2)
 				XCTAssertEqual(r.mentions[0].post!.topicId, 203)
 				XCTAssertEqual(r.mentions[0].post!.account.name, "moss")
@@ -420,12 +420,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.mentions[1].readAt!.description, "2014-06-30 15:00:00 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -434,10 +434,10 @@ class ClientAPITests: XCTestCase {
 	func testGetMessage() {
 		createStub("get-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetMessage(topicId: 0, postId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetMessage(topicId: 0, postId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.exceedsAttachmentLimit, false)
 				XCTAssertEqual(r.mySpace!.myRole, "ADMIN")
 				XCTAssertEqual(r.mySpace!.isPaymentAdmin, true)
@@ -606,12 +606,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertNil(r.team)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -620,10 +620,10 @@ class ClientAPITests: XCTestCase {
 	func testGetMessages() {
 		createStub("get-messages")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetMessages(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetMessages(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.hasNext, false)
 				XCTAssertEqual(r.exceedsAttachmentLimit, false)
 				XCTAssertEqual(r.bookmark.postId, 304)
@@ -1021,12 +1021,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertNil(r.team)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1035,22 +1035,22 @@ class ClientAPITests: XCTestCase {
 	func testGetNotificationStatus() {
 		createStub("get-notification-status")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetNotificationStatus()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetNotificationStatus()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.access!.unopened, 0)
 				XCTAssertEqual(r.mention!.unread, 1)
 				XCTAssertEqual(r.invite!.topic!.pending, 2)
 				XCTAssertEqual(r.invite!.team!.pending, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1059,10 +1059,10 @@ class ClientAPITests: XCTestCase {
 	func testGetNotifications() {
 		createStub("get-notifications")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetNotifications()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetNotifications()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.mentions.count, 2)
 				XCTAssertEqual(r.mentions[0].post!.topicId, 203)
 				XCTAssertEqual(r.mentions[0].post!.account.name, "moss")
@@ -1162,12 +1162,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.invites.teams.count, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1176,10 +1176,10 @@ class ClientAPITests: XCTestCase {
 	func testGetProfile() {
 		createStub("get-profile")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetProfile()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetProfile()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.account.name, "jessica")
 				XCTAssertEqual(r.account.imageUrl.absoluteString, "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000")
 				XCTAssertEqual(r.account.suggestion, "Jessica Fitzherbert")
@@ -1189,12 +1189,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.account.createdAt.description, "2014-06-24 02:32:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1203,10 +1203,10 @@ class ClientAPITests: XCTestCase {
 	func testGetSpaceMembers() {
 		createStub("get-space-members")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetSpaceMembers(spaceKey: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetSpaceMembers(spaceKey: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.accounts.count, 7)
 				XCTAssertEqual(r.accounts[0].name, "ahorowitz")
 				XCTAssertEqual(r.accounts[0].imageUrl.absoluteString, "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000")
@@ -1292,12 +1292,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.groups[3].group.name, "WP Team")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1306,10 +1306,10 @@ class ClientAPITests: XCTestCase {
 	func testGetSpaces() {
 		createStub("get-spaces")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetSpaces()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetSpaces()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.mySpaces.count, 2)
 				XCTAssertEqual(r.mySpaces[0].myRole, "ADMIN")
 				XCTAssertEqual(r.mySpaces[0].isPaymentAdmin, true)
@@ -1346,12 +1346,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.mySpaces[1].space.key, "0123456789")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1360,10 +1360,10 @@ class ClientAPITests: XCTestCase {
 	func testGetTalk() {
 		createStub("get-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetTalk(topicId: 0, talkId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetTalk(topicId: 0, talkId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -1509,12 +1509,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1523,10 +1523,10 @@ class ClientAPITests: XCTestCase {
 	func testGetTalks() {
 		createStub("get-talks")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetTalks(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetTalks(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.talks.count, 2)
 				XCTAssertEqual(r.talks[0].topicId, 208)
 				XCTAssertEqual(r.talks[0].name, "2nd talk")
@@ -1544,12 +1544,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talks[1].createdAt.description, "2014-07-02 03:42:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1558,10 +1558,10 @@ class ClientAPITests: XCTestCase {
 	func testGetTopicDetails() {
 		createStub("get-topic-details")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetTopicDetails(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetTopicDetails(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.integrations.count, 0)
 				XCTAssertNil(r.remainingInvitations)
 				XCTAssertEqual(r.groups.count, 1)
@@ -1616,12 +1616,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.invites.count, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1630,10 +1630,10 @@ class ClientAPITests: XCTestCase {
 	func testGetTopicMembers() {
 		createStub("get-topic-members")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetTopicMembers(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetTopicMembers(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.pendings.count, 0)
 				XCTAssertEqual(r.accounts.count, 6)
 				XCTAssertEqual(r.accounts[0].account.name, "ahorowitz")
@@ -1686,12 +1686,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.accounts[5].online, false)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1700,10 +1700,10 @@ class ClientAPITests: XCTestCase {
 	func testGetTopics() {
 		createStub("get-topics")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(GetTopics()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(GetTopics()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topics.count, 9)
 				XCTAssertEqual(r.topics[0].topic.name, "IT Peeps")
 				XCTAssertEqual(r.topics[0].topic.lastPostedAt!.description, "2014-07-01 02:32:29 +0000")
@@ -1797,12 +1797,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.topics[8].favorite, false)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1811,10 +1811,10 @@ class ClientAPITests: XCTestCase {
 	func testLikeMessage() {
 		createStub("like-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(LikeMessage(topicId: 0, postId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(LikeMessage(topicId: 0, postId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.like.comment, "")
 				XCTAssertEqual(r.like.topicId, 208)
 				XCTAssertEqual(r.like.account!.name, "jessica")
@@ -1828,12 +1828,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.like.id, 604)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1842,19 +1842,19 @@ class ClientAPITests: XCTestCase {
 	func testOpenNotification() {
 		createStub("open-notification")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(OpenNotification()) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(OpenNotification()) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.access!.unopened, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1863,10 +1863,10 @@ class ClientAPITests: XCTestCase {
 	func testPostMessage() {
 		createStub("post-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(PostMessage(topicId: 0, message: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(PostMessage(topicId: 0, message: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic!.name, "IT Peeps")
 				XCTAssertEqual(r.topic!.lastPostedAt!.description, "2016-03-04 02:36:51 +0000")
 				XCTAssertEqual(r.topic!.suggestion, "IT Peeps")
@@ -1895,12 +1895,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.exceedsAttachmentLimit, false)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1909,10 +1909,10 @@ class ClientAPITests: XCTestCase {
 	func testRemoveMessageFromTalk() {
 		createStub("remove-message-from-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(RemoveMessageFromTalk(topicId: 0, talkId: 0, postIds: [])) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(RemoveMessageFromTalk(topicId: 0, talkId: 0, postIds: [])) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -1931,12 +1931,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2014-07-02 03:42:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1945,10 +1945,10 @@ class ClientAPITests: XCTestCase {
 	func testSaveReadMention() {
 		createStub("save-read-mention")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(SaveReadMention(mentionId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(SaveReadMention(mentionId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.mention.post!.topicId, 203)
 				XCTAssertEqual(r.mention.post!.account.name, "moss")
 				XCTAssertEqual(r.mention.post!.account.imageUrl.absoluteString, "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000")
@@ -1974,12 +1974,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.mention.readAt!.description, "2016-03-04 02:37:04 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -1988,21 +1988,21 @@ class ClientAPITests: XCTestCase {
 	func testSaveReadTopic() {
 		createStub("save-read-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(SaveReadTopic(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(SaveReadTopic(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.unread.count, 0)
 				XCTAssertEqual(r.unread.topicId, 208)
 				XCTAssertEqual(r.unread.postId, 307)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2011,10 +2011,10 @@ class ClientAPITests: XCTestCase {
 	func testSearchAccounts() {
 		createStub("search-accounts")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(SearchAccounts(nameOrEmailAddress: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(SearchAccounts(nameOrEmailAddress: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.name, "moss")
 				XCTAssertEqual(r.imageUrl.absoluteString, "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000")
 				XCTAssertEqual(r.suggestion, "Moss")
@@ -2024,12 +2024,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.createdAt.description, "2014-06-26 02:32:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2038,10 +2038,10 @@ class ClientAPITests: XCTestCase {
 	func testUnfavoriteTopic() {
 		createStub("unfavorite-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UnfavoriteTopic(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UnfavoriteTopic(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "VisualDesigners")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2014-06-30 02:32:29 +0000")
 				XCTAssertEqual(r.topic.suggestion, "VisualDesigners")
@@ -2051,12 +2051,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.favorite, false)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2065,10 +2065,10 @@ class ClientAPITests: XCTestCase {
 	func testUnlikeMessage() {
 		createStub("unlike-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UnlikeMessage(topicId: 0, postId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UnlikeMessage(topicId: 0, postId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.like.comment, "")
 				XCTAssertEqual(r.like.topicId, 208)
 				XCTAssertEqual(r.like.account!.name, "jessica")
@@ -2082,12 +2082,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.like.id, 604)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2096,10 +2096,10 @@ class ClientAPITests: XCTestCase {
 	func testUpdateMessage() {
 		createStub("update-message")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UpdateMessage(topicId: 0, postId: 0, message: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UpdateMessage(topicId: 0, postId: 0, message: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic!.name, "IT Peeps")
 				XCTAssertEqual(r.topic!.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic!.suggestion, "IT Peeps")
@@ -2127,12 +2127,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.post!.createdAt.description, "2014-07-01 02:32:29 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2141,10 +2141,10 @@ class ClientAPITests: XCTestCase {
 	func testUpdateTalk() {
 		createStub("update-talk")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UpdateTalk(topicId: 0, talkId: 0, talkName: "")) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UpdateTalk(topicId: 0, talkId: 0, talkName: "")) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.topic.name, "IT Peeps")
 				XCTAssertEqual(r.topic.lastPostedAt!.description, "2016-03-04 02:36:56 +0000")
 				XCTAssertEqual(r.topic.suggestion, "IT Peeps")
@@ -2160,12 +2160,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.talk.createdAt.description, "2016-03-04 02:37:12 +0000")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2174,10 +2174,10 @@ class ClientAPITests: XCTestCase {
 	func testUpdateTopicMembers() {
 		createStub("update-topic-members")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UpdateTopicMembers(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UpdateTopicMembers(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.integrations.count, 0)
 				XCTAssertNil(r.remainingInvitations)
 				XCTAssertEqual(r.groups.count, 0)
@@ -2231,12 +2231,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.invites.count, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2245,10 +2245,10 @@ class ClientAPITests: XCTestCase {
 	func testUpdateTopic() {
 		createStub("update-topic")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UpdateTopic(topicId: 0)) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UpdateTopic(topicId: 0)) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.integrations.count, 0)
 				XCTAssertNil(r.remainingInvitations)
 				XCTAssertEqual(r.groups.count, 1)
@@ -2296,12 +2296,12 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.invites.count, 0)
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}
@@ -2310,22 +2310,22 @@ class ClientAPITests: XCTestCase {
 	func testUploadAttachment() {
 		createStub("upload-attachment")
 
-		let expectation = expectationWithDescription("")
-		TypetalkAPI.sendRequest(UploadAttachment(topicId: 0, name: "", contents: NSData())) { result in
+		let expectation = self.expectation(description: "")
+		TypetalkAPI.send(UploadAttachment(topicId: 0, name: "", contents: Data())) { result in
 			switch result {
-			case .Success(let r):
+			case .success(let r):
 				XCTAssertEqual(r.fileKey, "dea1bafbd43c9cb220d3215da0fa22e60790231a")
 				XCTAssertEqual(r.contentType, "image/jpeg")
 				XCTAssertEqual(r.fileSize, 472263)
 				XCTAssertEqual(r.fileName, "sample.jpg")
 
 				expectation.fulfill()
-			case .Failure(let error):
+			case .failure(let error):
 				XCTFail("\(error)")
 			}
 		}
 
-		waitForExpectationsWithTimeout(3) { (error) in
+		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, "\(error)")
 		}
 	}

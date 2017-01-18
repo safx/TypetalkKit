@@ -9,18 +9,18 @@
 import Foundation
 
 
-public enum JSONDecodeError: ErrorType, CustomStringConvertible {
-    case MissingKey(key: String, object: AnyObject)
-    case TypeMismatch(key: String, object: AnyObject, expected: Any.Type, actual: Any.Type)
-    case ValueTranslationFailed(type: Any.Type, object: AnyObject)
-    case NonNullable(key: String, object: AnyObject)
+public enum JSONDecodeError: Error, CustomStringConvertible {
+    case missingKey(key: String, object: Any)
+    case typeMismatch(key: String, object: Any, expected: Any.Type, actual: Any.Type)
+    case valueTranslationFailed(type: Any.Type, object: Any)
+    case nonNullable(key: String, object: Any)
 
     public var description: String {
         switch self {
-        case .MissingKey(let v): return "MissingKey(key=\(v), object=\(v.object))"
-        case .TypeMismatch(let v): return "TypeMismatch(key=\(v.key), object=\(v.object), expected=\(v.expected), actual=\(v.actual))"
-        case .ValueTranslationFailed(let v): return "ValueTranslationFailed(type=\(v), object=\(v.object))"
-        case .NonNullable(let v): return "NonNullable(key=\(v), object=\(v.object))"
+        case .missingKey(let v): return "MissingKey(key=\(v), object=\(v.object))"
+        case .typeMismatch(let v): return "TypeMismatch(key=\(v.key), object=\(v.object), expected=\(v.expected), actual=\(v.actual))"
+        case .valueTranslationFailed(let v): return "ValueTranslationFailed(type=\(v), object=\(v.object))"
+        case .nonNullable(let v): return "NonNullable(key=\(v), object=\(v.object))"
         }
     }
 }

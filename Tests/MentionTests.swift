@@ -12,7 +12,7 @@ import XCTest
 class MentionTests: XCTestCase {
     
     func testExample() {
-        let model = try! Mention.parseJSON(json("model_mention"))
+        let model = try! Mention.parse(with: json("model_mention"))
         
         XCTAssertEqual(model.id, 501)
         XCTAssertEqual(model.readAt!.description, "2014-07-25 03:38:52 +0000")

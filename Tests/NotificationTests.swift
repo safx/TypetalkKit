@@ -13,7 +13,7 @@ import XCTest
 class NotificationTests: XCTestCase {
     
     func testExample() {
-        let model = try! Notifications.parseJSON(json("model_notifications"))
+        let model = try! Notifications.parse(with: json("model_notifications"))
         
         XCTAssertEqual((model.mentions).count, 2)
         let mention = model.mentions[1]

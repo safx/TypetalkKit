@@ -19,15 +19,15 @@ public class Authorize: AuthRequest {
 	}
 
 	public var method: HTTPMethod {
-		return .GET
+		return .get
 	}
 
 	public var path: String {
 		return "authorize"
 	}
 
-	public var parameters: AnyObject? {
-		return ["client_id": client_id.toJSON(), "redirect_uri": redirect_uri.toJSON(), "scope": scope.toJSON(), "response_type": response_type.toJSON()]
+	public var parameters: Any? {
+		return ["client_id": client_id.toJSON() as AnyObject, "redirect_uri": redirect_uri.toJSON() as AnyObject, "scope": scope.toJSON() as AnyObject, "response_type": response_type.toJSON() as AnyObject]
 	}
 }
 
@@ -52,19 +52,19 @@ public class AccessToken: AuthRequest {
 	}
 
 	public var method: HTTPMethod {
-		return .POST
+		return .post
 	}
 
 	public var path: String {
 		return "access_token"
 	}
 
-	public var parameters: AnyObject? {
-		var p: [String: AnyObject] = ["grant_type": grant_type.toJSON(), "client_id": client_id.toJSON(), "client_secret": client_secret.toJSON()]
-		_ = redirect_uri.map { p["redirect_uri"] = $0.toJSON() }
-		_ = code.map { p["code"] = $0.toJSON() }
-		_ = refresh_token.map { p["refresh_token"] = $0.toJSON() }
-		_ = scope.map { p["scope"] = $0.toJSON() }
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["grant_type": grant_type.toJSON() as AnyObject, "client_id": client_id.toJSON() as AnyObject, "client_secret": client_secret.toJSON() as AnyObject]
+		_ = redirect_uri.map { p["redirect_uri"] = $0.toJSON() as AnyObject }
+		_ = code.map { p["code"] = $0.toJSON() as AnyObject }
+		_ = refresh_token.map { p["refresh_token"] = $0.toJSON() as AnyObject }
+		_ = scope.map { p["scope"] = $0.toJSON() as AnyObject }
 		return p
 	}
 }
@@ -84,84 +84,84 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 
 	required public init?(coder: NSCoder) {
 		var failed = false
-		if let accessToken = coder.decodeObjectForKey("accessToken") as? String {
+		if let accessToken = coder.decodeObject(forKey: "accessToken") as? String {
 			self.accessToken = accessToken
 		} else {
 			self.accessToken = String()  // FIXME: set default value
 			failed = true
 		}
-		if let tokenType = coder.decodeObjectForKey("tokenType") as? String {
+		if let tokenType = coder.decodeObject(forKey: "tokenType") as? String {
 			self.tokenType = tokenType
 		} else {
 			self.tokenType = String()  // FIXME: set default value
 			failed = true
 		}
-		if let refreshToken = coder.decodeObjectForKey("refreshToken") as? String {
+		if let refreshToken = coder.decodeObject(forKey: "refreshToken") as? String {
 			self.refreshToken = refreshToken
 		} else {
 			self.refreshToken = String()  // FIXME: set default value
 			failed = true
 		}
-		expiryIn = coder.decodeIntegerForKey("expiryIn")
+		expiryIn = coder.decodeInteger(forKey: "expiryIn")
 		if failed {
 			return // nil
 		}
 	}
 
-	public func encodeWithCoder(coder: NSCoder) {
-		coder.encodeObject(accessToken, forKey: "accessToken")
-		coder.encodeObject(tokenType, forKey: "tokenType")
-		coder.encodeObject(refreshToken, forKey: "refreshToken")
-		coder.encodeInteger(expiryIn, forKey: "expiryIn")
+	public func encode(with coder: NSCoder) {
+		coder.encode(accessToken, forKey: "accessToken")
+		coder.encode(tokenType, forKey: "tokenType")
+		coder.encode(refreshToken, forKey: "refreshToken")
+		coder.encode(expiryIn, forKey: "expiryIn")
 	}
 
-	public class func parseJSON(data: AnyObject) throws -> OAuth2Credential {
-		if !(data is NSDictionary) {
-			throw JSONDecodeError.TypeMismatch(key: "(OAuth2Credential)", object: data, expected: NSDictionary.self, actual: data.dynamicType)
+	public class func parse(with JSONObject: Any) throws -> OAuth2Credential {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
 		}
 
 		let accessToken: String
-		if let v: AnyObject = data["access_token"] {
+		if let v: AnyObject = dic["access_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "access_token", object: data)
+				throw JSONDecodeError.nonNullable(key: "access_token", object: JSONObject)
 			} else {
-				accessToken = try String.parseJSON(v)
+				accessToken = try String.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "access_token", object: data)
+			throw JSONDecodeError.missingKey(key: "access_token", object: JSONObject)
 		}
 
 		let tokenType: String
-		if let v: AnyObject = data["token_type"] {
+		if let v: AnyObject = dic["token_type"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "token_type", object: data)
+				throw JSONDecodeError.nonNullable(key: "token_type", object: JSONObject)
 			} else {
-				tokenType = try String.parseJSON(v)
+				tokenType = try String.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "token_type", object: data)
+			throw JSONDecodeError.missingKey(key: "token_type", object: JSONObject)
 		}
 
 		let refreshToken: String
-		if let v: AnyObject = data["refresh_token"] {
+		if let v: AnyObject = dic["refresh_token"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "refresh_token", object: data)
+				throw JSONDecodeError.nonNullable(key: "refresh_token", object: JSONObject)
 			} else {
-				refreshToken = try String.parseJSON(v)
+				refreshToken = try String.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "refresh_token", object: data)
+			throw JSONDecodeError.missingKey(key: "refresh_token", object: JSONObject)
 		}
 
 		let expiryIn: Int
-		if let v: AnyObject = data["expires_in"] {
+		if let v: AnyObject = dic["expires_in"] {
 			if v is NSNull {
-				throw JSONDecodeError.NonNullable(key: "expires_in", object: data)
+				throw JSONDecodeError.nonNullable(key: "expires_in", object: JSONObject)
 			} else {
-				expiryIn = try Int.parseJSON(v)
+				expiryIn = try Int.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.MissingKey(key: "expires_in", object: data)
+			throw JSONDecodeError.missingKey(key: "expires_in", object: JSONObject)
 		}
 
 		return OAuth2Credential(accessToken: accessToken, tokenType: tokenType, refreshToken: refreshToken, expiryIn: expiryIn)
@@ -169,10 +169,10 @@ public class OAuth2Credential: NSObject, NSCoding, JSONDecodable, JSONEncodable 
 
 	public func toJSON() -> [String: AnyObject] {
 		return [
-			"access_token": accessToken.toJSON(),
-			"token_type": tokenType.toJSON(),
-			"refresh_token": refreshToken.toJSON(),
-			"expires_in": expiryIn.toJSON(),
+			"access_token": accessToken.toJSON() as AnyObject,
+			"token_type": tokenType.toJSON() as AnyObject,
+			"refresh_token": refreshToken.toJSON() as AnyObject,
+			"expires_in": expiryIn.toJSON() as AnyObject,
 		]
 	}
 }

@@ -13,7 +13,7 @@ import XCTest
 class OAuth2ClientTests: XCTestCase {
     
     func testParseQuery() {
-        let d1 = TypetalkAPI.parseQuery(NSURL(string: "typetalkkit://success/?code=ci9em1jbpcqq5dgvdfox5ahvbonuj5ygbzd3mwrgknc6tedp8kuxyxqpgpg8gpe0")!)
+        let d1 = TypetalkAPI.parseQuery(URL(string: "typetalkkit://success/?code=ci9em1jbpcqq5dgvdfox5ahvbonuj5ygbzd3mwrgknc6tedp8kuxyxqpgpg8gpe0")!)
         let v1 = d1["code"]
         XCTAssertEqual(v1!, "ci9em1jbpcqq5dgvdfox5ahvbonuj5ygbzd3mwrgknc6tedp8kuxyxqpgpg8gpe0")
     }

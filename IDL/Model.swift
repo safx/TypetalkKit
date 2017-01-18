@@ -36,9 +36,9 @@ public struct Account: JSONDecodable, ClassInit {
     public let name: String = ""
     public let fullName: String = ""
     public let suggestion: String = ""
-    public let imageUrl: NSURL = NSURL()
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let imageUrl: URL = URL(string: "INVALID")!
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
 }
 
 public struct AccountWithOnlineStatus: JSONDecodable, ClassInit {
@@ -60,17 +60,17 @@ public struct Attachment: JSONDecodable, ClassInit {
 
 public struct Bookmark: JSONDecodable, ClassInit {
     public let postId: PostID = 0
-    public let updatedAt: NSDate = NSDate()
+    public let updatedAt: Date = Date()
 }
 
 public struct Embed: JSONDecodable, ClassInit {
     public let type: String
     public let version: Int
     public let providerName: String // JSON:"provider_name"
-    public let providerURL: NSURL?  // JSON:"provider_url"
+    public let providerURL: URL?  // JSON:"provider_url"
     public let title: String
     public let authorName: String   // JSON:"author_name"
-    public let authorURL: NSURL?    // JSON:"author_url"
+    public let authorURL: URL?    // JSON:"author_url"
     public let html: String
     public let width: Int
     public let height: Int
@@ -81,8 +81,8 @@ public struct Invite: JSONDecodable, ClassInit {
     public let sender: Account?
     public let account: Account?
     public let message: String = ""
-    public let createdAt: NSDate?
-    public let updatedAt: NSDate?
+    public let createdAt: Date?
+    public let updatedAt: Date?
 
     public let mailAddress: String?
     public let status: String = ""
@@ -102,13 +102,13 @@ public struct Like: JSONDecodable, ClassInit {
 
 public struct Link: JSONDecodable, ClassInit {
     public let id: LinkID
-    public let url: NSURL
+    public let url: URL
     public let contentType: String
     public let title: String
     public let description: String
-    public let imageUrl: NSURL
-    public let createdAt: NSDate
-    public let updatedAt: NSDate
+    public let imageUrl: URL
+    public let createdAt: Date
+    public let updatedAt: Date
     public let embed: Embed?
 }
 
@@ -119,7 +119,7 @@ public struct Member: JSONDecodable, ClassInit {
 
 public struct Mention: JSONDecodable, ClassInit {
     public let id: MentionID = 0
-    public let readAt: NSDate? = nil
+    public let readAt: Date? = nil
     public let post: Post?
 }
 
@@ -157,20 +157,20 @@ public struct NotificationStatus: JSONDecodable, ClassInit {
 }
 
 // Using `class` allows us to use recursive value `Mention`
-public class Post: JSONDecodable, ClassInit {
-    public let id: PostID = 0
-    public let topicId: TopicID = 0
-    public let topic: Topic?    // Non-nil from Mention
-    public let replyTo: Int?
-    public let message: String = ""
-    public let account: Account = Account()
-    public let mention: Mention? = nil
-    public let attachments: [URLAttachment] = []
-    public let likes: [Like] = []
-    public let talks: [Talk] = []
-    public let links: [Link] = []
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+open class Post: JSONDecodable, ClassInit {
+    open let id: PostID = 0
+    open let topicId: TopicID = 0
+    open let topic: Topic?    // Non-nil from Mention
+    open let replyTo: Int?
+    open let message: String = ""
+    open let account: Account = Account()
+    open let mention: Mention? = nil
+    open let attachments: [URLAttachment] = []
+    open let likes: [Like] = []
+    open let talks: [Talk] = []
+    open let links: [Link] = []
+    open let createdAt: Date = Date()
+    open let updatedAt: Date = Date()
 }
 
 public struct Talk: JSONDecodable, ClassInit {
@@ -178,8 +178,8 @@ public struct Talk: JSONDecodable, ClassInit {
     public let topicId: TopicID
     public let name: String
     public let suggestion: String
-    public let createdAt: NSDate
-    public let updatedAt: NSDate
+    public let createdAt: Date
+    public let updatedAt: Date
     public let backlog: String?
 }
 
@@ -193,9 +193,9 @@ public struct Talk: JSONDecodable, ClassInit {
 public struct Team: JSONDecodable, ClassInit {
     public let id: TeamID = 0
     public let name: String = ""
-    public let imageUrl: NSURL = NSURL()
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let imageUrl: URL = URL(string: "INVALID")!
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
 }
 
 public struct TeamWithMembers: JSONDecodable, ClassInit {
@@ -219,9 +219,9 @@ public struct Topic: JSONDecodable, ClassInit {
     public let id: TopicID = 0
     public let name: String = ""
     public let suggestion: String = ""
-    public let lastPostedAt: NSDate? = nil
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let lastPostedAt: Date? = nil
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
 }
 
 public struct TopicWithAccounts: JSONDecodable, ClassInit {
@@ -251,8 +251,8 @@ public struct Unread: JSONDecodable, ClassInit {
 
 public struct URLAttachment: JSONDecodable, ClassInit {
     public let attachment: Attachment
-    public let webUrl: NSURL
-    public let apiUrl: NSURL
+    public let webUrl: URL
+    public let apiUrl: URL
     public let thumbnails: [Thumbnail] = []
 }
 
@@ -260,7 +260,7 @@ public struct SpaceBasicInfo: JSONDecodable, ClassInit {
     public let key: String
     public let name: String
     public let enabled: Bool
-    public let imageUrl: NSURL
+    public let imageUrl: URL
 }
 
 public struct Space: JSONDecodable, ClassInit {
@@ -275,9 +275,9 @@ public struct Group: JSONDecodable, ClassInit {
     public let key: String = ""
     public let name: String = ""
     public let suggestion: String = ""
-    public let imageUrl: NSURL = NSURL()
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let imageUrl: URL = URL(string: "INVALID")!
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
 }
 
 public struct GroupWithCount: JSONDecodable, ClassInit {
@@ -291,8 +291,8 @@ public struct PaymentPlan: JSONDecodable, ClassInit {
     public let trial: TrialInfo?
     public let numberOfUsers: Int
     public let totalAttachmentSize: Int
-    public let createdAt: NSDate = NSDate()
-    public let updatedAt: NSDate = NSDate()
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
 }
 
 public struct TrialInfo: JSONDecodable, ClassInit {
