@@ -15,72 +15,66 @@ class DetailViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         tableView.estimatedRowHeight = 44
         tableView.rowHeight = UITableViewAutomaticDimension
-        
+
         self.title = detailItem?.topic.name
         getMessages()
 
         weak var weakTableView = self.tableView
-        TypetalkAPI.streaming { (event) in
+        _ = TypetalkAPI.streaming { (event) in
             switch event {
-            case .Connected             : print("connected")
-            case .Disconnected(let err) : print("disconnected: \(err)")
-            case .PostMessage(let res)  :
-                self.appendNewPost(res.post!)
-                dispatch_async(dispatch_get_main_queue()) { () -> Void in
+            case .connected             : print("connected")
+            case .disconnected(let err) : print("disconnected: \(err)")
+            case .postMessage(let res)  :
+                self.append(newPost: res.post!)
+                DispatchQueue.main.async { () -> Void in
                     weakTableView?.reloadData()
                 }
             default: ()
             }
         }
     }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
-    func getMessages() {
+    fileprivate func getMessages() {
         if let topic = detailItem {
             let topicid = topic.topic.id
 
-            TypetalkAPI.sendRequest(GetMessages(topicId: topicid)) { result -> Void in
+            TypetalkAPI.send(GetMessages(topicId: topicid)) { result -> Void in
                 switch result {
-                case .Success(let ms):
+                case .success(let ms):
                     self.posts = ms.posts
                     self.tableView.reloadData()
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
                 }
             }
         }
     }
-    
+
     // MARK: - Table view data source
-    
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-    
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return posts.count
     }
-    
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let m = posts[indexPath.row]
-        let cell = tableView.dequeueReusableCellWithIdentifier("MessageCell", forIndexPath: indexPath) as! MessageCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
         cell.model = m
         return cell
     }
 
-    func appendNewPost(post: Post) {
+    fileprivate func append(newPost post: Post) {
         let row = posts.count
         posts.append(post)
-        let indexPath = NSIndexPath(forRow: row, inSection: 0)
-        tableView.insertRowsAtIndexPaths([indexPath], withRowAnimation: .None)
-        tableView.scrollToRowAtIndexPath(indexPath, atScrollPosition: .Bottom, animated: true)
+        let indexPath = IndexPath(row: row, section: 0)
+        tableView.insertRows(at: [indexPath], with: .none)
+        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }
-
