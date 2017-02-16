@@ -22,10 +22,10 @@ class MessageCell: NSTableCellView {
             accountName.stringValue = model!.account.name
             
             let url = model!.account.imageUrl.absoluteString
-             Alamofire.request(.GET, url)
-                .response { (request, response, data, error) in
-                    if let d = data {
-                        self.accountImage.image = NSImage(data: d)
+            Alamofire.request(url)
+                .response { response in
+                    if let data = response.data, let image = NSImage(data: data) {
+                        self.accountImage.image = image
                     }
                 }
         }
