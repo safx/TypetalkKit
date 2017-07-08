@@ -21,6 +21,46 @@ public class GetProfile: TypetalkRequest {
 
 }
 
+public class GetFriendProfile: TypetalkRequest {
+	public typealias APIKitResponse = AccountWithLoginStatus
+	public let accountName: String
+
+	public init(accountName: String) {
+		self.accountName = accountName
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "accounts/profile/\(accountName)"
+	}
+
+}
+
+public class GetOnlineStatus: TypetalkRequest {
+	public typealias APIKitResponse = GetOnlineStatusResponse
+	public typealias Response = GetOnlineStatusResponse
+	public let accountIds: [Int]
+
+	public init(accountIds: [Int]) {
+		self.accountIds = accountIds
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "accounts/status"
+	}
+
+	public var parameters: Any? {
+		return ["accountIds": accountIds.map { $0.toJSON() } as AnyObject]
+	}
+}
+
 public class GetTopics: TypetalkRequest {
 	public typealias APIKitResponse = GetTopicsResponse
 	public typealias Response = GetTopicsResponse
@@ -38,15 +78,31 @@ public class GetTopics: TypetalkRequest {
 
 }
 
+public class GetDmTopics: TypetalkRequest {
+	public typealias APIKitResponse = DirectMessageTopic
+
+	public init() {
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "messages"
+	}
+
+}
+
 public class GetMessages: TypetalkRequest {
 	public typealias APIKitResponse = GetMessagesResponse
 	public typealias Response = GetMessagesResponse
-	public let topicId: TopicID
+	public let topicId: Int
 	public let count: Int?
-	public let from: PostID?
+	public let from: Int?
 	public let direction: MessageDirection?
 
-	public init(topicId: TopicID, count: Int? = nil, from: PostID? = nil, direction: MessageDirection? = nil) {
+	public init(topicId: Int, count: Int? = nil, from: Int? = nil, direction: MessageDirection? = nil) {
 		self.topicId = topicId
 		self.count = count
 		self.from = from
@@ -73,14 +129,14 @@ public class GetMessages: TypetalkRequest {
 public class PostMessage: TypetalkRequest {
 	public typealias APIKitResponse = PostMessageResponse
 	public typealias Response = PostMessageResponse
-	public let topicId: TopicID
+	public let topicId: Int
 	public let message: String
 	public let replyTo: Int?
 	public let showLinkMeta: Bool?
 	public let fileKeys: [String]
-	public let talkIds: [TalkID]
+	public let talkIds: [Int]
 
-	public init(topicId: TopicID, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [TalkID] = []) {
+	public init(topicId: Int, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = []) {
 		self.topicId = topicId
 		self.message = message
 		self.replyTo = replyTo
@@ -107,11 +163,11 @@ public class PostMessage: TypetalkRequest {
 
 public class UploadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Attachment
-	public let topicId: TopicID
+	public let topicId: Int
 	public let name: String // router:"-"
 	public let contents: Data // router:"-"
 
-	public init(topicId: TopicID, name: String, contents: Data) {
+	public init(topicId: Int, name: String, contents: Data) {
 		self.topicId = topicId
 		self.name = name
 		self.contents = contents
@@ -129,13 +185,13 @@ public class UploadAttachment: TypetalkRequest {
 
 public class DownloadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Data
-	public let topicId: TopicID
-	public let postId: PostID
-	public let attachmentId: AttachmentID
+	public let topicId: Int
+	public let postId: Int
+	public let attachmentId: Int
 	public let filename: String
 	public let type: AttachmentType?
 
-	public init(topicId: TopicID, postId: PostID, attachmentId: AttachmentID, filename: String, type: AttachmentType? = nil) {
+	public init(topicId: Int, postId: Int, attachmentId: Int, filename: String, type: AttachmentType? = nil) {
 		self.topicId = topicId
 		self.postId = postId
 		self.attachmentId = attachmentId
@@ -161,9 +217,9 @@ public class DownloadAttachment: TypetalkRequest {
 public class GetTopicMembers: TypetalkRequest {
 	public typealias APIKitResponse = GetTopicMembersResponse
 	public typealias Response = GetTopicMembersResponse
-	public let topicId: TopicID
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -180,10 +236,10 @@ public class GetTopicMembers: TypetalkRequest {
 public class GetMessage: TypetalkRequest {
 	public typealias APIKitResponse = GetMessageResponse
 	public typealias Response = GetMessageResponse
-	public let topicId: TopicID
-	public let postId: PostID
+	public let topicId: Int
+	public let postId: Int
 
-	public init(topicId: TopicID, postId: PostID) {
+	public init(topicId: Int, postId: Int) {
 		self.topicId = topicId
 		self.postId = postId
 	}
@@ -200,11 +256,11 @@ public class GetMessage: TypetalkRequest {
 
 public class UpdateMessage: TypetalkRequest {
 	public typealias APIKitResponse = PostMessageResponse
-	public let topicId: TopicID
-	public let postId: PostID
+	public let topicId: Int
+	public let postId: Int
 	public let message: String
 
-	public init(topicId: TopicID, postId: PostID, message: String) {
+	public init(topicId: Int, postId: Int, message: String) {
 		self.topicId = topicId
 		self.postId = postId
 		self.message = message
@@ -225,10 +281,10 @@ public class UpdateMessage: TypetalkRequest {
 
 public class DeleteMessage: TypetalkRequest {
 	public typealias APIKitResponse = Post
-	public let topicId: TopicID
-	public let postId: PostID
+	public let topicId: Int
+	public let postId: Int
 
-	public init(topicId: TopicID, postId: PostID) {
+	public init(topicId: Int, postId: Int) {
 		self.topicId = topicId
 		self.postId = postId
 	}
@@ -246,10 +302,10 @@ public class DeleteMessage: TypetalkRequest {
 public class LikeMessage: TypetalkRequest {
 	public typealias APIKitResponse = LikeMessageResponse
 	public typealias Response = LikeMessageResponse
-	public let topicId: TopicID
-	public let postId: PostID
+	public let topicId: Int
+	public let postId: Int
 
-	public init(topicId: TopicID, postId: PostID) {
+	public init(topicId: Int, postId: Int) {
 		self.topicId = topicId
 		self.postId = postId
 	}
@@ -266,10 +322,10 @@ public class LikeMessage: TypetalkRequest {
 
 public class UnlikeMessage: TypetalkRequest {
 	public typealias APIKitResponse = LikeMessageResponse
-	public let topicId: TopicID
-	public let postId: PostID
+	public let topicId: Int
+	public let postId: Int
 
-	public init(topicId: TopicID, postId: PostID) {
+	public init(topicId: Int, postId: Int) {
 		self.topicId = topicId
 		self.postId = postId
 	}
@@ -285,10 +341,11 @@ public class UnlikeMessage: TypetalkRequest {
 }
 
 public class FavoriteTopic: TypetalkRequest {
-	public typealias APIKitResponse = TopicWithUserInfo
-	public let topicId: TopicID
+	public typealias APIKitResponse = FavoriteTopicResponse
+	public typealias Response = FavoriteTopicResponse
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -303,10 +360,10 @@ public class FavoriteTopic: TypetalkRequest {
 }
 
 public class UnfavoriteTopic: TypetalkRequest {
-	public typealias APIKitResponse = TopicWithUserInfo
-	public let topicId: TopicID
+	public typealias APIKitResponse = FavoriteTopicResponse
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -318,6 +375,73 @@ public class UnfavoriteTopic: TypetalkRequest {
 		return "topics/\(topicId)/favorite"
 	}
 
+}
+
+public class GetDirectMessages: TypetalkRequest {
+	public typealias APIKitResponse = GetDirectMessagesResponse
+	public typealias Response = GetDirectMessagesResponse
+	public let accountName: String
+	public let count: Int?
+	public let from: Int?
+	public let direction: MessageDirection?
+
+	public init(accountName: String, count: Int? = nil, from: Int? = nil, direction: MessageDirection? = nil) {
+		self.accountName = accountName
+		self.count = count
+		self.from = from
+		self.direction = direction
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "messages/@\(accountName)"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = [:]
+		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
+		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
+		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		return p
+	}
+}
+
+public class PostDirectMessage: TypetalkRequest {
+	public typealias APIKitResponse = PostDirectMessageResponse
+	public typealias Response = PostDirectMessageResponse
+	public let accountName: String
+	public let message: String
+	public let replyTo: Int?
+	public let showLinkMeta: Bool?
+	public let fileKeys: [String]
+	public let talkIds: [Int]
+
+	public init(accountName: String, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = []) {
+		self.accountName = accountName
+		self.message = message
+		self.replyTo = replyTo
+		self.showLinkMeta = showLinkMeta
+		self.fileKeys = fileKeys
+		self.talkIds = talkIds
+	}
+
+	public var method: HTTPMethod {
+		return .post
+	}
+
+	public var path: String {
+		return "messages/@\(accountName)"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["message": message.toJSON() as AnyObject, "fileKeys": fileKeys.map { $0.toJSON() } as AnyObject, "talkIds": talkIds.map { $0.toJSON() } as AnyObject]
+		_ = replyTo.map { p["replyTo"] = $0.toJSON() as AnyObject }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() as AnyObject }
+		return p
+	}
 }
 
 public class GetNotifications: TypetalkRequest {
@@ -371,10 +495,10 @@ public class OpenNotification: TypetalkRequest {
 public class SaveReadTopic: TypetalkRequest {
 	public typealias APIKitResponse = SaveReadTopicResponse
 	public typealias Response = SaveReadTopicResponse
-	public let topicId: TopicID
-	public let postId: PostID?
+	public let topicId: Int
+	public let postId: Int?
 
-	public init(topicId: TopicID, postId: PostID? = nil) {
+	public init(topicId: Int, postId: Int? = nil) {
 		self.topicId = topicId
 		self.postId = postId
 	}
@@ -397,10 +521,10 @@ public class SaveReadTopic: TypetalkRequest {
 public class GetMentions: TypetalkRequest {
 	public typealias APIKitResponse = GetMentionsResponse
 	public typealias Response = GetMentionsResponse
-	public let from: MentionID?
+	public let from: Int?
 	public let unread: Bool?
 
-	public init(from: MentionID? = nil, unread: Bool? = nil) {
+	public init(from: Int? = nil, unread: Bool? = nil) {
 		self.from = from
 		self.unread = unread
 	}
@@ -424,9 +548,9 @@ public class GetMentions: TypetalkRequest {
 public class SaveReadMention: TypetalkRequest {
 	public typealias APIKitResponse = SaveReadMentionResponse
 	public typealias Response = SaveReadMentionResponse
-	public let mentionId: MentionID
+	public let mentionId: Int
 
-	public init(mentionId: MentionID) {
+	public init(mentionId: Int) {
 		self.mentionId = mentionId
 	}
 
@@ -440,100 +564,18 @@ public class SaveReadMention: TypetalkRequest {
 
 }
 
-public class AcceptTeamInvite: TypetalkRequest {
-	public typealias APIKitResponse = AcceptTeamInviteResponse
-	public typealias Response = AcceptTeamInviteResponse
-	public let teamId: TeamID
-	public let inviteId: InviteID
-
-	public init(teamId: TeamID, inviteId: InviteID) {
-		self.teamId = teamId
-		self.inviteId = inviteId
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "teams/\(teamId)/members/invite/\(inviteId)/accept"
-	}
-
-}
-
-public class DeclineTeamInvite: TypetalkRequest {
-	public typealias APIKitResponse = Invite
-	public let teamId: TeamID
-	public let inviteId: InviteID
-
-	public init(teamId: TeamID, inviteId: InviteID) {
-		self.teamId = teamId
-		self.inviteId = inviteId
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "teams/\(teamId)/members/invite/\(inviteId)/decline"
-	}
-
-}
-
-public class AcceptTopicInvite: TypetalkRequest {
-	public typealias APIKitResponse = AcceptTopicInviteResponse
-	public typealias Response = AcceptTopicInviteResponse
-	public let topicId: TopicID
-	public let inviteId: InviteID
-
-	public init(topicId: TopicID, inviteId: InviteID) {
-		self.topicId = topicId
-		self.inviteId = inviteId
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "topics/\(topicId)/members/invite/\(inviteId)/accept"
-	}
-
-}
-
-public class DeclineTopicInvite: TypetalkRequest {
-	public typealias APIKitResponse = AcceptTopicInviteResponse
-	public let topicId: TopicID
-	public let inviteId: InviteID
-
-	public init(topicId: TopicID, inviteId: InviteID) {
-		self.topicId = topicId
-		self.inviteId = inviteId
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "topics/\(topicId)/members/invite/\(inviteId)/decline"
-	}
-
-}
-
 public class CreateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
 	public let name: String
 	public let spaceKey: String
-	public let inviteMembers: [String]
-	public let inviteMessage: String
+	public let addAccountIds: [Int]
+	public let addGroupIds: [Int]
 
-	public init(name: String, spaceKey: String, inviteMembers: [String] = [], inviteMessage: String = "") {
+	public init(name: String, spaceKey: String, addAccountIds: [Int] = [], addGroupIds: [Int] = []) {
 		self.name = name
 		self.spaceKey = spaceKey
-		self.inviteMembers = inviteMembers
-		self.inviteMessage = inviteMessage
+		self.addAccountIds = addAccountIds
+		self.addGroupIds = addGroupIds
 	}
 
 	public var method: HTTPMethod {
@@ -545,20 +587,20 @@ public class CreateTopic: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["name": name.toJSON() as AnyObject, "spaceKey": spaceKey.toJSON() as AnyObject, "inviteMembers": inviteMembers.map { $0.toJSON() } as AnyObject, "inviteMessage": inviteMessage.toJSON() as AnyObject]
+		return ["name": name.toJSON() as AnyObject, "spaceKey": spaceKey.toJSON() as AnyObject, "addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject]
 	}
 }
 
 public class UpdateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
-	public let topicId: TopicID
+	public let topicId: Int
 	public let name: String?
-	public let teamId: TeamID?
+	public let description: String?
 
-	public init(topicId: TopicID, name: String? = nil, teamId: TeamID? = nil) {
+	public init(topicId: Int, name: String? = nil, description: String? = nil) {
 		self.topicId = topicId
 		self.name = name
-		self.teamId = teamId
+		self.description = description
 	}
 
 	public var method: HTTPMethod {
@@ -572,16 +614,16 @@ public class UpdateTopic: TypetalkRequest {
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
 		_ = name.map { p["name"] = $0.toJSON() as AnyObject }
-		_ = teamId.map { p["teamId"] = $0.toJSON() as AnyObject }
+		_ = description.map { p["description"] = $0.toJSON() as AnyObject }
 		return p
 	}
 }
 
 public class DeleteTopic: TypetalkRequest {
 	public typealias APIKitResponse = Topic
-	public let topicId: TopicID
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -597,9 +639,9 @@ public class DeleteTopic: TypetalkRequest {
 
 public class GetTopicDetails: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
-	public let topicId: TopicID
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -615,17 +657,15 @@ public class GetTopicDetails: TypetalkRequest {
 
 public class UpdateTopicMembers: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
-	public let topicId: TopicID
-	public let addAccountIds: [String]
-	public let addGroupIds: [String]
-	public let removeAccountIds: [Int]
+	public let topicId: Int
+	public let addAccountIds: [Int]
+	public let addGroupIds: [Int]
 	public let removeGroupIds: [Int]
 
-	public init(topicId: TopicID, addAccountIds: [String] = [], addGroupIds: [String] = [], removeAccountIds: [Int] = [], removeGroupIds: [Int] = []) {
+	public init(topicId: Int, addAccountIds: [Int] = [], addGroupIds: [Int] = [], removeGroupIds: [Int] = []) {
 		self.topicId = topicId
 		self.addAccountIds = addAccountIds
 		self.addGroupIds = addGroupIds
-		self.removeAccountIds = removeAccountIds
 		self.removeGroupIds = removeGroupIds
 	}
 
@@ -638,7 +678,7 @@ public class UpdateTopicMembers: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject, "removeAccountIds": removeAccountIds.map { $0.toJSON() } as AnyObject, "removeGroupIds": removeGroupIds.map { $0.toJSON() } as AnyObject]
+		return ["addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject, "removeGroupIds": removeGroupIds.map { $0.toJSON() } as AnyObject]
 	}
 }
 
@@ -679,75 +719,6 @@ public class GetSpaceMembers: TypetalkRequest {
 
 	public var path: String {
 		return "spaces/\(spaceKey)/members"
-	}
-
-}
-
-public class InviteTopicMember: TypetalkRequest {
-	public typealias APIKitResponse = TopicWithAccounts
-	public let topicId: TopicID
-	public let inviteMembers: [String]
-	public let inviteMessage: String?
-
-	public init(topicId: TopicID, inviteMembers: [String] = [], inviteMessage: String? = nil) {
-		self.topicId = topicId
-		self.inviteMembers = inviteMembers
-		self.inviteMessage = inviteMessage
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "topics/\(topicId)/members/invite"
-	}
-
-	public var parameters: Any? {
-		var p: [String: AnyObject] = ["inviteMembers": inviteMembers.map { $0.toJSON() } as AnyObject]
-		_ = inviteMessage.map { p["inviteMessage"] = $0.toJSON() as AnyObject }
-		return p
-	}
-}
-
-public class RemoveTopicMember: TypetalkRequest {
-	public typealias APIKitResponse = TopicWithAccounts
-	public let topicId: TopicID
-	public let removeInviteIds: [InviteID]
-	public let removeMemberIds: [AccountID]
-
-	public init(topicId: TopicID, removeInviteIds: [InviteID] = [], removeMemberIds: [AccountID] = []) {
-		self.topicId = topicId
-		self.removeInviteIds = removeInviteIds
-		self.removeMemberIds = removeMemberIds
-	}
-
-	public var method: HTTPMethod {
-		return .post
-	}
-
-	public var path: String {
-		return "topics/\(topicId)/members/remove"
-	}
-
-	public var parameters: Any? {
-		return ["removeInviteIds": removeInviteIds.map { $0.toJSON() } as AnyObject, "removeMemberIds": removeMemberIds.map { $0.toJSON() } as AnyObject]
-	}
-}
-
-public class GetTeams: TypetalkRequest {
-	public typealias APIKitResponse = GetTeamsResponse
-	public typealias Response = GetTeamsResponse
-
-	public init() {
-	}
-
-	public var method: HTTPMethod {
-		return .get
-	}
-
-	public var path: String {
-		return "teams"
 	}
 
 }
@@ -793,9 +764,9 @@ public class SearchAccounts: TypetalkRequest {
 public class GetTalks: TypetalkRequest {
 	public typealias APIKitResponse = GetTalksResponse
 	public typealias Response = GetTalksResponse
-	public let topicId: TopicID
+	public let topicId: Int
 
-	public init(topicId: TopicID) {
+	public init(topicId: Int) {
 		self.topicId = topicId
 	}
 
@@ -812,13 +783,13 @@ public class GetTalks: TypetalkRequest {
 public class GetTalk: TypetalkRequest {
 	public typealias APIKitResponse = GetTalkResponse
 	public typealias Response = GetTalkResponse
-	public let topicId: TopicID
-	public let talkId: TalkID
+	public let topicId: Int
+	public let talkId: Int
 	public let count: Int?
-	public let from: PostID?
+	public let from: Int?
 	public let direction: MessageDirection?
 
-	public init(topicId: TopicID, talkId: TalkID, count: Int? = nil, from: PostID? = nil, direction: MessageDirection? = nil) {
+	public init(topicId: Int, talkId: Int, count: Int? = nil, from: Int? = nil, direction: MessageDirection? = nil) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.count = count
@@ -846,11 +817,11 @@ public class GetTalk: TypetalkRequest {
 public class CreateTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
 	public typealias Response = CreateTalkResponse
-	public let topicId: TopicID
+	public let topicId: Int
 	public let talkName: String
-	public let postIds: [PostID]
+	public let postIds: [Int]
 
-	public init(topicId: TopicID, talkName: String, postIds: [PostID] = []) {
+	public init(topicId: Int, talkName: String, postIds: [Int] = []) {
 		self.topicId = topicId
 		self.talkName = talkName
 		self.postIds = postIds
@@ -872,11 +843,11 @@ public class CreateTalk: TypetalkRequest {
 public class UpdateTalk: TypetalkRequest {
 	public typealias APIKitResponse = UpdateTalkResponse
 	public typealias Response = UpdateTalkResponse
-	public let topicId: TopicID
-	public let talkId: TalkID
+	public let topicId: Int
+	public let talkId: Int
 	public let talkName: String
 
-	public init(topicId: TopicID, talkId: TalkID, talkName: String) {
+	public init(topicId: Int, talkId: Int, talkName: String) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.talkName = talkName
@@ -897,10 +868,10 @@ public class UpdateTalk: TypetalkRequest {
 
 public class DeleteTalk: TypetalkRequest {
 	public typealias APIKitResponse = UpdateTalkResponse
-	public let topicId: TopicID
-	public let talkId: TalkID
+	public let topicId: Int
+	public let talkId: Int
 
-	public init(topicId: TopicID, talkId: TalkID) {
+	public init(topicId: Int, talkId: Int) {
 		self.topicId = topicId
 		self.talkId = talkId
 	}
@@ -917,11 +888,11 @@ public class DeleteTalk: TypetalkRequest {
 
 public class AddMessageToTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
-	public let topicId: TopicID
-	public let talkId: TalkID
-	public let postIds: [PostID]
+	public let topicId: Int
+	public let talkId: Int
+	public let postIds: [Int]
 
-	public init(topicId: TopicID, talkId: TalkID, postIds: [PostID] = []) {
+	public init(topicId: Int, talkId: Int, postIds: [Int] = []) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.postIds = postIds
@@ -942,11 +913,11 @@ public class AddMessageToTalk: TypetalkRequest {
 
 public class RemoveMessageFromTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
-	public let topicId: TopicID
-	public let talkId: TalkID
-	public let postIds: [PostID]
+	public let topicId: Int
+	public let talkId: Int
+	public let postIds: [Int]
 
-	public init(topicId: TopicID, talkId: TalkID, postIds: [PostID] = []) {
+	public init(topicId: Int, talkId: Int, postIds: [Int] = []) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.postIds = postIds

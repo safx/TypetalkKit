@@ -32,25 +32,25 @@ class RouterTests: XCTestCase {
     }
 
     func testGetMessages() {
-        let req = try! GetMessages(topicId: 312, count: nil, from: nil, direction: nil).buildURLRequest()
+        let req = try! GetMessages(topicId: 312).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/312")
     }
 
     func testGetMessages2() {
-        let req = try! GetMessages(topicId: 312, count: 98, from: nil, direction: nil).buildURLRequest()
+        let req = try! GetMessages(topicId: 312, count: 98).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/312?count=98")
     }
 
     func testGetMessages3() {
-        let req = try! GetMessages(topicId: 312, count: nil, from: 178, direction: nil).buildURLRequest()
+        let req = try! GetMessages(topicId: 312, from: 178).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/312?from=178")
     }
 
     func testGetMessages4() {
-        let req = try! GetMessages(topicId: 312, count: nil, from: nil, direction: MessageDirection.Backward).buildURLRequest()
+        let req = try! GetMessages(topicId: 312, direction: .Backward).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/312?direction=backward")
     }
@@ -230,14 +230,14 @@ class RouterTests: XCTestCase {
     }
 
     func testCreateTopic() {
-        let req = try! CreateTopic(name: "test topic", spaceKey: "coffee", inviteMembers: [], inviteMessage: "").buildURLRequest()
+        let req = try! CreateTopic(name: "test topic", spaceKey: "coffee").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "POST")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
         XCTAssertNotEqual(q.range(of: "spaceKey=coffee").location, NSNotFound)
     }
     func testCreateTopic2() {
-        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: [], inviteMessage: "").buildURLRequest()
+        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "POST")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
@@ -245,32 +245,25 @@ class RouterTests: XCTestCase {
         XCTAssertNotEqual(q.range(of: "spaceKey=coffee").location, NSNotFound)
     }
     func testCreateTopic3() {
-        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: [], inviteMessage: "SomeMessage").buildURLRequest()
+        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", addAccountIds: [101, 9999], addGroupIds: [17, 58]).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "POST")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
         XCTAssertNotEqual(q.range(of: "name=FooBar").location, NSNotFound)
         XCTAssertNotEqual(q.range(of: "spaceKey=coffee").location, NSNotFound)
-        XCTAssertNotEqual(q.range(of: "inviteMessage=SomeMessage").location, NSNotFound)
-    }
-    func testCreateTopic4() {
-        let req = try! CreateTopic(name: "FooBar", spaceKey: "coffee", inviteMembers: ["Yamada", "Tanaka"], inviteMessage: "").buildURLRequest()
-        XCTAssertEqual(req.httpMethod!, "POST")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics")
-        let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
-        XCTAssertNotEqual(q.range(of: "name=FooBar").location, NSNotFound)
-        XCTAssertNotEqual(q.range(of: "spaceKey=coffee").location, NSNotFound)
-        XCTAssertNotEqual(q.range(of: "inviteMembers%5B%5D=Yamada").location, NSNotFound)
-        XCTAssertNotEqual(q.range(of: "inviteMembers%5B%5D=Tanaka").location, NSNotFound)
+        XCTAssertNotEqual(q.range(of: "addAccountIds%5B%5D=101").location, NSNotFound)
+        XCTAssertNotEqual(q.range(of: "addAccountIds%5B%5D=9999").location, NSNotFound)
+        XCTAssertNotEqual(q.range(of: "addGroupIds%5B%5D=17").location, NSNotFound)
+        XCTAssertNotEqual(q.range(of: "addGroupIds%5B%5D=58").location, NSNotFound)
     }
 
     func testUpdateTopic() {
-        let req = try! UpdateTopic(topicId: 3154, name: nil, teamId: nil).buildURLRequest()
+        let req = try! UpdateTopic(topicId: 3154).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "PUT")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/3154")
     }
     func testUpdateTopic2() {
-        let req = try! UpdateTopic(topicId: 3154, name: "NewTopicName", teamId: nil).buildURLRequest()
+        let req = try! UpdateTopic(topicId: 3154, name: "NewTopicName").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "PUT")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/3154")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
@@ -278,12 +271,12 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(q.range(of: "teamId=").location, NSNotFound)
     }
     func testUpdateTopic3() {
-        let req = try! UpdateTopic(topicId: 3154, name: nil, teamId: 1111).buildURLRequest()
+        let req = try! UpdateTopic(topicId: 3154, description: "Foo bar").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "PUT")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/3154")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
         XCTAssertEqual(q.range(of: "name=").location, NSNotFound)
-        XCTAssertNotEqual(q.range(of: "teamId=1111").location, NSNotFound)
+        XCTAssertNotEqual(q.range(of: "description=Foo%20bar").location, NSNotFound)
     }
 
     func testDeleteTopic() {
@@ -317,22 +310,22 @@ class RouterTests: XCTestCase {
     }
 
     func testGetTalk() {
-        let req = try! GetTalk(topicId: 135, talkId: 468, count: nil, from: nil, direction: nil).buildURLRequest()
+        let req = try! GetTalk(topicId: 135, talkId: 468).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts")
     }
     func testGetTalk2() {
-        let req = try! GetTalk(topicId: 135, talkId: 468, count: 551, from: nil, direction: nil).buildURLRequest()
+        let req = try! GetTalk(topicId: 135, talkId: 468, count: 551).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?count=551")
     }
     func testGetTalk3() {
-        let req = try! GetTalk(topicId: 135, talkId: 468, count: nil, from: 911, direction: nil).buildURLRequest()
+        let req = try! GetTalk(topicId: 135, talkId: 468, from: 911).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?from=911")
     }
     func testGetTalk4() {
-        let req = try! GetTalk(topicId: 135, talkId: 468, count: nil, from: nil, direction: MessageDirection.Forward).buildURLRequest()
+        let req = try! GetTalk(topicId: 135, talkId: 468, direction: MessageDirection.Forward).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?direction=forward")
     }

@@ -12,6 +12,10 @@ public struct GetProfileResponse: JSONDecodable {
     public let account: Account
 }
 
+public struct GetOnlineStatusResponse: JSONDecodable {
+    let accounts: [AccountWithLoginStatus]
+}
+
 public struct GetTopicsResponse: JSONDecodable {
     public let topics: [TopicWithUserInfo]
 }
@@ -49,6 +53,30 @@ public struct GetMessageResponse: JSONDecodable {
 
 public struct LikeMessageResponse: JSONDecodable {
     public let like: Like
+    public let topic: Topic?
+    public let directMessage: DirectMessageTopic?
+    public let post: Post?
+}
+
+public struct FavoriteTopicResponse: JSONDecodable {
+    public let topic: Topic
+    public let favorite: Bool
+}
+
+public struct GetDirectMessagesResponse: JSONDecodable, ClassInit {
+    public let topic: Topic
+    public let directMessage: AccountWithLoginStatus
+    public let bookmark: Bookmark
+    public let postsk: [Post] = []
+    public let hasNext: Bool
+}
+
+public struct PostDirectMessageResponse: JSONDecodable, ClassInit {
+    public let topic: Topic
+    public let directMessage: AccountWithLoginStatus
+    public let mentions: [Mention]
+    public let post: Post
+    public let exceedsAttachmentLimit: Bool
 }
 
 public struct SaveReadTopicResponse: JSONDecodable {
@@ -63,20 +91,6 @@ public struct SaveReadMentionResponse: JSONDecodable {
     public let mention: Mention
 }
 
-public struct AcceptTeamInviteResponse: JSONDecodable {
-    public let topics: [Topic] = []
-    public let invite: Invite? //TeamInvite?
-}
-
-public struct DeclineTeamInviteResponse: JSONDecodable {
-    public let invite: Invite? //TeamInvite?
-}
-
-public struct AcceptTopicInviteResponse: JSONDecodable {
-    public let invite: Invite //TopicInvite
-}
-
-
 public struct GetSpacesResponse: JSONDecodable {
     public let mySpaces: [Space]
 }
@@ -85,7 +99,6 @@ public struct GetSpaceMembersResponse: JSONDecodable {
     public let accounts: [Account]
     public let groups: [GroupWithCount]
 }
-
 
 public struct GetTeamsResponse: JSONDecodable {
     public let teams: [TeamWithCount]
@@ -117,4 +130,3 @@ public struct UpdateTalkResponse: JSONDecodable {
     public let topic: Topic
     public let talk: Talk
 }
-

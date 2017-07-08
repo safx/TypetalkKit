@@ -6,20 +6,14 @@ import Foundation
 public enum StreamingEvent {
 	case connected
 	case disconnected(NSError?)
-	case acceptTeamInvite(AcceptTeamInviteEvent)
-	case acceptTopicInvite(AcceptTopicInviteEvent)
 	case addTalkPost(AddTalkPostEvent)
-	case cancelTopicInvite(CancelTopicInviteEvent)
 	case createTalk(CreateTalkEvent)
 	case createTopic(CreateTopicEvent)
-	case declineTeamInvite(DeclineTeamInviteEvent)
-	case declineTopicInvite(DeclineTopicInviteEvent)
 	case deleteTalk(DeleteTalkEvent)
 	case deleteTopic(DeleteTopicEvent)
 	case deleteMessage(DeleteMessageEvent)
 	case favoriteTopic(FavoriteTopicEvent)
 	case joinTopics(JoinTopicsEvent)
-	case leaveTopics(LeaveTopicsEvent)
 	case likeMessage(LikeMessageEvent)
 	case notifyMention(NotifyMentionEvent)
 	case postMessage(PostMessageEvent)
@@ -37,20 +31,14 @@ public enum StreamingEvent {
 	case unknown(String, String: [AnyObject])
 
 	static func parse(type: String, data: [String:AnyObject]) throws -> StreamingEvent? {
-		if type == "acceptTeamInvite" { return .acceptTeamInvite(try AcceptTeamInviteEvent.parse(with: data)) }
-		if type == "acceptTopicInvite" { return .acceptTopicInvite(try AcceptTopicInviteEvent.parse(with: data)) }
 		if type == "addTalkPost" { return .addTalkPost(try AddTalkPostEvent.parse(with: data)) }
-		if type == "cancelTopicInvite" { return .cancelTopicInvite(try CancelTopicInviteEvent.parse(with: data)) }
 		if type == "createTalk" { return .createTalk(try CreateTalkEvent.parse(with: data)) }
 		if type == "createTopic" { return .createTopic(try CreateTopicEvent.parse(with: data)) }
-		if type == "declineTeamInvite" { return .declineTeamInvite(try DeclineTeamInviteEvent.parse(with: data)) }
-		if type == "declineTopicInvite" { return .declineTopicInvite(try DeclineTopicInviteEvent.parse(with: data)) }
 		if type == "deleteTalk" { return .deleteTalk(try DeleteTalkEvent.parse(with: data)) }
 		if type == "deleteTopic" { return .deleteTopic(try DeleteTopicEvent.parse(with: data)) }
 		if type == "deleteMessage" { return .deleteMessage(try DeleteMessageEvent.parse(with: data)) }
 		if type == "favoriteTopic" { return .favoriteTopic(try FavoriteTopicEvent.parse(with: data)) }
 		if type == "joinTopics" { return .joinTopics(try JoinTopicsEvent.parse(with: data)) }
-		if type == "leaveTopics" { return .leaveTopics(try LeaveTopicsEvent.parse(with: data)) }
 		if type == "likeMessage" { return .likeMessage(try LikeMessageEvent.parse(with: data)) }
 		if type == "notifyMention" { return .notifyMention(try NotifyMentionEvent.parse(with: data)) }
 		if type == "postMessage" { return .postMessage(try PostMessageEvent.parse(with: data)) }

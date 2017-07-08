@@ -26,6 +26,29 @@ public struct GetProfileResponse: JSONDecodable {
 	}
 }
 
+public struct GetOnlineStatusResponse: JSONDecodable {
+	public let accounts: [AccountWithLoginStatus]
+
+	public static func parse(with JSONObject: Any) throws -> GetOnlineStatusResponse {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
+		}
+
+		let accounts: [AccountWithLoginStatus]
+		if let v: AnyObject = dic["accounts"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "accounts", object: JSONObject)
+			} else {
+				accounts = try AccountWithLoginStatus.parseAsArray(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "accounts", object: JSONObject)
+		}
+
+		return GetOnlineStatusResponse(accounts: accounts)
+	}
+}
+
 public struct GetTopicsResponse: JSONDecodable {
 	public let topics: [TopicWithUserInfo]
 
@@ -333,6 +356,9 @@ public struct GetMessageResponse: JSONDecodable {
 
 public struct LikeMessageResponse: JSONDecodable {
 	public let like: Like
+	public let topic: Topic?
+	public let directMessage: DirectMessageTopic?
+	public let post: Post?
 
 	public static func parse(with JSONObject: Any) throws -> LikeMessageResponse {
 		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
@@ -350,7 +376,233 @@ public struct LikeMessageResponse: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "like", object: JSONObject)
 		}
 
-		return LikeMessageResponse(like: like)
+		let topic: Topic?
+		if let v: AnyObject = dic["topic"] {
+			if v is NSNull {
+				topic = nil
+			} else {
+				topic = try Topic.parse(with: v)
+			}
+		} else {
+			topic = nil
+		}
+
+		let directMessage: DirectMessageTopic?
+		if let v: AnyObject = dic["directMessage"] {
+			if v is NSNull {
+				directMessage = nil
+			} else {
+				directMessage = try DirectMessageTopic.parse(with: v)
+			}
+		} else {
+			directMessage = nil
+		}
+
+		let post: Post?
+		if let v: AnyObject = dic["post"] {
+			if v is NSNull {
+				post = nil
+			} else {
+				post = try Post.parse(with: v)
+			}
+		} else {
+			post = nil
+		}
+
+		return LikeMessageResponse(like: like, topic: topic, directMessage: directMessage, post: post)
+	}
+}
+
+public struct FavoriteTopicResponse: JSONDecodable {
+	public let topic: Topic
+	public let favorite: Bool
+
+	public static func parse(with JSONObject: Any) throws -> FavoriteTopicResponse {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
+		}
+
+		let topic: Topic
+		if let v: AnyObject = dic["topic"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "topic", object: JSONObject)
+			} else {
+				topic = try Topic.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "topic", object: JSONObject)
+		}
+
+		let favorite: Bool
+		if let v: AnyObject = dic["favorite"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "favorite", object: JSONObject)
+			} else {
+				favorite = try Bool.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "favorite", object: JSONObject)
+		}
+
+		return FavoriteTopicResponse(topic: topic, favorite: favorite)
+	}
+}
+
+public struct GetDirectMessagesResponse: JSONDecodable {
+	public let topic: Topic
+	public let directMessage: AccountWithLoginStatus
+	public let bookmark: Bookmark
+	public let postsk: [Post]
+	public let hasNext: Bool
+
+	public static func parse(with JSONObject: Any) throws -> GetDirectMessagesResponse {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
+		}
+
+		let topic: Topic
+		if let v: AnyObject = dic["topic"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "topic", object: JSONObject)
+			} else {
+				topic = try Topic.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "topic", object: JSONObject)
+		}
+
+		let directMessage: AccountWithLoginStatus
+		if let v: AnyObject = dic["directMessage"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "directMessage", object: JSONObject)
+			} else {
+				directMessage = try AccountWithLoginStatus.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "directMessage", object: JSONObject)
+		}
+
+		let bookmark: Bookmark
+		if let v: AnyObject = dic["bookmark"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "bookmark", object: JSONObject)
+			} else {
+				bookmark = try Bookmark.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "bookmark", object: JSONObject)
+		}
+
+		let postsk: [Post]
+		if let v: AnyObject = dic["postsk"] {
+			if v is NSNull {
+				postsk = []
+			} else {
+				postsk = try Post.parseAsArray(with: v)
+			}
+		} else {
+			postsk = []
+		}
+
+		let hasNext: Bool
+		if let v: AnyObject = dic["hasNext"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "hasNext", object: JSONObject)
+			} else {
+				hasNext = try Bool.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "hasNext", object: JSONObject)
+		}
+
+		return GetDirectMessagesResponse(topic: topic, directMessage: directMessage, bookmark: bookmark, postsk: postsk, hasNext: hasNext)
+	}
+
+	public init(topic: Topic, directMessage: AccountWithLoginStatus, bookmark: Bookmark, postsk: [Post] = [], hasNext: Bool) {
+		self.topic = topic
+		self.directMessage = directMessage
+		self.bookmark = bookmark
+		self.postsk = postsk
+		self.hasNext = hasNext
+	}
+}
+
+public struct PostDirectMessageResponse: JSONDecodable {
+	public let topic: Topic
+	public let directMessage: AccountWithLoginStatus
+	public let mentions: [Mention]
+	public let post: Post
+	public let exceedsAttachmentLimit: Bool
+
+	public static func parse(with JSONObject: Any) throws -> PostDirectMessageResponse {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
+		}
+
+		let topic: Topic
+		if let v: AnyObject = dic["topic"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "topic", object: JSONObject)
+			} else {
+				topic = try Topic.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "topic", object: JSONObject)
+		}
+
+		let directMessage: AccountWithLoginStatus
+		if let v: AnyObject = dic["directMessage"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "directMessage", object: JSONObject)
+			} else {
+				directMessage = try AccountWithLoginStatus.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "directMessage", object: JSONObject)
+		}
+
+		let mentions: [Mention]
+		if let v: AnyObject = dic["mentions"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "mentions", object: JSONObject)
+			} else {
+				mentions = try Mention.parseAsArray(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "mentions", object: JSONObject)
+		}
+
+		let post: Post
+		if let v: AnyObject = dic["post"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "post", object: JSONObject)
+			} else {
+				post = try Post.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "post", object: JSONObject)
+		}
+
+		let exceedsAttachmentLimit: Bool
+		if let v: AnyObject = dic["exceedsAttachmentLimit"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "exceedsAttachmentLimit", object: JSONObject)
+			} else {
+				exceedsAttachmentLimit = try Bool.parse(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "exceedsAttachmentLimit", object: JSONObject)
+		}
+
+		return PostDirectMessageResponse(topic: topic, directMessage: directMessage, mentions: mentions, post: post, exceedsAttachmentLimit: exceedsAttachmentLimit)
+	}
+
+	public init(topic: Topic, directMessage: AccountWithLoginStatus, mentions: [Mention], post: Post, exceedsAttachmentLimit: Bool) {
+		self.topic = topic
+		self.directMessage = directMessage
+		self.mentions = mentions
+		self.post = post
+		self.exceedsAttachmentLimit = exceedsAttachmentLimit
 	}
 }
 
@@ -420,87 +672,6 @@ public struct SaveReadMentionResponse: JSONDecodable {
 		}
 
 		return SaveReadMentionResponse(mention: mention)
-	}
-}
-
-public struct AcceptTeamInviteResponse: JSONDecodable {
-	public let topics: [Topic]
-	public let invite: Invite?
-
-	public static func parse(with JSONObject: Any) throws -> AcceptTeamInviteResponse {
-		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
-			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
-		}
-
-		let topics: [Topic]
-		if let v: AnyObject = dic["topics"] {
-			if v is NSNull {
-				topics = []
-			} else {
-				topics = try Topic.parseAsArray(with: v)
-			}
-		} else {
-			topics = []
-		}
-
-		let invite: Invite?
-		if let v: AnyObject = dic["invite"] {
-			if v is NSNull {
-				invite = nil
-			} else {
-				invite = try Invite.parse(with: v)
-			}
-		} else {
-			invite = nil
-		}
-
-		return AcceptTeamInviteResponse(topics: topics, invite: invite)
-	}
-}
-
-public struct DeclineTeamInviteResponse: JSONDecodable {
-	public let invite: Invite?
-
-	public static func parse(with JSONObject: Any) throws -> DeclineTeamInviteResponse {
-		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
-			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
-		}
-
-		let invite: Invite?
-		if let v: AnyObject = dic["invite"] {
-			if v is NSNull {
-				invite = nil
-			} else {
-				invite = try Invite.parse(with: v)
-			}
-		} else {
-			invite = nil
-		}
-
-		return DeclineTeamInviteResponse(invite: invite)
-	}
-}
-
-public struct AcceptTopicInviteResponse: JSONDecodable {
-	public let invite: Invite
-
-	public static func parse(with JSONObject: Any) throws -> AcceptTopicInviteResponse {
-		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
-			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
-		}
-
-		let invite: Invite
-		if let v: AnyObject = dic["invite"] {
-			if v is NSNull {
-				throw JSONDecodeError.nonNullable(key: "invite", object: JSONObject)
-			} else {
-				invite = try Invite.parse(with: v)
-			}
-		} else {
-			throw JSONDecodeError.missingKey(key: "invite", object: JSONObject)
-		}
-
-		return AcceptTopicInviteResponse(invite: invite)
 	}
 }
 
@@ -713,7 +884,7 @@ public struct GetTalkResponse: JSONDecodable {
 public struct CreateTalkResponse: JSONDecodable {
 	public let topic: Topic
 	public let talk: Talk
-	public let postIds: [PostID]
+	public let postIds: [Int]
 
 	public static func parse(with JSONObject: Any) throws -> CreateTalkResponse {
 		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
@@ -742,12 +913,12 @@ public struct CreateTalkResponse: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "talk", object: JSONObject)
 		}
 
-		let postIds: [PostID]
+		let postIds: [Int]
 		if let v: AnyObject = dic["postIds"] {
 			if v is NSNull {
 				throw JSONDecodeError.nonNullable(key: "postIds", object: JSONObject)
 			} else {
-				postIds = try PostID.parseAsArray(with: v)
+				postIds = try Int.parseAsArray(with: v)
 			}
 		} else {
 			throw JSONDecodeError.missingKey(key: "postIds", object: JSONObject)

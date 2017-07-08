@@ -26,21 +26,11 @@ class NotificationTests: XCTestCase {
         XCTAssertEqual(mention.post!.account.id, 101)
         XCTAssertEqual(mention.post!.account.name, "ahorowitz")
         
-        XCTAssertEqual((model.invites.teams).count, 2)
-        let team = model.invites.teams[1]
-        XCTAssertEqual(team.id, 800)
-        XCTAssertEqual(team.team!.id, 702)
-        XCTAssertEqual(team.team!.name, "Cycling team")
-        XCTAssertEqual(team.sender!.id, 106)
-        XCTAssertEqual(team.sender!.name, "chelseab")
-        XCTAssertEqual(team.account!.id, 100)
-        XCTAssertEqual(team.account!.name, "jessica")
+        XCTAssertEqual((model.invites.teams).count, 0)
         
         XCTAssertEqual((model.invites.topics).count, 2)
         let topic = model.invites.topics[1]
         XCTAssertEqual(topic.id, 600)
-        XCTAssertEqual(topic.topic!.id, 209)
-        XCTAssertEqual(topic.topic!.name, "Web Site")
         XCTAssertEqual(topic.sender!.id, 106)
         XCTAssertEqual(topic.sender!.name, "chelseab")
         XCTAssertEqual(topic.account!.id, 100)
