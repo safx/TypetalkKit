@@ -72,6 +72,29 @@ public struct GetTopicsResponse: JSONDecodable {
 	}
 }
 
+public struct GetDmTopicsResponse: JSONDecodable {
+	public let topics: [DirectMessageTopic]
+
+	public static func parse(with JSONObject: Any) throws -> GetDmTopicsResponse {
+		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
+			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
+		}
+
+		let topics: [DirectMessageTopic]
+		if let v: AnyObject = dic["topics"] {
+			if v is NSNull {
+				throw JSONDecodeError.nonNullable(key: "topics", object: JSONObject)
+			} else {
+				topics = try DirectMessageTopic.parseAsArray(with: v)
+			}
+		} else {
+			throw JSONDecodeError.missingKey(key: "topics", object: JSONObject)
+		}
+
+		return GetDmTopicsResponse(topics: topics)
+	}
+}
+
 public struct GetMessagesResponse: JSONDecodable {
 	public let mySpace: Space?
 	public let team: Team?
@@ -449,26 +472,26 @@ public struct FavoriteTopicResponse: JSONDecodable {
 }
 
 public struct GetDirectMessagesResponse: JSONDecodable {
-	public let topic: Topic
+	public let topic: Topic?
 	public let directMessage: AccountWithLoginStatus
-	public let bookmark: Bookmark
-	public let postsk: [Post]
-	public let hasNext: Bool
+	public let bookmark: Bookmark?
+	public let posts: [Post]
+	public let hasNext: Bool?
 
 	public static func parse(with JSONObject: Any) throws -> GetDirectMessagesResponse {
 		guard let dic = JSONObject as? Dictionary<String, AnyObject> else {
 			throw JSONDecodeError.typeMismatch(key: "(GetTeamsResponse)", object: JSONObject, expected: Dictionary<String, AnyObject>.self, actual: type(of: JSONObject))
 		}
 
-		let topic: Topic
+		let topic: Topic?
 		if let v: AnyObject = dic["topic"] {
 			if v is NSNull {
-				throw JSONDecodeError.nonNullable(key: "topic", object: JSONObject)
+				topic = nil
 			} else {
 				topic = try Topic.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.missingKey(key: "topic", object: JSONObject)
+			topic = nil
 		}
 
 		let directMessage: AccountWithLoginStatus
@@ -482,47 +505,47 @@ public struct GetDirectMessagesResponse: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "directMessage", object: JSONObject)
 		}
 
-		let bookmark: Bookmark
+		let bookmark: Bookmark?
 		if let v: AnyObject = dic["bookmark"] {
 			if v is NSNull {
-				throw JSONDecodeError.nonNullable(key: "bookmark", object: JSONObject)
+				bookmark = nil
 			} else {
 				bookmark = try Bookmark.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.missingKey(key: "bookmark", object: JSONObject)
+			bookmark = nil
 		}
 
-		let postsk: [Post]
-		if let v: AnyObject = dic["postsk"] {
+		let posts: [Post]
+		if let v: AnyObject = dic["posts"] {
 			if v is NSNull {
-				postsk = []
+				posts = []
 			} else {
-				postsk = try Post.parseAsArray(with: v)
+				posts = try Post.parseAsArray(with: v)
 			}
 		} else {
-			postsk = []
+			posts = []
 		}
 
-		let hasNext: Bool
+		let hasNext: Bool?
 		if let v: AnyObject = dic["hasNext"] {
 			if v is NSNull {
-				throw JSONDecodeError.nonNullable(key: "hasNext", object: JSONObject)
+				hasNext = nil
 			} else {
 				hasNext = try Bool.parse(with: v)
 			}
 		} else {
-			throw JSONDecodeError.missingKey(key: "hasNext", object: JSONObject)
+			hasNext = nil
 		}
 
-		return GetDirectMessagesResponse(topic: topic, directMessage: directMessage, bookmark: bookmark, postsk: postsk, hasNext: hasNext)
+		return GetDirectMessagesResponse(topic: topic, directMessage: directMessage, bookmark: bookmark, posts: posts, hasNext: hasNext)
 	}
 
-	public init(topic: Topic, directMessage: AccountWithLoginStatus, bookmark: Bookmark, postsk: [Post] = [], hasNext: Bool) {
+	public init(topic: Topic? = nil, directMessage: AccountWithLoginStatus, bookmark: Bookmark? = nil, posts: [Post] = [], hasNext: Bool? = nil) {
 		self.topic = topic
 		self.directMessage = directMessage
 		self.bookmark = bookmark
-		self.postsk = postsk
+		self.posts = posts
 		self.hasNext = hasNext
 	}
 }

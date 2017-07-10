@@ -6,7 +6,8 @@
         "name": "ahorowitz",
         "fullName": "AHorowitz",
         "suggestion": "AHorowitz",
-        "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+        "imageUrl": "http://typetalk.local:8484/accounts/101/profile_image.png?t=1403663549000",
+        "isBot": false,
         "createdAt": "2014-06-25T02:32:29Z",
         "updatedAt": "2014-06-25T02:32:29Z"
       },
@@ -18,7 +19,8 @@
         "name": "brad",
         "fullName": "BradMarshalls",
         "suggestion": "BradMarshalls",
-        "imageUrl": "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000",
+        "imageUrl": "http://typetalk.local:8484/accounts/105/profile_image.png?t=1404009149000",
+        "isBot": false,
         "createdAt": "2014-06-29T02:32:29Z",
         "updatedAt": "2014-06-29T02:32:29Z"
       },
@@ -30,7 +32,8 @@
         "name": "cooper",
         "fullName": "CooperDaChopper",
         "suggestion": "CooperDaChopper",
-        "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+        "imageUrl": "http://typetalk.local:8484/accounts/104/profile_image.png?t=1403922749000",
+        "isBot": false,
         "createdAt": "2014-06-28T02:32:29Z",
         "updatedAt": "2014-06-28T02:32:29Z"
       },
@@ -42,7 +45,8 @@
         "name": "jessica",
         "fullName": "Jessica Fitzherbert",
         "suggestion": "Jessica Fitzherbert",
-        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+        "isBot": false,
         "createdAt": "2014-06-24T02:32:29Z",
         "updatedAt": "2014-06-24T02:32:29Z"
       },
@@ -54,7 +58,8 @@
         "name": "moss",
         "fullName": "Moss",
         "suggestion": "Moss",
-        "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+        "imageUrl": "http://typetalk.local:8484/accounts/102/profile_image.png?t=1403749949000",
+        "isBot": false,
         "createdAt": "2014-06-26T02:32:29Z",
         "updatedAt": "2014-06-26T02:32:29Z"
       },
@@ -66,7 +71,8 @@
         "name": "stefhull",
         "fullName": "StefHull",
         "suggestion": "StefHull",
-        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "imageUrl": "http://typetalk.local:8484/accounts/103/profile_image.png?t=1403836349000",
+        "isBot": false,
         "createdAt": "2014-06-27T02:32:29Z",
         "updatedAt": "2014-06-27T02:32:29Z"
       },

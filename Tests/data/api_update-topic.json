@@ -1,18 +1,20 @@
 {
   "topic": {
-    "id": 222,
+    "id": 223,
     "name": "Update test topic",
+    "description": "Test topic description",
     "suggestion": "Update test topic",
+    "isDirectMessage": false,
     "lastPostedAt": null,
-    "createdAt": "2016-03-04T02:37:05Z",
-    "updatedAt": "2016-03-04T02:37:06Z"
+    "createdAt": "2016-12-21T10:12:14Z",
+    "updatedAt": "2016-12-21T10:12:15Z"
   },
   "mySpace": {
     "space": {
       "key": "abcdefghij",
       "name": "Joe Tech Inc.",
       "enabled": true,
-      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+      "imageUrl": "http://nulabapps.local:18080/nulab-account-web/spaces/abcdefghij/photo/large"
     },
     "myRole": "ADMIN",
     "isPaymentAdmin": true,
@@ -28,7 +30,7 @@
       "numberOfUsers": 7,
       "totalAttachmentSize": 0,
       "createdAt": "2016-01-10T02:32:29Z",
-      "updatedAt": "2016-03-04T02:37:05Z"
+      "updatedAt": "2016-12-21T10:12:14Z"
     }
   },
   "teams": [],
@@ -39,7 +41,7 @@
         "key": "groupkey01",
         "name": "Joe Tech Inc. All",
         "suggestion": "Joe Tech Inc. All",
-        "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/groups/groupkey01/photo/medium",
+        "imageUrl": "http://nulabapps.local:18080/nulab-account-web/spaces/abcdefghij/groups/groupkey01/photo/medium",
         "createdAt": "2014-06-10T02:32:29Z",
         "updatedAt": "2014-06-10T02:32:29Z"
       },
@@ -52,7 +54,8 @@
       "name": "chelseab",
       "fullName": "ChelseaB",
       "suggestion": "ChelseaB",
-      "imageUrl": "https://typetalk.in/accounts/106/profile_image.png?t=1404095549000",
+      "imageUrl": "http://typetalk.local:8484/accounts/106/profile_image.png?t=1404095549000",
+      "isBot": false,
       "createdAt": "2014-06-30T02:32:29Z",
       "updatedAt": "2014-06-30T02:32:29Z"
     }

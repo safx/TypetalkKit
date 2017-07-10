@@ -20,6 +20,10 @@ public struct GetTopicsResponse: JSONDecodable {
     public let topics: [TopicWithUserInfo]
 }
 
+public struct GetDmTopicsResponse: JSONDecodable {
+    public let topics: [DirectMessageTopic]
+}
+
 public struct GetMessagesResponse: JSONDecodable, ClassInit {
     public let mySpace: Space?
     public let team: Team? = nil
@@ -64,11 +68,11 @@ public struct FavoriteTopicResponse: JSONDecodable {
 }
 
 public struct GetDirectMessagesResponse: JSONDecodable, ClassInit {
-    public let topic: Topic
+    public let topic: Topic?
     public let directMessage: AccountWithLoginStatus
-    public let bookmark: Bookmark
-    public let postsk: [Post] = []
-    public let hasNext: Bool
+    public let bookmark: Bookmark?
+    public let posts: [Post] = []
+    public let hasNext: Bool?
 }
 
 public struct PostDirectMessageResponse: JSONDecodable, ClassInit {

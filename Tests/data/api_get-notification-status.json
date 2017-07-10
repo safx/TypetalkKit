@@ -3,7 +3,7 @@
     "unread": 1
   },
   "access": {
-    "unopened": 0
+    "unopened": 1
   },
   "invite": {
     "team": {
@@ -12,5 +12,11 @@
     "topic": {
       "pending": 2
     }
+  },
+  "like": {
+    "receive": null
+  },
+  "directMessage": {
+    "unreadTopics": 1
   }
 }

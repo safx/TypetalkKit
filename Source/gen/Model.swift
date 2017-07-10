@@ -482,10 +482,10 @@ public struct Embed: JSONDecodable {
 	public let type: String
 	public let version: Int
 	public let providerName: String // json:"provider_name"
-	public let providerURL: URL? // json:"provider_url"
+	public let providerUrl: URL? // json:"provider_url"
 	public let title: String
 	public let authorName: String // json:"author_name"
-	public let authorURL: URL? // json:"author_url"
+	public let authorUrl: URL? // json:"author_url"
 	public let html: String
 	public let width: Int
 	public let height: Int
@@ -528,15 +528,15 @@ public struct Embed: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "provider_name", object: JSONObject)
 		}
 
-		let providerURL: URL?
+		let providerUrl: URL?
 		if let v: AnyObject = dic["provider_url"] {
 			if v is NSNull {
-				providerURL = nil
+				providerUrl = nil
 			} else {
-				providerURL = try URL.parse(with: v)
+				providerUrl = try URL.parse(with: v)
 			}
 		} else {
-			providerURL = nil
+			providerUrl = nil
 		}
 
 		let title: String
@@ -561,15 +561,15 @@ public struct Embed: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "author_name", object: JSONObject)
 		}
 
-		let authorURL: URL?
+		let authorUrl: URL?
 		if let v: AnyObject = dic["author_url"] {
 			if v is NSNull {
-				authorURL = nil
+				authorUrl = nil
 			} else {
-				authorURL = try URL.parse(with: v)
+				authorUrl = try URL.parse(with: v)
 			}
 		} else {
-			authorURL = nil
+			authorUrl = nil
 		}
 
 		let html: String
@@ -605,17 +605,17 @@ public struct Embed: JSONDecodable {
 			throw JSONDecodeError.missingKey(key: "height", object: JSONObject)
 		}
 
-		return Embed(type: type, version: version, providerName: providerName, providerURL: providerURL, title: title, authorName: authorName, authorURL: authorURL, html: html, width: width, height: height)
+		return Embed(type: type, version: version, providerName: providerName, providerUrl: providerUrl, title: title, authorName: authorName, authorUrl: authorUrl, html: html, width: width, height: height)
 	}
 
-	public init(type: String, version: Int, providerName: String, providerURL: URL? = nil, title: String, authorName: String, authorURL: URL? = nil, html: String, width: Int, height: Int) {
+	public init(type: String, version: Int, providerName: String, providerUrl: URL? = nil, title: String, authorName: String, authorUrl: URL? = nil, html: String, width: Int, height: Int) {
 		self.type = type
 		self.version = version
 		self.providerName = providerName
-		self.providerURL = providerURL
+		self.providerUrl = providerUrl
 		self.title = title
 		self.authorName = authorName
-		self.authorURL = authorURL
+		self.authorUrl = authorUrl
 		self.html = html
 		self.width = width
 		self.height = height

@@ -5,7 +5,7 @@
         "key": "abcdefghij",
         "name": "Joe Tech Inc.",
         "enabled": true,
-        "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+        "imageUrl": "http://nulabapps.local:18080/nulab-account-web/spaces/abcdefghij/photo/large"
       },
       "myRole": "ADMIN",
       "isPaymentAdmin": true,
@@ -18,10 +18,10 @@
         },
         "enabled": true,
         "trial": null,
-        "numberOfUsers": 4,
+        "numberOfUsers": 6,
         "totalAttachmentSize": 0,
         "createdAt": "2016-01-10T02:32:29Z",
-        "updatedAt": "2016-03-04T02:37:08Z"
+        "updatedAt": "2016-12-21T10:12:18Z"
       }
     },
     {
@@ -29,7 +29,7 @@
         "key": "0123456789",
         "name": "Nu team",
         "enabled": true,
-        "imageUrl": "https://apps.nulab-inc.com/spaces/0123456789/photo/large"
+        "imageUrl": "http://nulabapps.local:18080/nulab-account-web/spaces/0123456789/photo/large"
       },
       "myRole": "USER",
       "isPaymentAdmin": false,
@@ -42,13 +42,13 @@
         },
         "enabled": true,
         "trial": {
-          "endDate": "2016-03-18",
+          "endDate": "2017-01-04",
           "daysLeft": 15
         },
         "numberOfUsers": 2,
         "totalAttachmentSize": 0,
-        "createdAt": "2016-02-18T02:36:38Z",
-        "updatedAt": "2016-03-04T02:36:38Z"
+        "createdAt": "2016-12-06T01:11:43Z",
+        "updatedAt": "2016-12-21T01:11:43Z"
       }
     }
   ]

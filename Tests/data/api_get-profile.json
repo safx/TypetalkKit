@@ -4,7 +4,8 @@
     "name": "jessica",
     "fullName": "Jessica Fitzherbert",
     "suggestion": "Jessica Fitzherbert",
-    "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+    "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+    "isBot": false,
     "createdAt": "2014-06-24T02:32:29Z",
     "updatedAt": "2014-06-24T02:32:29Z"
   }

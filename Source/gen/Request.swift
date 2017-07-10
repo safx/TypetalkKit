@@ -79,7 +79,8 @@ public class GetTopics: TypetalkRequest {
 }
 
 public class GetDmTopics: TypetalkRequest {
-	public typealias APIKitResponse = DirectMessageTopic
+	public typealias APIKitResponse = GetDmTopicsResponse
+	public typealias Response = GetDmTopicsResponse
 
 	public init() {
 	}

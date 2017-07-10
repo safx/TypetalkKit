@@ -81,10 +81,10 @@ public struct Embed: JSONDecodable, ClassInit {
     public let type: String
     public let version: Int
     public let providerName: String // JSON:"provider_name"
-    public let providerURL: URL?  // JSON:"provider_url"
+    public let providerUrl: URL?    // JSON:"provider_url"
     public let title: String
     public let authorName: String   // JSON:"author_name"
-    public let authorURL: URL?    // JSON:"author_url"
+    public let authorUrl: URL?      // JSON:"author_url"
     public let html: String
     public let width: Int
     public let height: Int

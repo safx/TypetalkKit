@@ -25,7 +25,6 @@ class GetTopics:  ClassInit, APIKitHelper, TypetalkRequest { // router:",topics"
 }
 
 class GetDmTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",messages"
-    typealias APIKitResponse = DirectMessageTopic
 }
 
 class GetMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)"
