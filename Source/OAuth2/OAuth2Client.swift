@@ -129,7 +129,7 @@ extension TypetalkAPI {
             scope: Scope.scopesToRaw(settings.scopes))
         let param = URLEncodedSerialization.string(from: request.parameters as? [String:Any] ?? [:])
         let base = request.baseURL.absoluteString
-        openURL(URL(string: base + "/" + request.path + "?" + param)!)
+        openURL(url: URL(string: base + "/" + request.path + "?" + param)!)
     }
 
     public static func authorizeWithClientCredentials(_ completion: @escaping CompletionClosure) {
@@ -195,7 +195,7 @@ extension Scope {
 
 #if os(iOS)
     import UIKit
-    private func openURL(_ url: URL) {
+    private func openURL(url: URL) {
         UIApplication.shared.openURL(url)
     }
 #else
