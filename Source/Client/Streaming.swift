@@ -1,3 +1,5 @@
+
+
 //
 //  Client+Streaming.swift
 //  TypetalkKit
@@ -10,29 +12,21 @@ import Foundation
 import Starscream
 
 
-
-public typealias AcceptTeamInviteEvent           = AcceptTeamInviteResponse
-public typealias AcceptTopicInviteEvent          = AcceptTopicInviteResponse
 public typealias AddTalkPostEvent                = TalkPost
-public typealias CancelTopicInviteEvent          = AcceptTopicInviteResponse
 public typealias CreateTalkEvent                 = TalkPost
 public typealias CreateTopicEvent                = TopicWithUserInfo
-public typealias DeclineTeamInviteEvent          = DeclineTeamInviteResponse
-public typealias DeclineTopicInviteEvent         = AcceptTopicInviteResponse
 public typealias DeleteMessageEvent              = PostMessageResponse
 public typealias DeleteTalkEvent                 = TalkPost
 public typealias DeleteTopicEvent                = Topic
 public typealias FavoriteTopicEvent              = TopicWithUserInfo // FIXME: unread should be omitted.
 public typealias JoinTopicsEvent                 = GetTopicsResponse
-public typealias LeaveTopicsEvent                = AcceptTeamInviteResponse // FIXME: invite should be omitted.
 public typealias LikeMessageEvent                = LikeMessageResponse
 public typealias NotifyMentionEvent              = SaveReadMentionResponse
 public typealias PostMessageEvent                = PostMessageResponse
-//public typealias PostLinksEvent
 public typealias ReadMentionEvent                = SaveReadMentionResponse
 public typealias RemoveTalkPostEvent             = TalkPost
-public typealias RequestTeamInviteEvent          = Invite // TeamInvite
-public typealias RequestTopicInviteEvent         = Invite // TopicInvite
+public typealias RequestTeamInviteEvent          = TeamInvite
+public typealias RequestTopicInviteEvent         = TopicInvite
 public typealias SaveBookmarkEvent               = SaveReadTopicResponse
 public typealias UnfavoriteTopicEvent            = TopicWithUserInfo // FIXME: unread should be omitted.
 public typealias UnlikeMessageEvent              = LikeMessageResponse
@@ -43,14 +37,14 @@ public typealias UpdateTopicEvent                = Topic
 
 extension TypetalkAPI {
 
-    static private var sharedStream : TypetalkStream {
+    static fileprivate var sharedStream : TypetalkStream {
         struct Static {
             static let instance = TypetalkStream()
         }
         return Static.instance
     }
 
-    public static func streaming(closure: StreamingEvent -> ()) -> Bool {
+    public static func streaming(_ closure: @escaping (StreamingEvent) -> ()) -> Bool {
         guard let accessToken = accessToken else {
             return false
         }
@@ -63,46 +57,46 @@ extension TypetalkAPI {
 // MARK: Typetalk Streaming API
 
 final private class TypetalkStream : WebSocketDelegate {
-    private typealias EventClosure = StreamingEvent -> ()
+    fileprivate typealias EventClosure = (StreamingEvent) -> ()
 
-    private let socket = WebSocket(url: NSURL(string: TypetalkAPI.apiURLString + "streaming")!)
-    private var streamingClosure: EventClosure?
+    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "streaming")!)
+    fileprivate var streamingClosure: EventClosure?
 
-    private func connect(accessToken: String, closure: EventClosure) {
+    fileprivate func connect(_ accessToken: String, closure: @escaping EventClosure) {
         streamingClosure = closure
         socket.headers["Authorization"] = "Bearer \(accessToken)"
         socket.delegate = self
         socket.connect()
     }
 
-    private var isConnected : Bool {
+    fileprivate var isConnected : Bool {
         return socket.isConnected
     }
 
     // MARK: WebSocketDelegate funcs
 
-    private func sendStreamEventIfPossible(event: StreamingEvent) {
+    fileprivate func sendStreamEventIfPossible(_ event: StreamingEvent) {
         if let c = streamingClosure {
             c(event)
         }
     }
 
-    private func websocketDidConnect(socket: WebSocket) {
-        sendStreamEventIfPossible(.Connected)
+    fileprivate func websocketDidConnect(socket: WebSocket) {
+        sendStreamEventIfPossible(.connected)
     }
 
-    private func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
-        sendStreamEventIfPossible(.Disconnected(error))
+    fileprivate func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+        sendStreamEventIfPossible(.disconnected(error))
     }
 
-    private func websocketDidReceiveMessage(socket: WebSocket, text: String) {
-        let jsondata = text.dataUsingEncoding(NSUnicodeStringEncoding)!
+    fileprivate func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+        let jsondata = text.data(using: String.Encoding.unicode)!
         do {
-            let json = try NSJSONSerialization.JSONObjectWithData(jsondata, options: []) as! [String:AnyObject]
+            let json = try JSONSerialization.jsonObject(with: jsondata, options: []) as! [String:AnyObject]
             let type = json["type"] as? String
             let data = json["data"] as? [String:AnyObject]
             if type != nil && data != nil {
-                if let ev = try StreamingEvent.parse(type!, data: data!) {
+                if let ev = try StreamingEvent.parse(type: type!, data: data!) {
                     sendStreamEventIfPossible(ev)
                 } else {
 
@@ -113,7 +107,7 @@ final private class TypetalkStream : WebSocketDelegate {
         }
     }
 
-    private func websocketDidReceiveData(socket: WebSocket, data: NSData) {
+    fileprivate func websocketDidReceiveData(socket: WebSocket, data: Data) {
         fatalError("Never be called")
     }
 

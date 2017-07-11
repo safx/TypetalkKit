@@ -12,14 +12,14 @@ import Alamofire
 import APIKit
 
 class MessageCell: UITableViewCell {
-    @IBOutlet private weak var message: UILabel!
-    @IBOutlet private weak var userName: UILabel!
-    @IBOutlet private weak var lastUpdate: UILabel!
-    @IBOutlet private weak var accountImage: UIImageView!
+    @IBOutlet fileprivate weak var message: UILabel!
+    @IBOutlet fileprivate weak var userName: UILabel!
+    @IBOutlet fileprivate weak var lastUpdate: UILabel!
+    @IBOutlet fileprivate weak var accountImage: UIImageView!
 
-    private class var _cache: NSCache {
+    fileprivate class var _cache: NSCache<NSString, UIImage> {
         struct Static {
-            static let instance = NSCache()
+            static let instance = NSCache<NSString, UIImage>()
         }
         return Static.instance
     }
@@ -29,35 +29,22 @@ class MessageCell: UITableViewCell {
             message.text = model!.message
             userName.text = model!.account.name
 
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = NSLocalizedString("MMM d yyyy", comment:"file date time (this format uses Unicode standard)")
-            lastUpdate.text = dateFormatter.stringFromDate(model!.updatedAt)
+            lastUpdate.text = dateFormatter.string(from: model!.updatedAt)
 
             let url = model!.account.imageUrl.absoluteString
-            let data = MessageCell._cache.objectForKey(url) as? NSData
-            if data != nil {
-                self.accountImage.image = UIImage(data: data!)
+            if let image = MessageCell._cache.object(forKey: url as NSString) {
+                self.accountImage.image = image
             } else {
-                Alamofire.request(.GET, url)
-                         .response { (request, response, data, error) in
-                            if let data = data {
-                                MessageCell._cache.setObject(data, forKey: url)
-                                self.accountImage.image = UIImage(data: data)
+                Alamofire.request(url)
+                         .response { response in
+                            if let data = response.data, let image = UIImage(data: data) {
+                                MessageCell._cache.setObject(image, forKey: url as NSString)
+                                self.accountImage.image = image
                             }
                 }
             }
         }
     }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

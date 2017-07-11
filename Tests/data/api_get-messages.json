@@ -4,7 +4,7 @@
       "key": "abcdefghij",
       "name": "Joe Tech Inc.",
       "enabled": true,
-      "imageUrl": "https://apps.nulab-inc.com/spaces/abcdefghij/photo/large"
+      "imageUrl": "http://nulabapps.local:18080/nulab-account-web/spaces/abcdefghij/photo/large"
     },
     "myRole": "ADMIN",
     "isPaymentAdmin": true,
@@ -27,14 +27,16 @@
   "topic": {
     "id": 208,
     "name": "IT Peeps",
+    "description": "",
     "suggestion": "IT Peeps",
+    "isDirectMessage": false,
     "lastPostedAt": "2014-07-01T02:32:29Z",
     "createdAt": "2014-06-10T02:32:29Z",
     "updatedAt": "2014-06-10T02:32:29Z"
   },
   "bookmark": {
     "postId": 304,
-    "updatedAt": "2016-03-04T02:36:38Z"
+    "updatedAt": "2016-12-21T01:11:42Z"
   },
   "posts": [
     {
@@ -47,7 +49,8 @@
         "name": "stefhull",
         "fullName": "StefHull",
         "suggestion": "StefHull",
-        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "imageUrl": "http://typetalk.local:8484/accounts/103/profile_image.png?t=1403836349000",
+        "isBot": false,
         "createdAt": "2014-06-27T02:32:29Z",
         "updatedAt": "2014-06-27T02:32:29Z"
       },
@@ -60,8 +63,8 @@
             "fileName": "1.jpg",
             "fileSize": 472263
           },
-          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg",
-          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg",
+          "webUrl": "http://typetalk.local:8484/topics/208/posts/300/attachments/1/1.jpg",
+          "apiUrl": "http://typetalk.local:8484/api/v1/topics/208/posts/300/attachments/1/1.jpg",
           "thumbnails": [
             {
               "type": "small",
@@ -90,8 +93,8 @@
             "fileName": "2.jpg",
             "fileSize": 494376
           },
-          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/2/2.jpg",
-          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/2/2.jpg",
+          "webUrl": "http://typetalk.local:8484/topics/208/posts/300/attachments/2/2.jpg",
+          "apiUrl": "http://typetalk.local:8484/api/v1/topics/208/posts/300/attachments/2/2.jpg",
           "thumbnails": [
             {
               "type": "small",
@@ -120,8 +123,8 @@
             "fileName": "5.jpg",
             "fileSize": 218100
           },
-          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/3/5.jpg",
-          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/3/5.jpg",
+          "webUrl": "http://typetalk.local:8484/topics/208/posts/300/attachments/3/5.jpg",
+          "apiUrl": "http://typetalk.local:8484/api/v1/topics/208/posts/300/attachments/3/5.jpg",
           "thumbnails": [
             {
               "type": "small",
@@ -150,8 +153,8 @@
             "fileName": "6.jpg",
             "fileSize": 627926
           },
-          "webUrl": "https://typetalk.in/topics/208/posts/300/attachments/4/6.jpg",
-          "apiUrl": "https://typetalk.in/api/v1/topics/208/posts/300/attachments/4/6.jpg",
+          "webUrl": "http://typetalk.local:8484/topics/208/posts/300/attachments/4/6.jpg",
+          "apiUrl": "http://typetalk.local:8484/api/v1/topics/208/posts/300/attachments/4/6.jpg",
           "thumbnails": [
             {
               "type": "small",
@@ -178,18 +181,18 @@
       "talks": [],
       "links": [
         {
-          "id": 112,
+          "id": 7,
           "url": "http://nulab-inc.com",
           "contentType": "text/html; charset=UTF-8",
           "title": "Fun. Creative. Collaboration. | Nulab Inc.",
           "description": "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.",
           "imageUrl": "http://nulab-inc.com/ogp_dft.png",
           "embed": null,
-          "createdAt": "2016-03-04T02:36:38Z",
-          "updatedAt": "2016-03-04T02:36:38Z"
+          "createdAt": "2016-12-21T01:11:42Z",
+          "updatedAt": "2016-12-21T01:11:42Z"
         },
         {
-          "id": 113,
+          "id": 8,
           "url": "https://speakerdeck.com/nulabinc/nulabs-way-of-working-remotely",
           "contentType": "text/html; charset=utf-8",
           "title": "Nulab's Way of Working Remotely",
@@ -207,8 +210,8 @@
             "width": 710,
             "height": 596
           },
-          "createdAt": "2016-03-04T02:36:38Z",
-          "updatedAt": "2016-03-04T02:36:38Z"
+          "createdAt": "2016-12-21T01:11:42Z",
+          "updatedAt": "2016-12-21T01:11:42Z"
         }
       ],
       "createdAt": "2014-06-29T00:32:29Z",
@@ -224,7 +227,8 @@
         "name": "jessica",
         "fullName": "Jessica Fitzherbert",
         "suggestion": "Jessica Fitzherbert",
-        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+        "isBot": false,
         "createdAt": "2014-06-24T02:32:29Z",
         "updatedAt": "2014-06-24T02:32:29Z"
       },
@@ -246,7 +250,8 @@
         "name": "moss",
         "fullName": "Moss",
         "suggestion": "Moss",
-        "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+        "imageUrl": "http://typetalk.local:8484/accounts/102/profile_image.png?t=1403749949000",
+        "isBot": false,
         "createdAt": "2014-06-26T02:32:29Z",
         "updatedAt": "2014-06-26T02:32:29Z"
       },
@@ -263,10 +268,12 @@
             "name": "jessica",
             "fullName": "Jessica Fitzherbert",
             "suggestion": "Jessica Fitzherbert",
-            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+            "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+            "isBot": false,
             "createdAt": "2014-06-24T02:32:29Z",
             "updatedAt": "2014-06-24T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 401,
@@ -278,10 +285,12 @@
             "name": "ahorowitz",
             "fullName": "AHorowitz",
             "suggestion": "AHorowitz",
-            "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+            "imageUrl": "http://typetalk.local:8484/accounts/101/profile_image.png?t=1403663549000",
+            "isBot": false,
             "createdAt": "2014-06-25T02:32:29Z",
             "updatedAt": "2014-06-25T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 402,
@@ -293,10 +302,12 @@
             "name": "stefhull",
             "fullName": "StefHull",
             "suggestion": "StefHull",
-            "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+            "imageUrl": "http://typetalk.local:8484/accounts/103/profile_image.png?t=1403836349000",
+            "isBot": false,
             "createdAt": "2014-06-27T02:32:29Z",
             "updatedAt": "2014-06-27T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         }
       ],
       "talks": [],
@@ -314,7 +325,8 @@
         "name": "stefhull",
         "fullName": "StefHull",
         "suggestion": "StefHull",
-        "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+        "imageUrl": "http://typetalk.local:8484/accounts/103/profile_image.png?t=1403836349000",
+        "isBot": false,
         "createdAt": "2014-06-27T02:32:29Z",
         "updatedAt": "2014-06-27T02:32:29Z"
       },
@@ -336,7 +348,8 @@
         "name": "moss",
         "fullName": "Moss",
         "suggestion": "Moss",
-        "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+        "imageUrl": "http://typetalk.local:8484/accounts/102/profile_image.png?t=1403749949000",
+        "isBot": false,
         "createdAt": "2014-06-26T02:32:29Z",
         "updatedAt": "2014-06-26T02:32:29Z"
       },
@@ -358,7 +371,8 @@
         "name": "cooper",
         "fullName": "CooperDaChopper",
         "suggestion": "CooperDaChopper",
-        "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+        "imageUrl": "http://typetalk.local:8484/accounts/104/profile_image.png?t=1403922749000",
+        "isBot": false,
         "createdAt": "2014-06-28T02:32:29Z",
         "updatedAt": "2014-06-28T02:32:29Z"
       },
@@ -399,7 +413,8 @@
         "name": "jessica",
         "fullName": "Jessica Fitzherbert",
         "suggestion": "Jessica Fitzherbert",
-        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+        "isBot": false,
         "createdAt": "2014-06-24T02:32:29Z",
         "updatedAt": "2014-06-24T02:32:29Z"
       },
@@ -416,10 +431,12 @@
             "name": "ahorowitz",
             "fullName": "AHorowitz",
             "suggestion": "AHorowitz",
-            "imageUrl": "https://typetalk.in/accounts/101/profile_image.png?t=1403663549000",
+            "imageUrl": "http://typetalk.local:8484/accounts/101/profile_image.png?t=1403663549000",
+            "isBot": false,
             "createdAt": "2014-06-25T02:32:29Z",
             "updatedAt": "2014-06-25T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 404,
@@ -431,10 +448,12 @@
             "name": "moss",
             "fullName": "Moss",
             "suggestion": "Moss",
-            "imageUrl": "https://typetalk.in/accounts/102/profile_image.png?t=1403749949000",
+            "imageUrl": "http://typetalk.local:8484/accounts/102/profile_image.png?t=1403749949000",
+            "isBot": false,
             "createdAt": "2014-06-26T02:32:29Z",
             "updatedAt": "2014-06-26T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 405,
@@ -446,10 +465,12 @@
             "name": "stefhull",
             "fullName": "StefHull",
             "suggestion": "StefHull",
-            "imageUrl": "https://typetalk.in/accounts/103/profile_image.png?t=1403836349000",
+            "imageUrl": "http://typetalk.local:8484/accounts/103/profile_image.png?t=1403836349000",
+            "isBot": false,
             "createdAt": "2014-06-27T02:32:29Z",
             "updatedAt": "2014-06-27T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 406,
@@ -461,10 +482,12 @@
             "name": "cooper",
             "fullName": "CooperDaChopper",
             "suggestion": "CooperDaChopper",
-            "imageUrl": "https://typetalk.in/accounts/104/profile_image.png?t=1403922749000",
+            "imageUrl": "http://typetalk.local:8484/accounts/104/profile_image.png?t=1403922749000",
+            "isBot": false,
             "createdAt": "2014-06-28T02:32:29Z",
             "updatedAt": "2014-06-28T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         },
         {
           "id": 407,
@@ -476,10 +499,12 @@
             "name": "brad",
             "fullName": "BradMarshalls",
             "suggestion": "BradMarshalls",
-            "imageUrl": "https://typetalk.in/accounts/105/profile_image.png?t=1404009149000",
+            "imageUrl": "http://typetalk.local:8484/accounts/105/profile_image.png?t=1404009149000",
+            "isBot": false,
             "createdAt": "2014-06-29T02:32:29Z",
             "updatedAt": "2014-06-29T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         }
       ],
       "talks": [
@@ -507,7 +532,8 @@
         "name": "jessica",
         "fullName": "Jessica Fitzherbert",
         "suggestion": "Jessica Fitzherbert",
-        "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+        "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+        "isBot": false,
         "createdAt": "2014-06-24T02:32:29Z",
         "updatedAt": "2014-06-24T02:32:29Z"
       },
@@ -524,10 +550,12 @@
             "name": "jessica",
             "fullName": "Jessica Fitzherbert",
             "suggestion": "Jessica Fitzherbert",
-            "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+            "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+            "isBot": false,
             "createdAt": "2014-06-24T02:32:29Z",
             "updatedAt": "2014-06-24T02:32:29Z"
-          }
+          },
+          "createdAt": "2016-12-21T01:11:42Z"
         }
       ],
       "talks": [],

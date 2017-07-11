@@ -12,7 +12,7 @@ import XCTest
 class TeamWithMembersTests: XCTestCase {
 
     func testExample() {
-        let model = try! TeamWithMembers.parseJSON(json("model_team_with_members"))
+        let model = try! TeamWithMembers.parse(with: json("model_team_with_members"))
         
         XCTAssertEqual(model.team.id, 700)
         XCTAssertEqual(model.team.name, "Nulab Inc.")

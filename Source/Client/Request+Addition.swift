@@ -15,99 +15,99 @@ public protocol AuthRequest: APIKitRequest {}
 
 
 extension APIKitRequest {
-    public var bodyParameters: BodyParametersType? {
+    public var bodyParameters: BodyParameters? {
         let ps = self.parameters as? [String: AnyObject] ?? [:]
-        return FormURLArrayEncodedBodyParameters(formObject: ps, encoding: NSUTF8StringEncoding)
+        return FormURLArrayEncodedBodyParameters(formObject: ps, encoding: String.Encoding.utf8)
     }
 }
 
 extension TypetalkRequest {
-    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.apiURLString)! }
+    public var baseURL: URL { return URL(string: TypetalkAPI.apiURLString)! }
 }
 
 extension AuthRequest {
-    public var baseURL: NSURL { return NSURL(string: TypetalkAPI.authURLString)! }
+    public var baseURL: URL { return URL(string: TypetalkAPI.authURLString)! }
 }
 
 extension RemoveMessageFromTalk {
     // force rewrite URL
-    public func interceptURLRequest(URLRequest: NSMutableURLRequest) throws -> NSMutableURLRequest {
-        let URL = path.isEmpty ? baseURL : baseURL.URLByAppendingPathComponent(path)
-        guard let components = NSURLComponents(URL: URL, resolvingAgainstBaseURL: true) else {
-            throw RequestError.InvalidBaseURL(baseURL)
+    public func intercept(urlRequest: URLRequest) throws -> URLRequest {
+        let URL = path.isEmpty ? baseURL : baseURL.appendingPathComponent(path)
+        guard var components = URLComponents(url: URL, resolvingAgainstBaseURL: true) else {
+            throw RequestError.invalidBaseURL(baseURL)
         }
 
-        let ps = parameters as? [String: AnyObject] ?? [:]
-        if let postIds = ps["postIds"] as? [Int] where postIds.count > 0 {
+        if let p = parameters as? [String:Any], let postIds = p["postIds"] as? [Int], postIds.count > 0 {
             components.query = postIds.map { (e) -> String in
                 return "postIds[]=\(e)"
-            }.joinWithSeparator("&")
+            }.joined(separator: "&")
         }
 
-        URLRequest.URL = components.URL
-        return URLRequest
+        var newRequest = urlRequest
+        newRequest.url = components.url
+        return newRequest
     }
 }
 
 extension DownloadAttachment {
-    public func responseFromObject(object: AnyObject, URLResponse: NSHTTPURLResponse) throws -> APIKitResponse {
-        guard let obj = object as? NSData else {
-            throw ResponseError.UnexpectedObject(object)
+    public func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Data {
+        guard let obj = object as? Data else {
+            throw ResponseError.unexpectedObject(object)
         }
-        return obj
+        return obj as DownloadAttachment.APIKitResponse
     }
 
-    public var bodyParameters: BodyParametersType? {
+    public var bodyParameters: BodyParameters? {
         return nil
     }
 
-    public var dataParser: DataParserType {
+    public var dataParser: DataParser {
         return RawDataParser()
     }
 
-    public convenience init?(url: NSURL, attachmentType: AttachmentType? = nil) {
+    public convenience init?(url: URL, attachmentType: AttachmentType? = nil) {
         let u = url.absoluteString
         assert(u.hasPrefix(TypetalkAPI.apiURLString))
 
         let regexp = try! NSRegularExpression(pattern: TypetalkAPI.apiURLString + "topics/(\\d+)/posts/(\\d+)/attachments/(\\d+)/(.+)", options: [])
         let ns = u as NSString
-        let ms = regexp.matchesInString(u, options: [], range: NSMakeRange(0, ns.length))
+        let ms = regexp.matches(in: u, options: [], range: NSMakeRange(0, ns.length))
 
         guard ms.count == 1 && regexp.numberOfCaptureGroups == 4 else { return nil }
         let m = ms[0]
 
-        guard let topicId      = TopicID     (ns.substringWithRange(m.rangeAtIndex(1))) else { return nil }
-        guard let postId       = PostID      (ns.substringWithRange(m.rangeAtIndex(2))) else { return nil }
-        guard let attachmentId = AttachmentID(ns.substringWithRange(m.rangeAtIndex(3))) else { return nil }
-        let filename           = ns.substringWithRange(m.rangeAtIndex(4))
+        guard let topicId      = TopicID     (ns.substring(with: m.rangeAt(1))) else { return nil }
+        guard let postId       = PostID      (ns.substring(with: m.rangeAt(2))) else { return nil }
+        guard let attachmentId = AttachmentID(ns.substring(with: m.rangeAt(3))) else { return nil }
+        let filename           = ns.substring(with: m.rangeAt(4))
 
         self.init(topicId: topicId, postId: postId, attachmentId: attachmentId, filename: filename, type: attachmentType)
     }
 }
 
 extension UploadAttachment {
-    public var bodyParameters: BodyParametersType? {
-        return MultipartFormDataBodyParameters(parts: [MultipartFormDataBodyParameters.Part(data: self.contents, name: self.name)])
+    public var bodyParameters: BodyParameters? {
+        return MultipartFormDataBodyParameters(parts: [MultipartFormDataBodyParameters.Part(data: self.contents as Data, name: self.name)])
     }
 }
 
 // Helper funcs
 
-public class RawDataParser: DataParserType {
-    public var contentType: String? {
+open class RawDataParser: DataParser {
+    open var contentType: String? {
         return nil
     }
 
-    public func parseData(data: NSData) throws -> AnyObject {
-        return data
+    open func parse(data: Data) throws -> Any {
+        return data as Any
     }
 }
 
-public struct FormURLArrayEncodedBodyParameters: BodyParametersType {
+public struct FormURLArrayEncodedBodyParameters: BodyParameters {
     public let form: [String: AnyObject]
-    public let encoding: NSStringEncoding
+    public let encoding: String.Encoding
 
-    public init(formObject: [String: AnyObject], encoding: NSStringEncoding = NSUTF8StringEncoding) {
+    public init(formObject: [String: AnyObject], encoding: String.Encoding = String.Encoding.utf8) {
         self.form = formObject
         self.encoding = encoding
     }
@@ -117,19 +117,19 @@ public struct FormURLArrayEncodedBodyParameters: BodyParametersType {
     }
 
     public func buildEntity() throws -> RequestBodyEntity {
-        return .Data(try dataFromObject(form, encoding: encoding))
+        return .data(try dataFromObject(form, encoding: encoding))
     }
 }
 
-private func dataFromObject(object: [String: AnyObject], encoding: NSStringEncoding) throws -> NSData {
+private func dataFromObject(_ object: [String: AnyObject], encoding: String.Encoding) throws -> Data {
     let string = stringFromDictionary(object)
-    guard let data = string.dataUsingEncoding(encoding, allowLossyConversion: false) else {
-        throw URLEncodedSerialization.Error.CannotGetDataFromString(string, encoding)
+    guard let data = string.data(using: encoding, allowLossyConversion: false) else {
+        throw URLEncodedSerialization.Error.cannotGetDataFromString(string, encoding)
     }
     return data
 }
 
-private func escape(string: String) -> String {
+private func escape(_ string: String) -> String {
     // Reserved characters defined by RFC 3986
     // Reference: https://www.ietf.org/rfc/rfc3986.txt
     let generalDelimiters = ":/?#[]@"
@@ -137,13 +137,13 @@ private func escape(string: String) -> String {
     let reservedCharacters = generalDelimiters + subDelimiters
 
     let allowedCharacterSet = NSMutableCharacterSet()
-    allowedCharacterSet.formUnionWithCharacterSet(NSCharacterSet.URLQueryAllowedCharacterSet())
-    allowedCharacterSet.removeCharactersInString(reservedCharacters)
+    allowedCharacterSet.formUnion(with: CharacterSet.urlQueryAllowed)
+    allowedCharacterSet.removeCharacters(in: reservedCharacters)
 
-    return string.stringByAddingPercentEncodingWithAllowedCharacters(allowedCharacterSet) ?? string
+    return string.addingPercentEncoding(withAllowedCharacters: allowedCharacterSet as CharacterSet) ?? string
 }
 
-private func stringFromDictionary(dictionary: [String:AnyObject]) -> String {
+private func stringFromDictionary(_ dictionary: [String:AnyObject]) -> String {
     let pairs = dictionary.map { key, value -> String in
         if value is NSNull {
             return "\(escape(key))"
@@ -153,12 +153,12 @@ private func stringFromDictionary(dictionary: [String:AnyObject]) -> String {
             return arr.map { (e) -> String in
                 let valueAsString = (e as? String) ?? "\(e)"
                 return "\(escape(key + "[]"))=\(escape(valueAsString))"
-            }.joinWithSeparator("&")
+            }.joined(separator: "&")
         }
 
         let valueAsString = (value as? String) ?? "\(value)"
         return "\(escape(key))=\(escape(valueAsString))"
     }
 
-    return pairs.joinWithSeparator("&")
+    return pairs.joined(separator: "&")
 }

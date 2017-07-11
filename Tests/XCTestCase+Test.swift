@@ -11,17 +11,17 @@ import XCTest
 @testable import TypetalkKit
 
 extension XCTestCase {
-    func path(name: String) -> String {
-        let bundle = NSBundle(forClass: ClientAPITests.self)
-        return bundle.pathForResource(name, ofType: "json")!
+    func path(_ name: String) -> String {
+        let bundle = Bundle(for: ClientAPITests.self)
+        return bundle.path(forResource: name, ofType: "json")!
     }
 
-    func json(name: String) -> [String:AnyObject] {
-        let data = try? NSData(contentsOfFile: path(name), options: [])
+    func json(_ name: String) -> [String:AnyObject] {
+        let data = try? Data(contentsOf: URL(fileURLWithPath: path(name)), options: [])
         assert(data != nil)
 
         do {
-            let dic = try NSJSONSerialization.JSONObjectWithData(data!, options: []) as! NSDictionary
+            let dic = try JSONSerialization.jsonObject(with: data!, options: []) as! NSDictionary
             //assert(dic != nil && error == nil)
             return dic as! [String:AnyObject]
         } catch {
@@ -30,7 +30,7 @@ extension XCTestCase {
         fatalError()
     }
 
-    func streaming_json(name: String) -> [String:AnyObject] {
+    func streaming_json(_ name: String) -> [String:AnyObject] {
         let j = json("streaming-\(name)")
         let data: AnyObject? = j["data"]
         return data as! [String:AnyObject]!

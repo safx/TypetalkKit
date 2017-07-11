@@ -10,28 +10,16 @@ import UIKit
 import TypetalkKit
 
 class TopicCell: UITableViewCell {
-    @IBOutlet private weak var name: UILabel!
-    @IBOutlet private weak var lastUpdate: UILabel!
+    @IBOutlet fileprivate weak var name: UILabel!
+    @IBOutlet fileprivate weak var lastUpdate: UILabel!
 
     var model: TopicWithUserInfo? {
         didSet {
             name.text = model!.topic.name
 
-            let dateFormatter = NSDateFormatter()
+            let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = NSLocalizedString("MMM d yyyy", comment:"file date time (this format uses Unicode standard)")
-            lastUpdate.text = dateFormatter.stringFromDate(model!.topic.updatedAt)
+            lastUpdate.text = dateFormatter.string(from: model!.topic.updatedAt)
         }
     }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
-
 }

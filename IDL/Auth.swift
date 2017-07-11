@@ -30,10 +30,10 @@ class AccessToken: ClassInit, APIKitHelper, AuthRequest { // router:"POST, acces
 }
 
 class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncodable {
-    public let accessToken: String    // json:"access_token"
-    public let tokenType: String      // json:"token_type"
-    public let refreshToken: String   // json:"refresh_token"
-    public let expiryIn: Int          // json:"expires_in"
+    open let accessToken: String    // json:"access_token"
+    open let tokenType: String      // json:"token_type"
+    open let refreshToken: String   // json:"refresh_token"
+    open let expiryIn: Int          // json:"expires_in"
     //public let scope: Scope
 }
 

@@ -13,7 +13,7 @@ import XCTest
 class AccountTests: XCTestCase {
 
     func testProfile() {
-        let model = try! Account.parseJSON(json("model_account"))
+        let model = try! Account.parse(with: json("model_account"))
         
         XCTAssertEqual(model.id, 102)
         XCTAssertEqual(model.name, "moss")

@@ -2,8 +2,10 @@
   "topic": {
     "id": 208,
     "name": "IT Peeps",
+    "description": "",
     "suggestion": "IT Peeps",
-    "lastPostedAt": "2016-03-04T02:36:56Z",
+    "isDirectMessage": false,
+    "lastPostedAt": "2016-12-21T10:12:02Z",
     "createdAt": "2014-06-10T02:32:29Z",
     "updatedAt": "2014-06-10T02:32:29Z"
   },
@@ -13,7 +15,7 @@
     "name": "About us",
     "suggestion": "About us",
     "createdAt": "2014-07-02T03:42:29Z",
-    "updatedAt": "2016-03-04T02:37:14Z",
+    "updatedAt": "2016-12-21T10:12:24Z",
     "backlog": null
   },
   "postIds": [

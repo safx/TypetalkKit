@@ -12,7 +12,7 @@ import XCTest
 class URLAttachmentTests: XCTestCase {
 
     func testExample() {
-        let model = try! URLAttachment.parseJSON(json("model_urlattachment"))
+        let model = try! URLAttachment.parse(with: json("model_urlattachment"))
 
         XCTAssertEqual(model.webUrl.absoluteString, "https://typetalk.in/topics/208/posts/300/attachments/1/1.jpg")
         XCTAssertEqual(model.apiUrl.absoluteString, "https://typetalk.in/api/v1/topics/208/posts/300/attachments/1/1.jpg")

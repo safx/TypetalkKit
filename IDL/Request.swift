@@ -12,40 +12,53 @@ import APIKit
 class GetProfile: ClassInit, APIKitHelper, TypetalkRequest { // router:",profile"
 }
 
+class GetFriendProfile: ClassInit, APIKitHelper, TypetalkRequest { // router:",accounts/profile/\(accountName)"
+    typealias APIKitResponse = AccountWithLoginStatus
+    let accountName: String
+}
+
+class GetOnlineStatus: ClassInit, APIKitHelper, TypetalkRequest { // router:",accounts/status"
+    let accountIds: [AccountID]
+}
+
 class GetTopics:  ClassInit, APIKitHelper, TypetalkRequest { // router:",topics"
+}
+
+class GetDmTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",messages"
 }
 
 class GetMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)"
     let topicId: TopicID
-    let count: Int? = nil
-    let from: PostID? = nil
+    let count: Int?                        // default value: 20, maximum: 200
+    let from: PostID? = nil                // references Post ID
     let direction: MessageDirection? = nil
 }
 
 class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId),form"
     let topicId: TopicID
-    let message: String
-    let replyTo: Int? = nil
-    let showLinkMeta: Bool? = nil
-    let fileKeys: [String] = []
-    let talkIds: [TalkID] = []
-    // TODO: attachments[0].fileUrl, attachments[0].fileName
+    let message: String                   // your message,  (max 4000 characters)
+    let replyTo: PostID? = nil            // references Post ID
+    let showLinkMeta: Bool? = nil         // show OGP data of URL included in message. default value: true
+    let fileKeys: [FileKey] = []          // attachment file key (refer to Upload attachment file ), maximum count: 5
+    let talkIds: [TalkID] = []            // Talk IDs that you want to put the message in, maximum count: 5
+    //let attachments[0].fileUrl: String  // Each message can have max. 5 file URLs (max. 10MB per file).
+    //let attachments[0].fileName: String // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
 }
 
 class UploadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/attachments"
     typealias APIKitResponse = Attachment
     let topicId: TopicID
-    public let name: String     // router:"-"
-    public let contents: NSData // router:"-"
+    open let name: String     // router:"-"
+    open let contents: Data // router:"-"
 }
 
 class DownloadAttachment: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
-    typealias APIKitResponse = NSData
+    typealias APIKitResponse = Data
     let topicId: TopicID
     let postId: PostID
     let attachmentId: AttachmentID
-    let filename: String
-    let type: AttachmentType? = nil
+    let filename: String            // Attached filename
+    let type: AttachmentType? = nil // Thumbnail image type (Only supports one image file) value: small, medium, large
 }
 
 class GetTopicMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(topicId)/members/status"
@@ -61,7 +74,7 @@ class UpdateMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,t
     typealias APIKitResponse = PostMessageResponse
     let topicId: TopicID
     let postId: PostID
-    let message: String
+    let message: String   // your message,  ( max 4000 characters )
 }
 
 class DeleteMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/posts/\(postId)"
@@ -82,13 +95,30 @@ class UnlikeMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELET
 }
 
 class FavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/favorite"
-    typealias APIKitResponse = TopicWithUserInfo
     let topicId: TopicID
 }
 
 class UnfavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/favorite"
-    typealias APIKitResponse = TopicWithUserInfo
+    typealias APIKitResponse = FavoriteTopicResponse
     let topicId: TopicID
+}
+
+class GetDirectMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",messages/@\(accountName)"
+    let accountName: String                // Account name
+    let count: Int? = nil                  // default value: 20, maximum: 200
+    let from: PostID? = nil                // references Post ID
+    let direction: MessageDirection? = nil // “backward” or “forward”
+}
+
+class PostDirectMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,messages/@\(accountName)"
+    let accountName: String               // Account name
+    let message: String                   // your message,  (max 4000 characters)
+    let replyTo: PostID? = nil            // references Post ID
+    let showLinkMeta: Bool? = nil         // show OGP data of URL included in message. default value: true
+    let fileKeys: [FileKey] = []          // attachment file key (refer to Upload attachment file ), maximum count: 5
+    let talkIds: [TalkID] = []            // Talk IDs that you want to put the message in, maximum count: 5
+    //let attachments[0].fileUrl: String  // Each message can have max. 5 file URLs (max. 10MB per file).
+    //let attachments[0].fileName: String // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
 }
 
 class GetNotifications: ClassInit, APIKitHelper, TypetalkRequest { // router:",notifications"
@@ -105,53 +135,31 @@ class OpenNotification: ClassInit, APIKitHelper, TypetalkRequest { // router:"PU
 
 class SaveReadTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,bookmarks"
     let topicId: TopicID
-    let postId: PostID? = nil
+    let postId: PostID? = nil          // Post ID ( if no parameter, read all posts )
 }
 
 class GetMentions: ClassInit, APIKitHelper, TypetalkRequest { // router:",mentions"
     let from: MentionID? = nil
-    let unread: Bool? = nil
+    let unread: Bool? = nil            // true: only unread mentions, false: all mentions
 }
 
 class SaveReadMention: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,mentions/\(mentionId)"
     let mentionId: MentionID
 }
 
-class AcceptTeamInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,teams/\(teamId)/members/invite/\(inviteId)/accept"
-    let teamId: TeamID
-    let inviteId: InviteID
-}
-
-class DeclineTeamInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,teams/\(teamId)/members/invite/\(inviteId)/decline"
-    typealias APIKitResponse = Invite
-    let teamId: TeamID
-    let inviteId: InviteID
-}
-
-class AcceptTopicInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite/\(inviteId)/accept"
-    let topicId: TopicID
-    let inviteId: InviteID
-}
-
-class DeclineTopicInvite: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite/\(inviteId)/decline"
-    typealias APIKitResponse = AcceptTopicInviteResponse
-    let topicId: TopicID
-    let inviteId: InviteID
-}
-
 class CreateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics"
     typealias APIKitResponse = TopicWithAccounts
-    let name: String
-    let spaceKey: String
-    let inviteMembers: [String] = []
-    let inviteMessage: String = ""
+    let name: String                          // Topic name  (max 64 characters)
+    let spaceKey: SpaceKey
+    let addAccountIds: [AccountID] = []       // Account ID (organization member only)
+    let addGroupIds: [GroupID] = []
 }
 
 class UpdateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,topics/\(topicId)"
     typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
-    let name: String? = nil
-    let teamId: TeamID? = nil
+    let name: String? = nil        // Topic name         ( max 64 characters )
+    let description: String? = nil // Topic description  ( max 1000 characters )
 }
 
 class DeleteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)"
@@ -167,38 +175,25 @@ class GetTopicDetails: ClassInit, APIKitHelper, TypetalkRequest { // router:",to
 class UpdateTopicMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/update"
     typealias APIKitResponse = TopicWithAccounts
     let topicId: TopicID
-    let addAccountIds: [String] = []
-    let addGroupIds: [String] = []
-    let removeAccountIds: [Int] = []
-    let removeGroupIds: [Int] = []
+    let addAccountIds: [AccountID] = []                  // Account ID that you want to add (organization member only)
+    let addGroupIds: [GroupID] = []                      // Group ID that you want to add
+    //let invitations[0].email,: String                  // Email address that you want to invite
+    //let invitations[0].role,: String                   // Role that you want to invite
+    //let removeAccounts[0].id,: Int                     // Account ID that you want to remove
+    //let removeAccounts[0].cancelSpaceInvitation,: Bool // If this is true, the user invitation will be removed
+    let removeGroupIds: [GroupID] = []                   // Group ID that you want to remove
 }
 
 class GetSpaces: ClassInit, APIKitHelper, TypetalkRequest { // router:",spaces"
-    let excludesGuest: Bool = false
+    let excludesGuest: Bool = false          // If this is true, response excludes organizations that your role is guest in.
 }
 
 class GetSpaceMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",spaces/\(spaceKey)/members"
-    let spaceKey: String
-}
-
-class InviteTopicMember: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/invite"
-    typealias APIKitResponse = TopicWithAccounts
-    let topicId: TopicID
-    let inviteMembers: [String] = []
-    let inviteMessage: String? = nil
-}
-
-class RemoveTopicMember: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/members/remove"
-    typealias APIKitResponse = TopicWithAccounts
-    let topicId: TopicID
-    let removeInviteIds: [InviteID] = []
-    let removeMemberIds: [AccountID] = []
-}
-
-class GetTeams: ClassInit, APIKitHelper, TypetalkRequest { // router:",teams"
+    let spaceKey: SpaceKey
 }
 
 class GetFriends: ClassInit, APIKitHelper, TypetalkRequest { // router:",search/friends"
+    // TODO
 }
 
 class SearchAccounts: ClassInit, APIKitHelper, TypetalkRequest { // router:",search/accounts"
@@ -214,21 +209,21 @@ class GetTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:",topics/\(t
     //typealias APIKitResponse = TalkMessages
     let topicId: TopicID
     let talkId: TalkID
-    let count: Int? = nil
-    let from: PostID? = nil
+    let count: Int?                 // default value: 20, maximum: 200
+    let from: PostID? = nil         // references Post ID
     let direction: MessageDirection? = nil
 }
 
 class CreateTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,topics/\(topicId)/talks"
     let topicId: TopicID
-    let talkName: String
-    let postIds: [PostID] = []
+    let talkName: String        // Talk name ( max 64 characters )
+    let postIds: [PostID] = []  // Post IDs that you want to add to the talk
 }
 
 class UpdateTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,topics/\(topicId)/talks/\(talkId)"
     let topicId: TopicID
     let talkId: TalkID
-    let talkName: String
+    let talkName: String        // Talk name ( max 64 characters )
 }
 
 class DeleteTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/talks/\(talkId)"
@@ -241,12 +236,12 @@ class AddMessageToTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"PO
     typealias APIKitResponse = CreateTalkResponse
     let topicId: TopicID
     let talkId: TalkID
-    let postIds: [PostID] = []
+    let postIds: [PostID] = []  // Post IDs that you want to add to the talk
 }
 
 class RemoveMessageFromTalk: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,topics/\(topicId)/talks/\(talkId)/posts"
     typealias APIKitResponse = CreateTalkResponse
     let topicId: TopicID
     let talkId: TalkID
-    let postIds: [PostID] = []
+    let postIds: [PostID] = []  // Post IDs that you want to add to the talk
 }

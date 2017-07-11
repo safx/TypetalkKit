@@ -12,14 +12,14 @@ import TypetalkKit
 class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDataSource {
 
     @IBOutlet weak var tableView: NSTableView!
-    private var topics: [TopicWithUserInfo] = []
+    fileprivate var topics: [TopicWithUserInfo] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchData()
     }
 
-    override var representedObject: AnyObject? {
+    override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
         }
@@ -27,14 +27,14 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
 
     func fetchData() {
         if TypetalkAPI.isSignedIn {
-            TypetalkAPI.sendRequest(GetTopics()) { result in
+            TypetalkAPI.send(GetTopics()) { result in
                 switch result {
-                case .Success(let ts):
+                case .success(let ts):
                     self.topics = ts.topics
                     self.tableView.reloadData()
-                case .Failure(let error):
+                case .failure(let error):
                     print(error)
-                    TypetalkAPI.requestRefreshToken { (err) -> Void in
+                    _ = TypetalkAPI.requestRefreshToken { (err) -> Void in
                         if err == nil {
                             self.fetchData()
                         } else {
@@ -58,22 +58,22 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
 
     // MARK: - Action
 
-    @IBAction func columnChangeSelected(sender: NSTableView) {
+    @IBAction func columnChangeSelected(_ sender: NSTableView) {
         if topics.count <= sender.selectedRow { return }
         
         let topic = topics[sender.selectedRow]
-        let controller = self.parentViewController?.childViewControllers[1] as! MessageViewController
+        let controller = self.parent?.childViewControllers[1] as! MessageViewController
         controller.detailItem = topic
     }
     
     // MARK: - Table View
 
-    func numberOfRowsInTableView(tableView: NSTableView) -> Int {
+    func numberOfRows(in tableView: NSTableView) -> Int {
         return topics.count
     }
 
-    func tableView(tableView: NSTableView, viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.makeViewWithIdentifier("TopicCell", owner: nil) as! NSTableCellView
+    func tableView(_ tableView: NSTableView, viewFor viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
+        let cell = tableView.make(withIdentifier: "TopicCell", owner: nil) as! NSTableCellView
         cell.textField?.stringValue = topics[row].topic.name
         return cell
     }

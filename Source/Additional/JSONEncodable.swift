@@ -14,17 +14,17 @@ public protocol JSONEncodable {
 
 // MARK:
 
-public extension NSURL {
+public extension URL {
     public func toJSON() -> String {
         return self.absoluteString
     }
 }
 
-public extension NSDate {
+public extension Date {
     public func toJSON() -> String {
-        let dateFormatter = NSDateFormatter()
+        let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        return dateFormatter.stringFromDate(self)
+        return dateFormatter.string(from: self)
     }
 }
 
@@ -36,30 +36,30 @@ public extension String {
 
 public extension Float {
     public func toJSON() -> NSNumber {
-        return NSNumber(float: self)
+        return NSNumber(value: self as Float)
     }
 }
 
 public extension Double {
     public func toJSON() -> NSNumber {
-        return NSNumber(double: self)
+        return NSNumber(value: self as Double)
     }
 }
 
 public extension Int {
     public func toJSON() -> NSNumber {
-        return NSNumber(integer: self)
+        return NSNumber(value: self as Int)
     }
 }
 
 public extension UInt {
     public func toJSON() -> NSNumber {
-        return NSNumber(unsignedLong: self)
+        return NSNumber(value: self as UInt)
     }
 }
 
 public extension Bool {
     public func toJSON() -> NSNumber {
-        return NSNumber(bool: self)
+        return NSNumber(value: self as Bool)
     }
 }

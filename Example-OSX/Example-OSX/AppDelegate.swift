@@ -14,34 +14,34 @@ import TypetalkKit
 class AppDelegate: NSObject, NSApplicationDelegate {
 
     override class func initialize() {
-        TypetalkAPI.setDeveloperSettings(
+        _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
-            redirectURI:  "Your custome scheme",    // e.g. typetalkkit://auth/success
-            scopes: [Scope.my, Scope.topic_read])
-
-        TypetalkAPI.restoreTokenFromAccountStore()
+            scopes: [Scope.my, Scope.topic_read],    // e.g. typetalkkit://auth/success
+            redirectURI:  "Your custome scheme")
+        
+        _ = TypetalkAPI.restoreTokenFromAccountStore()
     }
 
-    func applicationDidFinishLaunching(aNotification: NSNotification) {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
     }
 
-    func applicationWillTerminate(aNotification: NSNotification) {
+    func applicationWillTerminate(_ aNotification: Notification) {
     }
 
-    func applicationWillFinishLaunching(aNotification: NSNotification) {
-        let appleEventManager:NSAppleEventManager = NSAppleEventManager.sharedAppleEventManager()
-        appleEventManager.setEventHandler(self, andSelector: "handleGetURLEvent:replyEvent:",
+    func applicationWillFinishLaunching(_ aNotification: Notification) {
+        let appleEventManager:NSAppleEventManager = NSAppleEventManager.shared()
+        appleEventManager.setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),
             forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
     }
 
     // MARK - handleURL
     
-    func handleGetURLEvent(event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
+    func handleGetURLEvent(_ event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
         if let ev = event,
-            url_str = ev.descriptorForKeyword(AEKeyword(keyDirectObject))?.stringValue,
-            url = NSURL(string: url_str) where TypetalkAPI.isRedirectURL(url) {
-                TypetalkAPI.authorizationDone(URL: url)
+            let url_str = ev.forKeyword(AEKeyword(keyDirectObject))?.stringValue,
+            let url = URL(string: url_str), TypetalkAPI.isRedirectURL(url) {
+                _ = TypetalkAPI.authorizationDone(URL: url)
         }
     }
 }

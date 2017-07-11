@@ -12,7 +12,7 @@ import XCTest
 class LikeTests: XCTestCase {
     
     func testExample() {
-        let model = try! Like.parseJSON(json("model_like"))
+        let model = try! Like.parse(with: json("model_like"))
         
         XCTAssertEqual(model.id, 400)
         XCTAssertEqual(model.postId, 302)

@@ -9,12 +9,12 @@
 import APIKit
 
 
-public class TypetalkAPI: Session {
+open class TypetalkAPI: Session {
     internal static let apiURLString: String = "https://typetalk.in/api/v1/"
     internal static let authURLString: String = "https://typetalk.in/oauth2"
 }
 
-enum TypetalkAPIError: ErrorType {
-    case CannotBuildURLRequest
+enum TypetalkAPIError: Error {
+    case cannotBuildURLRequest
 }
 

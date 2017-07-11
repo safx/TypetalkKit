@@ -13,30 +13,8 @@ import APIKit
 
 class ClientStreamingAPITests: XCTestCase {
 
-    func testAcceptTeamInvite() {
-        let model = try! AcceptTeamInviteEvent.parseJSON(streaming_json("acceptTeamInvite"))
-
-        XCTAssertEqual(model.topics.count, 1)
-        XCTAssertEqual(model.topics[0].name, "Sample topic")
-        XCTAssertEqual(model.topics[0].createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(model.topics[0].updatedAt.description, "2014-10-06 15:04:07 +0000")
-
-        XCTAssertEqual(model.invite!.id, 9999)
-        XCTAssertEqual(model.invite!.team!.id, 1000)
-        XCTAssertEqual(model.invite!.team!.name, "MyTeam")
-
-        XCTAssertEqual(model.invite!.sender!.id, 2222)
-        XCTAssertEqual(model.invite!.sender!.name, "someone")
-
-        XCTAssertEqual(model.invite!.account!.id, 3333)
-        XCTAssertEqual(model.invite!.account!.name, "user")
-
-        // FIXME: XCTAssertEqual(model.invite!.role, "member")
-        XCTAssertEqual(model.invite!.message, "Please join my team on Typetalk.")
-    }
-
     func testAddTalkPost() {
-        let model = try! AddTalkPostEvent.parseJSON(streaming_json("addTalkPost"))
+        let model = try! AddTalkPostEvent.parse(with: streaming_json("addTalkPost"))
 
         XCTAssertEqual(model.topic.id, 10999)
         XCTAssertEqual(model.topic.name, "foo")
@@ -57,7 +35,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testCreateTalk() {
-        let model = try! CreateTalkEvent.parseJSON(streaming_json("createTalk"))
+        let model = try! CreateTalkEvent.parse(with: streaming_json("createTalk"))
 
         XCTAssertEqual(model.topic.id, 10000)
         XCTAssertEqual(model.topic.name, "Sample Topic")
@@ -77,7 +55,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testCreateTopic() {
-        let model = try! CreateTopicEvent.parseJSON(streaming_json("createTopic"))
+        let model = try! CreateTopicEvent.parse(with: streaming_json("createTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -93,40 +71,8 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.unread!.count, 2)
     }
 
-    func testDeclineTeamInvite() {
-        let model = try! DeclineTeamInviteEvent.parseJSON(streaming_json("declineTeamInvite"))
-
-        XCTAssertEqual(model.invite!.id, 9999)
-        XCTAssertEqual(model.invite!.team!.id, 1000)
-        XCTAssertEqual(model.invite!.team!.name, "MyTeam")
-        XCTAssertEqual(model.invite!.team!.imageUrl.description, "https://typetalk.in/teams/1000/image.png?t=1412158606241")
-        XCTAssertEqual(model.invite!.team!.createdAt.description, "2014-10-06 13:09:39 +0000")
-        XCTAssertEqual(model.invite!.team!.updatedAt.description, "2014-10-06 13:19:46 +0000")
-
-        XCTAssertEqual(model.invite!.sender!.id, 2222)
-        XCTAssertEqual(model.invite!.sender!.name, "someone")
-        XCTAssertEqual(model.invite!.sender!.fullName, "someone")
-        XCTAssertEqual(model.invite!.sender!.suggestion, "someone")
-        XCTAssertEqual(model.invite!.sender!.imageUrl.description, "https://typetalk.in/accounts/2222/profile_image.png?t=1414708327750")
-        XCTAssertEqual(model.invite!.sender!.createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(model.invite!.sender!.updatedAt.description, "2015-02-15 11:38:16 +0000")
-
-        XCTAssertEqual(model.invite!.account!.id, 3333)
-        XCTAssertEqual(model.invite!.account!.name, "user")
-        XCTAssertEqual(model.invite!.account!.fullName, "user")
-        XCTAssertEqual(model.invite!.account!.suggestion, "user")
-        XCTAssertEqual(model.invite!.account!.imageUrl.description, "https://typetalk.in/accounts/3333/profile_image.png?t=1413127202468")
-        XCTAssertEqual(model.invite!.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
-        XCTAssertEqual(model.invite!.account!.updatedAt.description, "2015-02-15 10:23:55 +0000")
-
-        XCTAssertEqual(model.invite!.role!, "member")
-        XCTAssertEqual(model.invite!.message, "Please join my team on Typetalk.")
-        XCTAssertEqual(model.invite!.createdAt!.description, "2015-02-15 11:43:29 +0000")
-        XCTAssertEqual(model.invite!.updatedAt!.description, "2015-02-15 11:44:03 +0000")
-    }
-
     func testDeleteMessageEvent() {
-        let model = try! DeleteMessageEvent.parseJSON(streaming_json("deleteMessage"))
+        let model = try! DeleteMessageEvent.parse(with: streaming_json("deleteMessage"))
 
         XCTAssertEqual(model.topic!.id, 11111)
         XCTAssertEqual(model.topic!.name, "foobar")
@@ -165,7 +111,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteTalkEvent() {
-        let model = try! DeleteTalkEvent.parseJSON(streaming_json("deleteTalk"))
+        let model = try! DeleteTalkEvent.parse(with: streaming_json("deleteTalk"))
 
         XCTAssertEqual(model.topic.id, 3333)
         XCTAssertEqual(model.topic.name, "Sample topic")
@@ -183,7 +129,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteTopicEvent() {
-        let model = try! DeleteTopicEvent.parseJSON(streaming_json("deleteTopic"))
+        let model = try! DeleteTopicEvent.parse(with: streaming_json("deleteTopic"))
 
         XCTAssertEqual(model.id, 11111)
         XCTAssertEqual(model.name, "Good Topic")
@@ -194,7 +140,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testFavoriteTopicEvent() {
-        let model = try! FavoriteTopicEvent.parseJSON(streaming_json("favoriteTopic"))
+        let model = try! FavoriteTopicEvent.parse(with: streaming_json("favoriteTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -207,7 +153,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testJoinTopicsEvent() {
-        let model = try! JoinTopicsEvent.parseJSON(streaming_json("joinTopics"))
+        let model = try! JoinTopicsEvent.parse(with: streaming_json("joinTopics"))
 
         XCTAssertEqual(model.topics.count, 1)
         let topic = model.topics[0]
@@ -226,22 +172,8 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(topic.unread!.count, 0)
     }
 
-    func testLeaveTopicsEvent() {
-        let model = try! LeaveTopicsEvent.parseJSON(streaming_json("leaveTopics"))
-
-        XCTAssertEqual(model.topics.count, 1)
-        let topic = model.topics[0]
-
-        XCTAssertEqual(topic.id, 8888)
-        XCTAssertEqual(topic.name, "Sample topic")
-        XCTAssertEqual(topic.suggestion, "Sample topic")
-        XCTAssertNil(topic.lastPostedAt)
-        XCTAssertEqual(topic.createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(topic.updatedAt.description, "2014-10-06 15:04:07 +0000")
-    }
-
     func testLikeMessageEvent() {
-        let model = try! LikeMessageEvent.parseJSON(streaming_json("likeMessage"))
+        let model = try! LikeMessageEvent.parse(with: streaming_json("likeMessage"))
 
         XCTAssertEqual(model.like.id, 111111)
         XCTAssertEqual(model.like.postId, 999999)
@@ -257,7 +189,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testNotifyMentionEvent() {
-        let model = try! NotifyMentionEvent.parseJSON(streaming_json("notifyMention"))
+        let model = try! NotifyMentionEvent.parse(with: streaming_json("notifyMention"))
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertNil(model.mention.readAt)
@@ -272,7 +204,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testPostMessageEvent() {
-        let model = try! PostMessageEvent.parseJSON(streaming_json("postMessage"))
+        let model = try! PostMessageEvent.parse(with: streaming_json("postMessage"))
 
         XCTAssertEqual(model.topic!.id, 3333)
         XCTAssertEqual(model.topic!.name, "Sample topic")
@@ -306,7 +238,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testPostLinksEvent() {
-        let model = try! PostLinksEvent.parseJSON(streaming_json("postLinks"))
+        let model = try! PostLinksEvent.parse(with: streaming_json("postLinks"))
 
         XCTAssertEqual(model.postId, 567899)
         XCTAssertEqual(model.links.count, 1)
@@ -321,7 +253,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testReadMentionEvent() {
-        let model = try! ReadMentionEvent.parseJSON(streaming_json("readMention"))
+        let model = try! ReadMentionEvent.parse(with: streaming_json("readMention"))
 
         XCTAssertEqual(model.mention.id, 111111)
         XCTAssertEqual(model.mention.readAt!.description, "2015-02-15 11:47:18 +0000")
@@ -341,7 +273,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRemoveTalkPostEvent() {
-        let model = try! RemoveTalkPostEvent.parseJSON(streaming_json("removeTalkPost"))
+        let model = try! RemoveTalkPostEvent.parse(with: streaming_json("removeTalkPost"))
 
         XCTAssertEqual(model.topic.id, 10999)
         XCTAssertEqual(model.topic.name, "foo")
@@ -362,14 +294,14 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRequestTeamInviteEvent() {
-        let model = try! RequestTeamInviteEvent.parseJSON(streaming_json("requestTeamInvite"))
+        let model = try! RequestTeamInviteEvent.parse(with: streaming_json("requestTeamInvite"))
 
         XCTAssertEqual(model.id, 9999)
-        XCTAssertEqual(model.team!.id, 1000)
-        XCTAssertEqual(model.team!.name, "Myteam")
-        XCTAssertEqual(model.team!.imageUrl.description, "https://typetalk.in/teams/1000/image.png?t=1401581266241")
-        XCTAssertEqual(model.team!.createdAt.description, "2014-10-06 13:09:39 +0000")
-        XCTAssertEqual(model.team!.updatedAt.description, "2014-10-06 13:19:46 +0000")
+        XCTAssertEqual(model.team.id, 1000)
+        XCTAssertEqual(model.team.name, "Myteam")
+        XCTAssertEqual(model.team.imageUrl.description, "https://typetalk.in/teams/1000/image.png?t=1401581266241")
+        XCTAssertEqual(model.team.createdAt.description, "2014-10-06 13:09:39 +0000")
+        XCTAssertEqual(model.team.updatedAt.description, "2014-10-06 13:19:46 +0000")
 
         XCTAssertEqual(model.sender!.id, 2222)
         XCTAssertEqual(model.sender!.name, "someone")
@@ -394,7 +326,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testSaveBookmarkEvent() {
-        let model = try! SaveBookmarkEvent.parseJSON(streaming_json("saveBookmark"))
+        let model = try! SaveBookmarkEvent.parse(with: streaming_json("saveBookmark"))
 
         XCTAssertEqual(model.unread.topicId, 3333)
         XCTAssertEqual(model.unread.postId, 999999)
@@ -402,7 +334,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUnfavoriteTopicEvent() {
-        let model = try! UnfavoriteTopicEvent.parseJSON(streaming_json("unfavoriteTopic"))
+        let model = try! UnfavoriteTopicEvent.parse(with: streaming_json("unfavoriteTopic"))
 
         XCTAssertEqual(model.topic.id, 11111)
         XCTAssertEqual(model.topic.name, "Super Topic")
@@ -415,7 +347,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUnlikeMessageEvent() {
-        let model = try! UnlikeMessageEvent.parseJSON(streaming_json("unlikeMessage"))
+        let model = try! UnlikeMessageEvent.parse(with: streaming_json("unlikeMessage"))
 
         XCTAssertEqual(model.like.id, 111111)
         XCTAssertEqual(model.like.postId, 999999)
@@ -431,7 +363,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateNotificationAccessEvent() {
-        let model = try! UpdateNotificationAccessEvent.parseJSON(streaming_json("updateNotificationAccess"))
+        let model = try! UpdateNotificationAccessEvent.parse(with: streaming_json("updateNotificationAccess"))
 
         XCTAssertEqual(model.access!.unopened!, 8)
         XCTAssertTrue(nil == model.mention)
@@ -439,7 +371,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateTalkEvent() {
-        let model = try! UpdateTalkEvent.parseJSON(streaming_json("updateTalk"))
+        let model = try! UpdateTalkEvent.parse(with: streaming_json("updateTalk"))
 
         XCTAssertEqual(model.topic.id, 3333)
         XCTAssertEqual(model.topic.name, "Sample topic")
@@ -459,7 +391,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUpdateTopicEvent() {
-        let model = try! UpdateTopicEvent.parseJSON(streaming_json("updateTopic"))
+        let model = try! UpdateTopicEvent.parse(with: streaming_json("updateTopic"))
 
         XCTAssertEqual(model.id, 11111)
         XCTAssertEqual(model.name, "Super Topic")
@@ -470,7 +402,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testRequestTopicInviteEvent() {
-        let model = try! RequestTopicInviteEvent.parseJSON(streaming_json("requestTopicInvite"))
+        let model = try! RequestTopicInviteEvent.parse(with: streaming_json("requestTopicInvite"))
 
         XCTAssertEqual(model.id, 4321)
         XCTAssertEqual(model.topic!.name, "SampleTopic")
@@ -498,99 +430,6 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.message, "Sample")
         XCTAssertEqual(model.createdAt!.description, "2015-02-28 14:34:21 +0000")
         XCTAssertEqual(model.updatedAt!.description, "2015-02-28 14:34:21 +0000")
-    }
-
-    func testAcceptTopicInviteEvent() {
-        let model = try! AcceptTopicInviteEvent.parseJSON(streaming_json("acceptTopicInvite"))
-
-        XCTAssertEqual(model.invite.id, 4321)
-        XCTAssertEqual(model.invite.topic!.name, "サンプルトピック")
-        XCTAssertEqual(model.invite.topic!.suggestion, "サンプルトピック")
-        XCTAssertNil(model.invite.topic!.lastPostedAt)
-        XCTAssertEqual(model.invite.topic!.createdAt.description, "2015-02-28 14:34:12 +0000")
-        XCTAssertEqual(model.invite.topic!.updatedAt.description, "2015-02-28 14:41:48 +0000")
-
-        XCTAssertEqual(model.invite.sender!.id, 5432)
-        XCTAssertEqual(model.invite.sender!.name, "User1")
-        XCTAssertEqual(model.invite.sender!.fullName, "User1")
-        XCTAssertEqual(model.invite.sender!.suggestion, "User1")
-        XCTAssertEqual(model.invite.sender!.imageUrl.absoluteString, "https://typetalk.in/accounts/5432/profile_image.png?t=1410835027747")
-        XCTAssertEqual(model.invite.sender!.createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(model.invite.sender!.updatedAt.description, "2015-02-28 14:30:22 +0000")
-
-        XCTAssertEqual(model.invite.account!.id, 3210)
-        XCTAssertEqual(model.invite.account!.name, "Foobar")
-        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
-        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
-        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/3210/profile_image.png?t=1412746832021")
-        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
-        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
-
-        XCTAssertEqual(model.invite.message, "Hello?")
-        XCTAssertEqual(model.invite.createdAt!.description, "2015-02-28 14:43:52 +0000")
-        XCTAssertEqual(model.invite.updatedAt!.description, "2015-02-28 14:44:01 +0000")
-    }
-
-    func testDeclineTopicInviteEvent() {
-        let model = try! DeclineTopicInviteEvent.parseJSON(streaming_json("declineTopicInvite"))
-
-        XCTAssertEqual(model.invite.id, 4321)
-        XCTAssertEqual(model.invite.topic!.name, "SampleTopic")
-        XCTAssertEqual(model.invite.topic!.suggestion, "SampleTopic")
-        XCTAssertNil(model.invite.topic!.lastPostedAt)
-        XCTAssertEqual(model.invite.topic!.createdAt.description, "2015-02-28 14:34:12 +0000")
-        XCTAssertEqual(model.invite.topic!.updatedAt.description, "2015-02-28 14:34:12 +0000")
-
-        XCTAssertEqual(model.invite.sender!.id, 5678)
-        XCTAssertEqual(model.invite.sender!.name, "User1")
-        XCTAssertEqual(model.invite.sender!.fullName, "User1")
-        XCTAssertEqual(model.invite.sender!.suggestion, "User1")
-        XCTAssertEqual(model.invite.sender!.imageUrl.absoluteString, "https://typetalk.in/accounts/5678/profile_image.png?t=1412783507470")
-        XCTAssertEqual(model.invite.sender!.createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(model.invite.sender!.updatedAt.description, "2015-02-28 14:30:22 +0000")
-
-        XCTAssertEqual(model.invite.account!.id, 3210)
-        XCTAssertEqual(model.invite.account!.name, "Foobar")
-        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
-        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
-        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/3210/profile_image.png?t=1421271320468")
-        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
-        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
-
-        XCTAssertEqual(model.invite.message, "")
-        XCTAssertEqual(model.invite.createdAt!.description, "2015-02-28 14:34:21 +0000")
-        XCTAssertEqual(model.invite.updatedAt!.description, "2015-02-28 14:38:28 +0000")
-    }
-
-    func testCancelTopicInviteEvent() {
-        let model = try! CancelTopicInviteEvent.parseJSON(streaming_json("cancelTopicInvite"))
-
-        XCTAssertEqual(model.invite.id, 4321)
-        XCTAssertEqual(model.invite.topic!.name, "サンプルトピック")
-        XCTAssertEqual(model.invite.topic!.suggestion, "サンプルトピック")
-        XCTAssertNil(model.invite.topic!.lastPostedAt)
-        XCTAssertEqual(model.invite.topic!.createdAt.description, "2015-02-28 14:34:12 +0000")
-        XCTAssertEqual(model.invite.topic!.updatedAt.description, "2015-02-28 14:41:48 +0000")
-
-        XCTAssertEqual(model.invite.sender!.id, 5432)
-        XCTAssertEqual(model.invite.sender!.name, "User1")
-        XCTAssertEqual(model.invite.sender!.fullName, "User1")
-        XCTAssertEqual(model.invite.sender!.suggestion, "User1")
-        XCTAssertEqual(model.invite.sender!.imageUrl.absoluteString, "https://typetalk.in/accounts/5432/profile_image.png?t=1414708350277")
-        XCTAssertEqual(model.invite.sender!.createdAt.description, "2014-10-04 08:51:10 +0000")
-        XCTAssertEqual(model.invite.sender!.updatedAt.description, "2015-02-28 14:30:22 +0000")
-
-        XCTAssertEqual(model.invite.account!.id, 3210)
-        XCTAssertEqual(model.invite.account!.name, "Foobar")
-        XCTAssertEqual(model.invite.account!.fullName, "Foobar")
-        XCTAssertEqual(model.invite.account!.suggestion, "Foobar")
-        XCTAssertEqual(model.invite.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/3210/profile_image.png?t=1421271320468")
-        XCTAssertEqual(model.invite.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
-        XCTAssertEqual(model.invite.account!.updatedAt.description, "2015-02-28 14:32:39 +0000")
-
-        XCTAssertEqual(model.invite.message, "")
-        XCTAssertEqual(model.invite.createdAt!.description, "2015-02-28 14:34:21 +0000")
-        XCTAssertEqual(model.invite.updatedAt!.description, "2015-02-28 14:38:28 +0000")
     }
 
 }

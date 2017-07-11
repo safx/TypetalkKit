@@ -21,26 +21,26 @@ extension TypetalkRequest {
 extension TypetalkAPI {
     public typealias CompletionClosure = (SessionTaskError?) -> Void
 
-    static var state: ClientState = .NotSignedIn
-    static private var settings: DeveloperSettings!
-    static private let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
+    static var state: ClientState = .notSignedIn
+    static fileprivate var settings: DeveloperSettings!
+    static fileprivate let accountStore = OAuth2AccountStore(serviceName: "TypetalkKit")
 
     public static var isInitialized: Bool {
         return settings != nil
     }
     public static var isSignedIn: Bool {
         switch state {
-        case .SignedIn: return true
+        case .signedIn: return true
         default: return false
         }
     }
     public static var accessToken: String? {
         switch state {
-        case .SignedIn(let credential): return credential.accessToken
+        case .signedIn(let credential): return credential.accessToken
         default: return nil
         }
     }
-    public static func setDeveloperSettings(clientId clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) -> Bool {
+    public static func setDeveloperSettings(clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) -> Bool {
         if isInitialized { return false }
         settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, scopes: scopes, redirectURI: redirectURI)
         return true
@@ -48,7 +48,7 @@ extension TypetalkAPI {
 
     public static func restoreTokenFromAccountStore() -> Bool {
         if let credential = accountStore.queryCredential() {
-            self.state = .SignedIn(credential)
+            self.state = .signedIn(credential)
             return true
         }
         return false
@@ -56,18 +56,18 @@ extension TypetalkAPI {
 
     internal static func setDummyAccessTokenForTest() {
         let credential = OAuth2Credential(accessToken: "atfoo", tokenType: "ttbar", refreshToken: "rtbazz", expiryIn: 0)
-        self.state = .SignedIn(credential)
+        self.state = .signedIn(credential)
     }
 
-    public static func isRedirectURL(url: NSURL) -> Bool {
+    public static func isRedirectURL(_ url: URL) -> Bool {
         precondition(settings.redirectURI != nil)
 
         let absurl = url.absoluteString
         return absurl.hasPrefix(settings.redirectURI!)
     }
-    public static func authorizationDone(URL url: NSURL) -> Bool {
+    public static func authorizationDone(URL url: URL) -> Bool {
         switch state {
-        case .Authorizing(let cb):
+        case .authorizing(let cb):
             let d = parseQuery(url)
             if let code = d["code"] {
                 requestAuthorizationCode(code, completion: cb)
@@ -78,10 +78,10 @@ extension TypetalkAPI {
         return false
     }
 
-    public static func requestAuthorizationCode(code: String, completion: CompletionClosure) {
+    public static func requestAuthorizationCode(_ code: String, completion: @escaping CompletionClosure) {
         precondition(isInitialized)
-        state = .RequestingAccessToken
-        accessToken(AccessToken(
+        state = .requestingAccessToken
+        access(token: AccessToken(
             grant_type: .AuthorizationCode,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
@@ -89,12 +89,12 @@ extension TypetalkAPI {
             code: code), completion: completion)
     }
 
-    public static func requestRefreshToken(completion: CompletionClosure) -> Bool {
+    public static func requestRefreshToken(_ completion: @escaping CompletionClosure) -> Bool {
         precondition(isInitialized)
         switch state {
-        case .SignedIn(let (credential)):
-            state = .RequestingTokenRefresh
-            accessToken(AccessToken(
+        case .signedIn(let (credential)):
+            state = .requestingTokenRefresh
+            access(token: AccessToken(
                 grant_type: .RefreshToken,
                 client_id: settings.clientId,
                 client_secret: settings.clientSecret,
@@ -105,49 +105,49 @@ extension TypetalkAPI {
         }
     }
 
-    public static func accessToken(request: AccessToken, completion: CompletionClosure) {
-        sendRequest(request) { result -> Void in
+    public static func access(token request: AccessToken, completion: @escaping CompletionClosure) {
+        send(request) { result -> Void in
             switch result {
-            case .Success(let credential):
-                self.accountStore.saveCredential(credential)
-                self.state = ClientState.SignedIn(credential)
+            case .success(let credential):
+                _ = self.accountStore.saveCredential(credential)
+                self.state = ClientState.signedIn(credential)
                 completion(nil)
-            case .Failure(let error):
+            case .failure(let error):
                 completion(error)
             }
         }
     }
 
-    public static func authorize(completion: CompletionClosure) {
+    public static func authorize(_ completion: @escaping CompletionClosure) {
         precondition(isInitialized)
         precondition(settings.redirectURI != nil)
 
-        state = .Authorizing(completion)
+        state = .authorizing(completion)
         let request = Authorize(
             client_id: settings.clientId,
             redirect_uri: settings.redirectURI!,
             scope: Scope.scopesToRaw(settings.scopes))
-        let param = URLEncodedSerialization.stringFromDictionary(request.parameters as! [String: AnyObject])
+        let param = URLEncodedSerialization.string(from: request.parameters as? [String:Any] ?? [:])
         let base = request.baseURL.absoluteString
-        openURL(NSURL(string: base + "/" + request.path + "?" + param)!)
+        openURL(url: URL(string: base + "/" + request.path + "?" + param)!)
     }
 
-    public static func authorizeWithClientCredentials(completion: CompletionClosure) {
+    public static func authorizeWithClientCredentials(_ completion: @escaping CompletionClosure) {
         precondition(isInitialized)
-        state = .Authorizing(completion)
-        accessToken(AccessToken(
+        state = .authorizing(completion)
+        access(token: AccessToken(
             grant_type: .ClientCredentials,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             scope: Scope.scopesToRaw(settings.scopes)), completion: completion)
     }
 
-    public class func parseQuery(url: NSURL) -> [String:String] {
+    public class func parseQuery(_ url: URL) -> [String:String] {
         var dic: [String:String] = [:]
         if let q = url.query {
-            let ss = q.componentsSeparatedByString("&")
+            let ss = q.components(separatedBy: "&")
             for _ in ss {
-                let kv = q.componentsSeparatedByString("=")
+                let kv = q.components(separatedBy: "=")
                 switch kv.count {
                 case 0: break
                 case 1: dic[kv[0]] = ""
@@ -160,11 +160,11 @@ extension TypetalkAPI {
     }
 
     internal enum ClientState {
-        case NotSignedIn
-        case Authorizing(CompletionClosure)
-        case RequestingAccessToken
-        case SignedIn(OAuth2Credential)
-        case RequestingTokenRefresh
+        case notSignedIn
+        case authorizing(CompletionClosure)
+        case requestingAccessToken
+        case signedIn(OAuth2Credential)
+        case requestingTokenRefresh
     }
 
 }
@@ -184,23 +184,23 @@ internal struct DeveloperSettings {
 }
 
 extension Scope {
-    public static func scopesFromRaw(raw: String) -> [Scope] {
-        return raw.componentsSeparatedByString(",").flatMap { Scope(rawValue: $0) }
+    public static func scopesFromRaw(_ raw: String) -> [Scope] {
+        return raw.components(separatedBy: ",").flatMap { Scope(rawValue: $0) }
     }
 
-    public static func scopesToRaw(values: [Scope]) -> String {
-        return values.map { $0.rawValue } .joinWithSeparator(",")
+    public static func scopesToRaw(_ values: [Scope]) -> String {
+        return values.map { $0.rawValue } .joined(separator: ",")
     }
 }
 
 #if os(iOS)
     import UIKit
-    private func openURL(url: NSURL) {
-        UIApplication.sharedApplication().openURL(url)
+    private func openURL(url: URL) {
+        UIApplication.shared.openURL(url)
     }
 #else
     import AppKit
-    private func openURL(url: NSURL) {
-        NSWorkspace.sharedWorkspace().openURL(url)
+    private func openURL(url: URL) {
+        NSWorkspace.shared().open(url)
     }
 #endif

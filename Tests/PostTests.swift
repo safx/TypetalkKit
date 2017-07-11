@@ -12,7 +12,7 @@ import XCTest
 class PostTests: XCTestCase {
     
     func testExample() {
-        let model = try! Post.parseJSON(json("model_post"))
+        let model = try! Post.parse(with: json("model_post"))
 
         XCTAssertEqual(model.id, 300)
         XCTAssertEqual(model.topicId, 208)

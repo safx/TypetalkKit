@@ -8,7 +8,8 @@
     "name": "jessica",
     "fullName": "Jessica Fitzherbert",
     "suggestion": "Jessica Fitzherbert",
-    "imageUrl": "https://typetalk.in/accounts/100/profile_image.png?t=1403577149000",
+    "imageUrl": "http://typetalk.local:8484/accounts/100/profile_image.png?t=1403577149000",
+    "isBot": false,
     "createdAt": "2014-06-24T02:32:29Z",
     "updatedAt": "2014-06-24T02:32:29Z"
   },
@@ -17,6 +18,6 @@
   "likes": [],
   "talks": [],
   "links": [],
-  "createdAt": "2016-03-04T02:36:51Z",
-  "updatedAt": "2016-03-04T02:36:51Z"
+  "createdAt": "2016-12-21T10:11:57Z",
+  "updatedAt": "2016-12-21T10:11:57Z"
 }
