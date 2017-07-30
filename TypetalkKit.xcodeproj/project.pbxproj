@@ -341,10 +341,6 @@
 		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		8D0F057B1B8A1D8300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
 		8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
-		8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TypetalkKit-tvos.h"; sourceTree = "<group>"; };
-		8D1C98691E25224C0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypetalkKit_tvosTests.swift; sourceTree = "<group>"; };
-		8D1C98751E25224D0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-direct-messages.json"; sourceTree = "<group>"; };
 		8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-dm-topics.json"; sourceTree = "<group>"; };
 		8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-friend-profile.json"; sourceTree = "<group>"; };
@@ -554,24 +550,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8D1C98671E25224C0036CADD /* TypetalkKit-tvos */ = {
-			isa = PBXGroup;
-			children = (
-				8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */,
-				8D1C98691E25224C0036CADD /* Info.plist */,
-			);
-			path = "TypetalkKit-tvos";
-			sourceTree = "<group>";
-		};
-		8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */ = {
-			isa = PBXGroup;
-			children = (
-				8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */,
-				8D1C98751E25224D0036CADD /* Info.plist */,
-			);
-			path = "TypetalkKit-tvosTests";
-			sourceTree = "<group>";
-		};
 		8D4785491B57D0DF00B37898 /* IDL */ = {
 			isa = PBXGroup;
 			children = (
@@ -654,8 +632,6 @@
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
 				8D4785491B57D0DF00B37898 /* IDL */,
-				8D1C98671E25224C0036CADD /* TypetalkKit-tvos */,
-				8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */,
 				8DBA516919C5B47300BD88A3 /* Products */,
 				8D622B091C187B7D00A743C2 /* Frameworks-iOS */,
 				8D622B251C187ECF00A743C2 /* Frameworks-OSX */,
