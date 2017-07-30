@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
-            scopes: [Scope.my, Scope.topic_read],    // e.g. typetalkkit://auth/success
+            scopes: [Scope.my, Scope.topicRead],    // e.g. typetalkkit://auth/success
             redirectURI:  "Your custome scheme")
 
         _ = TypetalkAPI.restoreTokenFromAccountStore()

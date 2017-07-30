@@ -90,16 +90,12 @@ final private class TypetalkStream : WebSocketDelegate {
     }
 
     fileprivate func websocketDidReceiveMessage(socket: WebSocket, text: String) {
-        let jsondata = text.data(using: String.Encoding.unicode)!
+        let decoder = JSONDecoder()
         do {
-            let json = try JSONSerialization.jsonObject(with: jsondata, options: []) as! [String:AnyObject]
-            let type = json["type"] as? String
-            let data = json["data"] as? [String:AnyObject]
-            if type != nil && data != nil {
-                if let ev = try StreamingEvent.parse(type: type!, data: data!) {
+            let jsonData = text.data(using: .utf8)!
+            if let eventType = try? decoder.decode(StreamEventTypeChecker.self, from: jsonData) {
+                if let ev = try StreamingEvent.parse(type: eventType.type, data: jsonData) {
                     sendStreamEventIfPossible(ev)
-                } else {
-
                 }
             }
         } catch {
@@ -112,3 +108,8 @@ final private class TypetalkStream : WebSocketDelegate {
     }
 
 }
+
+fileprivate struct StreamEventTypeChecker: Decodable {
+    let type: String
+}
+

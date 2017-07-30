@@ -11,8 +11,8 @@ protocol EnumStaticInit {}
 
 protocol Printable {}
 
-protocol JSONEncodable {}
-protocol JSONDecodable {}
+protocol Encodable {}
+protocol Decodable {}
 protocol NSCoding {}
 
 protocol URLRequestHelper {}

@@ -30,29 +30,30 @@ public enum StreamingEvent {
 	case updateTopic(UpdateTopicEvent)
 	case unknown(String, String: [AnyObject])
 
-	static func parse(type: String, data: [String:AnyObject]) throws -> StreamingEvent? {
-		if type == "addTalkPost" { return .addTalkPost(try AddTalkPostEvent.parse(with: data)) }
-		if type == "createTalk" { return .createTalk(try CreateTalkEvent.parse(with: data)) }
-		if type == "createTopic" { return .createTopic(try CreateTopicEvent.parse(with: data)) }
-		if type == "deleteTalk" { return .deleteTalk(try DeleteTalkEvent.parse(with: data)) }
-		if type == "deleteTopic" { return .deleteTopic(try DeleteTopicEvent.parse(with: data)) }
-		if type == "deleteMessage" { return .deleteMessage(try DeleteMessageEvent.parse(with: data)) }
-		if type == "favoriteTopic" { return .favoriteTopic(try FavoriteTopicEvent.parse(with: data)) }
-		if type == "joinTopics" { return .joinTopics(try JoinTopicsEvent.parse(with: data)) }
-		if type == "likeMessage" { return .likeMessage(try LikeMessageEvent.parse(with: data)) }
-		if type == "notifyMention" { return .notifyMention(try NotifyMentionEvent.parse(with: data)) }
-		if type == "postMessage" { return .postMessage(try PostMessageEvent.parse(with: data)) }
-		if type == "postLinks" { return .postLinks(try PostLinksEvent.parse(with: data)) }
-		if type == "readMention" { return .readMention(try ReadMentionEvent.parse(with: data)) }
-		if type == "removeTalkPost" { return .removeTalkPost(try RemoveTalkPostEvent.parse(with: data)) }
-		if type == "requestTeamInvite" { return .requestTeamInvite(try RequestTeamInviteEvent.parse(with: data)) }
-		if type == "requestTopicInvite" { return .requestTopicInvite(try RequestTopicInviteEvent.parse(with: data)) }
-		if type == "saveBookmark" { return .saveBookmark(try SaveBookmarkEvent.parse(with: data)) }
-		if type == "updateNotificationAccess" { return .updateNotificationAccess(try UpdateNotificationAccessEvent.parse(with: data)) }
-		if type == "unfavoriteTopic" { return .unfavoriteTopic(try UnfavoriteTopicEvent.parse(with: data)) }
-		if type == "unlikeMessage" { return .unlikeMessage(try UnlikeMessageEvent.parse(with: data)) }
-		if type == "updateTalk" { return .updateTalk(try UpdateTalkEvent.parse(with: data)) }
-		if type == "updateTopic" { return .updateTopic(try UpdateTopicEvent.parse(with: data)) }
+	static func parse(type: String, data: Data) throws -> StreamingEvent? {
+		let decoder = JSONDecoder()
+		if type == "addTalkPost" { return .addTalkPost(try decoder.decode(AddTalkPostEvent.self, from: data)) }
+		if type == "createTalk" { return .createTalk(try decoder.decode(CreateTalkEvent.self, from: data)) }
+		if type == "createTopic" { return .createTopic(try decoder.decode(CreateTopicEvent.self, from: data)) }
+		if type == "deleteTalk" { return .deleteTalk(try decoder.decode(DeleteTalkEvent.self, from: data)) }
+		if type == "deleteTopic" { return .deleteTopic(try decoder.decode(DeleteTopicEvent.self, from: data)) }
+		if type == "deleteMessage" { return .deleteMessage(try decoder.decode(DeleteMessageEvent.self, from: data)) }
+		if type == "favoriteTopic" { return .favoriteTopic(try decoder.decode(FavoriteTopicEvent.self, from: data)) }
+		if type == "joinTopics" { return .joinTopics(try decoder.decode(JoinTopicsEvent.self, from: data)) }
+		if type == "likeMessage" { return .likeMessage(try decoder.decode(LikeMessageEvent.self, from: data)) }
+		if type == "notifyMention" { return .notifyMention(try decoder.decode(NotifyMentionEvent.self, from: data)) }
+		if type == "postMessage" { return .postMessage(try decoder.decode(PostMessageEvent.self, from: data)) }
+		if type == "postLinks" { return .postLinks(try decoder.decode(PostLinksEvent.self, from: data)) }
+		if type == "readMention" { return .readMention(try decoder.decode(ReadMentionEvent.self, from: data)) }
+		if type == "removeTalkPost" { return .removeTalkPost(try decoder.decode(RemoveTalkPostEvent.self, from: data)) }
+		if type == "requestTeamInvite" { return .requestTeamInvite(try decoder.decode(RequestTeamInviteEvent.self, from: data)) }
+		if type == "requestTopicInvite" { return .requestTopicInvite(try decoder.decode(RequestTopicInviteEvent.self, from: data)) }
+		if type == "saveBookmark" { return .saveBookmark(try decoder.decode(SaveBookmarkEvent.self, from: data)) }
+		if type == "updateNotificationAccess" { return .updateNotificationAccess(try decoder.decode(UpdateNotificationAccessEvent.self, from: data)) }
+		if type == "unfavoriteTopic" { return .unfavoriteTopic(try decoder.decode(UnfavoriteTopicEvent.self, from: data)) }
+		if type == "unlikeMessage" { return .unlikeMessage(try decoder.decode(UnlikeMessageEvent.self, from: data)) }
+		if type == "updateTalk" { return .updateTalk(try decoder.decode(UpdateTalkEvent.self, from: data)) }
+		if type == "updateTopic" { return .updateTopic(try decoder.decode(UpdateTopicEvent.self, from: data)) }
 		return nil // FIXME
 	}
 }

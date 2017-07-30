@@ -13,17 +13,14 @@ import TypetalkKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    override class func initialize() {
+    func applicationDidFinishLaunching(_ aNotification: Notification) {
         _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
-            scopes: [Scope.my, Scope.topic_read],    // e.g. typetalkkit://auth/success
+            scopes: [Scope.my, Scope.topicRead],    // e.g. typetalkkit://auth/success
             redirectURI:  "Your custome scheme")
         
         _ = TypetalkAPI.restoreTokenFromAccountStore()
-    }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {

@@ -23,6 +23,7 @@ public class GetProfile: TypetalkRequest {
 
 public class GetFriendProfile: TypetalkRequest {
 	public typealias APIKitResponse = AccountWithLoginStatus
+	public typealias Response = AccountWithLoginStatus
 	public let accountName: String
 
 	public init(accountName: String) {
@@ -57,7 +58,7 @@ public class GetOnlineStatus: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["accountIds": accountIds.map { $0.toJSON() } as AnyObject]
+		return ["accountIds": accountIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
@@ -120,9 +121,9 @@ public class GetMessages: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -155,15 +156,16 @@ public class PostMessage: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["message": message.toJSON() as AnyObject, "fileKeys": fileKeys.map { $0.toJSON() } as AnyObject, "talkIds": talkIds.map { $0.toJSON() } as AnyObject]
-		_ = replyTo.map { p["replyTo"] = $0.toJSON() as AnyObject }
-		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["message": message as AnyObject, "fileKeys": fileKeys.map { $0 as AnyObject } as AnyObject, "talkIds": talkIds.map { $0 as AnyObject } as AnyObject]
+		_ = replyTo.map { p["replyTo"] = $0 as AnyObject }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0 as AnyObject }
 		return p
 	}
 }
 
 public class UploadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Attachment
+	public typealias Response = Attachment
 	public let topicId: Int
 	public let name: String // router:"-"
 	public let contents: Data // router:"-"
@@ -186,6 +188,7 @@ public class UploadAttachment: TypetalkRequest {
 
 public class DownloadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Data
+	public typealias Response = Data
 	public let topicId: Int
 	public let postId: Int
 	public let attachmentId: Int
@@ -210,7 +213,7 @@ public class DownloadAttachment: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = type.map { p["type"] = $0.toJSON() as AnyObject }
+		_ = type.map { p["type"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -257,6 +260,7 @@ public class GetMessage: TypetalkRequest {
 
 public class UpdateMessage: TypetalkRequest {
 	public typealias APIKitResponse = PostMessageResponse
+	public typealias Response = PostMessageResponse
 	public let topicId: Int
 	public let postId: Int
 	public let message: String
@@ -276,12 +280,13 @@ public class UpdateMessage: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["message": message.toJSON() as AnyObject]
+		return ["message": message as AnyObject]
 	}
 }
 
 public class DeleteMessage: TypetalkRequest {
 	public typealias APIKitResponse = Post
+	public typealias Response = Post
 	public let topicId: Int
 	public let postId: Int
 
@@ -323,6 +328,7 @@ public class LikeMessage: TypetalkRequest {
 
 public class UnlikeMessage: TypetalkRequest {
 	public typealias APIKitResponse = LikeMessageResponse
+	public typealias Response = LikeMessageResponse
 	public let topicId: Int
 	public let postId: Int
 
@@ -362,6 +368,7 @@ public class FavoriteTopic: TypetalkRequest {
 
 public class UnfavoriteTopic: TypetalkRequest {
 	public typealias APIKitResponse = FavoriteTopicResponse
+	public typealias Response = FavoriteTopicResponse
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -403,9 +410,9 @@ public class GetDirectMessages: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -438,15 +445,16 @@ public class PostDirectMessage: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["message": message.toJSON() as AnyObject, "fileKeys": fileKeys.map { $0.toJSON() } as AnyObject, "talkIds": talkIds.map { $0.toJSON() } as AnyObject]
-		_ = replyTo.map { p["replyTo"] = $0.toJSON() as AnyObject }
-		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["message": message as AnyObject, "fileKeys": fileKeys.map { $0 as AnyObject } as AnyObject, "talkIds": talkIds.map { $0 as AnyObject } as AnyObject]
+		_ = replyTo.map { p["replyTo"] = $0 as AnyObject }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0 as AnyObject }
 		return p
 	}
 }
 
 public class GetNotifications: TypetalkRequest {
 	public typealias APIKitResponse = Notifications
+	public typealias Response = Notifications
 
 	public init() {
 	}
@@ -463,6 +471,7 @@ public class GetNotifications: TypetalkRequest {
 
 public class GetNotificationStatus: TypetalkRequest {
 	public typealias APIKitResponse = NotificationStatus
+	public typealias Response = NotificationStatus
 
 	public init() {
 	}
@@ -479,6 +488,7 @@ public class GetNotificationStatus: TypetalkRequest {
 
 public class OpenNotification: TypetalkRequest {
 	public typealias APIKitResponse = NotificationStatus
+	public typealias Response = NotificationStatus
 
 	public init() {
 	}
@@ -513,8 +523,8 @@ public class SaveReadTopic: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["topicId": topicId.toJSON() as AnyObject]
-		_ = postId.map { p["postId"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["topicId": topicId as AnyObject]
+		_ = postId.map { p["postId"] = $0 as AnyObject }
 		return p
 	}
 }
@@ -540,8 +550,8 @@ public class GetMentions: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = unread.map { p["unread"] = $0.toJSON() as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = unread.map { p["unread"] = $0 as AnyObject }
 		return p
 	}
 }
@@ -567,6 +577,7 @@ public class SaveReadMention: TypetalkRequest {
 
 public class CreateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let name: String
 	public let spaceKey: String
 	public let addAccountIds: [Int]
@@ -588,12 +599,13 @@ public class CreateTopic: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["name": name.toJSON() as AnyObject, "spaceKey": spaceKey.toJSON() as AnyObject, "addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject]
+		return ["name": name as AnyObject, "spaceKey": spaceKey as AnyObject, "addAccountIds": addAccountIds.map { $0 as AnyObject } as AnyObject, "addGroupIds": addGroupIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
 public class UpdateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
 	public let name: String?
 	public let description: String?
@@ -614,14 +626,15 @@ public class UpdateTopic: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = name.map { p["name"] = $0.toJSON() as AnyObject }
-		_ = description.map { p["description"] = $0.toJSON() as AnyObject }
+		_ = name.map { p["name"] = $0 as AnyObject }
+		_ = description.map { p["description"] = $0 as AnyObject }
 		return p
 	}
 }
 
 public class DeleteTopic: TypetalkRequest {
 	public typealias APIKitResponse = Topic
+	public typealias Response = Topic
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -640,6 +653,7 @@ public class DeleteTopic: TypetalkRequest {
 
 public class GetTopicDetails: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -658,6 +672,7 @@ public class GetTopicDetails: TypetalkRequest {
 
 public class UpdateTopicMembers: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
 	public let addAccountIds: [Int]
 	public let addGroupIds: [Int]
@@ -679,7 +694,7 @@ public class UpdateTopicMembers: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject, "removeGroupIds": removeGroupIds.map { $0.toJSON() } as AnyObject]
+		return ["addAccountIds": addAccountIds.map { $0 as AnyObject } as AnyObject, "addGroupIds": addGroupIds.map { $0 as AnyObject } as AnyObject, "removeGroupIds": removeGroupIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
@@ -701,7 +716,7 @@ public class GetSpaces: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["excludesGuest": excludesGuest.toJSON() as AnyObject]
+		return ["excludesGuest": excludesGuest as AnyObject]
 	}
 }
 
@@ -743,6 +758,7 @@ public class GetFriends: TypetalkRequest {
 
 public class SearchAccounts: TypetalkRequest {
 	public typealias APIKitResponse = Account
+	public typealias Response = Account
 	public let nameOrEmailAddress: String
 
 	public init(nameOrEmailAddress: String) {
@@ -758,7 +774,7 @@ public class SearchAccounts: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["nameOrEmailAddress": nameOrEmailAddress.toJSON() as AnyObject]
+		return ["nameOrEmailAddress": nameOrEmailAddress as AnyObject]
 	}
 }
 
@@ -808,9 +824,9 @@ public class GetTalk: TypetalkRequest {
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -837,7 +853,7 @@ public class CreateTalk: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["talkName": talkName.toJSON() as AnyObject, "postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["talkName": talkName as AnyObject, "postIds": postIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
@@ -863,12 +879,13 @@ public class UpdateTalk: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["talkName": talkName.toJSON() as AnyObject]
+		return ["talkName": talkName as AnyObject]
 	}
 }
 
 public class DeleteTalk: TypetalkRequest {
 	public typealias APIKitResponse = UpdateTalkResponse
+	public typealias Response = UpdateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 
@@ -889,6 +906,7 @@ public class DeleteTalk: TypetalkRequest {
 
 public class AddMessageToTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
+	public typealias Response = CreateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 	public let postIds: [Int]
@@ -908,12 +926,13 @@ public class AddMessageToTalk: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["postIds": postIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
 public class RemoveMessageFromTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
+	public typealias Response = CreateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 	public let postIds: [Int]
@@ -933,7 +952,7 @@ public class RemoveMessageFromTalk: TypetalkRequest {
 	}
 
 	public var parameters: Any? {
-		return ["postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["postIds": postIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
