@@ -82,7 +82,7 @@ extension TypetalkAPI {
         precondition(isInitialized)
         state = .requestingAccessToken
         access(token: AccessToken(
-            grant_type: .AuthorizationCode,
+            grant_type: .authorizationCode,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             redirect_uri: settings.redirectURI,
@@ -95,7 +95,7 @@ extension TypetalkAPI {
         case .signedIn(let (credential)):
             state = .requestingTokenRefresh
             access(token: AccessToken(
-                grant_type: .RefreshToken,
+                grant_type: .refreshToken,
                 client_id: settings.clientId,
                 client_secret: settings.clientSecret,
                 refresh_token: credential.refreshToken), completion: completion)
@@ -136,7 +136,7 @@ extension TypetalkAPI {
         precondition(isInitialized)
         state = .authorizing(completion)
         access(token: AccessToken(
-            grant_type: .ClientCredentials,
+            grant_type: .clientCredentials,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             scope: Scope.scopesToRaw(settings.scopes)), completion: completion)

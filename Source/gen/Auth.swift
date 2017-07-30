@@ -126,8 +126,8 @@ public class OAuth2Credential: NSObject, Encodable, NSCoding, Decodable {
 }
 
 public enum GrantType: String, Encodable {
-	case AuthorizationCode = "authorization_code"
-	case ClientCredentials = "client_credentials"
-	case RefreshToken = "refresh_token"
+	case authorizationCode = "authorization_code"
+	case clientCredentials = "client_credentials"
+	case refreshToken = "refresh_token"
 }
 
