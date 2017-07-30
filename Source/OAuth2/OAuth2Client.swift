@@ -201,6 +201,6 @@ extension Scope {
 #else
     import AppKit
     private func openURL(url: URL) {
-        NSWorkspace.shared().open(url)
+        NSWorkspace.shared.open(url)
     }
 #endif

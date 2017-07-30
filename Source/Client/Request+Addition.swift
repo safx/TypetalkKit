@@ -78,10 +78,10 @@ extension DownloadAttachment {
         let m = ms[0]
 
 #if os(macOS)
-        guard let topicId      = TopicID     (ns.substring(with: m.rangeAt(1))) else { return nil }
-        guard let postId       = PostID      (ns.substring(with: m.rangeAt(2))) else { return nil }
-        guard let attachmentId = AttachmentID(ns.substring(with: m.rangeAt(3))) else { return nil }
-        let filename           = ns.substring(with: m.rangeAt(4))
+        guard let topicId      = TopicID     (ns.substring(with: m.range(at: 1))) else { return nil }
+        guard let postId       = PostID      (ns.substring(with: m.range(at: 2))) else { return nil }
+        guard let attachmentId = AttachmentID(ns.substring(with: m.range(at: 3))) else { return nil }
+        let filename           = ns.substring(with: m.range(at: 4))
 #else
         guard let topicId      = TopicID     (ns.substring(with: m.range(at: 1))) else { return nil }
         guard let postId       = PostID      (ns.substring(with: m.range(at: 2))) else { return nil }

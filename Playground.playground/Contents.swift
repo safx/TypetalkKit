@@ -7,17 +7,17 @@ XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
 TypetalkAPI.setDeveloperSettings(
     clientId: "your_cliend_id",
     clientSecret: "your_secret_id",
-    scopes: [Scope.my, Scope.topic_read])
+    scopes: [Scope.my, Scope.topicRead])
 
 
 TypetalkAPI.authorizeWithClientCredentials { (err) -> Void in
-    if err != nil { print(err); return }
+    if let err = err { print(err); return }
 
-    TypetalkAPI.sendRequest(GetTopics()) { result in
+    TypetalkAPI.send(GetTopics()) { result in
         switch result {
-        case .Success(let response):
+        case .success(let response):
             response.topics.forEach { print($0) }
-        case .Failure(let error):
+        case .failure(let error):
             print(error)
         }
     }
