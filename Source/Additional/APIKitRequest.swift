@@ -36,7 +36,11 @@ extension APIKitRequest where Self.Response: Decodable {
 
     public func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Self.Response {
         let decoder = JSONDecoder()
-        //decoder.dateDecodingStrategy = .iso8601
+        if #available(OSX 10.12, iOS 10.0, *) {
+            decoder.dateDecodingStrategy = .iso8601
+        } else {
+            fatalError("Please use newer macOS")
+        }
         do {
             return try decoder.decode(Self.Response.self, from: object as! Data) // FIXME
         } catch DecodingError.typeMismatch(let dataType, let context) {
