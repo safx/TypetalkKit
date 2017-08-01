@@ -13,7 +13,8 @@ import TypetalkKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
@@ -22,10 +23,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         
         _ = TypetalkAPI.restoreTokenFromAccountStore()
     }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-    }
-
+    
     func applicationWillFinishLaunching(_ aNotification: Notification) {
         let appleEventManager:NSAppleEventManager = NSAppleEventManager.shared()
         appleEventManager.setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),

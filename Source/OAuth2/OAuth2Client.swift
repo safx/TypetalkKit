@@ -40,12 +40,13 @@ extension TypetalkAPI {
         default: return nil
         }
     }
+    @discardableResult
     public static func setDeveloperSettings(clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) -> Bool {
         if isInitialized { return false }
         settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, scopes: scopes, redirectURI: redirectURI)
         return true
     }
-
+    @discardableResult
     public static func restoreTokenFromAccountStore() -> Bool {
         if let credential = accountStore.queryCredential() {
             self.state = .signedIn(credential)
