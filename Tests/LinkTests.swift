@@ -12,7 +12,7 @@ import XCTest
 class LinkTests: XCTestCase {
     
     func testProfile() {
-        let model = try! Link.parse(with: json("model_link"))
+        let model = try! decode(Link.self, fromJsonFile: "model_link")
         
         XCTAssertEqual(model.id, 105)
         XCTAssertEqual(model.url.absoluteString, "http://nulab-inc.com")

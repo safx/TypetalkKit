@@ -83,13 +83,13 @@ public struct AccountWithMailAddress: Decodable {
 }
 
 public struct Attachment: Decodable {
-	public let contentType: String
+	public let contentType: String?
 	public let fileKey: String
 	public let fileName: String
 	public let fileSize: Int
 
 
-	public init(contentType: String = "", fileKey: String, fileName: String, fileSize: Int) {
+	public init(contentType: String? = nil, fileKey: String, fileName: String, fileSize: Int) {
 		self.contentType = contentType
 		self.fileKey = fileKey
 		self.fileName = fileName
@@ -274,21 +274,21 @@ public struct Mention: Decodable {
 }
 
 public struct Notifications: Decodable {
-	public let mentions: [Mention]
+	public let mentions: [Mention]?
 	public let invites: Notifications.Invites
 
 
-	public init(mentions: [Mention] = [], invites: Notifications.Invites) {
+	public init(mentions: [Mention]? = nil, invites: Notifications.Invites) {
 		self.mentions = mentions
 		self.invites = invites
 	}
 
 	public struct Invites: Decodable {
-		public let teams: [TeamInvite]
-		public let topics: [TopicInvite]
+		public let teams: [TeamInvite]?
+		public let topics: [TopicInvite]?
 
 
-		public init(teams: [TeamInvite] = [], topics: [TopicInvite] = []) {
+		public init(teams: [TeamInvite]? = nil, topics: [TopicInvite]? = nil) {
 			self.teams = teams
 			self.topics = topics
 		}
@@ -376,15 +376,15 @@ public class Post: Decodable {
 	public let message: String
 	public let account: Account
 	public let mention: Mention?
-	public let attachments: [URLAttachment]
-	public let likes: [Like]
-	public let talks: [Talk]
-	public let links: [Link]
+	public let attachments: [URLAttachment]?
+	public let likes: [Like]?
+	public let talks: [Talk]?
+	public let links: [Link]?
 	public let createdAt: Date
 	public let updatedAt: Date
 
 
-	public init(id: Int = 0, topicId: Int = 0, topic: Topic? = nil, replyTo: Int? = nil, message: String = "", account: Account = Account(), mention: Mention? = nil, attachments: [URLAttachment] = [], likes: [Like] = [], talks: [Talk] = [], links: [Link] = [], createdAt: Date = Date(), updatedAt: Date = Date()) {
+	public init(id: Int = 0, topicId: Int = 0, topic: Topic? = nil, replyTo: Int? = nil, message: String = "", account: Account = Account(), mention: Mention? = nil, attachments: [URLAttachment]? = nil, likes: [Like]? = nil, talks: [Talk]? = nil, links: [Link]? = nil, createdAt: Date = Date(), updatedAt: Date = Date()) {
 		self.id = id
 		self.topicId = topicId
 		self.topic = topic
@@ -441,10 +441,10 @@ public struct Team: Decodable {
 
 public struct TeamWithMembers: Decodable {
 	public let team: Team
-	public let members: [Member]
+	public let members: [Member]?
 
 
-	public init(team: Team, members: [Member] = []) {
+	public init(team: Team, members: [Member]? = nil) {
 		self.team = team
 		self.members = members
 	}
@@ -469,12 +469,12 @@ public struct TeamInvite: Decodable {
 	public let createdAt: Date?
 	public let updatedAt: Date?
 	public let mailAddress: String?
-	public let status: String
+	public let status: String?
 	public let team: Team
 	public let role: String?
 
 
-	public init(id: Int, sender: Account? = nil, account: Account? = nil, message: String = "", createdAt: Date? = nil, updatedAt: Date? = nil, mailAddress: String? = nil, status: String = "", team: Team, role: String? = nil) {
+	public init(id: Int, sender: Account? = nil, account: Account? = nil, message: String = "", createdAt: Date? = nil, updatedAt: Date? = nil, mailAddress: String? = nil, status: String? = nil, team: Team, role: String? = nil) {
 		self.id = id
 		self.sender = sender
 		self.account = account
@@ -506,7 +506,7 @@ public struct Thumbnail: Decodable {
 public struct Topic: Decodable {
 	public let id: Int
 	public let name: String
-	public let description: String
+	public let description: String?
 	public let suggestion: String
 	public let lastPostedAt: Date?
 	public let createdAt: Date
@@ -514,7 +514,7 @@ public struct Topic: Decodable {
 	public let isDirectMessage: Bool?
 
 
-	public init(id: Int = 0, name: String = "", description: String = "", suggestion: String = "", lastPostedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isDirectMessage: Bool? = nil) {
+	public init(id: Int = 0, name: String = "", description: String? = nil, suggestion: String = "", lastPostedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isDirectMessage: Bool? = nil) {
 		self.id = id
 		self.name = name
 		self.description = description
@@ -529,17 +529,17 @@ public struct Topic: Decodable {
 public struct TopicWithAccounts: Decodable {
 	public let topic: Topic
 	public let mySpace: Space?
-	public let teams: [TeamWithMembers]
-	public let groups: [GroupWithCount]
-	public let accounts: [Account]
-	public let invitingAccounts: [Account]
-	public let invites: [TopicInvite]
-	public let accountsForApi: [Account]
-	public let integrations: [Account]
+	public let teams: [TeamWithMembers]?
+	public let groups: [GroupWithCount]?
+	public let accounts: [Account]?
+	public let invitingAccounts: [Account]?
+	public let invites: [TopicInvite]?
+	public let accountsForApi: [Account]?
+	public let integrations: [Account]?
 	public let remainingInvitations: Bool?
 
 
-	public init(topic: Topic, mySpace: Space? = nil, teams: [TeamWithMembers] = [], groups: [GroupWithCount] = [], accounts: [Account] = [], invitingAccounts: [Account] = [], invites: [TopicInvite] = [], accountsForApi: [Account] = [], integrations: [Account] = [], remainingInvitations: Bool? = nil) {
+	public init(topic: Topic, mySpace: Space? = nil, teams: [TeamWithMembers]? = nil, groups: [GroupWithCount]? = nil, accounts: [Account]? = nil, invitingAccounts: [Account]? = nil, invites: [TopicInvite]? = nil, accountsForApi: [Account]? = nil, integrations: [Account]? = nil, remainingInvitations: Bool? = nil) {
 		self.topic = topic
 		self.mySpace = mySpace
 		self.teams = teams
@@ -683,10 +683,10 @@ public struct URLAttachment: Decodable {
 	public let attachment: Attachment
 	public let webUrl: URL
 	public let apiUrl: URL
-	public let thumbnails: [Thumbnail]
+	public let thumbnails: [Thumbnail]?
 
 
-	public init(attachment: Attachment, webUrl: URL, apiUrl: URL, thumbnails: [Thumbnail] = []) {
+	public init(attachment: Attachment, webUrl: URL, apiUrl: URL, thumbnails: [Thumbnail]? = nil) {
 		self.attachment = attachment
 		self.webUrl = webUrl
 		self.apiUrl = apiUrl
@@ -697,10 +697,10 @@ public struct URLAttachment: Decodable {
 public struct TalkPost: Decodable {
 	public let topic: Topic
 	public let talk: Talk
-	public let postIds: [Int]
+	public let postIds: [Int]?
 
 
-	public init(topic: Topic, talk: Talk, postIds: [Int] = []) {
+	public init(topic: Topic, talk: Talk, postIds: [Int]? = nil) {
 		self.topic = topic
 		self.talk = talk
 		self.postIds = postIds
@@ -709,10 +709,10 @@ public struct TalkPost: Decodable {
 
 public struct PostLinksEvent: Decodable {
 	public let postId: Int
-	public let links: [Link]
+	public let links: [Link]?
 
 
-	public init(postId: Int, links: [Link] = []) {
+	public init(postId: Int, links: [Link]? = nil) {
 		self.postId = postId
 		self.links = links
 	}

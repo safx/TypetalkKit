@@ -60,7 +60,7 @@ public struct AccountWithMailAddress: Decodable, ClassInit {
 }
 
 public struct Attachment: Decodable, ClassInit {
-    public let contentType: String = ""
+    public let contentType: String? = nil
     public let fileKey: FileKey
     public let fileName: String
     public let fileSize: Int
@@ -144,12 +144,12 @@ public struct Mention: Decodable, ClassInit {
 }
 
 public struct Notifications: Decodable, ClassInit {
-    public let mentions: [Mention] = []
+    public let mentions: [Mention]? = nil
     public let invites: Invites
 
     public struct Invites: Decodable, ClassInit {
-        public let teams: [TeamInvite] = []
-        public let topics: [TopicInvite] = []
+        public let teams: [TeamInvite]? = nil
+        public let topics: [TopicInvite]? = nil
     }
 }
 
@@ -191,10 +191,10 @@ open class Post: Decodable, ClassInit {
     open let message: String = ""
     open let account: Account = Account()
     open let mention: Mention? = nil
-    open let attachments: [URLAttachment] = []
-    open let likes: [Like] = []
-    open let talks: [Talk] = []
-    open let links: [Link] = []
+    open let attachments: [URLAttachment]? = nil
+    open let likes: [Like]? = nil
+    open let talks: [Talk]? = nil
+    open let links: [Link]? = nil
     open let createdAt: Date = Date()
     open let updatedAt: Date = Date()
 }
@@ -212,7 +212,7 @@ public struct Talk: Decodable, ClassInit {
 /*public struct TalkMessages: Decodable, ClassInit {
     public let topic: Topic
     public let talk: Talk
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool
 }*/
 
@@ -226,7 +226,7 @@ public struct Team: Decodable, ClassInit {
 
 public struct TeamWithMembers: Decodable, ClassInit {
     public let team: Team
-    public let members: [Member] = []
+    public let members: [Member]? = nil
 }
 
 public struct TeamWithCount: Decodable, ClassInit {
@@ -243,7 +243,7 @@ public struct TeamInvite: Decodable, ClassInit {
     public let updatedAt: Date?
 
     public let mailAddress: String?
-    public let status: String = ""
+    public let status: String? = nil
 
     public let team: Team
     public let role: String?
@@ -259,7 +259,7 @@ public struct Thumbnail: Decodable, ClassInit {
 public struct Topic: Decodable, ClassInit {
     public let id: TopicID = 0
     public let name: String = ""
-    public let description: String = ""
+    public let description: String? = nil
     public let suggestion: String = ""
     public let lastPostedAt: Date? = nil
     public let createdAt: Date = Date()
@@ -270,13 +270,13 @@ public struct Topic: Decodable, ClassInit {
 public struct TopicWithAccounts: Decodable, ClassInit {
     public let topic: Topic
     public let mySpace: Space?
-    public let teams: [TeamWithMembers] = []
-    public let groups: [GroupWithCount] = []
-    public let accounts: [Account] = []
-    public let invitingAccounts: [Account] = []
-    public let invites: [TopicInvite] = []
-    public let accountsForApi: [Account] = []
-    public let integrations: [Account] = []
+    public let teams: [TeamWithMembers]? = nil
+    public let groups: [GroupWithCount]? = nil
+    public let accounts: [Account]? = nil
+    public let invitingAccounts: [Account]? = nil
+    public let invites: [TopicInvite]? = nil
+    public let accountsForApi: [Account]? = nil
+    public let integrations: [Account]? = nil
     public let remainingInvitations: Bool? // FIXME
 }
 
@@ -344,7 +344,7 @@ public struct URLAttachment: Decodable, ClassInit {
     public let attachment: Attachment
     public let webUrl: URL
     public let apiUrl: URL
-    public let thumbnails: [Thumbnail] = []
+    public let thumbnails: [Thumbnail]? = nil
 }
 
 // MARK: - Event
@@ -352,10 +352,10 @@ public struct URLAttachment: Decodable, ClassInit {
 public struct TalkPost: Decodable, ClassInit {
     public let topic: Topic
     public let talk: Talk
-    public let postIds: [PostID] = []
+    public let postIds: [PostID]? = nil
 }
 
 public struct PostLinksEvent: Decodable, ClassInit {
     public let postId: PostID
-    public let links: [Link] = []
+    public let links: [Link]? = nil
 }

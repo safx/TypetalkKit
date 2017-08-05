@@ -29,7 +29,7 @@ public struct GetMessagesResponse: Decodable, ClassInit {
     public let team: Team? = nil
     public let topic: Topic = Topic()
     public let bookmark: Bookmark = Bookmark()
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool = false
     public let exceedsAttachmentLimit: Bool = false
 }
@@ -37,13 +37,13 @@ public struct GetMessagesResponse: Decodable, ClassInit {
 public struct PostMessageResponse: Decodable {
     public let topic: Topic?
     public let post: Post?
-    public let mentions: [Mention] = []
-    public let exceedsAttachmentLimit: Bool = false
+    public let mentions: [Mention]? = nil
+    public let exceedsAttachmentLimit: Bool? = nil
 }
 
 public struct GetTopicMembersResponse: Decodable {
-    public let accounts: [AccountWithOnlineStatus] = []
-    public let pendings: [AccountWithMailAddress] = []
+    public let accounts: [AccountWithOnlineStatus]? = nil
+    public let pendings: [AccountWithMailAddress]? = nil
 }
 
 public struct GetMessageResponse: Decodable {
@@ -51,7 +51,7 @@ public struct GetMessageResponse: Decodable {
     public let team: Team? = nil
     public let topic: Topic
     public let post: Post
-    public let replies: [Post] = []
+    public let replies: [Post]? = nil
     public let exceedsAttachmentLimit: Bool = false
 }
 
@@ -71,7 +71,7 @@ public struct GetDirectMessagesResponse: Decodable, ClassInit {
     public let topic: Topic?
     public let directMessage: AccountWithLoginStatus
     public let bookmark: Bookmark?
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool?
 }
 
@@ -120,7 +120,7 @@ public struct GetTalkResponse: Decodable, ClassInit {
     public let mySpace: Space?
     public let topic: Topic
     public let talk: Talk
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool
 }
 

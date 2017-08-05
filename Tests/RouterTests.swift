@@ -50,7 +50,7 @@ class RouterTests: XCTestCase {
     }
 
     func testGetMessages4() {
-        let req = try! GetMessages(topicId: 312, direction: .Backward).buildURLRequest()
+        let req = try! GetMessages(topicId: 312, direction: .backward).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/312?direction=backward")
     }
@@ -101,7 +101,7 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
     }
     func testDownloadAttachment2() {
-        let req = try! DownloadAttachment(topicId: 300, postId: 400, attachmentId: 100, filename: "image.png", type: AttachmentType.Large).buildURLRequest()
+        let req = try! DownloadAttachment(topicId: 300, postId: 400, attachmentId: 100, filename: "image.png", type: AttachmentType.large).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
     }
@@ -112,7 +112,7 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/111/posts/222/attachments/333/ReadMe.md")
     }
     func testDownloadAttachmentWithURL2() {
-        let req = try! DownloadAttachment(url: URL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, attachmentType: .Large)!.buildURLRequest()
+        let req = try! DownloadAttachment(url: URL(string: "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png")!, attachmentType: .large)!.buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/300/posts/400/attachments/100/image.png?type=large")
     }
@@ -325,7 +325,7 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?from=911")
     }
     func testGetTalk4() {
-        let req = try! GetTalk(topicId: 135, talkId: 468, direction: MessageDirection.Forward).buildURLRequest()
+        let req = try! GetTalk(topicId: 135, talkId: 468, direction: MessageDirection.forward).buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.in/api/v1/topics/135/talks/468/posts?direction=forward")
     }

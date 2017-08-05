@@ -12,7 +12,7 @@ import XCTest
 class NotificationStatusTests: XCTestCase {
     
     func testExample() {
-        let model = try! NotificationStatus.parse(with: json("model_notification_status"))
+        let model = try! decode(NotificationStatus.self, fromJsonFile: "model_notification_status")
         
         XCTAssertEqual(model.mention!.unread!, 1)
         XCTAssertEqual(model.access!.unopened!, 1)

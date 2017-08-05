@@ -28,12 +28,12 @@ public struct GetMessagesResponse: Decodable {
 	public let team: Team?
 	public let topic: Topic
 	public let bookmark: Bookmark
-	public let posts: [Post]
+	public let posts: [Post]?
 	public let hasNext: Bool
 	public let exceedsAttachmentLimit: Bool
 
 
-	public init(mySpace: Space? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
+	public init(mySpace: Space? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post]? = nil, hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
 		self.mySpace = mySpace
 		self.team = team
 		self.topic = topic
@@ -47,14 +47,14 @@ public struct GetMessagesResponse: Decodable {
 public struct PostMessageResponse: Decodable {
 	public let topic: Topic?
 	public let post: Post?
-	public let mentions: [Mention]
-	public let exceedsAttachmentLimit: Bool
+	public let mentions: [Mention]?
+	public let exceedsAttachmentLimit: Bool?
 
 }
 
 public struct GetTopicMembersResponse: Decodable {
-	public let accounts: [AccountWithOnlineStatus]
-	public let pendings: [AccountWithMailAddress]
+	public let accounts: [AccountWithOnlineStatus]?
+	public let pendings: [AccountWithMailAddress]?
 
 }
 
@@ -63,7 +63,7 @@ public struct GetMessageResponse: Decodable {
 	public let team: Team?
 	public let topic: Topic
 	public let post: Post
-	public let replies: [Post]
+	public let replies: [Post]?
 	public let exceedsAttachmentLimit: Bool
 
 }
@@ -86,11 +86,11 @@ public struct GetDirectMessagesResponse: Decodable {
 	public let topic: Topic?
 	public let directMessage: AccountWithLoginStatus
 	public let bookmark: Bookmark?
-	public let posts: [Post]
+	public let posts: [Post]?
 	public let hasNext: Bool?
 
 
-	public init(topic: Topic? = nil, directMessage: AccountWithLoginStatus, bookmark: Bookmark? = nil, posts: [Post] = [], hasNext: Bool? = nil) {
+	public init(topic: Topic? = nil, directMessage: AccountWithLoginStatus, bookmark: Bookmark? = nil, posts: [Post]? = nil, hasNext: Bool? = nil) {
 		self.topic = topic
 		self.directMessage = directMessage
 		self.bookmark = bookmark
@@ -161,11 +161,11 @@ public struct GetTalkResponse: Decodable {
 	public let mySpace: Space?
 	public let topic: Topic
 	public let talk: Talk
-	public let posts: [Post]
+	public let posts: [Post]?
 	public let hasNext: Bool
 
 
-	public init(mySpace: Space? = nil, topic: Topic, talk: Talk, posts: [Post] = [], hasNext: Bool) {
+	public init(mySpace: Space? = nil, topic: Topic, talk: Talk, posts: [Post]? = nil, hasNext: Bool) {
 		self.mySpace = mySpace
 		self.topic = topic
 		self.talk = talk

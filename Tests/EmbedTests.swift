@@ -12,7 +12,7 @@ import XCTest
 class EmbedTests: XCTestCase {
 
     func testProfile() {
-        let model = try! Embed.parse(with: json("model_embed"))
+        let model = try! decode(Embed.self, fromJsonFile: "model_embed")
 
         XCTAssertEqual(model.type, "rich")
         XCTAssertEqual(model.version, 1)

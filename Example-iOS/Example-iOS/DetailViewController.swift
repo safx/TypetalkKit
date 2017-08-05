@@ -44,7 +44,7 @@ class DetailViewController: UITableViewController {
             TypetalkAPI.send(GetMessages(topicId: topicid)) { result -> Void in
                 switch result {
                 case .success(let ms):
-                    self.posts = ms.posts
+                    self.posts = ms.posts!
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error)

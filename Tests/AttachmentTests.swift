@@ -12,7 +12,7 @@ import XCTest
 class AttachmentTests: XCTestCase {
     
     func testExample() {
-        let model = try! Attachment.parse(with: json("model_attachment"))
+        let model = try! decode(Attachment.self, fromJsonFile: "model_attachment")
         
         XCTAssertEqual(model.fileKey, "0569fedc62f37e48779ee285fe04f0ff4057e0d0")
         XCTAssertEqual(model.fileName, "sample.jpg")

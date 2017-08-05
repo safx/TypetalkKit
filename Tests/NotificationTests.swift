@@ -13,10 +13,10 @@ import XCTest
 class NotificationTests: XCTestCase {
     
     func testExample() {
-        let model = try! Notifications.parse(with: json("model_notifications"))
+        let model = try! decode(Notifications.self, fromJsonFile: "model_notifications")
         
-        XCTAssertEqual((model.mentions).count, 2)
-        let mention = model.mentions[1]
+        XCTAssertEqual((model.mentions)?.count, 2)
+        let mention = model.mentions![1]
         XCTAssertEqual(mention.id, 500)
         XCTAssertEqual(mention.readAt!.description, "2014-06-30 15:00:00 +0000")
         XCTAssertEqual(mention.post!.id, 308)
@@ -26,10 +26,10 @@ class NotificationTests: XCTestCase {
         XCTAssertEqual(mention.post!.account.id, 101)
         XCTAssertEqual(mention.post!.account.name, "ahorowitz")
         
-        XCTAssertEqual((model.invites.teams).count, 0)
+        XCTAssertEqual((model.invites.teams)?.count, 0)
         
-        XCTAssertEqual((model.invites.topics).count, 2)
-        let topic = model.invites.topics[1]
+        XCTAssertEqual((model.invites.topics)?.count, 2)
+        let topic = model.invites.topics![1]
         XCTAssertEqual(topic.id, 600)
         XCTAssertEqual(topic.sender!.id, 106)
         XCTAssertEqual(topic.sender!.name, "chelseab")
