@@ -30,30 +30,47 @@ public enum StreamingEvent {
 	case updateTopic(UpdateTopicEvent)
 	case unknown(String, String: [AnyObject])
 
-	static func parse(type: String, data: Data) throws -> StreamingEvent? {
+	fileprivate struct WSEventTypeChecker: Decodable {
+		let type: String
+	}
+
+	fileprivate struct WSEvent<T: Decodable>: Decodable {
+		let type: String
+		let data: T
+	}
+
+	static func parse(data: Data) throws -> StreamingEvent? {
 		let decoder = JSONDecoder()
-		if type == "addTalkPost" { return .addTalkPost(try decoder.decode(AddTalkPostEvent.self, from: data)) }
-		if type == "createTalk" { return .createTalk(try decoder.decode(CreateTalkEvent.self, from: data)) }
-		if type == "createTopic" { return .createTopic(try decoder.decode(CreateTopicEvent.self, from: data)) }
-		if type == "deleteTalk" { return .deleteTalk(try decoder.decode(DeleteTalkEvent.self, from: data)) }
-		if type == "deleteTopic" { return .deleteTopic(try decoder.decode(DeleteTopicEvent.self, from: data)) }
-		if type == "deleteMessage" { return .deleteMessage(try decoder.decode(DeleteMessageEvent.self, from: data)) }
-		if type == "favoriteTopic" { return .favoriteTopic(try decoder.decode(FavoriteTopicEvent.self, from: data)) }
-		if type == "joinTopics" { return .joinTopics(try decoder.decode(JoinTopicsEvent.self, from: data)) }
-		if type == "likeMessage" { return .likeMessage(try decoder.decode(LikeMessageEvent.self, from: data)) }
-		if type == "notifyMention" { return .notifyMention(try decoder.decode(NotifyMentionEvent.self, from: data)) }
-		if type == "postMessage" { return .postMessage(try decoder.decode(PostMessageEvent.self, from: data)) }
-		if type == "postLinks" { return .postLinks(try decoder.decode(PostLinksEvent.self, from: data)) }
-		if type == "readMention" { return .readMention(try decoder.decode(ReadMentionEvent.self, from: data)) }
-		if type == "removeTalkPost" { return .removeTalkPost(try decoder.decode(RemoveTalkPostEvent.self, from: data)) }
-		if type == "requestTeamInvite" { return .requestTeamInvite(try decoder.decode(RequestTeamInviteEvent.self, from: data)) }
-		if type == "requestTopicInvite" { return .requestTopicInvite(try decoder.decode(RequestTopicInviteEvent.self, from: data)) }
-		if type == "saveBookmark" { return .saveBookmark(try decoder.decode(SaveBookmarkEvent.self, from: data)) }
-		if type == "updateNotificationAccess" { return .updateNotificationAccess(try decoder.decode(UpdateNotificationAccessEvent.self, from: data)) }
-		if type == "unfavoriteTopic" { return .unfavoriteTopic(try decoder.decode(UnfavoriteTopicEvent.self, from: data)) }
-		if type == "unlikeMessage" { return .unlikeMessage(try decoder.decode(UnlikeMessageEvent.self, from: data)) }
-		if type == "updateTalk" { return .updateTalk(try decoder.decode(UpdateTalkEvent.self, from: data)) }
-		if type == "updateTopic" { return .updateTopic(try decoder.decode(UpdateTopicEvent.self, from: data)) }
+		if #available(OSX 10.12, iOS 10.0, *) {
+			decoder.dateDecodingStrategy = .iso8601
+		} else {
+			fatalError("Please use newer macOS")
+		}
+		if let eventType = try? decoder.decode(WSEventTypeChecker.self, from: data) {
+			let type = eventType.type
+			if type == "addTalkPost" { let ev = try decoder.decode(WSEvent<AddTalkPostEvent>.self, from: data); return .addTalkPost(ev.data) }
+			if type == "createTalk" { let ev = try decoder.decode(WSEvent<CreateTalkEvent>.self, from: data); return .createTalk(ev.data) }
+			if type == "createTopic" { let ev = try decoder.decode(WSEvent<CreateTopicEvent>.self, from: data); return .createTopic(ev.data) }
+			if type == "deleteTalk" { let ev = try decoder.decode(WSEvent<DeleteTalkEvent>.self, from: data); return .deleteTalk(ev.data) }
+			if type == "deleteTopic" { let ev = try decoder.decode(WSEvent<DeleteTopicEvent>.self, from: data); return .deleteTopic(ev.data) }
+			if type == "deleteMessage" { let ev = try decoder.decode(WSEvent<DeleteMessageEvent>.self, from: data); return .deleteMessage(ev.data) }
+			if type == "favoriteTopic" { let ev = try decoder.decode(WSEvent<FavoriteTopicEvent>.self, from: data); return .favoriteTopic(ev.data) }
+			if type == "joinTopics" { let ev = try decoder.decode(WSEvent<JoinTopicsEvent>.self, from: data); return .joinTopics(ev.data) }
+			if type == "likeMessage" { let ev = try decoder.decode(WSEvent<LikeMessageEvent>.self, from: data); return .likeMessage(ev.data) }
+			if type == "notifyMention" { let ev = try decoder.decode(WSEvent<NotifyMentionEvent>.self, from: data); return .notifyMention(ev.data) }
+			if type == "postMessage" { let ev = try decoder.decode(WSEvent<PostMessageEvent>.self, from: data); return .postMessage(ev.data) }
+			if type == "postLinks" { let ev = try decoder.decode(WSEvent<PostLinksEvent>.self, from: data); return .postLinks(ev.data) }
+			if type == "readMention" { let ev = try decoder.decode(WSEvent<ReadMentionEvent>.self, from: data); return .readMention(ev.data) }
+			if type == "removeTalkPost" { let ev = try decoder.decode(WSEvent<RemoveTalkPostEvent>.self, from: data); return .removeTalkPost(ev.data) }
+			if type == "requestTeamInvite" { let ev = try decoder.decode(WSEvent<RequestTeamInviteEvent>.self, from: data); return .requestTeamInvite(ev.data) }
+			if type == "requestTopicInvite" { let ev = try decoder.decode(WSEvent<RequestTopicInviteEvent>.self, from: data); return .requestTopicInvite(ev.data) }
+			if type == "saveBookmark" { let ev = try decoder.decode(WSEvent<SaveBookmarkEvent>.self, from: data); return .saveBookmark(ev.data) }
+			if type == "updateNotificationAccess" { let ev = try decoder.decode(WSEvent<UpdateNotificationAccessEvent>.self, from: data); return .updateNotificationAccess(ev.data) }
+			if type == "unfavoriteTopic" { let ev = try decoder.decode(WSEvent<UnfavoriteTopicEvent>.self, from: data); return .unfavoriteTopic(ev.data) }
+			if type == "unlikeMessage" { let ev = try decoder.decode(WSEvent<UnlikeMessageEvent>.self, from: data); return .unlikeMessage(ev.data) }
+			if type == "updateTalk" { let ev = try decoder.decode(WSEvent<UpdateTalkEvent>.self, from: data); return .updateTalk(ev.data) }
+			if type == "updateTopic" { let ev = try decoder.decode(WSEvent<UpdateTopicEvent>.self, from: data); return .updateTopic(ev.data) }
+		}
 		return nil // FIXME
 	}
 }

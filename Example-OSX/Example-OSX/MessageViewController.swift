@@ -49,19 +49,19 @@ class MessageViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     // MARK: - Table View
 
     func numberOfRows(in tableView: NSTableView) -> Int {
-        return messages == nil ? 0 : messages!.posts.count
+        return messages == nil ? 0 : messages!.posts!.count
     }
 
     func tableView(_ tableView: NSTableView, viewFor viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
         let cell = tableView.make(withIdentifier: "MessageCell", owner: nil) as! MessageCell
-        cell.model = messages!.posts[row]
+        cell.model = messages!.posts?[row]
         return cell
     }
     
     func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         let font = NSFont(name: "Helvetica", size: 13)!
         let attr: [String:AnyObject] = [NSFontAttributeName: font]
-        let mes = messages!.posts[row].message
+        let mes = messages!.posts![row].message
         
         let size = (mes as NSString).size(withAttributes: attr)
 

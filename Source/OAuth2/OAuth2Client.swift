@@ -66,6 +66,8 @@ extension TypetalkAPI {
         let absurl = url.absoluteString
         return absurl.hasPrefix(settings.redirectURI!)
     }
+    
+    @discardableResult
     public static func authorizationDone(URL url: URL) -> Bool {
         switch state {
         case .authorizing(let cb):
@@ -90,6 +92,7 @@ extension TypetalkAPI {
             code: code), completion: completion)
     }
 
+    @discardableResult
     public static func requestRefreshToken(_ completion: @escaping CompletionClosure) -> Bool {
         precondition(isInitialized)
         switch state {
