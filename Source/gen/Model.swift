@@ -121,45 +121,6 @@ public struct DirectMessageTopic: Decodable {
 	}
 }
 
-public struct Embed: Decodable {
-	public let type: String
-	public let version: Int
-	public let providerName: String // json:"provider_name"
-	public let providerUrl: URL? // json:"provider_url"
-	public let title: String
-	public let authorName: String // json:"author_name"
-	public let authorUrl: URL? // json:"author_url"
-	public let html: String
-	public let width: Int
-	public let height: Int
-
-	private enum CodingKeys: String, CodingKey {
-		case type
-		case version
-		case providerName = "provider_name"
-		case providerUrl = "provider_url"
-		case title
-		case authorName = "author_name"
-		case authorUrl = "author_url"
-		case html
-		case width
-		case height
-	}
-
-	public init(type: String, version: Int, providerName: String, providerUrl: URL? = nil, title: String, authorName: String, authorUrl: URL? = nil, html: String, width: Int, height: Int) {
-		self.type = type
-		self.version = version
-		self.providerName = providerName
-		self.providerUrl = providerUrl
-		self.title = title
-		self.authorName = authorName
-		self.authorUrl = authorUrl
-		self.html = html
-		self.width = width
-		self.height = height
-	}
-}
-
 public struct Group: Decodable {
 	public let id: Int
 	public let key: String
@@ -220,10 +181,10 @@ public struct Link: Decodable {
 	public let imageUrl: URL
 	public let createdAt: Date
 	public let updatedAt: Date
-	public let embed: Embed?
+	public let embed: JSON?
 
 
-	public init(id: Int, url: URL, contentType: String, title: String, description: String, imageUrl: URL, createdAt: Date, updatedAt: Date, embed: Embed? = nil) {
+	public init(id: Int, url: URL, contentType: String, title: String, description: String, imageUrl: URL, createdAt: Date, updatedAt: Date, embed: JSON? = nil) {
 		self.id = id
 		self.url = url
 		self.contentType = contentType

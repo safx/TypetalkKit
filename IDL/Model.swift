@@ -77,19 +77,6 @@ struct DirectMessageTopic: Decodable, ClassInit {
     let directMessage: AccountWithLoginStatus
 }
 
-public struct Embed: Decodable, ClassInit {
-    public let type: String
-    public let version: Int
-    public let providerName: String // JSON:"provider_name"
-    public let providerUrl: URL?    // JSON:"provider_url"
-    public let title: String
-    public let authorName: String   // JSON:"author_name"
-    public let authorUrl: URL?      // JSON:"author_url"
-    public let html: String
-    public let width: Int
-    public let height: Int
-}
-
 public struct Group: Decodable, ClassInit {
     public let id: GroupID
     public let key: GroupKey = ""
@@ -123,7 +110,7 @@ public struct Link: Decodable, ClassInit {
     public let imageUrl: URL
     public let createdAt: Date
     public let updatedAt: Date
-    public let embed: Embed?
+    public let embed: JSON? = nil
 }
 
 public struct LoginStatus: Decodable, ClassInit {

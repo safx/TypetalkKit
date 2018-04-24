@@ -32,9 +32,14 @@ open class OAuth2AccountStore {
         if status == OSStatus(errSecSuccess) {
             let q = result as! NSDictionary
             let k = String(kSecAttrGeneric)
-            if let data = q[k] as? Data {
-                return NSKeyedUnarchiver.unarchiveObject(with: data) as! OAuth2Credential?
+            guard let data = q[k] as? Data else {
+                return nil
             }
+            let decoder = JSONDecoder()
+            guard let credential = try? decoder.decode(OAuth2Credential.self, from: data) else {
+                return nil
+            }
+            return credential
         } else if status != OSStatus(errSecItemNotFound) {
             //
         }
@@ -48,7 +53,12 @@ open class OAuth2AccountStore {
     
     open func saveCredential(_ credential: OAuth2Credential) -> Bool {
         var attrs = attributes
-        attrs[kSecAttrGeneric as String] = NSKeyedArchiver.archivedData(withRootObject: credential) as AnyObject?
+        
+        let encoder = JSONEncoder()
+        guard let json = try? encoder.encode(credential) else {
+            return false
+        }
+        attrs[kSecAttrGeneric as String] = json as AnyObject
 
         var result: AnyObject?
         let status = withUnsafeMutablePointer(to: &result) { SecItemAdd(attrs as CFDictionary, UnsafeMutablePointer($0)) }

@@ -62,6 +62,8 @@
 		8D42189B1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218931AA21138009D2077 /* streaming-requestTopicInvite.json */; };
 		8D4785551B57D13500B37898 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
 		8D4785571B57D17B00B37898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785561B57D17B00B37898 /* main.swift */; };
+		8D518DEC208F60B900323329 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518DEB208F60B900323329 /* JSON.swift */; };
+		8D518DED208F60BC00323329 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518DEB208F60B900323329 /* JSON.swift */; };
 		8D5320971B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
 		8D5320981B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
@@ -359,6 +361,7 @@
 		8D4785511B57D12D00B37898 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		8D4785561B57D17B00B37898 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8D47DBB11A8CC6D800201315 /* Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Streaming.swift; sourceTree = "<group>"; };
+		8D518DEB208F60B900323329 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		8D5320961B57FDC30093A538 /* api_create-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_create-talk.json"; sourceTree = "<group>"; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
 		8D57B3FE19C87E7F00E60736 /* model_topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic.json; sourceTree = "<group>"; };
@@ -620,6 +623,7 @@
 		8D97F3BB1B7E24C0009A091E /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				8D518DEB208F60B900323329 /* JSON.swift */,
 				8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */,
 			);
 			path = Additional;
@@ -1276,6 +1280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D9D18621A77D6AA00E3BCCF /* Request+Addition.swift in Sources */,
+				8D518DED208F60BC00323329 /* JSON.swift in Sources */,
 				8D3B88321B5406680064C29F /* Streaming.swift in Sources */,
 				8D9D18671A77D6B300E3BCCF /* OAuth2AccountStore.swift in Sources */,
 				8D9D18651A77D6B300E3BCCF /* OAuth2Client.swift in Sources */,
@@ -1330,6 +1335,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5C6E3C19D6FFD00020BCA2 /* OAuth2Client.swift in Sources */,
+				8D518DEC208F60B900323329 /* JSON.swift in Sources */,
 				8D3B88331B5406680064C29F /* Streaming.swift in Sources */,
 				8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */,
 				8D9383A21B593BBB00916D99 /* Request.swift in Sources */,

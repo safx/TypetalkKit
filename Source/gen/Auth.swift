@@ -71,7 +71,7 @@ public class AccessToken: AuthRequest {
 	}
 }
 
-public class OAuth2Credential: NSObject, Encodable, NSCoding, Decodable {
+public class OAuth2Credential: NSObject, Encodable, Decodable {
 	public let accessToken: String // json:"access_token"
 	public let tokenType: String // json:"token_type"
 	public let refreshToken: String // json:"refresh_token"
@@ -82,39 +82,6 @@ public class OAuth2Credential: NSObject, Encodable, NSCoding, Decodable {
 		self.tokenType = tokenType
 		self.refreshToken = refreshToken
 		self.expiryIn = expiryIn
-	}
-
-	required public init?(coder: NSCoder) {
-		var failed = false
-		if let accessToken = coder.decodeObject(forKey: "accessToken") as? String {
-			self.accessToken = accessToken
-		} else {
-			self.accessToken = String()  // FIXME: set default value
-			failed = true
-		}
-		if let tokenType = coder.decodeObject(forKey: "tokenType") as? String {
-			self.tokenType = tokenType
-		} else {
-			self.tokenType = String()  // FIXME: set default value
-			failed = true
-		}
-		if let refreshToken = coder.decodeObject(forKey: "refreshToken") as? String {
-			self.refreshToken = refreshToken
-		} else {
-			self.refreshToken = String()  // FIXME: set default value
-			failed = true
-		}
-		expiryIn = coder.decodeInteger(forKey: "expiryIn")
-		if failed {
-			return // nil
-		}
-	}
-
-	public func encode(with coder: NSCoder) {
-		coder.encode(accessToken, forKey: "accessToken")
-		coder.encode(tokenType, forKey: "tokenType")
-		coder.encode(refreshToken, forKey: "refreshToken")
-		coder.encode(expiryIn, forKey: "expiryIn")
 	}
 
 	private enum CodingKeys: String, CodingKey {

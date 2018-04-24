@@ -13,7 +13,7 @@ protocol Printable {}
 
 protocol Encodable {}
 protocol Decodable {}
-protocol NSCoding {}
+protocol JSON {}
 
 protocol URLRequestHelper {}
 protocol APIKitHelper {}
@@ -22,3 +22,4 @@ protocol WSHelper {}
 protocol ErrorType {}
 
 protocol EJDB {}
+
