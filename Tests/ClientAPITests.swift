@@ -65,7 +65,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -98,7 +98,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -142,7 +142,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -272,7 +272,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -404,7 +404,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -529,7 +529,7 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.posts![0].links![0].description, "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.")
 				XCTAssertEqual(r.posts![0].links![0].title, "Fun. Creative. Collaboration. | Nulab Inc.")
 				XCTAssertEqual(r.posts![0].links![0].url.absoluteString, "http://nulab-inc.com")
-				XCTAssertEqual(r.posts![0].links![0].imageUrl.absoluteString, "http://nulab-inc.com/ogp_dft.png")
+				XCTAssertEqual(r.posts![0].links![0].imageUrl!.absoluteString, "http://nulab-inc.com/ogp_dft.png")
 				XCTAssertEqual(r.posts![0].links![0].updatedAt.description, "2016-12-21 01:11:42 +0000")
 				XCTAssertNil(r.posts![0].links![0].embed)
 				XCTAssertEqual(r.posts![0].links![0].id, 7)
@@ -538,19 +538,43 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.posts![0].links![1].description, "Presentation slides at Nulab 10th Anniversary NUCON http://nucon-10th.nulab-inc.com/")
 				XCTAssertEqual(r.posts![0].links![1].title, "Nulab's Way of Working Remotely")
 				XCTAssertEqual(r.posts![0].links![1].url.absoluteString, "https://speakerdeck.com/nulabinc/nulabs-way-of-working-remotely")
-				XCTAssertEqual(r.posts![0].links![1].imageUrl.absoluteString, "https://speakerd.s3.amazonaws.com/presentations/4445cf303b350132afda224ffdff9a3d/slide_0.jpg")
+                XCTAssertEqual(r.posts![0].links![1].imageUrl?.absoluteString, "https://speakerd.s3.amazonaws.com/presentations/4445cf303b350132afda224ffdff9a3d/slide_0.jpg")
 				XCTAssertEqual(r.posts![0].links![1].updatedAt.description, "2016-12-21 01:11:42 +0000")
-				XCTAssertEqual(r.posts![0].links![1].embed!.providerUrl!.absoluteString, "https://speakerdeck.com/")
-				XCTAssertEqual(r.posts![0].links![1].embed!.title, "Nulab's Way of Working Remotely")
-				XCTAssertEqual(r.posts![0].links![1].embed!.html, "<iframe allowfullscreen=\"true\" allowtransparency=\"true\" frameborder=\"0\" height=\"596\" id=\"talk_frame_130304\" mozallowfullscreen=\"true\" src=\"//speakerdeck.com/player/4445cf303b350132afda224ffdff9a3d\" style=\"border:0; padding:0; margin:0; background:transparent;\" webkitallowfullscreen=\"true\" width=\"710\"></iframe>\n")
-				XCTAssertEqual(r.posts![0].links![1].embed!.authorName, "Nulab Inc.")
-				XCTAssertEqual(r.posts![0].links![1].embed!.height, 596)
-				XCTAssertEqual(r.posts![0].links![1].embed!.width, 710)
-				XCTAssertEqual(r.posts![0].links![1].embed!.version, 1)
-				XCTAssertEqual(r.posts![0].links![1].embed!.authorUrl!.absoluteString, "https://speakerdeck.com/nulabinc")
-				XCTAssertEqual(r.posts![0].links![1].embed!.providerName, "Speaker Deck")
-				//XCTAssertEqual(r.posts![0].links![1].embed!.type.rawValue, "rich") //// FIXME
-				XCTAssertEqual(r.posts![0].links![1].id, 8)
+
+                guard let embed = r.posts![0].links![1].embed else { return XCTFail() }
+                guard case .object(let e) = embed else { return XCTFail() }
+
+                guard case .string(let providerUrl)? = e["provider_url"] else { return XCTFail() }
+                XCTAssertEqual(providerUrl, "https://speakerdeck.com/")
+
+                guard case .string(let title)? = e["title"] else { return XCTFail() }
+                XCTAssertEqual(title, "Nulab's Way of Working Remotely")
+
+                guard case .string(let html)? = e["html"] else { return XCTFail() }
+                XCTAssertEqual(html, "<iframe allowfullscreen=\"true\" allowtransparency=\"true\" frameborder=\"0\" height=\"596\" id=\"talk_frame_130304\" mozallowfullscreen=\"true\" src=\"//speakerdeck.com/player/4445cf303b350132afda224ffdff9a3d\" style=\"border:0; padding:0; margin:0; background:transparent;\" webkitallowfullscreen=\"true\" width=\"710\"></iframe>\n")
+
+                guard case .string(let authorName)? = e["author_name"] else { return XCTFail() }
+                XCTAssertEqual(authorName, "Nulab Inc.")
+
+                guard case .number(let height)? = e["height"] else { return XCTFail() }
+                XCTAssertEqual(height, 596)
+
+                guard case .number(let width)? = e["width"] else { return XCTFail() }
+                XCTAssertEqual(width, 710)
+
+                guard case .number(let version)? = e["version"] else { return XCTFail() }
+                XCTAssertEqual(version, 1)
+
+                guard case .string(let authorUrl)? = e["author_url"] else { return XCTFail() }
+                XCTAssertEqual(authorUrl, "https://speakerdeck.com/nulabinc")
+
+                guard case .string(let providerName)? = e["provider_name"] else { return XCTFail() }
+                XCTAssertEqual(providerName, "Speaker Deck")
+
+                guard case .string(let type)? = e["type"] else { return XCTFail() }
+                XCTAssertEqual(type, "rich")
+
+                XCTAssertEqual(r.posts![0].links![1].id, 8)
 				XCTAssertEqual(r.posts![0].links![1].createdAt.description, "2016-12-21 01:11:42 +0000")
 				XCTAssertNil(r.posts![0].replyTo)
 				XCTAssertNil(r.posts![0].mention)
@@ -848,7 +872,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -899,7 +923,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -924,7 +948,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1001,7 +1025,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1205,7 +1229,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1268,7 +1292,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1309,7 +1333,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1366,7 +1390,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1400,7 +1424,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1431,7 +1455,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1461,7 +1485,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1497,7 +1521,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1555,7 +1579,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1689,7 +1713,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1716,7 +1740,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1738,7 +1762,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1762,7 +1786,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1838,7 +1862,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1886,7 +1910,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -1955,7 +1979,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2024,7 +2048,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2053,7 +2077,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2130,7 +2154,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2207,7 +2231,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2262,7 +2286,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2373,7 +2397,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2402,7 +2426,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2438,7 +2462,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2617,7 +2641,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2656,7 +2680,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2692,7 +2716,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2728,7 +2752,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2767,7 +2791,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 
@@ -2806,7 +2830,7 @@ class ClientAPITests: XCTestCase {
 		}
 
 		waitForExpectations(timeout: 3) { (error) in
-			XCTAssertNil(error, "\(error)")
+			XCTAssertNil(error, error.debugDescription)
 		}
 	}
 

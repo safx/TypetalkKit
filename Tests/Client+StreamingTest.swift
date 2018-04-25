@@ -247,7 +247,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.links![0].contentType, "text/html; charset=UTF-8")
         XCTAssertEqual(model.links![0].title, "Fun. Creative. Collaboration. | Nulab Inc.")
         XCTAssertEqual(model.links![0].description, "We develop collaborative software tools aimed at facilitating effective work communication and collaboration.")
-        XCTAssertEqual(model.links![0].imageUrl.absoluteString, "http://nulab-inc.com/ogp_dft.png")
+        XCTAssertEqual(model.links![0].imageUrl?.absoluteString, "http://nulab-inc.com/ogp_dft.png")
         XCTAssertEqual(model.links![0].createdAt.description, "2015-02-19 14:28:17 +0000")
         XCTAssertEqual(model.links![0].updatedAt.description, "2015-02-19 14:28:17 +0000")
     }

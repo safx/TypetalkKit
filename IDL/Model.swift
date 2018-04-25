@@ -107,7 +107,7 @@ public struct Link: Decodable, ClassInit {
     public let contentType: String
     public let title: String
     public let description: String
-    public let imageUrl: URL
+    public let imageUrl: URL?
     public let createdAt: Date
     public let updatedAt: Date
     public let embed: JSON? = nil

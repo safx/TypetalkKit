@@ -178,13 +178,13 @@ public struct Link: Decodable {
 	public let contentType: String
 	public let title: String
 	public let description: String
-	public let imageUrl: URL
+	public let imageUrl: URL?
 	public let createdAt: Date
 	public let updatedAt: Date
 	public let embed: JSON?
 
 
-	public init(id: Int, url: URL, contentType: String, title: String, description: String, imageUrl: URL, createdAt: Date, updatedAt: Date, embed: JSON? = nil) {
+	public init(id: Int, url: URL, contentType: String, title: String, description: String, imageUrl: URL? = nil, createdAt: Date, updatedAt: Date, embed: JSON? = nil) {
 		self.id = id
 		self.url = url
 		self.contentType = contentType
