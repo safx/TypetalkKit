@@ -66,6 +66,11 @@ public struct Attachment: Decodable, ClassInit {
     public let fileSize: Int
 }
 
+public struct Backlog: Decodable, ClassInit {
+    public let spaceUrl: URL
+    public let issueKey: String
+}
+
 public struct Bookmark: Decodable, ClassInit {
     public let postId: PostID = 0
     public let updatedAt: Date = Date()
@@ -105,9 +110,9 @@ public struct Link: Decodable, ClassInit {
     public let id: LinkID
     public let url: URL
     public let contentType: String
-    public let title: String
-    public let description: String
-    public let imageUrl: URL?
+    public let title: String? = nil
+    public let description: String? = nil
+    public let imageUrl: URL? = nil
     public let createdAt: Date
     public let updatedAt: Date
     public let embed: JSON? = nil
@@ -193,7 +198,7 @@ public struct Talk: Decodable, ClassInit {
     public let suggestion: String
     public let createdAt: Date
     public let updatedAt: Date
-    public let backlog: String?
+    public let backlog: Backlog? = nil
 }
 
 /*public struct TalkMessages: Decodable, ClassInit {
@@ -247,7 +252,7 @@ public struct Topic: Decodable, ClassInit {
     public let id: TopicID = 0
     public let name: String = ""
     public let description: String? = nil
-    public let suggestion: String = ""
+    public let suggestion: String? = nil
     public let lastPostedAt: Date? = nil
     public let createdAt: Date = Date()
     public let updatedAt: Date = Date()

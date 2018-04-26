@@ -41,33 +41,46 @@ extension APIKitRequest where Self.Response: Decodable {
         } else {
             fatalError("Please use newer macOS")
         }
+        guard let data = object as? Data else {
+            throw ResponseError.unexpectedObject(object)
+        }
         do {
-            return try decoder.decode(Self.Response.self, from: object as! Data) // FIXME
+            return try decoder.decode(Self.Response.self, from: data)
         } catch DecodingError.typeMismatch(let dataType, let context) {
-            print("typeMismatch")
-            print("  type:", dataType)
+            print("JSON Decoding Error: typeMismatch")
+            print("  base:", Self.Response.self)
             print("  desc:", context.debugDescription)
+            print("  type:", dataType)
             print("  ctx :", context.codingPath.map{$0.stringValue})
+            print("  data:", String(data: data, encoding: String.Encoding.utf8) ?? "<non utf-8 string>")
             throw ResponseError.unexpectedObject((context, dataType))
         } catch DecodingError.valueNotFound(let dataType, let context) {
-            print("valueNotFound")
+            print("JSON Decoding Error: valueNotFound")
+            print("  base:", Self.Response.self)
             print("  type:", dataType)
             print("  desc:", context.debugDescription)
             print("  ctx :", context.codingPath.map{$0.stringValue})
+            print("  data:", String(data: data, encoding: String.Encoding.utf8) ?? "<non utf-8 string>")
             throw ResponseError.unexpectedObject((context, dataType))
         } catch DecodingError.keyNotFound(let codingPath, let context) {
-            print("keyNotFound")
+            print("JSON Decoding Error: keyNotFound")
+            print("  base:", Self.Response.self)
             print("  type:", codingPath)
             print("  desc:", context.debugDescription)
             print("  ctx :", context.codingPath.map{$0.stringValue})
+            print("  data:", String(data: data, encoding: String.Encoding.utf8) ?? "<non utf-8 string>")
             throw ResponseError.unexpectedObject((context, codingPath))
         } catch DecodingError.dataCorrupted(let context) {
-            print("dataCorrupted")
+            print("JSON Decoding Error: dataCorrupted")
+            print("  base:", Self.Response.self)
             print("  desc:", context.debugDescription)
             print("  ctx :", context.codingPath.map{$0.stringValue})
+            print("  data:", String(data: data, encoding: String.Encoding.utf8) ?? "<non utf-8 string>")
             throw ResponseError.unexpectedObject(context)
         } catch let error {
-            print("Other Error", error)
+            print("JSON Decoding Error:", error)
+            print("  base:", Self.Response.self)
+            print("  data:", String(data: data, encoding: String.Encoding.utf8) ?? "<non utf-8 string>")
             throw ResponseError.unexpectedObject(error)
         }
     }
