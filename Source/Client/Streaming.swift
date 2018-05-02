@@ -59,7 +59,7 @@ extension TypetalkAPI {
 final private class TypetalkStream : WebSocketDelegate {
     fileprivate typealias EventClosure = (StreamingEvent) -> ()
 
-    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "streaming")!)
+    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "v1/streaming")!)
     fileprivate var streamingClosure: EventClosure?
 
     fileprivate func connect(_ accessToken: String, closure: @escaping EventClosure) {
@@ -105,4 +105,3 @@ final private class TypetalkStream : WebSocketDelegate {
     }
 
 }
-
