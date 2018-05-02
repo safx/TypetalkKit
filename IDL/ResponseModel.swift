@@ -25,11 +25,11 @@ public struct GetDmTopicsResponse: Decodable {
 }
 
 public struct GetMessagesResponse: Decodable, ClassInit {
-    public let mySpace: Space?
+    public let mySpace: MySpace?
     public let team: Team? = nil
     public let topic: Topic = Topic()
     public let bookmark: Bookmark = Bookmark()
-    public let posts: [Post]? = nil
+    public let posts: [Post] = []
     public let hasNext: Bool = false
     public let exceedsAttachmentLimit: Bool = false
 }
@@ -47,12 +47,18 @@ public struct GetTopicMembersResponse: Decodable {
 }
 
 public struct GetMessageResponse: Decodable {
-    public let mySpace: Space?
+    public let mySpace: MySpace?
     public let team: Team? = nil
     public let topic: Topic
     public let post: Post
     public let replies: [Post]? = nil
     public let exceedsAttachmentLimit: Bool = false
+}
+
+struct SearchMessagesResponse: Decodable {
+    let count: Int
+    let posts: [Post]
+    let isLimited: Bool
 }
 
 public struct LikeMessageResponse: Decodable {
@@ -83,6 +89,11 @@ public struct PostDirectMessageResponse: Decodable, ClassInit {
     public let exceedsAttachmentLimit: Bool
 }
 
+struct GetNotificationStatusResponse: Decodable, ClassInit {
+    let doNotDisturb: DoNotDisturb
+    let statuses: [NotificationStatus]
+}
+
 public struct SaveReadTopicResponse: Decodable {
     public let unread: Unread
 }
@@ -96,7 +107,7 @@ public struct SaveReadMentionResponse: Decodable {
 }
 
 public struct GetSpacesResponse: Decodable {
-    public let mySpaces: [Space]
+    public let mySpaces: [MySpace]
 }
 
 public struct GetSpaceMembersResponse: Decodable {
@@ -117,7 +128,7 @@ public struct GetTalksResponse: Decodable {
 }
 
 public struct GetTalkResponse: Decodable, ClassInit {
-    public let mySpace: Space?
+    public let mySpace: MySpace?
     public let topic: Topic
     public let talk: Talk
     public let posts: [Post]? = nil
@@ -133,4 +144,16 @@ public struct CreateTalkResponse: Decodable {
 public struct UpdateTalkResponse: Decodable {
     public let topic: Topic
     public let talk: Talk
+}
+
+struct GetLikesReceiveResponse: Decodable {
+    public let likedPosts: [LikedPost]
+}
+
+struct GetLikesGiveResponse: Decodable {
+    public let likedPosts: [MyLikedPost]
+}
+
+struct SaveReadLikesResponse: Decodable {
+    public let like: LikeStatus
 }

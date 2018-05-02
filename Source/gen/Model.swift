@@ -97,6 +97,17 @@ public struct Attachment: Decodable {
 	}
 }
 
+public struct Backlog: Decodable {
+	public let spaceUrl: URL
+	public let issueKey: String
+
+
+	public init(spaceUrl: URL, issueKey: String) {
+		self.spaceUrl = spaceUrl
+		self.issueKey = issueKey
+	}
+}
+
 public struct Bookmark: Decodable {
 	public let postId: Int
 	public let updatedAt: Date
@@ -118,6 +129,41 @@ public struct DirectMessageTopic: Decodable {
 		self.topic = topic
 		self.unread = unread
 		self.directMessage = directMessage
+	}
+}
+
+public struct DoNotDisturb: Decodable {
+	public let scheduled: DoNotDisturb.Scheduled
+	public let isSuppressed: Bool
+	public let manual: DoNotDisturb.Manual
+
+
+	public init(scheduled: DoNotDisturb.Scheduled, isSuppressed: Bool, manual: DoNotDisturb.Manual) {
+		self.scheduled = scheduled
+		self.isSuppressed = isSuppressed
+		self.manual = manual
+	}
+
+	public struct Scheduled: Decodable {
+		public let start: String
+		public let end: String
+		public let enabled: Bool
+
+
+		public init(start: String, end: String, enabled: Bool) {
+			self.start = start
+			self.end = end
+			self.enabled = enabled
+		}
+	}
+
+	public struct Manual: Decodable {
+		public let remainingTimeInMinutes: Int?
+
+
+		public init(remainingTimeInMinutes: Int? = nil) {
+			self.remainingTimeInMinutes = remainingTimeInMinutes
+		}
 	}
 }
 
@@ -172,19 +218,52 @@ public struct Like: Decodable {
 	}
 }
 
+public struct LikeStatus: Decodable {
+	public let receive: LikeStatus.Receive?
+
+
+	public init(receive: LikeStatus.Receive? = nil) {
+		self.receive = receive
+	}
+
+	public struct Receive: Decodable {
+		public let hasUnread: Bool
+		public let readLikeId: Int?
+
+
+		public init(hasUnread: Bool, readLikeId: Int? = nil) {
+			self.hasUnread = hasUnread
+			self.readLikeId = readLikeId
+		}
+	}
+}
+
+public struct LikedPost: Decodable {
+	public let post: Post?
+	public let directMessage: Post?
+	public let likes: [Like]
+
+
+	public init(post: Post? = nil, directMessage: Post? = nil, likes: [Like]) {
+		self.post = post
+		self.directMessage = directMessage
+		self.likes = likes
+	}
+}
+
 public struct Link: Decodable {
 	public let id: Int
 	public let url: URL
 	public let contentType: String
-	public let title: String
-	public let description: String
+	public let title: String?
+	public let description: String?
 	public let imageUrl: URL?
 	public let createdAt: Date
 	public let updatedAt: Date
 	public let embed: JSON?
 
 
-	public init(id: Int, url: URL, contentType: String, title: String, description: String, imageUrl: URL? = nil, createdAt: Date, updatedAt: Date, embed: JSON? = nil) {
+	public init(id: Int, url: URL, contentType: String, title: String? = nil, description: String? = nil, imageUrl: URL? = nil, createdAt: Date, updatedAt: Date, embed: JSON? = nil) {
 		self.id = id
 		self.url = url
 		self.contentType = contentType
@@ -234,6 +313,41 @@ public struct Mention: Decodable {
 	}
 }
 
+public struct MyLike: Decodable {
+	public let comment: String
+	public let id: Int
+	public let createdAt: Date
+
+
+	public init(comment: String, id: Int, createdAt: Date) {
+		self.comment = comment
+		self.id = id
+		self.createdAt = createdAt
+	}
+}
+
+public struct MyLikedPost: Decodable {
+	public let post: Post?
+	public let directMessage: Post?
+	public let myLike: MyLike
+
+
+	public init(post: Post? = nil, directMessage: Post? = nil, myLike: MyLike) {
+		self.post = post
+		self.directMessage = directMessage
+		self.myLike = myLike
+	}
+}
+
+public struct MySpace: Decodable {
+	public let space: SpaceInfo
+	public let isPaymentAdmin: Bool
+	public let invitableRoles: [String]?
+	public let myPlan: PaymentPlan
+	public let myRole: String
+
+}
+
 public struct Notifications: Decodable {
 	public let mentions: [Mention]?
 	public let invites: Notifications.Invites
@@ -257,65 +371,29 @@ public struct Notifications: Decodable {
 }
 
 public struct NotificationStatus: Decodable {
-	public let mention: NotificationStatus.Mention?
 	public let access: NotificationStatus.Access?
-	public let invite: NotificationStatus.Invite?
-	public let like: NotificationStatus.Like?
+	public let like: LikeStatus?
 	public let directMessage: NotificationStatus.DirectMessage?
+	public let mySpace: MySpace?
+	public let space: SpaceInfo?
 
 
-	public init(mention: NotificationStatus.Mention? = nil, access: NotificationStatus.Access? = nil, invite: NotificationStatus.Invite? = nil, like: NotificationStatus.Like? = nil, directMessage: NotificationStatus.DirectMessage? = nil) {
-		self.mention = mention
+	public init(access: NotificationStatus.Access? = nil, like: LikeStatus? = nil, directMessage: NotificationStatus.DirectMessage? = nil, mySpace: MySpace? = nil, space: SpaceInfo? = nil) {
 		self.access = access
-		self.invite = invite
 		self.like = like
 		self.directMessage = directMessage
-	}
-
-	public struct Mention: Decodable {
-		public let unread: Int?
-
-
-		public init(unread: Int? = nil) {
-			self.unread = unread
-		}
+		self.mySpace = mySpace
+		self.space = space
 	}
 
 	public struct Access: Decodable {
 		public let unopened: Int?
+		public let unopenedExcludeDM: Int?
 
 
-		public init(unopened: Int? = nil) {
+		public init(unopened: Int? = nil, unopenedExcludeDM: Int? = nil) {
 			self.unopened = unopened
-		}
-	}
-
-	public struct Invite: Decodable {
-		public let team: NotificationStatus.Invite.PendingCount?
-		public let topic: NotificationStatus.Invite.PendingCount?
-
-
-		public init(team: NotificationStatus.Invite.PendingCount? = nil, topic: NotificationStatus.Invite.PendingCount? = nil) {
-			self.team = team
-			self.topic = topic
-		}
-
-		public struct PendingCount: Decodable {
-			public let pending: Int?
-
-
-			public init(pending: Int? = nil) {
-				self.pending = pending
-			}
-		}
-	}
-
-	public struct Like: Decodable {
-		public let receive: Int?
-
-
-		public init(receive: Int? = nil) {
-			self.receive = receive
+			self.unopenedExcludeDM = unopenedExcludeDM
 		}
 	}
 
@@ -369,10 +447,10 @@ public struct Talk: Decodable {
 	public let suggestion: String
 	public let createdAt: Date
 	public let updatedAt: Date
-	public let backlog: String?
+	public let backlog: Backlog?
 
 
-	public init(id: Int, topicId: Int, name: String, suggestion: String, createdAt: Date, updatedAt: Date, backlog: String? = nil) {
+	public init(id: Int, topicId: Int, name: String, suggestion: String, createdAt: Date, updatedAt: Date, backlog: Backlog? = nil) {
 		self.id = id
 		self.topicId = topicId
 		self.name = name
@@ -468,14 +546,14 @@ public struct Topic: Decodable {
 	public let id: Int
 	public let name: String
 	public let description: String?
-	public let suggestion: String
+	public let suggestion: String?
 	public let lastPostedAt: Date?
 	public let createdAt: Date
 	public let updatedAt: Date
 	public let isDirectMessage: Bool?
 
 
-	public init(id: Int = 0, name: String = "", description: String? = nil, suggestion: String = "", lastPostedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isDirectMessage: Bool? = nil) {
+	public init(id: Int = 0, name: String = "", description: String? = nil, suggestion: String? = nil, lastPostedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isDirectMessage: Bool? = nil) {
 		self.id = id
 		self.name = name
 		self.description = description
@@ -489,7 +567,7 @@ public struct Topic: Decodable {
 
 public struct TopicWithAccounts: Decodable {
 	public let topic: Topic
-	public let mySpace: Space?
+	public let mySpace: MySpace?
 	public let teams: [TeamWithMembers]?
 	public let groups: [GroupWithCount]?
 	public let accounts: [Account]?
@@ -500,7 +578,7 @@ public struct TopicWithAccounts: Decodable {
 	public let remainingInvitations: Bool?
 
 
-	public init(topic: Topic, mySpace: Space? = nil, teams: [TeamWithMembers]? = nil, groups: [GroupWithCount]? = nil, accounts: [Account]? = nil, invitingAccounts: [Account]? = nil, invites: [TopicInvite]? = nil, accountsForApi: [Account]? = nil, integrations: [Account]? = nil, remainingInvitations: Bool? = nil) {
+	public init(topic: Topic, mySpace: MySpace? = nil, teams: [TeamWithMembers]? = nil, groups: [GroupWithCount]? = nil, accounts: [Account]? = nil, invitingAccounts: [Account]? = nil, invites: [TopicInvite]? = nil, accountsForApi: [Account]? = nil, integrations: [Account]? = nil, remainingInvitations: Bool? = nil) {
 		self.topic = topic
 		self.mySpace = mySpace
 		self.teams = teams
@@ -586,21 +664,6 @@ public struct PlanInfo: Decodable {
 	}
 }
 
-public struct Space: Decodable {
-	public let space: SpaceInfo
-	public let myRole: String
-	public let isPaymentAdmin: Bool
-	public let myPlan: PaymentPlan
-
-
-	public init(space: SpaceInfo, myRole: String, isPaymentAdmin: Bool, myPlan: PaymentPlan) {
-		self.space = space
-		self.myRole = myRole
-		self.isPaymentAdmin = isPaymentAdmin
-		self.myPlan = myPlan
-	}
-}
-
 public struct SpaceInfo: Decodable {
 	public let key: String
 	public let name: String
@@ -631,12 +694,14 @@ public struct Unread: Decodable {
 	public let topicId: Int
 	public let postId: Int
 	public let count: Int
+	public let isOverCountLimit: Bool?
 
 
-	public init(topicId: Int, postId: Int, count: Int) {
+	public init(topicId: Int, postId: Int, count: Int, isOverCountLimit: Bool? = nil) {
 		self.topicId = topicId
 		self.postId = postId
 		self.count = count
+		self.isOverCountLimit = isOverCountLimit
 	}
 }
 

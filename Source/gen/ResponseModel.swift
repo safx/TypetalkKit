@@ -24,16 +24,16 @@ public struct GetDmTopicsResponse: Decodable {
 }
 
 public struct GetMessagesResponse: Decodable {
-	public let mySpace: Space?
+	public let mySpace: MySpace?
 	public let team: Team?
 	public let topic: Topic
 	public let bookmark: Bookmark
-	public let posts: [Post]?
+	public let posts: [Post]
 	public let hasNext: Bool
 	public let exceedsAttachmentLimit: Bool
 
 
-	public init(mySpace: Space? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post]? = nil, hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
+	public init(mySpace: MySpace? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
 		self.mySpace = mySpace
 		self.team = team
 		self.topic = topic
@@ -59,12 +59,19 @@ public struct GetTopicMembersResponse: Decodable {
 }
 
 public struct GetMessageResponse: Decodable {
-	public let mySpace: Space?
+	public let mySpace: MySpace?
 	public let team: Team?
 	public let topic: Topic
 	public let post: Post
 	public let replies: [Post]?
 	public let exceedsAttachmentLimit: Bool
+
+}
+
+public struct SearchMessagesResponse: Decodable {
+	public let count: Int
+	public let posts: [Post]
+	public let isLimited: Bool
 
 }
 
@@ -116,6 +123,17 @@ public struct PostDirectMessageResponse: Decodable {
 	}
 }
 
+public struct GetNotificationStatusResponse: Decodable {
+	public let doNotDisturb: DoNotDisturb
+	public let statuses: [NotificationStatus]
+
+
+	public init(doNotDisturb: DoNotDisturb, statuses: [NotificationStatus]) {
+		self.doNotDisturb = doNotDisturb
+		self.statuses = statuses
+	}
+}
+
 public struct SaveReadTopicResponse: Decodable {
 	public let unread: Unread
 
@@ -132,7 +150,7 @@ public struct SaveReadMentionResponse: Decodable {
 }
 
 public struct GetSpacesResponse: Decodable {
-	public let mySpaces: [Space]
+	public let mySpaces: [MySpace]
 
 }
 
@@ -158,14 +176,14 @@ public struct GetTalksResponse: Decodable {
 }
 
 public struct GetTalkResponse: Decodable {
-	public let mySpace: Space?
+	public let mySpace: MySpace?
 	public let topic: Topic
 	public let talk: Talk
 	public let posts: [Post]?
 	public let hasNext: Bool
 
 
-	public init(mySpace: Space? = nil, topic: Topic, talk: Talk, posts: [Post]? = nil, hasNext: Bool) {
+	public init(mySpace: MySpace? = nil, topic: Topic, talk: Talk, posts: [Post]? = nil, hasNext: Bool) {
 		self.mySpace = mySpace
 		self.topic = topic
 		self.talk = talk
@@ -184,6 +202,21 @@ public struct CreateTalkResponse: Decodable {
 public struct UpdateTalkResponse: Decodable {
 	public let topic: Topic
 	public let talk: Talk
+
+}
+
+public struct GetLikesReceiveResponse: Decodable {
+	public let likedPosts: [LikedPost]
+
+}
+
+public struct GetLikesGiveResponse: Decodable {
+	public let likedPosts: [MyLikedPost]
+
+}
+
+public struct SaveReadLikesResponse: Decodable {
+	public let like: LikeStatus
 
 }
 

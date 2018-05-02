@@ -82,6 +82,21 @@ struct DirectMessageTopic: Decodable, ClassInit {
     let directMessage: AccountWithLoginStatus
 }
 
+struct DoNotDisturb: Decodable, ClassInit {
+    let scheduled: Scheduled
+    let isSuppressed: Bool
+    let manual: Manual
+    
+    struct Scheduled: Decodable, ClassInit {
+        let start: String
+        let end: String
+        let enabled: Bool
+    }
+    struct Manual: Decodable, ClassInit {
+        let remainingTimeInMinutes: Int?
+    }
+}
+
 public struct Group: Decodable, ClassInit {
     public let id: GroupID
     public let key: GroupKey = ""
@@ -104,6 +119,21 @@ public struct Like: Decodable, ClassInit {
     public let comment: String?
     public let account: Account?
     public let createdAt: Date?
+}
+
+public struct LikeStatus: Decodable, ClassInit {
+    public let receive: Receive?
+    
+    public struct Receive: Decodable, ClassInit {
+        public let hasUnread: Bool
+        public let readLikeId: LikeID?
+    }
+}
+
+public struct LikedPost: Decodable, ClassInit {
+    let post: Post?
+    let directMessage: Post?
+    let likes: [Like]
 }
 
 public struct Link: Decodable, ClassInit {
@@ -135,6 +165,26 @@ public struct Mention: Decodable, ClassInit {
     public let post: Post?
 }
 
+public struct MyLike: Decodable, ClassInit {
+    public let comment: String
+    public let id: Int
+    public let createdAt: Date
+}
+
+public struct MyLikedPost: Decodable, ClassInit {
+    let post: Post?
+    let directMessage: Post?
+    let myLike: MyLike
+}
+
+public struct MySpace: Decodable {
+    public let space: SpaceInfo
+    public let isPaymentAdmin: Bool
+    public let invitableRoles: [String]?
+    public let myPlan: PaymentPlan
+    public let myRole: String
+}
+
 public struct Notifications: Decodable, ClassInit {
     public let mentions: [Mention]? = nil
     public let invites: Invites
@@ -146,28 +196,15 @@ public struct Notifications: Decodable, ClassInit {
 }
 
 public struct NotificationStatus: Decodable, ClassInit {
-    public let mention: Mention?
     public let access: Access?
-    public let invite: Invite?
-    public let like: Like?
+    public let like: LikeStatus?
     public let directMessage: DirectMessage?
+    public let mySpace: MySpace?
+    public let space: SpaceInfo?
 
-    public struct Mention: Decodable, ClassInit {
-        public let unread: Int?
-    }
     public struct Access: Decodable, ClassInit {
         public let unopened: Int?
-    }
-    public struct Invite: Decodable, ClassInit {
-        public let team: PendingCount?
-        public let topic: PendingCount?
-
-        public struct PendingCount: Decodable, ClassInit {
-            public let pending: Int?
-        }
-    }
-    public struct Like: Decodable, ClassInit {
-        public let receive: Int?
+        public let unopenedExcludeDM: Int?
     }
     public struct DirectMessage: Decodable, ClassInit {
         public let unreadTopics: Int?
@@ -261,7 +298,7 @@ public struct Topic: Decodable, ClassInit {
 
 public struct TopicWithAccounts: Decodable, ClassInit {
     public let topic: Topic
-    public let mySpace: Space?
+    public let mySpace: MySpace?
     public let teams: [TeamWithMembers]? = nil
     public let groups: [GroupWithCount]? = nil
     public let accounts: [Account]? = nil
@@ -307,12 +344,13 @@ public struct PlanInfo: Decodable, ClassInit {
     public let limitTotalAttachmentSize: Int
 }
 
-public struct Space: Decodable, ClassInit {
+/*public struct Space: Decodable, ClassInit {
     public let space: SpaceInfo
-    public let myRole: String
     public let isPaymentAdmin: Bool
+    public let invitableRoles: [String] // FIXME: "ADMIN", "USER", "GUEST"
     public let myPlan: PaymentPlan
-}
+    public let myRole: String
+}*/
 
 public struct SpaceInfo: Decodable, ClassInit {
     public let key: SpaceKey
@@ -330,6 +368,7 @@ public struct Unread: Decodable, ClassInit {
     public let topicId: TopicID
     public let postId: PostID
     public let count: Int
+    public let isOverCountLimit: Bool? = nil
 }
 
 public struct URLAttachment: Decodable, ClassInit {
