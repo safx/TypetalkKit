@@ -40,12 +40,13 @@ extension TypetalkAPI {
         default: return nil
         }
     }
+    @discardableResult
     public static func setDeveloperSettings(clientId: String, clientSecret: String, scopes: [Scope] = [], redirectURI: String? = nil) -> Bool {
         if isInitialized { return false }
         settings = DeveloperSettings(clientId: clientId, clientSecret: clientSecret, scopes: scopes, redirectURI: redirectURI)
         return true
     }
-
+    @discardableResult
     public static func restoreTokenFromAccountStore() -> Bool {
         if let credential = accountStore.queryCredential() {
             self.state = .signedIn(credential)
@@ -65,6 +66,8 @@ extension TypetalkAPI {
         let absurl = url.absoluteString
         return absurl.hasPrefix(settings.redirectURI!)
     }
+    
+    @discardableResult
     public static func authorizationDone(URL url: URL) -> Bool {
         switch state {
         case .authorizing(let cb):
@@ -82,20 +85,21 @@ extension TypetalkAPI {
         precondition(isInitialized)
         state = .requestingAccessToken
         access(token: AccessToken(
-            grant_type: .AuthorizationCode,
+            grant_type: .authorizationCode,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             redirect_uri: settings.redirectURI,
             code: code), completion: completion)
     }
 
+    @discardableResult
     public static func requestRefreshToken(_ completion: @escaping CompletionClosure) -> Bool {
         precondition(isInitialized)
         switch state {
         case .signedIn(let (credential)):
             state = .requestingTokenRefresh
             access(token: AccessToken(
-                grant_type: .RefreshToken,
+                grant_type: .refreshToken,
                 client_id: settings.clientId,
                 client_secret: settings.clientSecret,
                 refresh_token: credential.refreshToken), completion: completion)
@@ -136,7 +140,7 @@ extension TypetalkAPI {
         precondition(isInitialized)
         state = .authorizing(completion)
         access(token: AccessToken(
-            grant_type: .ClientCredentials,
+            grant_type: .clientCredentials,
             client_id: settings.clientId,
             client_secret: settings.clientSecret,
             scope: Scope.scopesToRaw(settings.scopes)), completion: completion)
@@ -201,6 +205,6 @@ extension Scope {
 #else
     import AppKit
     private func openURL(url: URL) {
-        NSWorkspace.shared().open(url)
+        NSWorkspace.shared.open(url)
     }
 #endif

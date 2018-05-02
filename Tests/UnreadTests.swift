@@ -13,7 +13,7 @@ import XCTest
 class UnreadTests: XCTestCase {
     
     func testExample() {
-        let model = try! Unread.parse(with: json("model_unread"))
+        let model = try! decode(Unread.self, fromJsonFile: "model_unread")
         
         XCTAssertEqual(model.topicId, 208)
         XCTAssertEqual(model.postId, 307)

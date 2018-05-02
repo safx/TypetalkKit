@@ -13,22 +13,17 @@ import TypetalkKit
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
 
-    override class func initialize() {
+    override func awakeFromNib() {
+        super.awakeFromNib()
         _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
-            scopes: [Scope.my, Scope.topic_read],    // e.g. typetalkkit://auth/success
+            scopes: [Scope.my, Scope.topicRead],    // e.g. typetalkkit://auth/success
             redirectURI:  "Your custome scheme")
         
         _ = TypetalkAPI.restoreTokenFromAccountStore()
     }
-
-    func applicationDidFinishLaunching(_ aNotification: Notification) {
-    }
-
-    func applicationWillTerminate(_ aNotification: Notification) {
-    }
-
+    
     func applicationWillFinishLaunching(_ aNotification: Notification) {
         let appleEventManager:NSAppleEventManager = NSAppleEventManager.shared()
         appleEventManager.setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(_:replyEvent:)),

@@ -12,7 +12,7 @@ import XCTest
 class TopicTests: XCTestCase {
     
     func testExample() {
-        let model = try! Topic.parse(with: json("model_topic"))
+        let model = try! decode(Topic.self, fromJsonFile: "model_topic")
         
         XCTAssertEqual(model.id, 207)
         XCTAssertEqual(model.name, "Art Directors")

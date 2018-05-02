@@ -26,7 +26,7 @@ class DetailViewController: UITableViewController {
         _ = TypetalkAPI.streaming { (event) in
             switch event {
             case .connected             : print("connected")
-            case .disconnected(let err) : print("disconnected: \(err)")
+            case .disconnected(let err) : print("disconnected: \(String(describing: err))")
             case .postMessage(let res)  :
                 self.append(newPost: res.post!)
                 DispatchQueue.main.async { () -> Void in
@@ -44,7 +44,7 @@ class DetailViewController: UITableViewController {
             TypetalkAPI.send(GetMessages(topicId: topicid)) { result -> Void in
                 switch result {
                 case .success(let ms):
-                    self.posts = ms.posts
+                    self.posts = ms.posts!
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error)

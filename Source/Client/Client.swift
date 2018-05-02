@@ -10,8 +10,8 @@ import APIKit
 
 
 open class TypetalkAPI: Session {
-    internal static let apiURLString: String = "https://typetalk.in/api/v1/"
-    internal static let authURLString: String = "https://typetalk.in/oauth2"
+    internal static let apiURLString: String = "https://typetalk.com/api/"
+    internal static let authURLString: String = "https://typetalk.com/oauth2"
 }
 
 enum TypetalkAPIError: Error {

@@ -12,7 +12,7 @@ import XCTest
 class ThumbnailTests: XCTestCase {
     
     func testExample() {
-        let model = try! Thumbnail.parse(with: json("model_thumbnail"))
+        let model = try! decode(Thumbnail.self, fromJsonFile: "model_thumbnail")
         
         XCTAssertEqual(model.type.rawValue, "small")
         XCTAssertEqual(model.fileSize, 10439)

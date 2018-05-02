@@ -11,9 +11,9 @@ protocol EnumStaticInit {}
 
 protocol Printable {}
 
-protocol JSONEncodable {}
-protocol JSONDecodable {}
-protocol NSCoding {}
+protocol Encodable {}
+protocol Decodable {}
+protocol JSON {}
 
 protocol URLRequestHelper {}
 protocol APIKitHelper {}
@@ -22,3 +22,4 @@ protocol WSHelper {}
 protocol ErrorType {}
 
 protocol EJDB {}
+

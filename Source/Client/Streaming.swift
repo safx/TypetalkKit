@@ -59,7 +59,7 @@ extension TypetalkAPI {
 final private class TypetalkStream : WebSocketDelegate {
     fileprivate typealias EventClosure = (StreamingEvent) -> ()
 
-    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "streaming")!)
+    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "v1/streaming")!)
     fileprivate var streamingClosure: EventClosure?
 
     fileprivate func connect(_ accessToken: String, closure: @escaping EventClosure) {
@@ -90,17 +90,10 @@ final private class TypetalkStream : WebSocketDelegate {
     }
 
     fileprivate func websocketDidReceiveMessage(socket: WebSocket, text: String) {
-        let jsondata = text.data(using: String.Encoding.unicode)!
         do {
-            let json = try JSONSerialization.jsonObject(with: jsondata, options: []) as! [String:AnyObject]
-            let type = json["type"] as? String
-            let data = json["data"] as? [String:AnyObject]
-            if type != nil && data != nil {
-                if let ev = try StreamingEvent.parse(type: type!, data: data!) {
-                    sendStreamEventIfPossible(ev)
-                } else {
-
-                }
+            let jsonData = text.data(using: .utf8)!
+            if let ev = try StreamingEvent.parse(data: jsonData) {
+                sendStreamEventIfPossible(ev)
             }
         } catch {
             print(error)

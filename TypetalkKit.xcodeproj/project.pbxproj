@@ -7,6 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		05DCE7672095F2B9005B2AD8 /* api_save-read-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BF20940AD400DB6391 /* api_save-read-likes.json */; };
+		05DCE7682095F2B9005B2AD8 /* api_search-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8C020940AD400DB6391 /* api_search-messages.json */; };
+		05DCE7692095F2B9005B2AD8 /* api_get-likes-discover.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8B920940AC000DB6391 /* api_get-likes-discover.json */; };
+		05DCE76A2095F2B9005B2AD8 /* api_get-likes-give.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BA20940AC000DB6391 /* api_get-likes-give.json */; };
+		05DCE76B2095F2B9005B2AD8 /* api_get-likes-receive.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BB20940AC000DB6391 /* api_get-likes-receive.json */; };
+		05DCE76C2095F2B9005B2AD8 /* api_get-direct-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */; };
+		05DCE76D2095F2B9005B2AD8 /* api_get-dm-topics.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */; };
+		05DCE76E2095F2B9005B2AD8 /* api_get-friend-profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */; };
+		05DCE76F2095F2B9005B2AD8 /* api_get-online-status.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD61F12858D009EFD36 /* api_get-online-status.json */; };
+		05DCE7702095F2B9005B2AD8 /* api_post-direct-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD71F12858D009EFD36 /* api_post-direct-message.json */; };
+		05DCE7712095F2BA005B2AD8 /* api_save-read-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BF20940AD400DB6391 /* api_save-read-likes.json */; };
+		05DCE7722095F2BA005B2AD8 /* api_search-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8C020940AD400DB6391 /* api_search-messages.json */; };
+		05DCE7732095F2BA005B2AD8 /* api_get-likes-discover.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8B920940AC000DB6391 /* api_get-likes-discover.json */; };
+		05DCE7742095F2BA005B2AD8 /* api_get-likes-give.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BA20940AC000DB6391 /* api_get-likes-give.json */; };
+		05DCE7752095F2BA005B2AD8 /* api_get-likes-receive.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BB20940AC000DB6391 /* api_get-likes-receive.json */; };
 		8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
 		8D0F05821B8A1EB300435F66 /* StreamingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */; };
 		8D0F05831B8A1EB300435F66 /* StreamingEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */; };
@@ -19,7 +34,6 @@
 		8D0F05B41B8B447D00435F66 /* OAuth2RouterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3919D6E4F10020BCA2 /* OAuth2RouterTests.swift */; };
 		8D0F05B51B8B447D00435F66 /* AccountTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */; };
 		8D0F05B61B8B447D00435F66 /* MemberTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DA0032F19DEEE6300844F14 /* MemberTests.swift */; };
-		8D0F05B71B8B447D00435F66 /* EmbedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB501311AD41F61001F403E /* EmbedTests.swift */; };
 		8D0F05B81B8B447D00435F66 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
 		8D0F05B91B8B447D00435F66 /* TopicWithUserInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D7E6DC419CF0F5C004AAF35 /* TopicWithUserInfoTests.swift */; };
 		8D0F05BB1B8B447D00435F66 /* TeamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF713B19C9AAC200F179A6 /* TeamTests.swift */; };
@@ -42,11 +56,6 @@
 		8D1F8DDE1F12858D009EFD36 /* api_streaming.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD81F12858D009EFD36 /* api_streaming.json */; };
 		8D3B88321B5406680064C29F /* Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47DBB11A8CC6D800201315 /* Streaming.swift */; };
 		8D3B88331B5406680064C29F /* Streaming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D47DBB11A8CC6D800201315 /* Streaming.swift */; };
-		8D3BA42D1F13B7C400478459 /* api_get-direct-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */; };
-		8D3BA42E1F13B7C400478459 /* api_get-dm-topics.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */; };
-		8D3BA42F1F13B7C400478459 /* api_get-friend-profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */; };
-		8D3BA4301F13B7C400478459 /* api_get-online-status.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD61F12858D009EFD36 /* api_get-online-status.json */; };
-		8D3BA4311F13B7C400478459 /* api_post-direct-message.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD71F12858D009EFD36 /* api_post-direct-message.json */; };
 		8D3BA4321F13B7C500478459 /* api_get-direct-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */; };
 		8D3BA4331F13B7C500478459 /* api_get-dm-topics.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */; };
 		8D3BA4341F13B7C500478459 /* api_get-friend-profile.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */; };
@@ -62,6 +71,8 @@
 		8D42189B1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D4218931AA21138009D2077 /* streaming-requestTopicInvite.json */; };
 		8D4785551B57D13500B37898 /* Typealiases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D08E37119E0157B004F7CBC /* Typealiases.swift */; };
 		8D4785571B57D17B00B37898 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4785561B57D17B00B37898 /* main.swift */; };
+		8D518DEC208F60B900323329 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518DEB208F60B900323329 /* JSON.swift */; };
+		8D518DED208F60BC00323329 /* JSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D518DEB208F60B900323329 /* JSON.swift */; };
 		8D5320971B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
 		8D5320981B57FDC30093A538 /* api_create-talk.json in Resources */ = {isa = PBXBuildFile; fileRef = 8D5320961B57FDC30093A538 /* api_create-talk.json */; };
 		8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D57B3FC19C87D9900E60736 /* TopicTests.swift */; };
@@ -159,10 +170,6 @@
 		8D9383A31B593BBB00916D99 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D9383981B593BAF00916D99 /* ResponseModel.swift */; };
 		8D97F3BF1B7E2529009A091E /* APIKitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */; };
 		8D97F3C01B7E2529009A091E /* APIKitRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */; };
-		8D97F3C11B7E2529009A091E /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BD1B7E2529009A091E /* JSONDecodable.swift */; };
-		8D97F3C21B7E2529009A091E /* JSONDecodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BD1B7E2529009A091E /* JSONDecodable.swift */; };
-		8D97F3C31B7E2529009A091E /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BE1B7E2529009A091E /* JSONEncodable.swift */; };
-		8D97F3C41B7E2529009A091E /* JSONEncodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D97F3BE1B7E2529009A091E /* JSONEncodable.swift */; };
 		8D9D18531A77D54300E3BCCF /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8D9D18481A77D54200E3BCCF /* TypetalkKit.framework */; };
 		8D9D18611A77D6AA00E3BCCF /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF718419C9D98B00F179A6 /* Client.swift */; };
 		8D9D18621A77D6AA00E3BCCF /* Request+Addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D5C6E3219D6A3F40020BCA2 /* Request+Addition.swift */; };
@@ -180,9 +187,6 @@
 		8DAD51F41C9DABDB005169D7 /* api_get-space-members.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DAD51EB1C9DABD4005169D7 /* api_get-space-members.json */; };
 		8DAD51F51C9DABDB005169D7 /* api_get-spaces.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DAD51EC1C9DABD4005169D7 /* api_get-spaces.json */; };
 		8DAD51F61C9DABDB005169D7 /* api_update-topic-members.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DAD51ED1C9DABD4005169D7 /* api_update-topic-members.json */; };
-		8DB501321AD41F61001F403E /* EmbedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DB501311AD41F61001F403E /* EmbedTests.swift */; };
-		8DB501331AD41FBD001F403E /* model_embed.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DB501241AD41DF9001F403E /* model_embed.json */; };
-		8DB501341AD41FBE001F403E /* model_embed.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DB501241AD41DF9001F403E /* model_embed.json */; };
 		8DBA516E19C5B47300BD88A3 /* TypetalkKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		8DBA517419C5B47400BD88A3 /* TypetalkKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */; };
 		8DBA519D19C5E9D300BD88A3 /* XCTestCase+Test.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DBA519C19C5E9D300BD88A3 /* XCTestCase+Test.swift */; };
@@ -300,8 +304,6 @@
 		8DEF714B19C9B17C00F179A6 /* URLAttachmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */; };
 		8DEF715019C9B1EB00F179A6 /* model_urlattachment.json in Resources */ = {isa = PBXBuildFile; fileRef = 8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */; };
 		8DEF718519C9D98B00F179A6 /* Client.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DEF718419C9D98B00F179A6 /* Client.swift */; };
-		8DF0E0BE1B974690007B7B97 /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0E0BD1B974690007B7B97 /* DecodeError.swift */; };
-		8DF0E0BF1B974690007B7B97 /* DecodeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DF0E0BD1B974690007B7B97 /* DecodeError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -343,14 +345,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		058CC8B920940AC000DB6391 /* api_get-likes-discover.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-likes-discover.json"; sourceTree = "<group>"; };
+		058CC8BA20940AC000DB6391 /* api_get-likes-give.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-likes-give.json"; sourceTree = "<group>"; };
+		058CC8BB20940AC000DB6391 /* api_get-likes-receive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-likes-receive.json"; sourceTree = "<group>"; };
+		058CC8BF20940AD400DB6391 /* api_save-read-likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_save-read-likes.json"; sourceTree = "<group>"; };
+		058CC8C020940AD400DB6391 /* api_search-messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_search-messages.json"; sourceTree = "<group>"; };
 		8D08E37119E0157B004F7CBC /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
-		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; };
+		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		8D0F057B1B8A1D8300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
 		8D0F05811B8A1EB300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
-		8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TypetalkKit-tvos.h"; sourceTree = "<group>"; };
-		8D1C98691E25224C0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypetalkKit_tvosTests.swift; sourceTree = "<group>"; };
-		8D1C98751E25224D0036CADD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-direct-messages.json"; sourceTree = "<group>"; };
 		8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-dm-topics.json"; sourceTree = "<group>"; };
 		8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-friend-profile.json"; sourceTree = "<group>"; };
@@ -369,6 +372,7 @@
 		8D4785511B57D12D00B37898 /* Request.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		8D4785561B57D17B00B37898 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		8D47DBB11A8CC6D800201315 /* Streaming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Streaming.swift; sourceTree = "<group>"; };
+		8D518DEB208F60B900323329 /* JSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSON.swift; sourceTree = "<group>"; };
 		8D5320961B57FDC30093A538 /* api_create-talk.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_create-talk.json"; sourceTree = "<group>"; };
 		8D57B3FC19C87D9900E60736 /* TopicTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopicTests.swift; sourceTree = "<group>"; };
 		8D57B3FE19C87E7F00E60736 /* model_topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_topic.json; sourceTree = "<group>"; };
@@ -450,8 +454,6 @@
 		8D9383921B593AD100916D99 /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		8D9383981B593BAF00916D99 /* ResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIKitRequest.swift; sourceTree = "<group>"; };
-		8D97F3BD1B7E2529009A091E /* JSONDecodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONDecodable.swift; sourceTree = "<group>"; };
-		8D97F3BE1B7E2529009A091E /* JSONEncodable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONEncodable.swift; sourceTree = "<group>"; };
 		8D9D18481A77D54200E3BCCF /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D9D18521A77D54200E3BCCF /* TypetalkKitTests-OSX.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TypetalkKitTests-OSX.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DA0032F19DEEE6300844F14 /* MemberTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemberTests.swift; sourceTree = "<group>"; };
@@ -461,8 +463,6 @@
 		8DAD51EB1C9DABD4005169D7 /* api_get-space-members.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-space-members.json"; sourceTree = "<group>"; };
 		8DAD51EC1C9DABD4005169D7 /* api_get-spaces.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-spaces.json"; sourceTree = "<group>"; };
 		8DAD51ED1C9DABD4005169D7 /* api_update-topic-members.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_update-topic-members.json"; sourceTree = "<group>"; };
-		8DB501241AD41DF9001F403E /* model_embed.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_embed.json; sourceTree = "<group>"; };
-		8DB501311AD41F61001F403E /* EmbedTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmbedTests.swift; sourceTree = "<group>"; };
 		8DBA516819C5B47300BD88A3 /* TypetalkKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = TypetalkKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8DBA516C19C5B47300BD88A3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8DBA516D19C5B47300BD88A3 /* TypetalkKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TypetalkKit.h; sourceTree = "<group>"; };
@@ -509,7 +509,6 @@
 		8DEF714A19C9B17C00F179A6 /* URLAttachmentTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLAttachmentTests.swift; sourceTree = "<group>"; };
 		8DEF714E19C9B1DE00F179A6 /* model_urlattachment.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = model_urlattachment.json; sourceTree = "<group>"; };
 		8DEF718419C9D98B00F179A6 /* Client.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Client.swift; sourceTree = "<group>"; };
-		8DF0E0BD1B974690007B7B97 /* DecodeError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DecodeError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -563,24 +562,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8D1C98671E25224C0036CADD /* TypetalkKit-tvos */ = {
-			isa = PBXGroup;
-			children = (
-				8D1C98681E25224C0036CADD /* TypetalkKit-tvos.h */,
-				8D1C98691E25224C0036CADD /* Info.plist */,
-			);
-			path = "TypetalkKit-tvos";
-			sourceTree = "<group>";
-		};
-		8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */ = {
-			isa = PBXGroup;
-			children = (
-				8D1C98731E25224D0036CADD /* TypetalkKit_tvosTests.swift */,
-				8D1C98751E25224D0036CADD /* Info.plist */,
-			);
-			path = "TypetalkKit-tvosTests";
-			sourceTree = "<group>";
-		};
 		8D4785491B57D0DF00B37898 /* IDL */ = {
 			isa = PBXGroup;
 			children = (
@@ -651,10 +632,8 @@
 		8D97F3BB1B7E24C0009A091E /* Additional */ = {
 			isa = PBXGroup;
 			children = (
+				8D518DEB208F60B900323329 /* JSON.swift */,
 				8D97F3BC1B7E2529009A091E /* APIKitRequest.swift */,
-				8DF0E0BD1B974690007B7B97 /* DecodeError.swift */,
-				8D97F3BD1B7E2529009A091E /* JSONDecodable.swift */,
-				8D97F3BE1B7E2529009A091E /* JSONEncodable.swift */,
 			);
 			path = Additional;
 			sourceTree = "<group>";
@@ -666,8 +645,6 @@
 				8DBA516A19C5B47300BD88A3 /* Source */,
 				8DBA517719C5B47400BD88A3 /* Tests */,
 				8D4785491B57D0DF00B37898 /* IDL */,
-				8D1C98671E25224C0036CADD /* TypetalkKit-tvos */,
-				8D1C98721E25224D0036CADD /* TypetalkKit-tvosTests */,
 				8DBA516919C5B47300BD88A3 /* Products */,
 				8D622B091C187B7D00A743C2 /* Frameworks-iOS */,
 				8D622B251C187ECF00A743C2 /* Frameworks-OSX */,
@@ -721,7 +698,6 @@
 				8D7E6DE719D1BBB3004AAF35 /* ScopeTests.swift */,
 				8DBA519E19C5E9E600BD88A3 /* AccountTests.swift */,
 				8DA0032F19DEEE6300844F14 /* MemberTests.swift */,
-				8DB501311AD41F61001F403E /* EmbedTests.swift */,
 				8D57B3FC19C87D9900E60736 /* TopicTests.swift */,
 				8D7E6DC419CF0F5C004AAF35 /* TopicWithUserInfoTests.swift */,
 				8DEF713B19C9AAC200F179A6 /* TeamTests.swift */,
@@ -756,6 +732,11 @@
 		8DBA51A019C5E9FD00BD88A3 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				058CC8BF20940AD400DB6391 /* api_save-read-likes.json */,
+				058CC8C020940AD400DB6391 /* api_search-messages.json */,
+				058CC8B920940AC000DB6391 /* api_get-likes-discover.json */,
+				058CC8BA20940AC000DB6391 /* api_get-likes-give.json */,
+				058CC8BB20940AC000DB6391 /* api_get-likes-receive.json */,
 				8D1F8DD31F12858D009EFD36 /* api_get-direct-messages.json */,
 				8D1F8DD41F12858D009EFD36 /* api_get-dm-topics.json */,
 				8D1F8DD51F12858D009EFD36 /* api_get-friend-profile.json */,
@@ -829,7 +810,6 @@
 				8DAD51ED1C9DABD4005169D7 /* api_update-topic-members.json */,
 				8DBA51A119C5EA2C00BD88A3 /* model_account.json */,
 				8DA0033119DEEEA500844F14 /* model_member.json */,
-				8DB501241AD41DF9001F403E /* model_embed.json */,
 				8D57B3FE19C87E7F00E60736 /* model_topic.json */,
 				8DEF714019C9AB5000F179A6 /* model_team.json */,
 				8DA0033919DEF11200844F14 /* model_team_with_members.json */,
@@ -986,7 +966,7 @@
 			attributes = {
 				LastSwiftMigration = 0700;
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 0700;
+				LastUpgradeCheck = 0900;
 				ORGANIZATIONNAME = "Safx Developers";
 				TargetAttributes = {
 					8D4785471B57D0DF00B37898 = {
@@ -995,19 +975,19 @@
 					};
 					8D9D18471A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					8D9D18511A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					8DBA516719C5B47300BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 					8DBA517219C5B47400BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -1056,7 +1036,6 @@
 				8DD221D21A90DA2400EA024C /* streaming-requestTeamInvite.json in Resources */,
 				8DAD51F51C9DABDB005169D7 /* api_get-spaces.json in Resources */,
 				8DD221BC1A90DA2400EA024C /* streaming-deleteMessage.json in Resources */,
-				8DB501341AD41FBE001F403E /* model_embed.json in Resources */,
 				8DD222001A90DA3300EA024C /* api_save-read-mention.json in Resources */,
 				8D8C93351C37952C006B75DF /* api_update-message.json in Resources */,
 				8DD221F51A90DA3300EA024C /* api_get-talk.json in Resources */,
@@ -1095,17 +1074,21 @@
 				8DEB10191C21BD7B000A13CD /* api_download-attachment.json in Resources */,
 				8DD221E81A90DA3300EA024C /* api_create-topic.json in Resources */,
 				8DD221FA1A90DA3300EA024C /* api_get-topics.json in Resources */,
+				05DCE7752095F2BA005B2AD8 /* api_get-likes-receive.json in Resources */,
 				8DAD51F61C9DABDB005169D7 /* api_update-topic-members.json in Resources */,
 				8DD222041A90DA3300EA024C /* api_unlike-message.json in Resources */,
 				8DE627A31A962DC1000EADC3 /* streaming-postLinks.json in Resources */,
+				05DCE7742095F2BA005B2AD8 /* api_get-likes-give.json in Resources */,
 				8DD2220F1A90DA3300EA024C /* model_topic_with_userinfo.json in Resources */,
 				8DD221B61A90DA2400EA024C /* streaming-createTalk.json in Resources */,
 				8DD222181A90DA3300EA024C /* model_thumbnail.json in Resources */,
+				05DCE7722095F2BA005B2AD8 /* api_search-messages.json in Resources */,
 				8DD221B41A90DA2400EA024C /* streaming-addTalkPost.json in Resources */,
 				8DD222141A90DA3300EA024C /* model_link.json in Resources */,
 				8DD2220E1A90DA3300EA024C /* model_unread.json in Resources */,
 				8DD221DE1A90DA2400EA024C /* streaming-updateTopic.json in Resources */,
 				8DD221FD1A90DA3300EA024C /* api_open-notification.json in Resources */,
+				05DCE7732095F2BA005B2AD8 /* api_get-likes-discover.json in Resources */,
 				8D4218971AA21138009D2077 /* streaming-cancelTopicInvite.json in Resources */,
 				8D5320981B57FDC30093A538 /* api_create-talk.json in Resources */,
 				8DD221F21A90DA3300EA024C /* api_get-notification-status.json in Resources */,
@@ -1127,6 +1110,7 @@
 				8DD221CE1A90DA2400EA024C /* streaming-readMention.json in Resources */,
 				8D8C93441C37A984006B75DF /* api_delete-talk.json in Resources */,
 				8DD222131A90DA3300EA024C /* model_talk.json in Resources */,
+				05DCE7712095F2BA005B2AD8 /* api_save-read-likes.json in Resources */,
 				8D3BA4321F13B7C500478459 /* api_get-direct-messages.json in Resources */,
 				8DD221F81A90DA3300EA024C /* api_get-topic-details.json in Resources */,
 				8DD222081A90DA3300EA024C /* model_member.json in Resources */,
@@ -1154,14 +1138,12 @@
 			files = (
 				8DA0033B19DEF11200844F14 /* model_team_with_members.json in Resources */,
 				8DD221C51A90DA2400EA024C /* streaming-leaveTopics.json in Resources */,
-				8D3BA42F1F13B7C400478459 /* api_get-friend-profile.json in Resources */,
 				8DA0033319DEEEA500844F14 /* model_member.json in Resources */,
 				8DE627A51A962DD7000EADC3 /* model_profile.json in Resources */,
 				8DD221CF1A90DA2400EA024C /* streaming-removeTalkPost.json in Resources */,
 				8D7B02F319D45DF5000A0F7C /* api_get-topics.json in Resources */,
-				8D3BA42E1F13B7C400478459 /* api_get-dm-topics.json in Resources */,
+				05DCE76C2095F2B9005B2AD8 /* api_get-direct-messages.json in Resources */,
 				8D79981D19E2BD5800DF9AB9 /* model_notifications.json in Resources */,
-				8DB501331AD41FBD001F403E /* model_embed.json in Resources */,
 				8DAD51F21C9DABDA005169D7 /* api_get-spaces.json in Resources */,
 				8DD221DD1A90DA2400EA024C /* streaming-updateTopic.json in Resources */,
 				8D7B02E519D45DF5000A0F7C /* api_delete-topic.json in Resources */,
@@ -1177,12 +1159,14 @@
 				8DD221D71A90DA2400EA024C /* streaming-unlikeMessage.json in Resources */,
 				8D4218941AA21138009D2077 /* streaming-acceptTopicInvite.json in Resources */,
 				8D5C6E4C19D805720020BCA2 /* model_team_invite.json in Resources */,
+				05DCE7672095F2B9005B2AD8 /* api_save-read-likes.json in Resources */,
 				8DD3E8021D0DB7E700105579 /* image.png in Resources */,
 				8D7B02FA19D45DF5000A0F7C /* api_save-read-topic.json in Resources */,
 				8D7B02FC19D45DF5000A0F7C /* api_unfavorite-topic.json in Resources */,
-				8D3BA4311F13B7C400478459 /* api_post-direct-message.json in Resources */,
 				8DD221DB1A90DA2400EA024C /* streaming-updateTalk.json in Resources */,
+				05DCE76D2095F2B9005B2AD8 /* api_get-dm-topics.json in Resources */,
 				8D7B02E619D45DF5000A0F7C /* api_favorite-topic.json in Resources */,
+				05DCE76F2095F2B9005B2AD8 /* api_get-online-status.json in Resources */,
 				8DD221B51A90DA2400EA024C /* streaming-createTalk.json in Resources */,
 				8DD221D11A90DA2400EA024C /* streaming-requestTeamInvite.json in Resources */,
 				8DD221C11A90DA2400EA024C /* streaming-favoriteTopic.json in Resources */,
@@ -1214,6 +1198,7 @@
 				8D4218961AA21138009D2077 /* streaming-cancelTopicInvite.json in Resources */,
 				8DD221BF1A90DA2400EA024C /* streaming-deleteTopic.json in Resources */,
 				8D5320971B57FDC30093A538 /* api_create-talk.json in Resources */,
+				05DCE7702095F2B9005B2AD8 /* api_post-direct-message.json in Resources */,
 				8DD221BD1A90DA2400EA024C /* streaming-deleteTalk.json in Resources */,
 				8D5C6E4519D800560020BCA2 /* model_mention.json in Resources */,
 				8D7B02F619D45DF5000A0F7C /* api_open-notification.json in Resources */,
@@ -1222,22 +1207,25 @@
 				8D7E6DC319CF0E9E004AAF35 /* model_unread.json in Resources */,
 				8D7B02F219D45DF5000A0F7C /* api_get-topic-members.json in Resources */,
 				8DD221B11A90DA2400EA024C /* streaming-acceptTeamInvite.json in Resources */,
+				05DCE7692095F2B9005B2AD8 /* api_get-likes-discover.json in Resources */,
 				8D7B02EC19D45DF5000A0F7C /* api_get-notifications.json in Resources */,
 				8DD221C31A90DA2400EA024C /* streaming-joinTopics.json in Resources */,
+				05DCE76E2095F2B9005B2AD8 /* api_get-friend-profile.json in Resources */,
 				8D894A9419E2E52D0039D0ED /* model_notification_status.json in Resources */,
+				05DCE76A2095F2B9005B2AD8 /* api_get-likes-give.json in Resources */,
 				8D7B02F119D45DF5000A0F7C /* api_get-topic-details.json in Resources */,
 				8D8C93421C37A983006B75DF /* api_remove-message-from-talk.json in Resources */,
 				8DEF714219C9ABF200F179A6 /* model_team.json in Resources */,
 				8D79981519E192BF00DF9AB9 /* model_topic_invite.json in Resources */,
 				8DEF714919C9AE9600F179A6 /* model_attachment.json in Resources */,
 				8D42189A1AA21138009D2077 /* streaming-requestTopicInvite.json in Resources */,
-				8D3BA4301F13B7C400478459 /* api_get-online-status.json in Resources */,
 				8DD221D31A90DA2400EA024C /* streaming-saveBookmark.json in Resources */,
 				8D8C93411C37A983006B75DF /* api_delete-talk.json in Resources */,
+				05DCE76B2095F2B9005B2AD8 /* api_get-likes-receive.json in Resources */,
 				8D7B02F719D45DF5000A0F7C /* api_post-message.json in Resources */,
-				8D3BA42D1F13B7C400478459 /* api_get-direct-messages.json in Resources */,
 				8DEF715019C9B1EB00F179A6 /* model_urlattachment.json in Resources */,
 				8D7E6E3919D2F9BF004AAF35 /* model_post.json in Resources */,
+				05DCE7682095F2B9005B2AD8 /* api_search-messages.json in Resources */,
 				8D4218981AA21138009D2077 /* streaming-declineTopicInvite.json in Resources */,
 				8D7B02ED19D45DF5000A0F7C /* api_get-profile.json in Resources */,
 				8DAD51F11C9DABDA005169D7 /* api_get-space-members.json in Resources */,
@@ -1312,13 +1300,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D9D18621A77D6AA00E3BCCF /* Request+Addition.swift in Sources */,
+				8D518DED208F60BC00323329 /* JSON.swift in Sources */,
 				8D3B88321B5406680064C29F /* Streaming.swift in Sources */,
 				8D9D18671A77D6B300E3BCCF /* OAuth2AccountStore.swift in Sources */,
-				8DF0E0BF1B974690007B7B97 /* DecodeError.swift in Sources */,
 				8D9D18651A77D6B300E3BCCF /* OAuth2Client.swift in Sources */,
-				8D97F3C41B7E2529009A091E /* JSONEncodable.swift in Sources */,
 				8D93839E1B593BB900916D99 /* Request.swift in Sources */,
-				8D97F3C21B7E2529009A091E /* JSONDecodable.swift in Sources */,
 				8D93449D1B78290000EC478E /* Auth.swift in Sources */,
 				8D0F05831B8A1EB300435F66 /* StreamingEvent.swift in Sources */,
 				8D93839F1B593BB900916D99 /* ResponseModel.swift in Sources */,
@@ -1347,7 +1333,6 @@
 				8D0F05B01B8B447D00435F66 /* ClientAPITests.swift in Sources */,
 				8D0F05CA1B8B447D00435F66 /* InviteTests.swift in Sources */,
 				8D0F05C51B8B447D00435F66 /* LikeTests.swift in Sources */,
-				8D0F05B71B8B447D00435F66 /* EmbedTests.swift in Sources */,
 				8D0F05C21B8B447D00435F66 /* ThumbnailTests.swift in Sources */,
 				8D0F05B51B8B447D00435F66 /* AccountTests.swift in Sources */,
 				8D0F05C11B8B447D00435F66 /* OAuth2CredentialTests.swift in Sources */,
@@ -1369,13 +1354,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D5C6E3C19D6FFD00020BCA2 /* OAuth2Client.swift in Sources */,
+				8D518DEC208F60B900323329 /* JSON.swift in Sources */,
 				8D3B88331B5406680064C29F /* Streaming.swift in Sources */,
 				8D08E37219E0157B004F7CBC /* Typealiases.swift in Sources */,
-				8DF0E0BE1B974690007B7B97 /* DecodeError.swift in Sources */,
 				8D9383A21B593BBB00916D99 /* Request.swift in Sources */,
-				8D97F3C31B7E2529009A091E /* JSONEncodable.swift in Sources */,
 				8D9383A31B593BBB00916D99 /* ResponseModel.swift in Sources */,
-				8D97F3C11B7E2529009A091E /* JSONDecodable.swift in Sources */,
 				8D93449E1B78290300EC478E /* Auth.swift in Sources */,
 				8D0F05821B8A1EB300435F66 /* StreamingEvent.swift in Sources */,
 				8D9383A11B593BBB00916D99 /* Model.swift in Sources */,
@@ -1412,7 +1395,6 @@
 				8D7E6E3619D2F8C8004AAF35 /* LinkTests.swift in Sources */,
 				8DEF713F19C9AB2C00F179A6 /* TeamTests.swift in Sources */,
 				8D57B3FD19C87D9900E60736 /* TopicTests.swift in Sources */,
-				8DB501321AD41F61001F403E /* EmbedTests.swift in Sources */,
 				8D0F05911B8B343700435F66 /* ClientAPITests.swift in Sources */,
 				8D5C6E4219D7FFFC0020BCA2 /* MentionTests.swift in Sources */,
 				8D5C6E3A19D6E4F10020BCA2 /* OAuth2RouterTests.swift in Sources */,
@@ -1488,7 +1470,8 @@
 				PRODUCT_NAME = TypetalkKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1514,7 +1497,8 @@
 				PRODUCT_NAME = TypetalkKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1539,7 +1523,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1560,7 +1545,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1572,13 +1558,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1588,6 +1582,7 @@
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -1620,13 +1615,21 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -1635,6 +1638,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -1646,6 +1650,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1656,6 +1661,7 @@
 		8DBA517F19C5B47400BD88A3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1671,13 +1677,15 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
 		8DBA518019C5B47400BD88A3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -1693,7 +1701,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = TypetalkKit;
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};
@@ -1713,7 +1722,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Debug;
 		};
@@ -1729,7 +1739,8 @@
 				LIBRARY_SEARCH_PATHS = "$(inherited)";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
+				SWIFT_VERSION = 4.0;
 			};
 			name = Release;
 		};

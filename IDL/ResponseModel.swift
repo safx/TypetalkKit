@@ -8,24 +8,24 @@
 
 import Foundation
 
-public struct GetProfileResponse: JSONDecodable {
+public struct GetProfileResponse: Decodable {
     public let account: Account
 }
 
-public struct GetOnlineStatusResponse: JSONDecodable {
+public struct GetOnlineStatusResponse: Decodable {
     let accounts: [AccountWithLoginStatus]
 }
 
-public struct GetTopicsResponse: JSONDecodable {
+public struct GetTopicsResponse: Decodable {
     public let topics: [TopicWithUserInfo]
 }
 
-public struct GetDmTopicsResponse: JSONDecodable {
+public struct GetDmTopicsResponse: Decodable {
     public let topics: [DirectMessageTopic]
 }
 
-public struct GetMessagesResponse: JSONDecodable, ClassInit {
-    public let mySpace: Space?
+public struct GetMessagesResponse: Decodable, ClassInit {
+    public let mySpace: MySpace?
     public let team: Team? = nil
     public let topic: Topic = Topic()
     public let bookmark: Bookmark = Bookmark()
@@ -34,48 +34,54 @@ public struct GetMessagesResponse: JSONDecodable, ClassInit {
     public let exceedsAttachmentLimit: Bool = false
 }
 
-public struct PostMessageResponse: JSONDecodable {
+public struct PostMessageResponse: Decodable {
     public let topic: Topic?
     public let post: Post?
-    public let mentions: [Mention] = []
-    public let exceedsAttachmentLimit: Bool = false
+    public let mentions: [Mention]? = nil
+    public let exceedsAttachmentLimit: Bool? = nil
 }
 
-public struct GetTopicMembersResponse: JSONDecodable {
-    public let accounts: [AccountWithOnlineStatus] = []
-    public let pendings: [AccountWithMailAddress] = []
+public struct GetTopicMembersResponse: Decodable {
+    public let accounts: [AccountWithOnlineStatus]? = nil
+    public let pendings: [AccountWithMailAddress]? = nil
 }
 
-public struct GetMessageResponse: JSONDecodable {
-    public let mySpace: Space?
+public struct GetMessageResponse: Decodable {
+    public let mySpace: MySpace?
     public let team: Team? = nil
     public let topic: Topic
     public let post: Post
-    public let replies: [Post] = []
+    public let replies: [Post]? = nil
     public let exceedsAttachmentLimit: Bool = false
 }
 
-public struct LikeMessageResponse: JSONDecodable {
+struct SearchMessagesResponse: Decodable {
+    let count: Int
+    let posts: [Post]
+    let isLimited: Bool
+}
+
+public struct LikeMessageResponse: Decodable {
     public let like: Like
     public let topic: Topic?
     public let directMessage: DirectMessageTopic?
     public let post: Post?
 }
 
-public struct FavoriteTopicResponse: JSONDecodable {
+public struct FavoriteTopicResponse: Decodable {
     public let topic: Topic
     public let favorite: Bool
 }
 
-public struct GetDirectMessagesResponse: JSONDecodable, ClassInit {
+public struct GetDirectMessagesResponse: Decodable, ClassInit {
     public let topic: Topic?
     public let directMessage: AccountWithLoginStatus
     public let bookmark: Bookmark?
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool?
 }
 
-public struct PostDirectMessageResponse: JSONDecodable, ClassInit {
+public struct PostDirectMessageResponse: Decodable, ClassInit {
     public let topic: Topic
     public let directMessage: AccountWithLoginStatus
     public let mentions: [Mention]
@@ -83,54 +89,71 @@ public struct PostDirectMessageResponse: JSONDecodable, ClassInit {
     public let exceedsAttachmentLimit: Bool
 }
 
-public struct SaveReadTopicResponse: JSONDecodable {
+struct GetNotificationStatusResponse: Decodable, ClassInit {
+    let doNotDisturb: DoNotDisturb
+    let statuses: [NotificationStatus]
+}
+
+public struct SaveReadTopicResponse: Decodable {
     public let unread: Unread
 }
 
-public struct GetMentionsResponse: JSONDecodable {
+public struct GetMentionsResponse: Decodable {
     public let mentions: [Mention]
 }
 
-public struct SaveReadMentionResponse: JSONDecodable {
+public struct SaveReadMentionResponse: Decodable {
     public let mention: Mention
 }
 
-public struct GetSpacesResponse: JSONDecodable {
-    public let mySpaces: [Space]
+public struct GetSpacesResponse: Decodable {
+    public let mySpaces: [MySpace]
 }
 
-public struct GetSpaceMembersResponse: JSONDecodable {
+public struct GetSpaceMembersResponse: Decodable {
     public let accounts: [Account]
     public let groups: [GroupWithCount]
 }
 
-public struct GetTeamsResponse: JSONDecodable {
+public struct GetTeamsResponse: Decodable {
     public let teams: [TeamWithCount]
 }
 
-public struct GetFriendsResponse: JSONDecodable {
+public struct GetFriendsResponse: Decodable {
     public let accounts: [Account]
 }
 
-public struct GetTalksResponse: JSONDecodable {
+public struct GetTalksResponse: Decodable {
     public let talks: [Talk]
 }
 
-public struct GetTalkResponse: JSONDecodable, ClassInit {
-    public let mySpace: Space?
+public struct GetTalkResponse: Decodable, ClassInit {
+    public let mySpace: MySpace?
     public let topic: Topic
     public let talk: Talk
-    public let posts: [Post] = []
+    public let posts: [Post]? = nil
     public let hasNext: Bool
 }
 
-public struct CreateTalkResponse: JSONDecodable {
+public struct CreateTalkResponse: Decodable {
     public let topic: Topic
     public let talk: Talk
     public let postIds: [PostID]
 }
 
-public struct UpdateTalkResponse: JSONDecodable {
+public struct UpdateTalkResponse: Decodable {
     public let topic: Topic
     public let talk: Talk
+}
+
+struct GetLikesReceiveResponse: Decodable {
+    public let likedPosts: [LikedPost]
+}
+
+struct GetLikesGiveResponse: Decodable {
+    public let likedPosts: [MyLikedPost]
+}
+
+struct SaveReadLikesResponse: Decodable {
+    public let like: LikeStatus
 }

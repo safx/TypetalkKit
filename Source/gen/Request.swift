@@ -16,13 +16,14 @@ public class GetProfile: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "profile"
+		return "v1/profile"
 	}
 
 }
 
 public class GetFriendProfile: TypetalkRequest {
 	public typealias APIKitResponse = AccountWithLoginStatus
+	public typealias Response = AccountWithLoginStatus
 	public let accountName: String
 
 	public init(accountName: String) {
@@ -34,7 +35,7 @@ public class GetFriendProfile: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "accounts/profile/\(accountName)"
+		return "v1/accounts/profile/\(accountName)"
 	}
 
 }
@@ -53,19 +54,21 @@ public class GetOnlineStatus: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "accounts/status"
+		return "v1/accounts/status"
 	}
 
 	public var parameters: Any? {
-		return ["accountIds": accountIds.map { $0.toJSON() } as AnyObject]
+		return ["accountIds": accountIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
 public class GetTopics: TypetalkRequest {
 	public typealias APIKitResponse = GetTopicsResponse
 	public typealias Response = GetTopicsResponse
+	public let spaceKey: String
 
-	public init() {
+	public init(spaceKey: String) {
+		self.spaceKey = spaceKey
 	}
 
 	public var method: HTTPMethod {
@@ -73,9 +76,12 @@ public class GetTopics: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics"
+		return "v2/topics"
 	}
 
+	public var parameters: Any? {
+		return ["spaceKey": spaceKey as AnyObject]
+	}
 }
 
 public class GetDmTopics: TypetalkRequest {
@@ -90,7 +96,7 @@ public class GetDmTopics: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "messages"
+		return "v1/messages"
 	}
 
 }
@@ -115,14 +121,14 @@ public class GetMessages: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)"
+		return "v1/topics/\(topicId)"
 	}
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -136,14 +142,16 @@ public class PostMessage: TypetalkRequest {
 	public let showLinkMeta: Bool?
 	public let fileKeys: [String]
 	public let talkIds: [Int]
+	public let attachments: [PostMessage.Attachment]
 
-	public init(topicId: Int, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = []) {
+	public init(topicId: Int, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = [], attachments: [PostMessage.Attachment] = []) {
 		self.topicId = topicId
 		self.message = message
 		self.replyTo = replyTo
 		self.showLinkMeta = showLinkMeta
 		self.fileKeys = fileKeys
 		self.talkIds = talkIds
+		self.attachments = attachments
 	}
 
 	public var method: HTTPMethod {
@@ -151,27 +159,36 @@ public class PostMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)"
+		return "v1/topics/\(topicId)"
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["message": message.toJSON() as AnyObject, "fileKeys": fileKeys.map { $0.toJSON() } as AnyObject, "talkIds": talkIds.map { $0.toJSON() } as AnyObject]
-		_ = replyTo.map { p["replyTo"] = $0.toJSON() as AnyObject }
-		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["message": message as AnyObject, "fileKeys": fileKeys.map { $0 as AnyObject } as AnyObject, "talkIds": talkIds.map { $0 as AnyObject } as AnyObject, "attachments": attachments.map { $0 as AnyObject } as AnyObject]
+		_ = replyTo.map { p["replyTo"] = $0 as AnyObject }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0 as AnyObject }
 		return p
+	}
+
+	public class Attachment {
+		public let fileUrl: URL
+		public let fileName: String
+
+		public init(fileUrl: URL, fileName: String) {
+			self.fileUrl = fileUrl
+			self.fileName = fileName
+		}
 	}
 }
 
 public class UploadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Attachment
+	public typealias Response = Attachment
 	public let topicId: Int
-	public let name: String // router:"-"
-	public let contents: Data // router:"-"
+	public let file: Data
 
-	public init(topicId: Int, name: String, contents: Data) {
+	public init(topicId: Int, file: Data) {
 		self.topicId = topicId
-		self.name = name
-		self.contents = contents
+		self.file = file
 	}
 
 	public var method: HTTPMethod {
@@ -179,13 +196,17 @@ public class UploadAttachment: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/attachments"
+		return "v1/topics/\(topicId)/attachments"
 	}
 
+	public var parameters: Any? {
+		return ["file": file as AnyObject]
+	}
 }
 
 public class DownloadAttachment: TypetalkRequest {
 	public typealias APIKitResponse = Data
+	public typealias Response = Data
 	public let topicId: Int
 	public let postId: Int
 	public let attachmentId: Int
@@ -205,12 +226,12 @@ public class DownloadAttachment: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
+		return "v1/topics/\(topicId)/posts/\(postId)/attachments/\(attachmentId)/\(filename)"
 	}
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = type.map { p["type"] = $0.toJSON() as AnyObject }
+		_ = type.map { p["type"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -229,7 +250,7 @@ public class GetTopicMembers: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/members/status"
+		return "v1/topics/\(topicId)/members/status"
 	}
 
 }
@@ -250,13 +271,14 @@ public class GetMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)"
+		return "v1/topics/\(topicId)/posts/\(postId)"
 	}
 
 }
 
 public class UpdateMessage: TypetalkRequest {
 	public typealias APIKitResponse = PostMessageResponse
+	public typealias Response = PostMessageResponse
 	public let topicId: Int
 	public let postId: Int
 	public let message: String
@@ -272,16 +294,17 @@ public class UpdateMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)"
+		return "v1/topics/\(topicId)/posts/\(postId)"
 	}
 
 	public var parameters: Any? {
-		return ["message": message.toJSON() as AnyObject]
+		return ["message": message as AnyObject]
 	}
 }
 
 public class DeleteMessage: TypetalkRequest {
 	public typealias APIKitResponse = Post
+	public typealias Response = Post
 	public let topicId: Int
 	public let postId: Int
 
@@ -295,9 +318,49 @@ public class DeleteMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)"
+		return "v1/topics/\(topicId)/posts/\(postId)"
 	}
 
+}
+
+public class SearchMessages: TypetalkRequest {
+	public typealias APIKitResponse = SearchMessagesResponse
+	public typealias Response = SearchMessagesResponse
+	public let q: String
+	public let spaceKey: String
+	public let topicIds: Int?
+	public let hasAttachments: Bool?
+	public let accountIds: [Int]?
+	public let from: Date?
+	public let to: Date?
+
+	public init(q: String, spaceKey: String, topicIds: Int? = nil, hasAttachments: Bool? = nil, accountIds: [Int]? = nil, from: Date? = nil, to: Date? = nil) {
+		self.q = q
+		self.spaceKey = spaceKey
+		self.topicIds = topicIds
+		self.hasAttachments = hasAttachments
+		self.accountIds = accountIds
+		self.from = from
+		self.to = to
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "v2/search/posts"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["q": q as AnyObject, "spaceKey": spaceKey as AnyObject]
+		_ = topicIds.map { p["topicIds"] = $0 as AnyObject }
+		_ = hasAttachments.map { p["hasAttachments"] = $0 as AnyObject }
+		_ = accountIds.map { p["accountIds"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = to.map { p["to"] = $0 as AnyObject }
+		return p
+	}
 }
 
 public class LikeMessage: TypetalkRequest {
@@ -316,13 +379,14 @@ public class LikeMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)/like"
+		return "v1/topics/\(topicId)/posts/\(postId)/like"
 	}
 
 }
 
 public class UnlikeMessage: TypetalkRequest {
 	public typealias APIKitResponse = LikeMessageResponse
+	public typealias Response = LikeMessageResponse
 	public let topicId: Int
 	public let postId: Int
 
@@ -336,7 +400,7 @@ public class UnlikeMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/posts/\(postId)/like"
+		return "v1/topics/\(topicId)/posts/\(postId)/like"
 	}
 
 }
@@ -355,13 +419,14 @@ public class FavoriteTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/favorite"
+		return "v1/topics/\(topicId)/favorite"
 	}
 
 }
 
 public class UnfavoriteTopic: TypetalkRequest {
 	public typealias APIKitResponse = FavoriteTopicResponse
+	public typealias Response = FavoriteTopicResponse
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -373,7 +438,7 @@ public class UnfavoriteTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/favorite"
+		return "v1/topics/\(topicId)/favorite"
 	}
 
 }
@@ -384,9 +449,9 @@ public class GetDirectMessages: TypetalkRequest {
 	public let accountName: String
 	public let count: Int?
 	public let from: Int?
-	public let direction: MessageDirection?
+	public let direction: String?
 
-	public init(accountName: String, count: Int? = nil, from: Int? = nil, direction: MessageDirection? = nil) {
+	public init(accountName: String, count: Int? = nil, from: Int? = nil, direction: String? = nil) {
 		self.accountName = accountName
 		self.count = count
 		self.from = from
@@ -398,14 +463,14 @@ public class GetDirectMessages: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "messages/@\(accountName)"
+		return "v1/messages/@\(accountName)"
 	}
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0 as AnyObject }
 		return p
 	}
 }
@@ -419,14 +484,16 @@ public class PostDirectMessage: TypetalkRequest {
 	public let showLinkMeta: Bool?
 	public let fileKeys: [String]
 	public let talkIds: [Int]
+	public let attachments: [PostDirectMessage.Attachment]
 
-	public init(accountName: String, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = []) {
+	public init(accountName: String, message: String, replyTo: Int? = nil, showLinkMeta: Bool? = nil, fileKeys: [String] = [], talkIds: [Int] = [], attachments: [PostDirectMessage.Attachment] = []) {
 		self.accountName = accountName
 		self.message = message
 		self.replyTo = replyTo
 		self.showLinkMeta = showLinkMeta
 		self.fileKeys = fileKeys
 		self.talkIds = talkIds
+		self.attachments = attachments
 	}
 
 	public var method: HTTPMethod {
@@ -434,35 +501,30 @@ public class PostDirectMessage: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "messages/@\(accountName)"
+		return "v1/messages/@\(accountName)"
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["message": message.toJSON() as AnyObject, "fileKeys": fileKeys.map { $0.toJSON() } as AnyObject, "talkIds": talkIds.map { $0.toJSON() } as AnyObject]
-		_ = replyTo.map { p["replyTo"] = $0.toJSON() as AnyObject }
-		_ = showLinkMeta.map { p["showLinkMeta"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["message": message as AnyObject, "fileKeys": fileKeys.map { $0 as AnyObject } as AnyObject, "talkIds": talkIds.map { $0 as AnyObject } as AnyObject, "attachments": attachments.map { $0 as AnyObject } as AnyObject]
+		_ = replyTo.map { p["replyTo"] = $0 as AnyObject }
+		_ = showLinkMeta.map { p["showLinkMeta"] = $0 as AnyObject }
 		return p
 	}
-}
 
-public class GetNotifications: TypetalkRequest {
-	public typealias APIKitResponse = Notifications
+	public class Attachment {
+		public let fileUrl: URL
+		public let fileName: String
 
-	public init() {
+		public init(fileUrl: URL, fileName: String) {
+			self.fileUrl = fileUrl
+			self.fileName = fileName
+		}
 	}
-
-	public var method: HTTPMethod {
-		return .get
-	}
-
-	public var path: String {
-		return "notifications"
-	}
-
 }
 
 public class GetNotificationStatus: TypetalkRequest {
-	public typealias APIKitResponse = NotificationStatus
+	public typealias APIKitResponse = GetNotificationStatusResponse
+	public typealias Response = GetNotificationStatusResponse
 
 	public init() {
 	}
@@ -472,13 +534,14 @@ public class GetNotificationStatus: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "notifications/status"
+		return "v2/notifications/status"
 	}
 
 }
 
 public class OpenNotification: TypetalkRequest {
 	public typealias APIKitResponse = NotificationStatus
+	public typealias Response = NotificationStatus
 
 	public init() {
 	}
@@ -488,7 +551,7 @@ public class OpenNotification: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "notifications"
+		return "v2/notifications"
 	}
 
 }
@@ -509,12 +572,12 @@ public class SaveReadTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "bookmarks"
+		return "v1/bookmarks"
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = ["topicId": topicId.toJSON() as AnyObject]
-		_ = postId.map { p["postId"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["topicId": topicId as AnyObject]
+		_ = postId.map { p["postId"] = $0 as AnyObject }
 		return p
 	}
 }
@@ -522,10 +585,12 @@ public class SaveReadTopic: TypetalkRequest {
 public class GetMentions: TypetalkRequest {
 	public typealias APIKitResponse = GetMentionsResponse
 	public typealias Response = GetMentionsResponse
+	public let spaceKey: String
 	public let from: Int?
 	public let unread: Bool?
 
-	public init(from: Int? = nil, unread: Bool? = nil) {
+	public init(spaceKey: String, from: Int? = nil, unread: Bool? = nil) {
+		self.spaceKey = spaceKey
 		self.from = from
 		self.unread = unread
 	}
@@ -535,13 +600,13 @@ public class GetMentions: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "mentions"
+		return "v2/mentions"
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = [:]
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = unread.map { p["unread"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["spaceKey": spaceKey as AnyObject]
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = unread.map { p["unread"] = $0 as AnyObject }
 		return p
 	}
 }
@@ -560,13 +625,14 @@ public class SaveReadMention: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "mentions/\(mentionId)"
+		return "v1/mentions/\(mentionId)"
 	}
 
 }
 
 public class CreateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let name: String
 	public let spaceKey: String
 	public let addAccountIds: [Int]
@@ -584,21 +650,22 @@ public class CreateTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics"
+		return "v1/topics"
 	}
 
 	public var parameters: Any? {
-		return ["name": name.toJSON() as AnyObject, "spaceKey": spaceKey.toJSON() as AnyObject, "addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject]
+		return ["name": name as AnyObject, "spaceKey": spaceKey as AnyObject, "addAccountIds": addAccountIds.map { $0 as AnyObject } as AnyObject, "addGroupIds": addGroupIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
 public class UpdateTopic: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
-	public let name: String?
+	public let name: String
 	public let description: String?
 
-	public init(topicId: Int, name: String? = nil, description: String? = nil) {
+	public init(topicId: Int, name: String, description: String? = nil) {
 		self.topicId = topicId
 		self.name = name
 		self.description = description
@@ -609,19 +676,19 @@ public class UpdateTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)"
+		return "v1/topics/\(topicId)"
 	}
 
 	public var parameters: Any? {
-		var p: [String: AnyObject] = [:]
-		_ = name.map { p["name"] = $0.toJSON() as AnyObject }
-		_ = description.map { p["description"] = $0.toJSON() as AnyObject }
+		var p: [String: AnyObject] = ["name": name as AnyObject]
+		_ = description.map { p["description"] = $0 as AnyObject }
 		return p
 	}
 }
 
 public class DeleteTopic: TypetalkRequest {
 	public typealias APIKitResponse = Topic
+	public typealias Response = Topic
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -633,13 +700,14 @@ public class DeleteTopic: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)"
+		return "v1/topics/\(topicId)"
 	}
 
 }
 
 public class GetTopicDetails: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
 
 	public init(topicId: Int) {
@@ -651,23 +719,18 @@ public class GetTopicDetails: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/details"
+		return "v1/topics/\(topicId)/details"
 	}
 
 }
 
 public class UpdateTopicMembers: TypetalkRequest {
 	public typealias APIKitResponse = TopicWithAccounts
+	public typealias Response = TopicWithAccounts
 	public let topicId: Int
-	public let addAccountIds: [Int]
-	public let addGroupIds: [Int]
-	public let removeGroupIds: [Int]
 
-	public init(topicId: Int, addAccountIds: [Int] = [], addGroupIds: [Int] = [], removeGroupIds: [Int] = []) {
+	public init(topicId: Int) {
 		self.topicId = topicId
-		self.addAccountIds = addAccountIds
-		self.addGroupIds = addGroupIds
-		self.removeGroupIds = removeGroupIds
 	}
 
 	public var method: HTTPMethod {
@@ -675,20 +738,17 @@ public class UpdateTopicMembers: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/members/update"
+		return "v1/topics/\(topicId)/members/update"
 	}
 
-	public var parameters: Any? {
-		return ["addAccountIds": addAccountIds.map { $0.toJSON() } as AnyObject, "addGroupIds": addGroupIds.map { $0.toJSON() } as AnyObject, "removeGroupIds": removeGroupIds.map { $0.toJSON() } as AnyObject]
-	}
 }
 
 public class GetSpaces: TypetalkRequest {
 	public typealias APIKitResponse = GetSpacesResponse
 	public typealias Response = GetSpacesResponse
-	public let excludesGuest: Bool
+	public let excludesGuest: Bool?
 
-	public init(excludesGuest: Bool = false) {
+	public init(excludesGuest: Bool? = nil) {
 		self.excludesGuest = excludesGuest
 	}
 
@@ -697,11 +757,13 @@ public class GetSpaces: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "spaces"
+		return "v1/spaces"
 	}
 
 	public var parameters: Any? {
-		return ["excludesGuest": excludesGuest.toJSON() as AnyObject]
+		var p: [String: AnyObject] = [:]
+		_ = excludesGuest.map { p["excludesGuest"] = $0 as AnyObject }
+		return p
 	}
 }
 
@@ -719,7 +781,7 @@ public class GetSpaceMembers: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "spaces/\(spaceKey)/members"
+		return "v1/spaces/\(spaceKey)/members"
 	}
 
 }
@@ -727,8 +789,16 @@ public class GetSpaceMembers: TypetalkRequest {
 public class GetFriends: TypetalkRequest {
 	public typealias APIKitResponse = GetFriendsResponse
 	public typealias Response = GetFriendsResponse
+	public let q: String
+	public let spaceKey: String
+	public let offset: Int?
+	public let count: Int?
 
-	public init() {
+	public init(q: String, spaceKey: String, offset: Int? = nil, count: Int? = nil) {
+		self.q = q
+		self.spaceKey = spaceKey
+		self.offset = offset
+		self.count = count
 	}
 
 	public var method: HTTPMethod {
@@ -736,13 +806,20 @@ public class GetFriends: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "search/friends"
+		return "v3/search/friends"
 	}
 
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["q": q as AnyObject, "spaceKey": spaceKey as AnyObject]
+		_ = offset.map { p["offset"] = $0 as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		return p
+	}
 }
 
 public class SearchAccounts: TypetalkRequest {
 	public typealias APIKitResponse = Account
+	public typealias Response = Account
 	public let nameOrEmailAddress: String
 
 	public init(nameOrEmailAddress: String) {
@@ -754,11 +831,11 @@ public class SearchAccounts: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "search/accounts"
+		return "v1/search/accounts"
 	}
 
 	public var parameters: Any? {
-		return ["nameOrEmailAddress": nameOrEmailAddress.toJSON() as AnyObject]
+		return ["nameOrEmailAddress": nameOrEmailAddress as AnyObject]
 	}
 }
 
@@ -776,7 +853,7 @@ public class GetTalks: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks"
+		return "v1/topics/\(topicId)/talks"
 	}
 
 }
@@ -803,14 +880,14 @@ public class GetTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks/\(talkId)/posts"
+		return "v1/topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
 	public var parameters: Any? {
 		var p: [String: AnyObject] = [:]
-		_ = count.map { p["count"] = $0.toJSON() as AnyObject }
-		_ = from.map { p["from"] = $0.toJSON() as AnyObject }
-		_ = direction.map { p["direction"] = $0.toJSON() as AnyObject }
+		_ = count.map { p["count"] = $0 as AnyObject }
+		_ = from.map { p["from"] = $0 as AnyObject }
+		_ = direction.map { p["direction"] = $0.rawValue as AnyObject }
 		return p
 	}
 }
@@ -822,7 +899,7 @@ public class CreateTalk: TypetalkRequest {
 	public let talkName: String
 	public let postIds: [Int]
 
-	public init(topicId: Int, talkName: String, postIds: [Int] = []) {
+	public init(topicId: Int, talkName: String, postIds: [Int]) {
 		self.topicId = topicId
 		self.talkName = talkName
 		self.postIds = postIds
@@ -833,11 +910,11 @@ public class CreateTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks"
+		return "v1/topics/\(topicId)/talks"
 	}
 
 	public var parameters: Any? {
-		return ["talkName": talkName.toJSON() as AnyObject, "postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["talkName": talkName as AnyObject, "postIds": postIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
@@ -859,16 +936,17 @@ public class UpdateTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks/\(talkId)"
+		return "v1/topics/\(topicId)/talks/\(talkId)"
 	}
 
 	public var parameters: Any? {
-		return ["talkName": talkName.toJSON() as AnyObject]
+		return ["talkName": talkName as AnyObject]
 	}
 }
 
 public class DeleteTalk: TypetalkRequest {
 	public typealias APIKitResponse = UpdateTalkResponse
+	public typealias Response = UpdateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 
@@ -882,18 +960,19 @@ public class DeleteTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks/\(talkId)"
+		return "v1/topics/\(topicId)/talks/\(talkId)"
 	}
 
 }
 
 public class AddMessageToTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
+	public typealias Response = CreateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 	public let postIds: [Int]
 
-	public init(topicId: Int, talkId: Int, postIds: [Int] = []) {
+	public init(topicId: Int, talkId: Int, postIds: [Int]) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.postIds = postIds
@@ -904,21 +983,22 @@ public class AddMessageToTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks/\(talkId)/posts"
+		return "v1/topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
 	public var parameters: Any? {
-		return ["postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["postIds": postIds.map { $0 as AnyObject } as AnyObject]
 	}
 }
 
 public class RemoveMessageFromTalk: TypetalkRequest {
 	public typealias APIKitResponse = CreateTalkResponse
+	public typealias Response = CreateTalkResponse
 	public let topicId: Int
 	public let talkId: Int
 	public let postIds: [Int]
 
-	public init(topicId: Int, talkId: Int, postIds: [Int] = []) {
+	public init(topicId: Int, talkId: Int, postIds: [Int]) {
 		self.topicId = topicId
 		self.talkId = talkId
 		self.postIds = postIds
@@ -929,11 +1009,113 @@ public class RemoveMessageFromTalk: TypetalkRequest {
 	}
 
 	public var path: String {
-		return "topics/\(topicId)/talks/\(talkId)/posts"
+		return "v1/topics/\(topicId)/talks/\(talkId)/posts"
 	}
 
 	public var parameters: Any? {
-		return ["postIds": postIds.map { $0.toJSON() } as AnyObject]
+		return ["postIds": postIds.map { $0 as AnyObject } as AnyObject]
+	}
+}
+
+public class GetLikesReceive: TypetalkRequest {
+	public typealias APIKitResponse = GetLikesReceiveResponse
+	public typealias Response = GetLikesReceiveResponse
+	public let spaceKey: String
+	public let from: Int?
+
+	public init(spaceKey: String, from: Int? = nil) {
+		self.spaceKey = spaceKey
+		self.from = from
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "v2/likes/receive"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["spaceKey": spaceKey as AnyObject]
+		_ = from.map { p["from"] = $0 as AnyObject }
+		return p
+	}
+}
+
+public class GetLikesGive: TypetalkRequest {
+	public typealias APIKitResponse = GetLikesGiveResponse
+	public typealias Response = GetLikesGiveResponse
+	public let spaceKey: String
+	public let from: Int?
+
+	public init(spaceKey: String, from: Int? = nil) {
+		self.spaceKey = spaceKey
+		self.from = from
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "v2/likes/give"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["spaceKey": spaceKey as AnyObject]
+		_ = from.map { p["from"] = $0 as AnyObject }
+		return p
+	}
+}
+
+public class GetLikesDiscover: TypetalkRequest {
+	public typealias APIKitResponse = GetLikesReceiveResponse
+	public typealias Response = GetLikesReceiveResponse
+	public let spaceKey: String
+	public let from: Int?
+
+	public init(spaceKey: String, from: Int? = nil) {
+		self.spaceKey = spaceKey
+		self.from = from
+	}
+
+	public var method: HTTPMethod {
+		return .get
+	}
+
+	public var path: String {
+		return "v2/likes/discover"
+	}
+
+	public var parameters: Any? {
+		var p: [String: AnyObject] = ["spaceKey": spaceKey as AnyObject]
+		_ = from.map { p["from"] = $0 as AnyObject }
+		return p
+	}
+}
+
+public class SaveReadLikes: TypetalkRequest {
+	public typealias APIKitResponse = SaveReadLikesResponse
+	public typealias Response = SaveReadLikesResponse
+	public let spaceKey: String
+	public let likeId: Int
+
+	public init(spaceKey: String, likeId: Int) {
+		self.spaceKey = spaceKey
+		self.likeId = likeId
+	}
+
+	public var method: HTTPMethod {
+		return .post
+	}
+
+	public var path: String {
+		return "v2/likes/receive/bookmark/save"
+	}
+
+	public var parameters: Any? {
+		return ["spaceKey": spaceKey as AnyObject, "likeId": likeId as AnyObject]
 	}
 }
 

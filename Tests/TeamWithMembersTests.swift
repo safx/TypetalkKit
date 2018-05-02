@@ -12,7 +12,7 @@ import XCTest
 class TeamWithMembersTests: XCTestCase {
 
     func testExample() {
-        let model = try! TeamWithMembers.parse(with: json("model_team_with_members"))
+        let model = try! decode(TeamWithMembers.self, fromJsonFile: "model_team_with_members")
         
         XCTAssertEqual(model.team.id, 700)
         XCTAssertEqual(model.team.name, "Nulab Inc.")
@@ -20,8 +20,8 @@ class TeamWithMembersTests: XCTestCase {
         XCTAssertEqual(model.team.createdAt.description, "2014-06-10 02:32:29 +0000")
         XCTAssertEqual(model.team.updatedAt.description, "2014-06-10 02:32:29 +0000")
 
-        XCTAssertEqual((model.members).count, 4)
-        let last = model.members[3]
+        XCTAssertEqual((model.members!).count, 4)
+        let last = model.members![3]
         XCTAssertEqual(last.account.id, 103)
         XCTAssertEqual(last.account.name, "stefhull")
         XCTAssertEqual(last.account.fullName, "StefHull")

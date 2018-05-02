@@ -29,7 +29,7 @@ class AccessToken: ClassInit, APIKitHelper, AuthRequest { // router:"POST, acces
     let scope: String? = nil          // ClientCredentials
 }
 
-class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncodable {
+class OAuth2Credential: NSObject, ClassInit, Decodable, Encodable {
     open let accessToken: String    // json:"access_token"
     open let tokenType: String      // json:"token_type"
     open let refreshToken: String   // json:"refresh_token"
@@ -37,8 +37,8 @@ class OAuth2Credential: NSObject, ClassInit, NSCoding, JSONDecodable, JSONEncoda
     //public let scope: Scope
 }
 
-enum GrantType: String, JSONEncodable {
-    case AuthorizationCode = "authorization_code"
-    case ClientCredentials = "client_credentials"
-    case RefreshToken      = "refresh_token"
+enum GrantType: String, Encodable {
+    case authorizationCode = "authorization_code"
+    case clientCredentials = "client_credentials"
+    case refreshToken      = "refresh_token"
 }
