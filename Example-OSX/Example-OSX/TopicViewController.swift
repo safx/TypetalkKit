@@ -36,6 +36,7 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
                 case .success(let ss):
                     guard let mySpace = ss.mySpaces.last else { return }
                     self.fetchTopic(spaceKey: mySpace.space.key)
+                    TopicViewController.startObserving()
                 case .failure(let error):
                     print(error)
                     _ = TypetalkAPI.requestRefreshToken { (err) -> Void in
@@ -91,16 +92,35 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         }
     }
 
+    // MARK: - Streaming
+
+    fileprivate static var observing: Bool = false
+
+    fileprivate static func startObserving() {
+        _ = TypetalkAPI.streaming { event in
+            switch event {
+            case .disconnected(let error):
+                observing = true
+                print("WS: Error", error.debugDescription)
+            case .connected:
+                observing = false
+                print("WS: Connected")
+            default:
+                print("WS:", event)
+            }
+        }
+    }
+
     // MARK: - Action
 
     @IBAction func columnChangeSelected(_ sender: NSTableView) {
         if topics.count <= sender.selectedRow { return }
-        
+
         let topic = topics[sender.selectedRow]
         let controller = self.parent?.childViewControllers[1] as! MessageViewController
         controller.detailItem = topic
     }
-    
+
     // MARK: - Table View
 
     func numberOfRows(in tableView: NSTableView) -> Int {
