@@ -146,14 +146,42 @@ public struct UpdateTalkResponse: Decodable {
     public let talk: Talk
 }
 
-struct GetLikesReceiveResponse: Decodable {
+struct GetReceivedLikesResponse: Decodable {
     public let likedPosts: [LikedPost]
 }
 
-struct GetLikesGiveResponse: Decodable {
+struct GetGivenLikesResponse: Decodable {
     public let likedPosts: [MyLikedPost]
 }
 
 struct SaveReadLikesResponse: Decodable {
     public let like: LikeStatus
+}
+
+struct CreateTopicGroupResponse: Decodable {
+    public let myTopicGroup: TopicGroup
+    public let myTopics: [MyTopic]
+}
+
+struct UpdateTopicGroupResponse: Decodable {
+    public let myTopicGroup: TopicGroup
+}
+
+struct GetMyTopicsResponse: Decodable {
+    public let pinnedTopics: [PinnedTopic]
+    public let favoritesOnboarding: Bool
+    public let myTopicGroups: [TopicGroup]
+    public let joinedTopics: [Topic]
+}
+
+struct AddTopicToGroupResponse: Decodable {
+    public let myTopic: MyTopic
+}
+
+struct DeleteMyTopicResponse: Decodable {
+    public let myTopic: MyTopic
+}
+
+struct PinTopicResponse: Decodable {
+    public let pinnedTopics: [MyTopic]
 }

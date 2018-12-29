@@ -22,6 +22,11 @@ public enum Scope: String, Encodable, Decodable {
 	case topicDelete = "topic.delete"
 }
 
+public enum SortType: String, Encodable, Decodable {
+	case recent = "recent"
+	case alphanumerical = "alphanumerical"
+}
+
 public struct Account: Decodable {
 	public let id: Int
 	public let name: String
@@ -348,6 +353,31 @@ public struct MySpace: Decodable {
 
 }
 
+public struct MyTopic: Decodable {
+	public let id: Int
+	public let topicId: Int
+	public let kind: String
+	public let orderNo: Int
+	public let topicGroupId: Int
+	public let exTopicGroupId: Int
+	public let accountId: Int
+	public let createdAt: Date
+	public let updatedAt: Date
+
+
+	public init(id: Int = 0, topicId: Int = 0, kind: String = "", orderNo: Int = -1, topicGroupId: Int, exTopicGroupId: Int, accountId: Int, createdAt: Date = Date(), updatedAt: Date = Date()) {
+		self.id = id
+		self.topicId = topicId
+		self.kind = kind
+		self.orderNo = orderNo
+		self.topicGroupId = topicGroupId
+		self.exTopicGroupId = exTopicGroupId
+		self.accountId = accountId
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+	}
+}
+
 public struct Notifications: Decodable {
 	public let mentions: [Mention]?
 	public let invites: Notifications.Invites
@@ -565,6 +595,14 @@ public struct Topic: Decodable {
 	}
 }
 
+public struct TopicGroup: Decodable {
+	public let id: Int
+	public let name: String
+	public let isMuted: Bool
+	public let sortType: SortType
+
+}
+
 public struct TopicWithAccounts: Decodable {
 	public let topic: Topic
 	public let mySpace: MySpace?
@@ -625,6 +663,21 @@ public struct TopicInvite: Decodable {
 		self.updatedAt = updatedAt
 		self.mailAddress = mailAddress
 		self.topic = topic
+	}
+}
+
+public struct PinnedTopic: Decodable {
+	public let topic: Topic
+	public let exTopicGroupId: Int
+	public let unread: Unread?
+	public let createdAt: Date
+
+
+	public init(topic: Topic, exTopicGroupId: Int, unread: Unread? = nil, createdAt: Date = Date()) {
+		self.topic = topic
+		self.exTopicGroupId = exTopicGroupId
+		self.unread = unread
+		self.createdAt = createdAt
 	}
 }
 

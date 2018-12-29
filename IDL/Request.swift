@@ -25,7 +25,8 @@ class GetTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/topic
     let spaceKey: String // Space key
 }
 
-class GetDmTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/messages"
+class GetDmTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/messages"
+    let spaceKey: String // Space key
 }
 
 class GetMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/topics/\(topicId)"
@@ -42,12 +43,10 @@ class PostMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1
     let showLinkMeta: Bool? = nil         // show OGP data of URL included in message. default value: true
     let fileKeys: [FileKey] = []          // attachment file key (refer to Upload attachment file), maximum count: 5
     let talkIds: [TalkID] = []            // Talk IDs that you want to put the message in, maximum count: 5
-    //let attachments[0].fileUrl: String  // Each message can have max. 5 file URLs (max. 10MB per file).
-    //let attachments[0].fileName: String // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
     let attachments: [Attachment] = []
     class Attachment: ClassInit {
-        let fileUrl: URL
-        let fileName: String
+        let fileUrl: URL                  // Each message can have max. 5 file URLs (max. 10MB per file).
+        let fileName: String              // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
     }
 }
 
@@ -109,43 +108,35 @@ class UnlikeMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELET
     let postId: PostID   // Post ID
 }
 
-class FavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1/topics/\(topicId)/favorite"
-    let topicId: TopicID // Topic ID
-}
-
-class UnfavoriteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,v1/topics/\(topicId)/favorite"
-    typealias APIKitResponse = FavoriteTopicResponse
-    let topicId: TopicID // Topic ID
-}
-
-class GetDirectMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/messages/@\(accountName)"
+class GetDirectMessages: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/spaces/\(spaceKey)/messages/@\(accountName)"
+    let spaceKey: SpaceKey       // Space key
     let accountName: String      // Account name
     let count: Int? = nil        // default value: 20, maximum: 200
     let from: PostID? = nil      // references Post ID
     let direction: String? = nil // “backward” or “forward”
 }
 
-class PostDirectMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1/messages/@\(accountName)"
+class PostDirectMessage: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v2/spaces/\(spaceKey)/messages/@\(accountName)"
+  	let spaceKey: SpaceKey                // Space key
     let accountName: String               // Account name
     let message: String                   // your message, (max 4000 characters)
     let replyTo: PostID? = nil            // references Post ID
     let showLinkMeta: Bool? = nil         // show OGP data of URL included in message. default value: true
     let fileKeys: [FileKey] = []          // attachment file key (refer to Upload attachment file), maximum count: 5
     let talkIds: [Int] = []               // Talk IDs that you want to put the message in, maximum count: 5
-    //let attachments[0].fileUrl: String  // Each message can have max. 5 file URLs (max. 10MB per file).
-    //let attachments[0].fileName: String // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
     let attachments: [Attachment] = []
     class Attachment: ClassInit {
-        let fileUrl: URL
-        let fileName: String
+        let fileUrl: URL                  // Each message can have max. 5 file URLs (max. 10MB per file).
+        let fileName: String              // Unless the parameter specifies otherwise, filenames are automatically generated from the file URL. (maximum count: 5)
     }
 }
 
-class GetNotificationStatus: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/notifications/status"
+class GetNotificationStatus: ClassInit, APIKitHelper, TypetalkRequest { // router:",v5/notifications/status"
 }
 
-class OpenNotification: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,v2/notifications"
+class OpenNotification: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,v3/notifications"
     typealias APIKitResponse = NotificationStatus
+    let spaceKey: SpaceKey // Space key
 }
 
 class SaveReadTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,v1/bookmarks"
@@ -208,16 +199,11 @@ class GetSpaceMembers: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1
     let spaceKey: SpaceKey // Organization Key
 }
 
-class GetFriends: ClassInit, APIKitHelper, TypetalkRequest { // router:",v3/search/friends"
+class GetFriends: ClassInit, APIKitHelper, TypetalkRequest { // router:",v4/search/friends"
     let q: String          // query
     let spaceKey: SpaceKey // Space key
     let offset: Int? = nil // default value: 0
     let count: Int? = nil  // default value: 30, maximum: 100
-}
-
-class SearchAccounts: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/search/accounts"
-    typealias APIKitResponse = Account
-    let nameOrEmailAddress: String // account.name or e-mail address
 }
 
 class GetTalks: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/topics/\(topicId)/talks"
@@ -264,18 +250,18 @@ class RemoveMessageFromTalk: ClassInit, APIKitHelper, TypetalkRequest { // route
     let postIds: [PostID] // Post IDs that you want to remove from the talk
 }
 
-class GetLikesReceive: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/likes/receive"
+class GetReceivedLikes: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/spaces/\(spaceKey)/likes/receive"
     let spaceKey: SpaceKey  // Space key
     let from: LikeID? = nil // references Like ID
 }
 
-class GetLikesGive: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/likes/give"
+class GetGivenLikes: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/spaces/\(spaceKey)/likes/give"
     let spaceKey: SpaceKey  // Space key
     let from: LikeID? = nil // references Like ID
 }
 
-class GetLikesDiscover: ClassInit, APIKitHelper, TypetalkRequest { // router:",v2/likes/discover"
-    typealias APIKitResponse = GetLikesReceiveResponse
+class DiscoverLikes: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/spaces/\(spaceKey)/likes/discover"
+    typealias APIKitResponse = GetReceivedLikesResponse
     let spaceKey: SpaceKey  // Space key
     let from: LikeID? = nil // references Like ID
 }
@@ -285,3 +271,42 @@ class SaveReadLikes: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,
     let likeId: LikeID     // references Like ID
 }
 
+class CreateTopicGroup: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1/spaces/\(spaceKey)/myTopicGroups"
+	let spaceKey: SpaceKey      // Space key
+	let name: String            // Topic Group Name
+	let topicId: TopicID? = nil // Topic ID
+}
+
+class UpdateTopicGroup: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,v1/spaces/\(spaceKey)/myTopicGroups/\(myTopicGroupId)"
+	let spaceKey: SpaceKey      // Space key
+	let myTopicGroupId: GroupID // My Topic Group ID
+	let name: String            // Topic Group Name
+	let sortType: SortType      // Sort type(“recent” or “alphanumerical”)
+	let isMuted: Bool           // Mute setting
+}
+
+class DeleteTopicGroup: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,v1/spaces/\(spaceKey)/myTopicGroups/\(myTopicGroupId)"
+    typealias APIKitResponse = UpdateTopicGroupResponse
+	let spaceKey: SpaceKey      // Space key
+	let myTopicGroupId: GroupID // Topic Group ID
+}
+
+class GetMyTopics: ClassInit, APIKitHelper, TypetalkRequest { // router:",v1/spaces/\(spaceKey)/myTopics"
+	let spaceKey: SpaceKey // Space key
+}
+
+class AddTopicToGroup: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1/spaces/\(spaceKey)/myTopics/myTopicGroups/\(myTopicGroupId)/topics/\(topicId)/add"
+	let spaceKey: SpaceKey      // Space key
+	let myTopicGroupId: GroupID // Topic Group ID
+	let topicId: TopicID        // Topic ID
+}
+
+class DeleteMyTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,v1/spaces/\(spaceKey)/myTopics/topics/\(topicId)"
+	let spaceKey: SpaceKey // Space key
+	let topicId: TopicID   // Topic ID
+}
+
+class PinTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"POST,v1/spaces/\(spaceKey)/myTopics/pin"
+	let spaceKey: SpaceKey // Space key
+	let topicId: TopicID   // Topic ID
+}

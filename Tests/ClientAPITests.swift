@@ -157,7 +157,6 @@ class ClientAPITests: XCTestCase {
 			case .success(let r):
 
 				XCTAssertEqual(r.topics.count, 13)
-				XCTAssertEqual(r.topics[0].topic.description, "")
 				XCTAssertEqual(r.topics[0].topic.lastPostedAt!.description, "2018-03-09 12:33:04 +0000")
 				XCTAssertEqual(r.topics[0].topic.name, "test illo video")
 				XCTAssertEqual(r.topics[0].topic.suggestion, "test illo video")
@@ -170,7 +169,6 @@ class ClientAPITests: XCTestCase {
 				XCTAssertEqual(r.topics[0].unread!.postId, 163520)
 				XCTAssertEqual(r.topics[0].unread!.isOverCountLimit, false)
 				XCTAssertEqual(r.topics[0].favorite, true)
-				XCTAssertEqual(r.topics[1].topic.description, "A topic for getting off-topic")
 				XCTAssertEqual(r.topics[1].topic.lastPostedAt!.description, "2018-02-19 11:03:26 +0000")
 				XCTAssertEqual(r.topics[1].topic.name, "Coffee shop")
 				XCTAssertEqual(r.topics[1].topic.suggestion, "Coffee shop")
@@ -343,7 +341,7 @@ class ClientAPITests: XCTestCase {
 		createStub("get-dm-topics")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(GetDmTopics()) { result in
+        TypetalkAPI.send(GetDmTopics(spaceKey: "foo")) { result in
 			switch result {
 			case .success(let r):
 
@@ -1519,7 +1517,7 @@ class ClientAPITests: XCTestCase {
 	}
 
 
-	func testFavoriteTopic() {
+	/*func testFavoriteTopic() {
 		createStub("favorite-topic")
 
 		let expectation = self.expectation(description: "")
@@ -1577,14 +1575,14 @@ class ClientAPITests: XCTestCase {
 		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, error.debugDescription)
 		}
-	}
+	}*/
 
 
 	func testGetDirectMessages() {
 		createStub("get-direct-messages")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(GetDirectMessages(accountName: "foo")) { result in
+        TypetalkAPI.send(GetDirectMessages(spaceKey: "foo", accountName: "foo")) { result in
 			switch result {
 			case .success(let r):
 
@@ -1620,7 +1618,7 @@ class ClientAPITests: XCTestCase {
 		createStub("post-direct-message")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(PostDirectMessage(accountName: "foo", message: "bar")) { result in
+        TypetalkAPI.send(PostDirectMessage(spaceKey: "foo", accountName: "foo", message: "bar")) { result in
 			switch result {
 			case .success(let r):
 
@@ -1933,7 +1931,7 @@ class ClientAPITests: XCTestCase {
 		createStub("open-notification")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(OpenNotification()) { result in
+        TypetalkAPI.send(OpenNotification(spaceKey: "foo")) { result in
 			switch result {
 			case .success(let r):
 
@@ -2640,7 +2638,7 @@ class ClientAPITests: XCTestCase {
 	}
 
 
-	func testSearchAccounts() {
+	/*func testSearchAccounts() {
 		createStub("search-accounts")
 
 		let expectation = self.expectation(description: "")
@@ -2666,7 +2664,7 @@ class ClientAPITests: XCTestCase {
 		waitForExpectations(timeout: 3) { (error) in
 			XCTAssertNil(error, error.debugDescription)
 		}
-	}
+	}*/
 
 
 	func testGetTalks() {
@@ -3072,11 +3070,11 @@ class ClientAPITests: XCTestCase {
 	}
 
 
-	func testGetLikesReceive() {
+	func testGetReceivedLikes() {
 		createStub("get-likes-receive")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(GetLikesReceive(spaceKey: "")) { result in
+		TypetalkAPI.send(GetReceivedLikes(spaceKey: "")) { result in
 			switch result {
 			case .success(let r):
 
@@ -3174,11 +3172,11 @@ class ClientAPITests: XCTestCase {
 	}
 
 
-	func testGetLikesGive() {
+	func testGetGivenLikes() {
 		createStub("get-likes-give")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(GetLikesGive(spaceKey: "")) { result in
+		TypetalkAPI.send(GetGivenLikes(spaceKey: "")) { result in
 			switch result {
 			case .success(let r):
 
@@ -3254,11 +3252,11 @@ class ClientAPITests: XCTestCase {
 	}
 
 
-	func testGetLikesDiscover() {
+	func testDiscoverLikes() {
 		createStub("get-likes-discover")
 
 		let expectation = self.expectation(description: "")
-		TypetalkAPI.send(GetLikesDiscover(spaceKey: "")) { result in
+		TypetalkAPI.send(DiscoverLikes(spaceKey: "")) { result in
 			switch result {
 			case .success(let r):
 

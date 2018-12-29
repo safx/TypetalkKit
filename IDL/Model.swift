@@ -8,7 +8,7 @@
 
 import Foundation
 
-// MARK: - REST API
+// MARK: - Enums
 
 public enum MessageDirection: String, Decodable, Encodable {
     case backward = "backward"
@@ -27,6 +27,11 @@ public enum Scope: String, Decodable, Encodable {
     case topicPost = "topic.post"
     case topicWrite = "topic.write"
     case topicDelete = "topic.delete"
+}
+
+public enum SortType: String, Decodable, Encodable {
+    case recent = "recent"
+    case alphanumerical  = "alphanumerical"
 }
 
 // MARK: - REST API
@@ -185,6 +190,18 @@ public struct MySpace: Decodable {
     public let myRole: String
 }
 
+public struct MyTopic: Decodable, ClassInit {
+    public let id: MyTopicID = 0
+    public let topicId: TopicID = 0
+    public let kind: String = ""
+    public let orderNo: Int = -1
+    public let topicGroupId: TopicGroupID
+    public let exTopicGroupId: TopicGroupID
+    public let accountId: AccountID
+    public let createdAt: Date = Date()
+    public let updatedAt: Date = Date()
+}
+
 public struct Notifications: Decodable, ClassInit {
     public let mentions: [Mention]? = nil
     public let invites: Invites
@@ -296,6 +313,13 @@ public struct Topic: Decodable, ClassInit {
     public let isDirectMessage: Bool?
 }
 
+public struct TopicGroup: Decodable {
+    public let id: TopicGroupID
+    public let name: String
+    public let isMuted: Bool
+    public let sortType: SortType
+}
+
 public struct TopicWithAccounts: Decodable, ClassInit {
     public let topic: Topic
     public let mySpace: MySpace?
@@ -325,6 +349,13 @@ public struct TopicInvite: Decodable, ClassInit {
 
     public let mailAddress: String?
     public let topic: Topic?
+}
+
+public struct PinnedTopic: Decodable, ClassInit {
+    public let topic: Topic
+    public let exTopicGroupId: TopicGroupID
+    public let unread: Unread?
+    public let createdAt: Date = Date()
 }
 
 public struct PaymentPlan: Decodable, ClassInit {

@@ -197,8 +197,8 @@ extension DeleteMessage { public var dataParser: DataParser { return NullDataPar
 extension SearchMessages { public var dataParser: DataParser { return NullDataParser() } }
 extension LikeMessage { public var dataParser: DataParser { return NullDataParser() } }
 extension UnlikeMessage { public var dataParser: DataParser { return NullDataParser() } }
-extension FavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
-extension UnfavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
+//extension FavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
+//extension UnfavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
 extension GetDirectMessages { public var dataParser: DataParser { return NullDataParser() } }
 extension PostDirectMessage { public var dataParser: DataParser { return NullDataParser() } }
 extension GetNotificationStatus { public var dataParser: DataParser { return NullDataParser() } }
@@ -214,7 +214,7 @@ extension UpdateTopicMembers { public var dataParser: DataParser { return NullDa
 extension GetSpaces { public var dataParser: DataParser { return NullDataParser() } }
 extension GetSpaceMembers { public var dataParser: DataParser { return NullDataParser() } }
 extension GetFriends { public var dataParser: DataParser { return NullDataParser() } }
-extension SearchAccounts { public var dataParser: DataParser { return NullDataParser() } }
+//extension SearchAccounts { public var dataParser: DataParser { return NullDataParser() } }
 extension GetTalks { public var dataParser: DataParser { return NullDataParser() } }
 extension GetTalk { public var dataParser: DataParser { return NullDataParser() } }
 extension CreateTalk { public var dataParser: DataParser { return NullDataParser() } }
@@ -222,7 +222,14 @@ extension UpdateTalk { public var dataParser: DataParser { return NullDataParser
 extension DeleteTalk { public var dataParser: DataParser { return NullDataParser() } }
 extension AddMessageToTalk { public var dataParser: DataParser { return NullDataParser() } }
 extension RemoveMessageFromTalk { public var dataParser: DataParser { return NullDataParser() } }
-extension GetLikesReceive { public var dataParser: DataParser { return NullDataParser() } }
-extension GetLikesGive { public var dataParser: DataParser { return NullDataParser() } }
-extension GetLikesDiscover { public var dataParser: DataParser { return NullDataParser() } }
+extension GetReceivedLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension GetGivenLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension DiscoverLikes { public var dataParser: DataParser { return NullDataParser() } }
 extension SaveReadLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension CreateTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension GetMyTopics { public var dataParser: DataParser { return NullDataParser() } }
+extension AddTopicToGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteMyTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension PinTopic { public var dataParser: DataParser { return NullDataParser() } }

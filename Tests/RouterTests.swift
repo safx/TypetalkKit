@@ -47,9 +47,9 @@ class RouterTests: XCTestCase {
     }
 
     func testDmGetTopics() {
-        let req = try! GetDmTopics().buildURLRequest()
+        let req = try! GetDmTopics(spaceKey: "foo").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/messages")
+        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v2/messages?spaceKey=foo")
     }
     func testGetMessages() {
         let req = try! GetMessages(topicId: 312).buildURLRequest()
@@ -180,29 +180,17 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/topics/4321/posts/987/like")
     }
 
-    func testFavoriteTopic() {
-        let req = try! FavoriteTopic(topicId: 3334).buildURLRequest()
-        XCTAssertEqual(req.httpMethod!, "POST")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/topics/3334/favorite")
-    }
-
-    func testUnfavoriteTopic() {
-        let req = try! UnfavoriteTopic(topicId: 9943).buildURLRequest()
-        XCTAssertEqual(req.httpMethod!, "DELETE")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/topics/9943/favorite")
-    }
-
     func testGetDirectMessages() {
-        let req = try! GetDirectMessages(accountName: "foobar").buildURLRequest()
+        let req = try! GetDirectMessages(spaceKey: "foo", accountName: "foobar").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/messages/@foobar")
+        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v2/spaces/foo/messages/@foobar")
     }
     // TODO check addtional params
 
     func testPostDirectMessage() {
-        let req = try! PostDirectMessage(accountName: "foobar", message: "hello!").buildURLRequest()
+        let req = try! PostDirectMessage(spaceKey: "foo", accountName: "foobar", message: "hello!").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "POST")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/messages/@foobar")
+        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v2/spaces/foo/messages/@foobar")
         let q = NSString(data: req.httpBody!, encoding: String.Encoding.utf8.rawValue)!
         XCTAssertTrue(q.contains("message=hello%21"))
     }
@@ -217,13 +205,13 @@ class RouterTests: XCTestCase {
     func testGetNotificationStatus() {
         let req = try! GetNotificationStatus().buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v2/notifications/status")
+        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v5/notifications/status")
     }
 
     func testOpenNotification() {
-        let req = try! OpenNotification().buildURLRequest()
+        let req = try! OpenNotification(spaceKey: "foo").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "PUT")
-        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v2/notifications")
+        XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v3/notifications")
     }
 
     func testSaveReadTopic() {
@@ -360,17 +348,17 @@ class RouterTests: XCTestCase {
         let req = try! GetFriends(q: "Tom", spaceKey: "sample").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.host, "typetalk.com")
-        XCTAssertEqual(req.url!.path, "/api/v3/search/friends")
+        XCTAssertEqual(req.url!.path, "/api/v4/search/friends")
         let q = req.url!.query!
         XCTAssertTrue(q.contains("spaceKey=sample"))
         XCTAssertTrue(q.contains("q=Tom"))
     }
 
-    func testSearchAccounts() {
+    /*func testSearchAccounts() {
         let req = try! SearchAccounts(nameOrEmailAddress: "Foobar").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/search/accounts?nameOrEmailAddress=Foobar")
-    }
+    }*/
 
     func testGetTalks() {
         let req = try! GetTalks(topicId: 4256).buildURLRequest()
@@ -462,31 +450,28 @@ class RouterTests: XCTestCase {
         XCTAssertEqual(req.url!.absoluteString, "https://typetalk.com/api/v1/topics/965/talks/987/posts?postIds%5B%5D=123&postIds%5B%5D=758")
     }
 
-    func testGetLikesReceive() {
-        let req = try! GetLikesReceive(spaceKey: "myspace").buildURLRequest()
+    func testGetReceivedLikes() {
+        let req = try! GetReceivedLikes(spaceKey: "myspace").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.host, "typetalk.com")
-        XCTAssertEqual(req.url!.path, "/api/v2/likes/receive")
-        let q = req.url!.query!
-        XCTAssertTrue(q.contains("spaceKey=myspace"))
+        XCTAssertEqual(req.url!.path, "/api/v1/spaces/myspace/likes/receive")
+        XCTAssertNil(req.url!.query)
     }
 
-    func testGetLikesGive() {
-        let req = try! GetLikesGive(spaceKey: "myspace").buildURLRequest()
+    func testGetGivenLikes() {
+        let req = try! GetGivenLikes(spaceKey: "myspace").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.host, "typetalk.com")
-        XCTAssertEqual(req.url!.path, "/api/v2/likes/give")
-        let q = req.url!.query!
-        XCTAssertTrue(q.contains("spaceKey=myspace"))
+        XCTAssertEqual(req.url!.path, "/api/v1/spaces/myspace/likes/give")
+        XCTAssertNil(req.url!.query)
     }
 
-    func testGetLikesDiscover() {
-        let req = try! GetLikesDiscover(spaceKey: "myspace").buildURLRequest()
+    func testDiscoverLikes() {
+        let req = try! DiscoverLikes(spaceKey: "myspace").buildURLRequest()
         XCTAssertEqual(req.httpMethod!, "GET")
         XCTAssertEqual(req.url!.host, "typetalk.com")
-        XCTAssertEqual(req.url!.path, "/api/v2/likes/discover")
-        let q = req.url!.query!
-        XCTAssertTrue(q.contains("spaceKey=myspace"))
+        XCTAssertEqual(req.url!.path, "/api/v1/spaces/myspace/likes/discover")
+        XCTAssertNil(req.url!.query)
     }
 
     func testSaveReadLikes() {
