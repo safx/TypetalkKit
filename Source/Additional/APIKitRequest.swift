@@ -28,12 +28,6 @@ public struct NullDataParser: DataParser {
 }
 
 extension APIKitRequest where Self.Response: Decodable {
-    public typealias DataParser = NullDataParser
-
-    public var dataParser: DataParser {
-        return NullDataParser()
-    }
-
     public func response(from object: Any, urlResponse: HTTPURLResponse) throws -> Self.Response {
         let decoder = JSONDecoder()
         if #available(OSX 10.12, iOS 10.0, *) {

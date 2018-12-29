@@ -975,11 +975,11 @@
 					};
 					8D9D18471A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 					};
 					8D9D18511A77D54200E3BCCF = {
 						CreatedOnToolsVersion = 6.1.1;
-						LastSwiftMigration = 0900;
+						LastSwiftMigration = 1010;
 					};
 					8DBA516719C5B47300BD88A3 = {
 						CreatedOnToolsVersion = 6.1;
@@ -1470,8 +1470,7 @@
 				PRODUCT_NAME = TypetalkKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1497,8 +1496,7 @@
 				PRODUCT_NAME = TypetalkKit;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
@@ -1523,8 +1521,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -1545,8 +1542,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.blogspot.safx-dev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
-				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
