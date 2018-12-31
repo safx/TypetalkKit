@@ -181,6 +181,9 @@ private func stringFromDictionary(_ dictionary: [String:AnyObject]) -> String {
     return pairs.joined(separator: "&")
 }
 
+extension Authorize { public var dataParser: DataParser { return NullDataParser() } }
+extension AccessToken { public var dataParser: DataParser { return NullDataParser() } }
+
 extension GetProfile { public var dataParser: DataParser { return NullDataParser() } }
 extension GetFriendProfile { public var dataParser: DataParser { return NullDataParser() } }
 extension GetOnlineStatus { public var dataParser: DataParser { return NullDataParser() } }
