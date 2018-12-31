@@ -170,7 +170,6 @@ class UpdateTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"PUT,v1/
 }
 
 class DeleteTopic: ClassInit, APIKitHelper, TypetalkRequest { // router:"DELETE,v1/topics/\(topicId)"
-    typealias APIKitResponse = Topic
     let topicId: TopicID // Topic ID
 }
 

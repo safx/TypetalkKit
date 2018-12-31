@@ -663,8 +663,8 @@ public class UpdateTopic: TypetalkRequest {
 }
 
 public class DeleteTopic: TypetalkRequest {
-	public typealias APIKitResponse = Topic
-	public typealias Response = Topic
+	public typealias APIKitResponse = DeleteTopicResponse
+	public typealias Response = DeleteTopicResponse
 	public let topicId: Int
 
 	public init(topicId: Int) {

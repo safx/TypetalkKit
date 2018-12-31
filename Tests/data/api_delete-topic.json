@@ -1,1 +1,1 @@
-{ "id": 223, "name": "Update test topic", "description": "Test topic description", "suggestion": "Update test topic", "isDirectMessage": false, "lastPostedAt": null, "createdAt": "2016-12-21T10:12:14Z", "updatedAt": "2016-12-21T10:12:15Z" }
+{ "myTopic": { "id": 8708, "topicId": 6196, "accountId": 2500, "kind": "grouped", "topicGroupId": 1642, "exTopicGroupId": null, "orderNo": 0, "createdAt": "2018-09-19T05:02:16Z", "updatedAt": "2018-09-19T05:02:16Z" } }

@@ -7,6 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		059C9D4D21D8ACC100B08157 /* api_add-topic-to-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4321D8ACBF00B08157 /* api_add-topic-to-group.json */; };
+		059C9D4E21D8ACC100B08157 /* api_add-topic-to-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4321D8ACBF00B08157 /* api_add-topic-to-group.json */; };
+		059C9D4F21D8ACC100B08157 /* api_delete-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4421D8ACC000B08157 /* api_delete-topic-group.json */; };
+		059C9D5021D8ACC100B08157 /* api_delete-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4421D8ACC000B08157 /* api_delete-topic-group.json */; };
+		059C9D5121D8ACC100B08157 /* api_get-my-topics.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4521D8ACC000B08157 /* api_get-my-topics.json */; };
+		059C9D5221D8ACC100B08157 /* api_get-my-topics.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4521D8ACC000B08157 /* api_get-my-topics.json */; };
+		059C9D5321D8ACC100B08157 /* api_update-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4621D8ACC000B08157 /* api_update-topic-group.json */; };
+		059C9D5421D8ACC100B08157 /* api_update-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4621D8ACC000B08157 /* api_update-topic-group.json */; };
+		059C9D5521D8ACC100B08157 /* api_get-given-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4721D8ACC000B08157 /* api_get-given-likes.json */; };
+		059C9D5621D8ACC100B08157 /* api_get-given-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4721D8ACC000B08157 /* api_get-given-likes.json */; };
+		059C9D5721D8ACC100B08157 /* api_create-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4821D8ACC000B08157 /* api_create-topic-group.json */; };
+		059C9D5821D8ACC100B08157 /* api_create-topic-group.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4821D8ACC000B08157 /* api_create-topic-group.json */; };
+		059C9D5921D8ACC100B08157 /* api_get-received-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4921D8ACC000B08157 /* api_get-received-likes.json */; };
+		059C9D5A21D8ACC100B08157 /* api_get-received-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4921D8ACC000B08157 /* api_get-received-likes.json */; };
+		059C9D5B21D8ACC100B08157 /* api_delete-my-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4A21D8ACC000B08157 /* api_delete-my-topic.json */; };
+		059C9D5C21D8ACC100B08157 /* api_delete-my-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4A21D8ACC000B08157 /* api_delete-my-topic.json */; };
+		059C9D5D21D8ACC100B08157 /* api_discover-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4B21D8ACC100B08157 /* api_discover-likes.json */; };
+		059C9D5E21D8ACC100B08157 /* api_discover-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4B21D8ACC100B08157 /* api_discover-likes.json */; };
+		059C9D5F21D8ACC100B08157 /* api_pin-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4C21D8ACC100B08157 /* api_pin-topic.json */; };
+		059C9D6021D8ACC100B08157 /* api_pin-topic.json in Resources */ = {isa = PBXBuildFile; fileRef = 059C9D4C21D8ACC100B08157 /* api_pin-topic.json */; };
 		05DCE7672095F2B9005B2AD8 /* api_save-read-likes.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8BF20940AD400DB6391 /* api_save-read-likes.json */; };
 		05DCE7682095F2B9005B2AD8 /* api_search-messages.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8C020940AD400DB6391 /* api_search-messages.json */; };
 		05DCE7692095F2B9005B2AD8 /* api_get-likes-discover.json in Resources */ = {isa = PBXBuildFile; fileRef = 058CC8B920940AC000DB6391 /* api_get-likes-discover.json */; };
@@ -350,6 +370,16 @@
 		058CC8BB20940AC000DB6391 /* api_get-likes-receive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-likes-receive.json"; sourceTree = "<group>"; };
 		058CC8BF20940AD400DB6391 /* api_save-read-likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_save-read-likes.json"; sourceTree = "<group>"; };
 		058CC8C020940AD400DB6391 /* api_search-messages.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_search-messages.json"; sourceTree = "<group>"; };
+		059C9D4321D8ACBF00B08157 /* api_add-topic-to-group.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_add-topic-to-group.json"; sourceTree = "<group>"; };
+		059C9D4421D8ACC000B08157 /* api_delete-topic-group.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_delete-topic-group.json"; sourceTree = "<group>"; };
+		059C9D4521D8ACC000B08157 /* api_get-my-topics.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-my-topics.json"; sourceTree = "<group>"; };
+		059C9D4621D8ACC000B08157 /* api_update-topic-group.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_update-topic-group.json"; sourceTree = "<group>"; };
+		059C9D4721D8ACC000B08157 /* api_get-given-likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-given-likes.json"; sourceTree = "<group>"; };
+		059C9D4821D8ACC000B08157 /* api_create-topic-group.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_create-topic-group.json"; sourceTree = "<group>"; };
+		059C9D4921D8ACC000B08157 /* api_get-received-likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_get-received-likes.json"; sourceTree = "<group>"; };
+		059C9D4A21D8ACC000B08157 /* api_delete-my-topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_delete-my-topic.json"; sourceTree = "<group>"; };
+		059C9D4B21D8ACC100B08157 /* api_discover-likes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_discover-likes.json"; sourceTree = "<group>"; };
+		059C9D4C21D8ACC100B08157 /* api_pin-topic.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "api_pin-topic.json"; sourceTree = "<group>"; };
 		8D08E37119E0157B004F7CBC /* Typealiases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Typealiases.swift; sourceTree = "<group>"; };
 		8D0F05701B88D14A00435F66 /* Playground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = Playground.playground; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		8D0F057B1B8A1D8300435F66 /* StreamingEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StreamingEvent.swift; sourceTree = "<group>"; };
@@ -732,6 +762,16 @@
 		8DBA51A019C5E9FD00BD88A3 /* data */ = {
 			isa = PBXGroup;
 			children = (
+				059C9D4321D8ACBF00B08157 /* api_add-topic-to-group.json */,
+				059C9D4821D8ACC000B08157 /* api_create-topic-group.json */,
+				059C9D4A21D8ACC000B08157 /* api_delete-my-topic.json */,
+				059C9D4421D8ACC000B08157 /* api_delete-topic-group.json */,
+				059C9D4B21D8ACC100B08157 /* api_discover-likes.json */,
+				059C9D4721D8ACC000B08157 /* api_get-given-likes.json */,
+				059C9D4521D8ACC000B08157 /* api_get-my-topics.json */,
+				059C9D4921D8ACC000B08157 /* api_get-received-likes.json */,
+				059C9D4C21D8ACC100B08157 /* api_pin-topic.json */,
+				059C9D4621D8ACC000B08157 /* api_update-topic-group.json */,
 				058CC8BF20940AD400DB6391 /* api_save-read-likes.json */,
 				058CC8C020940AD400DB6391 /* api_search-messages.json */,
 				058CC8B920940AC000DB6391 /* api_get-likes-discover.json */,
@@ -1028,6 +1068,7 @@
 				8DD221CC1A90DA2400EA024C /* streaming-postMessage.json in Resources */,
 				8D3BA4341F13B7C500478459 /* api_get-friend-profile.json in Resources */,
 				8DD221C41A90DA2400EA024C /* streaming-joinTopics.json in Resources */,
+				059C9D5E21D8ACC100B08157 /* api_discover-likes.json in Resources */,
 				8DD221F41A90DA3300EA024C /* api_get-profile.json in Resources */,
 				8DE627A61A962DD7000EADC3 /* model_profile.json in Resources */,
 				8DD221B81A90DA2400EA024C /* streaming-createTopic.json in Resources */,
@@ -1053,6 +1094,8 @@
 				8DD221F31A90DA3300EA024C /* api_get-notifications.json in Resources */,
 				8D3BA4361F13B7C500478459 /* api_post-direct-message.json in Resources */,
 				8DD221EC1A90DA3300EA024C /* api_delete-topic.json in Resources */,
+				059C9D6021D8ACC100B08157 /* api_pin-topic.json in Resources */,
+				059C9D5421D8ACC100B08157 /* api_update-topic-group.json in Resources */,
 				8DD221F61A90DA3300EA024C /* api_get-talks.json in Resources */,
 				8DD221ED1A90DA3300EA024C /* api_favorite-topic.json in Resources */,
 				8DD222171A90DA3300EA024C /* model_team_invite.json in Resources */,
@@ -1062,6 +1105,7 @@
 				8DD221F11A90DA3300EA024C /* api_get-messages.json in Resources */,
 				8DD221F01A90DA3300EA024C /* api_get-message.json in Resources */,
 				8DD222151A90DA3300EA024C /* model_post.json in Resources */,
+				059C9D5021D8ACC100B08157 /* api_delete-topic-group.json in Resources */,
 				8DD2220D1A90DA3300EA024C /* model_urlattachment.json in Resources */,
 				8DD221EE1A90DA3300EA024C /* api_get-friends.json in Resources */,
 				8DD2221D1A90DA3300EA024C /* model_notification_status.json in Resources */,
@@ -1073,12 +1117,14 @@
 				8DD2220B1A90DA3300EA024C /* model_team_with_members.json in Resources */,
 				8DEB10191C21BD7B000A13CD /* api_download-attachment.json in Resources */,
 				8DD221E81A90DA3300EA024C /* api_create-topic.json in Resources */,
+				059C9D4E21D8ACC100B08157 /* api_add-topic-to-group.json in Resources */,
 				8DD221FA1A90DA3300EA024C /* api_get-topics.json in Resources */,
 				05DCE7752095F2BA005B2AD8 /* api_get-likes-receive.json in Resources */,
 				8DAD51F61C9DABDB005169D7 /* api_update-topic-members.json in Resources */,
 				8DD222041A90DA3300EA024C /* api_unlike-message.json in Resources */,
 				8DE627A31A962DC1000EADC3 /* streaming-postLinks.json in Resources */,
 				05DCE7742095F2BA005B2AD8 /* api_get-likes-give.json in Resources */,
+				059C9D5821D8ACC100B08157 /* api_create-topic-group.json in Resources */,
 				8DD2220F1A90DA3300EA024C /* model_topic_with_userinfo.json in Resources */,
 				8DD221B61A90DA2400EA024C /* streaming-createTalk.json in Resources */,
 				8DD222181A90DA3300EA024C /* model_thumbnail.json in Resources */,
@@ -1097,9 +1143,11 @@
 				8DD222071A90DA3300EA024C /* model_account.json in Resources */,
 				8DD221D41A90DA2400EA024C /* streaming-saveBookmark.json in Resources */,
 				8DD221DA1A90DA2400EA024C /* streaming-updateNotificationAccess.json in Resources */,
+				059C9D5A21D8ACC100B08157 /* api_get-received-likes.json in Resources */,
 				8DD221D01A90DA2400EA024C /* streaming-removeTalkPost.json in Resources */,
 				8DD221BA1A90DA2400EA024C /* streaming-declineTeamInvite.json in Resources */,
 				8DD222021A90DA3300EA024C /* api_search-accounts.json in Resources */,
+				059C9D5C21D8ACC100B08157 /* api_delete-my-topic.json in Resources */,
 				8DD222101A90DA3300EA024C /* model_bookmark.json in Resources */,
 				8D8C93451C37A984006B75DF /* api_remove-message-from-talk.json in Resources */,
 				8DD2220A1A90DA3300EA024C /* model_team.json in Resources */,
@@ -1115,6 +1163,8 @@
 				8DD221F81A90DA3300EA024C /* api_get-topic-details.json in Resources */,
 				8DD222081A90DA3300EA024C /* model_member.json in Resources */,
 				8D4218991AA21138009D2077 /* streaming-declineTopicInvite.json in Resources */,
+				059C9D5621D8ACC100B08157 /* api_get-given-likes.json in Resources */,
+				059C9D5221D8ACC100B08157 /* api_get-my-topics.json in Resources */,
 				8DD222031A90DA3300EA024C /* api_unfavorite-topic.json in Resources */,
 				8DAD51F41C9DABDB005169D7 /* api_get-space-members.json in Resources */,
 				8DD222161A90DA3300EA024C /* model_mention.json in Resources */,
@@ -1140,6 +1190,7 @@
 				8DD221C51A90DA2400EA024C /* streaming-leaveTopics.json in Resources */,
 				8DA0033319DEEEA500844F14 /* model_member.json in Resources */,
 				8DE627A51A962DD7000EADC3 /* model_profile.json in Resources */,
+				059C9D5D21D8ACC100B08157 /* api_discover-likes.json in Resources */,
 				8DD221CF1A90DA2400EA024C /* streaming-removeTalkPost.json in Resources */,
 				8D7B02F319D45DF5000A0F7C /* api_get-topics.json in Resources */,
 				05DCE76C2095F2B9005B2AD8 /* api_get-direct-messages.json in Resources */,
@@ -1165,6 +1216,8 @@
 				8D7B02FC19D45DF5000A0F7C /* api_unfavorite-topic.json in Resources */,
 				8DD221DB1A90DA2400EA024C /* streaming-updateTalk.json in Resources */,
 				05DCE76D2095F2B9005B2AD8 /* api_get-dm-topics.json in Resources */,
+				059C9D5F21D8ACC100B08157 /* api_pin-topic.json in Resources */,
+				059C9D5321D8ACC100B08157 /* api_update-topic-group.json in Resources */,
 				8D7B02E619D45DF5000A0F7C /* api_favorite-topic.json in Resources */,
 				05DCE76F2095F2B9005B2AD8 /* api_get-online-status.json in Resources */,
 				8DD221B51A90DA2400EA024C /* streaming-createTalk.json in Resources */,
@@ -1174,6 +1227,7 @@
 				8D7E6DD419CF28D3004AAF35 /* model_bookmark.json in Resources */,
 				8D8C93381C37A6AA006B75DF /* api_update-talk.json in Resources */,
 				8DD221B71A90DA2400EA024C /* streaming-createTopic.json in Resources */,
+				059C9D4F21D8ACC100B08157 /* api_delete-topic-group.json in Resources */,
 				8DD221D51A90DA2400EA024C /* streaming-unfavoriteTopic.json in Resources */,
 				8D7B02E919D45DF5000A0F7C /* api_get-message.json in Resources */,
 				8D7B02EA19D45DF5000A0F7C /* api_get-messages.json in Resources */,
@@ -1185,12 +1239,14 @@
 				8DEB10181C21BD7B000A13CD /* api_download-attachment.json in Resources */,
 				8D7B02F919D45DF5000A0F7C /* api_save-read-mention.json in Resources */,
 				8D7B02E419D45DF5000A0F7C /* api_delete-message.json in Resources */,
+				059C9D4D21D8ACC100B08157 /* api_add-topic-to-group.json in Resources */,
 				8DE627A21A962DC1000EADC3 /* streaming-postLinks.json in Resources */,
 				8D7B02FF19D45DF5000A0F7C /* api_upload-attachment.json in Resources */,
 				8DAD51F31C9DABDA005169D7 /* api_update-topic-members.json in Resources */,
 				8D7B02EF19D45DF5000A0F7C /* api_get-talks.json in Resources */,
 				8D7B02E819D45DF5000A0F7C /* api_get-mentions.json in Resources */,
 				8D7B02EB19D45DF5000A0F7C /* api_get-notification-status.json in Resources */,
+				059C9D5721D8ACC100B08157 /* api_create-topic-group.json in Resources */,
 				8D7B02E719D45DF5000A0F7C /* api_get-friends.json in Resources */,
 				8D7E6E2C19D2F757004AAF35 /* model_talk.json in Resources */,
 				8D7B02EE19D45DF5000A0F7C /* api_get-talk.json in Resources */,
@@ -1209,9 +1265,11 @@
 				8DD221B11A90DA2400EA024C /* streaming-acceptTeamInvite.json in Resources */,
 				05DCE7692095F2B9005B2AD8 /* api_get-likes-discover.json in Resources */,
 				8D7B02EC19D45DF5000A0F7C /* api_get-notifications.json in Resources */,
+				059C9D5921D8ACC100B08157 /* api_get-received-likes.json in Resources */,
 				8DD221C31A90DA2400EA024C /* streaming-joinTopics.json in Resources */,
 				05DCE76E2095F2B9005B2AD8 /* api_get-friend-profile.json in Resources */,
 				8D894A9419E2E52D0039D0ED /* model_notification_status.json in Resources */,
+				059C9D5B21D8ACC100B08157 /* api_delete-my-topic.json in Resources */,
 				05DCE76A2095F2B9005B2AD8 /* api_get-likes-give.json in Resources */,
 				8D7B02F119D45DF5000A0F7C /* api_get-topic-details.json in Resources */,
 				8D8C93421C37A983006B75DF /* api_remove-message-from-talk.json in Resources */,
@@ -1227,6 +1285,8 @@
 				8D7E6E3919D2F9BF004AAF35 /* model_post.json in Resources */,
 				05DCE7682095F2B9005B2AD8 /* api_search-messages.json in Resources */,
 				8D4218981AA21138009D2077 /* streaming-declineTopicInvite.json in Resources */,
+				059C9D5521D8ACC100B08157 /* api_get-given-likes.json in Resources */,
+				059C9D5121D8ACC100B08157 /* api_get-my-topics.json in Resources */,
 				8D7B02ED19D45DF5000A0F7C /* api_get-profile.json in Resources */,
 				8DAD51F11C9DABDA005169D7 /* api_get-space-members.json in Resources */,
 				8D7B02FE19D45DF5000A0F7C /* api_update-topic.json in Resources */,

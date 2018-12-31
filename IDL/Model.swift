@@ -40,13 +40,15 @@ public struct Account: Decodable, ClassInit {
     public let id: AccountID = 0
     public let name: String = ""
     public let fullName: String = ""
+    public let mailAddress: String?
+    public let lang: String?
+    public let timezoneId: String?
     public let suggestion: String = ""
     public let imageUrl: URL = URL(string: "INVALID")!
     public let imageUpdatedAt: Date?
     public let createdAt: Date = Date()
     public let updatedAt: Date = Date()
     public let isBot: Bool?
-    public let mailAddress: String?
 }
 
 public struct AccountWithLoginStatus: Decodable, ClassInit {
@@ -136,9 +138,10 @@ public struct LikeStatus: Decodable, ClassInit {
 }
 
 public struct LikedPost: Decodable, ClassInit {
+    let topic: Topic?
     let post: Post?
     let directMessage: Post?
-    let likes: [Like]
+    let likes: [Like]?
 }
 
 public struct Link: Decodable, ClassInit {
@@ -177,6 +180,7 @@ public struct MyLike: Decodable, ClassInit {
 }
 
 public struct MyLikedPost: Decodable, ClassInit {
+    let topic: Topic?
     let post: Post?
     let directMessage: Post?
     let myLike: MyLike
@@ -191,13 +195,15 @@ public struct MySpace: Decodable {
 }
 
 public struct MyTopic: Decodable, ClassInit {
-    public let id: MyTopicID = 0
+    public let id: MyTopicID?
     public let topicId: TopicID = 0
     public let kind: String = ""
     public let orderNo: Int = -1
-    public let topicGroupId: TopicGroupID
-    public let exTopicGroupId: TopicGroupID
+    public let topicGroupId: TopicGroupID?
+    public let exTopicGroupId: TopicGroupID?
     public let accountId: AccountID
+    //public let topic: Topic?
+    //public let unread: Unread?
     public let createdAt: Date = Date()
     public let updatedAt: Date = Date()
 }
@@ -218,6 +224,7 @@ public struct NotificationStatus: Decodable, ClassInit {
     public let directMessage: DirectMessage?
     public let mySpace: MySpace?
     public let space: SpaceInfo?
+    public let unreads: Unreads?
 
     public struct Access: Decodable, ClassInit {
         public let unopened: Int?
@@ -225,6 +232,10 @@ public struct NotificationStatus: Decodable, ClassInit {
     }
     public struct DirectMessage: Decodable, ClassInit {
         public let unreadTopics: Int?
+    }
+    public struct Unreads: Decodable, ClassInit {
+        public let topicIds: [TopicID]
+        public let dmTopicIds: [TopicID]
     }
 }
 
@@ -351,18 +362,12 @@ public struct TopicInvite: Decodable, ClassInit {
     public let topic: Topic?
 }
 
-public struct PinnedTopic: Decodable, ClassInit {
-    public let topic: Topic
-    public let exTopicGroupId: TopicGroupID
-    public let unread: Unread?
-    public let createdAt: Date = Date()
-}
-
 public struct PaymentPlan: Decodable, ClassInit {
     public let plan: PlanInfo
     public let enabled: Bool
     public let trial: TrialInfo?
     public let numberOfUsers: Int
+    public let numberOfAllowedAddresses: Int?
     public let totalAttachmentSize: Int
     public let createdAt: Date = Date()
     public let updatedAt: Date = Date()
@@ -372,6 +377,7 @@ public struct PlanInfo: Decodable, ClassInit {
     public let key: String
     public let name: String
     public let limitNumberOfUsers: Int
+    public let limitNumberOfAllowedAddresses: Int?
     public let limitTotalAttachmentSize: Int
 }
 
