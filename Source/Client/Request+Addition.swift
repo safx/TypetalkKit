@@ -16,6 +16,9 @@ public protocol AuthRequest: APIKitRequest {}
 
 extension APIKitRequest {
     public var bodyParameters: BodyParameters? {
+        guard self.method == .post || self.method == .delete || self.method == .put else {
+            return nil
+        }
         let ps = self.parameters as? [String: AnyObject] ?? [:]
         return FormURLArrayEncodedBodyParameters(formObject: ps, encoding: String.Encoding.utf8)
     }
