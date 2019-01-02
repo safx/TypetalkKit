@@ -59,12 +59,12 @@ extension TypetalkAPI {
 final private class TypetalkStream : WebSocketDelegate {
     fileprivate typealias EventClosure = (StreamingEvent) -> ()
 
-    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.apiURLString + "v1/streaming")!)
+    fileprivate let socket = WebSocket(url: URL(string: TypetalkAPI.messageApiURLString)!)
     fileprivate var streamingClosure: EventClosure?
 
     fileprivate func connect(_ accessToken: String, closure: @escaping EventClosure) {
         streamingClosure = closure
-        socket.headers["Authorization"] = "Bearer \(accessToken)"
+        socket.request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
         socket.delegate = self
         socket.connect()
     }
@@ -81,15 +81,15 @@ final private class TypetalkStream : WebSocketDelegate {
         }
     }
 
-    fileprivate func websocketDidConnect(socket: WebSocket) {
+    fileprivate func websocketDidConnect(socket: WebSocketClient) {
         sendStreamEventIfPossible(.connected)
     }
 
-    fileprivate func websocketDidDisconnect(socket: WebSocket, error: NSError?) {
+    fileprivate func websocketDidDisconnect(socket: WebSocketClient, error: Error?) {
         sendStreamEventIfPossible(.disconnected(error))
     }
 
-    fileprivate func websocketDidReceiveMessage(socket: WebSocket, text: String) {
+    fileprivate func websocketDidReceiveMessage(socket: WebSocketClient, text: String) {
         do {
             let jsonData = text.data(using: .utf8)!
             if let ev = try StreamingEvent.parse(data: jsonData) {
@@ -100,7 +100,7 @@ final private class TypetalkStream : WebSocketDelegate {
         }
     }
 
-    fileprivate func websocketDidReceiveData(socket: WebSocket, data: Data) {
+    fileprivate func websocketDidReceiveData(socket: WebSocketClient, data: Data) {
         fatalError("Never be called")
     }
 

@@ -5,7 +5,7 @@ import Foundation
 
 public enum StreamingEvent {
 	case connected
-	case disconnected(NSError?)
+	case disconnected(Error?)
 	case addTalkPost(AddTalkPostEvent)
 	case createTalk(CreateTalkEvent)
 	case createTopic(CreateTopicEvent)

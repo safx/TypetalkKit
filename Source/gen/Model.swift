@@ -22,30 +22,39 @@ public enum Scope: String, Encodable, Decodable {
 	case topicDelete = "topic.delete"
 }
 
+public enum SortType: String, Encodable, Decodable {
+	case recent = "recent"
+	case alphanumerical = "alphanumerical"
+}
+
 public struct Account: Decodable {
 	public let id: Int
 	public let name: String
 	public let fullName: String
+	public let mailAddress: String?
+	public let lang: String?
+	public let timezoneId: String?
 	public let suggestion: String
 	public let imageUrl: URL
 	public let imageUpdatedAt: Date?
 	public let createdAt: Date
 	public let updatedAt: Date
 	public let isBot: Bool?
-	public let mailAddress: String?
 
 
-	public init(id: Int = 0, name: String = "", fullName: String = "", suggestion: String = "", imageUrl: URL = URL(string: "INVALID")!, imageUpdatedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isBot: Bool? = nil, mailAddress: String? = nil) {
+	public init(id: Int = 0, name: String = "", fullName: String = "", mailAddress: String? = nil, lang: String? = nil, timezoneId: String? = nil, suggestion: String = "", imageUrl: URL = URL(string: "INVALID")!, imageUpdatedAt: Date? = nil, createdAt: Date = Date(), updatedAt: Date = Date(), isBot: Bool? = nil) {
 		self.id = id
 		self.name = name
 		self.fullName = fullName
+		self.mailAddress = mailAddress
+		self.lang = lang
+		self.timezoneId = timezoneId
 		self.suggestion = suggestion
 		self.imageUrl = imageUrl
 		self.imageUpdatedAt = imageUpdatedAt
 		self.createdAt = createdAt
 		self.updatedAt = updatedAt
 		self.isBot = isBot
-		self.mailAddress = mailAddress
 	}
 }
 
@@ -239,12 +248,14 @@ public struct LikeStatus: Decodable {
 }
 
 public struct LikedPost: Decodable {
+	public let topic: Topic?
 	public let post: Post?
 	public let directMessage: Post?
-	public let likes: [Like]
+	public let likes: [Like]?
 
 
-	public init(post: Post? = nil, directMessage: Post? = nil, likes: [Like]) {
+	public init(topic: Topic? = nil, post: Post? = nil, directMessage: Post? = nil, likes: [Like]? = nil) {
+		self.topic = topic
 		self.post = post
 		self.directMessage = directMessage
 		self.likes = likes
@@ -327,12 +338,14 @@ public struct MyLike: Decodable {
 }
 
 public struct MyLikedPost: Decodable {
+	public let topic: Topic?
 	public let post: Post?
 	public let directMessage: Post?
 	public let myLike: MyLike
 
 
-	public init(post: Post? = nil, directMessage: Post? = nil, myLike: MyLike) {
+	public init(topic: Topic? = nil, post: Post? = nil, directMessage: Post? = nil, myLike: MyLike) {
+		self.topic = topic
 		self.post = post
 		self.directMessage = directMessage
 		self.myLike = myLike
@@ -346,6 +359,31 @@ public struct MySpace: Decodable {
 	public let myPlan: PaymentPlan
 	public let myRole: String
 
+}
+
+public struct MyTopic: Decodable {
+	public let id: Int?
+	public let topicId: Int
+	public let kind: String
+	public let orderNo: Int
+	public let topicGroupId: Int?
+	public let exTopicGroupId: Int?
+	public let accountId: Int
+	public let createdAt: Date
+	public let updatedAt: Date
+
+
+	public init(id: Int? = nil, topicId: Int = 0, kind: String = "", orderNo: Int = -1, topicGroupId: Int? = nil, exTopicGroupId: Int? = nil, accountId: Int, createdAt: Date = Date(), updatedAt: Date = Date()) {
+		self.id = id
+		self.topicId = topicId
+		self.kind = kind
+		self.orderNo = orderNo
+		self.topicGroupId = topicGroupId
+		self.exTopicGroupId = exTopicGroupId
+		self.accountId = accountId
+		self.createdAt = createdAt
+		self.updatedAt = updatedAt
+	}
 }
 
 public struct Notifications: Decodable {
@@ -376,14 +414,16 @@ public struct NotificationStatus: Decodable {
 	public let directMessage: NotificationStatus.DirectMessage?
 	public let mySpace: MySpace?
 	public let space: SpaceInfo?
+	public let unreads: NotificationStatus.Unreads?
 
 
-	public init(access: NotificationStatus.Access? = nil, like: LikeStatus? = nil, directMessage: NotificationStatus.DirectMessage? = nil, mySpace: MySpace? = nil, space: SpaceInfo? = nil) {
+	public init(access: NotificationStatus.Access? = nil, like: LikeStatus? = nil, directMessage: NotificationStatus.DirectMessage? = nil, mySpace: MySpace? = nil, space: SpaceInfo? = nil, unreads: NotificationStatus.Unreads? = nil) {
 		self.access = access
 		self.like = like
 		self.directMessage = directMessage
 		self.mySpace = mySpace
 		self.space = space
+		self.unreads = unreads
 	}
 
 	public struct Access: Decodable {
@@ -403,6 +443,17 @@ public struct NotificationStatus: Decodable {
 
 		public init(unreadTopics: Int? = nil) {
 			self.unreadTopics = unreadTopics
+		}
+	}
+
+	public struct Unreads: Decodable {
+		public let topicIds: [Int]
+		public let dmTopicIds: [Int]
+
+
+		public init(topicIds: [Int], dmTopicIds: [Int]) {
+			self.topicIds = topicIds
+			self.dmTopicIds = dmTopicIds
 		}
 	}
 }
@@ -565,6 +616,14 @@ public struct Topic: Decodable {
 	}
 }
 
+public struct TopicGroup: Decodable {
+	public let id: Int
+	public let name: String
+	public let isMuted: Bool
+	public let sortType: SortType
+
+}
+
 public struct TopicWithAccounts: Decodable {
 	public let topic: Topic
 	public let mySpace: MySpace?
@@ -633,16 +692,18 @@ public struct PaymentPlan: Decodable {
 	public let enabled: Bool
 	public let trial: TrialInfo?
 	public let numberOfUsers: Int
+	public let numberOfAllowedAddresses: Int?
 	public let totalAttachmentSize: Int
 	public let createdAt: Date
 	public let updatedAt: Date
 
 
-	public init(plan: PlanInfo, enabled: Bool, trial: TrialInfo? = nil, numberOfUsers: Int, totalAttachmentSize: Int, createdAt: Date = Date(), updatedAt: Date = Date()) {
+	public init(plan: PlanInfo, enabled: Bool, trial: TrialInfo? = nil, numberOfUsers: Int, numberOfAllowedAddresses: Int? = nil, totalAttachmentSize: Int, createdAt: Date = Date(), updatedAt: Date = Date()) {
 		self.plan = plan
 		self.enabled = enabled
 		self.trial = trial
 		self.numberOfUsers = numberOfUsers
+		self.numberOfAllowedAddresses = numberOfAllowedAddresses
 		self.totalAttachmentSize = totalAttachmentSize
 		self.createdAt = createdAt
 		self.updatedAt = updatedAt
@@ -653,13 +714,15 @@ public struct PlanInfo: Decodable {
 	public let key: String
 	public let name: String
 	public let limitNumberOfUsers: Int
+	public let limitNumberOfAllowedAddresses: Int?
 	public let limitTotalAttachmentSize: Int
 
 
-	public init(key: String, name: String, limitNumberOfUsers: Int, limitTotalAttachmentSize: Int) {
+	public init(key: String, name: String, limitNumberOfUsers: Int, limitNumberOfAllowedAddresses: Int? = nil, limitTotalAttachmentSize: Int) {
 		self.key = key
 		self.name = name
 		self.limitNumberOfUsers = limitNumberOfUsers
+		self.limitNumberOfAllowedAddresses = limitNumberOfAllowedAddresses
 		self.limitTotalAttachmentSize = limitTotalAttachmentSize
 	}
 }

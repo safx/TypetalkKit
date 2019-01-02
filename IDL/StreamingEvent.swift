@@ -11,7 +11,7 @@ import Foundation
 
 public enum StreamingEvent: WSHelper {
     case connected              // ws:"-"
-    case disconnected(NSError?) // ws:"-"
+    case disconnected(Error?)   // ws:"-"
 
     case addTalkPost
     case createTalk

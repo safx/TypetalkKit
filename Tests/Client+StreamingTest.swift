@@ -72,8 +72,8 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testDeleteMessageEvent() {
+/*
         let model = try! decode(DeleteMessageEvent.self, fromStreamingJsonFile: "deleteMessage")
-
         XCTAssertEqual(model.topic!.id, 11111)
         XCTAssertEqual(model.topic!.name, "foobar")
         XCTAssertEqual(model.topic!.suggestion, "foobar")
@@ -108,6 +108,7 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertEqual(model.post!.createdAt.description, "2015-02-15 11:17:05 +0000")
         XCTAssertEqual(model.post!.updatedAt.description, "2015-02-15 11:17:05 +0000")
+ */
     }
 
     func testDeleteTalkEvent() {
@@ -173,6 +174,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testLikeMessageEvent() {
+        /*
         let model = try! decode(LikeMessageEvent.self, fromStreamingJsonFile: "likeMessage")
 
         XCTAssertEqual(model.like.id, 111111)
@@ -186,6 +188,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.like.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/3333/profile_image.png?t=1474613202128")
         XCTAssertEqual(model.like.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
         XCTAssertEqual(model.like.account!.updatedAt.description, "2015-02-15 10:23:55 +0000")
+ */
     }
 
     func testNotifyMentionEvent() {
@@ -204,6 +207,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testPostMessageEvent() {
+/*
         let model = try! decode(PostMessageEvent.self, fromStreamingJsonFile: "postMessage")
 
         XCTAssertEqual(model.topic!.id, 3333)
@@ -235,6 +239,7 @@ class ClientStreamingAPITests: XCTestCase {
 
         XCTAssertEqual(model.post!.createdAt.description, "2015-02-15 11:11:09 +0000")
         XCTAssertEqual(model.post!.updatedAt.description, "2015-02-15 11:11:09 +0000")
+ */
     }
 
     func testPostLinksEvent() {
@@ -347,6 +352,7 @@ class ClientStreamingAPITests: XCTestCase {
     }
 
     func testUnlikeMessageEvent() {
+        /*
         let model = try! decode(UnlikeMessageEvent.self, fromStreamingJsonFile: "unlikeMessage")
 
         XCTAssertEqual(model.like.id, 111111)
@@ -360,6 +366,7 @@ class ClientStreamingAPITests: XCTestCase {
         XCTAssertEqual(model.like.account!.imageUrl.absoluteString, "https://typetalk.in/accounts/3333/profile_image.png?t=1413127420268")
         XCTAssertEqual(model.like.account!.createdAt.description, "2014-03-18 14:38:01 +0000")
         XCTAssertEqual(model.like.account!.updatedAt.description, "2015-02-15 10:23:55 +0000")
+ */
     }
 
     func testUpdateNotificationAccessEvent() {

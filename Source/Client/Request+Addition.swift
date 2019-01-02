@@ -16,6 +16,9 @@ public protocol AuthRequest: APIKitRequest {}
 
 extension APIKitRequest {
     public var bodyParameters: BodyParameters? {
+        guard self.method == .post || self.method == .delete || self.method == .put else {
+            return nil
+        }
         let ps = self.parameters as? [String: AnyObject] ?? [:]
         return FormURLArrayEncodedBodyParameters(formObject: ps, encoding: String.Encoding.utf8)
     }
@@ -180,3 +183,59 @@ private func stringFromDictionary(_ dictionary: [String:AnyObject]) -> String {
 
     return pairs.joined(separator: "&")
 }
+
+extension Authorize { public var dataParser: DataParser { return NullDataParser() } }
+extension AccessToken { public var dataParser: DataParser { return NullDataParser() } }
+
+extension GetProfile { public var dataParser: DataParser { return NullDataParser() } }
+extension GetFriendProfile { public var dataParser: DataParser { return NullDataParser() } }
+extension GetOnlineStatus { public var dataParser: DataParser { return NullDataParser() } }
+extension GetTopics { public var dataParser: DataParser { return NullDataParser() } }
+extension GetDmTopics { public var dataParser: DataParser { return NullDataParser() } }
+extension GetMessages { public var dataParser: DataParser { return NullDataParser() } }
+extension PostMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension UploadAttachment { public var dataParser: DataParser { return NullDataParser() } }
+//extension DownloadAttachment { public var dataParser: DataParser { return NullDataParser() } }
+extension GetTopicMembers { public var dataParser: DataParser { return NullDataParser() } }
+extension GetMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension SearchMessages { public var dataParser: DataParser { return NullDataParser() } }
+extension LikeMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension UnlikeMessage { public var dataParser: DataParser { return NullDataParser() } }
+//extension FavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
+//extension UnfavoriteTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension GetDirectMessages { public var dataParser: DataParser { return NullDataParser() } }
+extension PostDirectMessage { public var dataParser: DataParser { return NullDataParser() } }
+extension GetNotificationStatus { public var dataParser: DataParser { return NullDataParser() } }
+extension OpenNotification { public var dataParser: DataParser { return NullDataParser() } }
+extension SaveReadTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension GetMentions { public var dataParser: DataParser { return NullDataParser() } }
+extension SaveReadMention { public var dataParser: DataParser { return NullDataParser() } }
+extension CreateTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension GetTopicDetails { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateTopicMembers { public var dataParser: DataParser { return NullDataParser() } }
+extension GetSpaces { public var dataParser: DataParser { return NullDataParser() } }
+extension GetSpaceMembers { public var dataParser: DataParser { return NullDataParser() } }
+extension GetFriends { public var dataParser: DataParser { return NullDataParser() } }
+//extension SearchAccounts { public var dataParser: DataParser { return NullDataParser() } }
+extension GetTalks { public var dataParser: DataParser { return NullDataParser() } }
+extension GetTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension CreateTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension AddMessageToTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension RemoveMessageFromTalk { public var dataParser: DataParser { return NullDataParser() } }
+extension GetReceivedLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension GetGivenLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension DiscoverLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension SaveReadLikes { public var dataParser: DataParser { return NullDataParser() } }
+extension CreateTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension UpdateTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteTopicGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension GetMyTopics { public var dataParser: DataParser { return NullDataParser() } }
+extension AddTopicToGroup { public var dataParser: DataParser { return NullDataParser() } }
+extension DeleteMyTopic { public var dataParser: DataParser { return NullDataParser() } }
+extension PinTopic { public var dataParser: DataParser { return NullDataParser() } }

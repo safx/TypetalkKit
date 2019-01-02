@@ -5,7 +5,16 @@ import Foundation
 
 public struct GetProfileResponse: Decodable {
 	public let account: Account
+	public let lang: String
+	public let theme: String
+	public let post: GetProfileResponse.Post
 
+
+	public class Post: Decodable {
+		public let emojiSkinTone: String
+		public let useCtrl: Bool
+
+	}
 }
 
 public struct GetOnlineStatusResponse: Decodable {
@@ -25,29 +34,39 @@ public struct GetDmTopicsResponse: Decodable {
 
 public struct GetMessagesResponse: Decodable {
 	public let mySpace: MySpace?
+	public let myTopic: MyTopic?
 	public let team: Team?
 	public let topic: Topic
 	public let bookmark: Bookmark
 	public let posts: [Post]
 	public let hasNext: Bool
 	public let exceedsAttachmentLimit: Bool
+	public let onboarding: Bool?
+	public let isPostEnabled: Bool
+	public let favorite: Bool
 
 
-	public init(mySpace: MySpace? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false) {
+	public init(mySpace: MySpace? = nil, myTopic: MyTopic? = nil, team: Team? = nil, topic: Topic = Topic(), bookmark: Bookmark = Bookmark(), posts: [Post] = [], hasNext: Bool = false, exceedsAttachmentLimit: Bool = false, onboarding: Bool? = nil, isPostEnabled: Bool, favorite: Bool) {
 		self.mySpace = mySpace
+		self.myTopic = myTopic
 		self.team = team
 		self.topic = topic
 		self.bookmark = bookmark
 		self.posts = posts
 		self.hasNext = hasNext
 		self.exceedsAttachmentLimit = exceedsAttachmentLimit
+		self.onboarding = onboarding
+		self.isPostEnabled = isPostEnabled
+		self.favorite = favorite
 	}
 }
 
 public struct PostMessageResponse: Decodable {
-	public let topic: Topic?
-	public let post: Post?
-	public let mentions: [Mention]?
+	public let space: SpaceInfo
+	public let topic: Topic
+	public let post: Post
+	public let directMessage: Post?
+	public let mentions: [Mention]
 	public let exceedsAttachmentLimit: Bool?
 
 }
@@ -64,6 +83,7 @@ public struct GetMessageResponse: Decodable {
 	public let topic: Topic
 	public let post: Post
 	public let replies: [Post]?
+	public let isPostEnabled: Bool
 	public let exceedsAttachmentLimit: Bool
 
 }
@@ -76,6 +96,7 @@ public struct SearchMessagesResponse: Decodable {
 }
 
 public struct LikeMessageResponse: Decodable {
+	public let space: SpaceInfo
 	public let like: Like
 	public let topic: Topic?
 	public let directMessage: DirectMessageTopic?
@@ -90,15 +111,17 @@ public struct FavoriteTopicResponse: Decodable {
 }
 
 public struct GetDirectMessagesResponse: Decodable {
-	public let topic: Topic?
+	public let topic: Topic
+	public let mySpace: MySpace
 	public let directMessage: AccountWithLoginStatus
-	public let bookmark: Bookmark?
-	public let posts: [Post]?
+	public let bookmark: Bookmark
+	public let posts: [Post]
 	public let hasNext: Bool?
 
 
-	public init(topic: Topic? = nil, directMessage: AccountWithLoginStatus, bookmark: Bookmark? = nil, posts: [Post]? = nil, hasNext: Bool? = nil) {
+	public init(topic: Topic, mySpace: MySpace, directMessage: AccountWithLoginStatus, bookmark: Bookmark, posts: [Post] = [], hasNext: Bool? = nil) {
 		self.topic = topic
+		self.mySpace = mySpace
 		self.directMessage = directMessage
 		self.bookmark = bookmark
 		self.posts = posts
@@ -108,14 +131,16 @@ public struct GetDirectMessagesResponse: Decodable {
 
 public struct PostDirectMessageResponse: Decodable {
 	public let topic: Topic
+	public let space: SpaceInfo
 	public let directMessage: AccountWithLoginStatus
 	public let mentions: [Mention]
 	public let post: Post
 	public let exceedsAttachmentLimit: Bool
 
 
-	public init(topic: Topic, directMessage: AccountWithLoginStatus, mentions: [Mention], post: Post, exceedsAttachmentLimit: Bool) {
+	public init(topic: Topic, space: SpaceInfo, directMessage: AccountWithLoginStatus, mentions: [Mention], post: Post, exceedsAttachmentLimit: Bool) {
 		self.topic = topic
+		self.space = space
 		self.directMessage = directMessage
 		self.mentions = mentions
 		self.post = post
@@ -124,13 +149,19 @@ public struct PostDirectMessageResponse: Decodable {
 }
 
 public struct GetNotificationStatusResponse: Decodable {
-	public let doNotDisturb: DoNotDisturb
+	public let notificationSettings: GetNotificationStatusResponse.NotificationSettings
 	public let statuses: [NotificationStatus]
 
 
-	public init(doNotDisturb: DoNotDisturb, statuses: [NotificationStatus]) {
-		self.doNotDisturb = doNotDisturb
+	public init(notificationSettings: GetNotificationStatusResponse.NotificationSettings, statuses: [NotificationStatus]) {
+		self.notificationSettings = notificationSettings
 		self.statuses = statuses
+	}
+
+	public struct NotificationSettings: Decodable {
+		public let doNotDisturb: DoNotDisturb
+		public let favoriteTopicMobile: Bool
+
 	}
 }
 
@@ -149,6 +180,11 @@ public struct SaveReadMentionResponse: Decodable {
 
 }
 
+public struct DeleteTopicResponse: Decodable {
+	public let myTopic: MyTopic
+
+}
+
 public struct GetSpacesResponse: Decodable {
 	public let mySpaces: [MySpace]
 
@@ -160,13 +196,9 @@ public struct GetSpaceMembersResponse: Decodable {
 
 }
 
-public struct GetTeamsResponse: Decodable {
-	public let teams: [TeamWithCount]
-
-}
-
 public struct GetFriendsResponse: Decodable {
-	public let accounts: [Account]
+	public let accounts: [AccountWithLoginStatus]
+	public let count: Int
 
 }
 
@@ -205,12 +237,12 @@ public struct UpdateTalkResponse: Decodable {
 
 }
 
-public struct GetLikesReceiveResponse: Decodable {
+public struct GetReceivedLikesResponse: Decodable {
 	public let likedPosts: [LikedPost]
 
 }
 
-public struct GetLikesGiveResponse: Decodable {
+public struct GetGivenLikesResponse: Decodable {
 	public let likedPosts: [MyLikedPost]
 
 }
@@ -218,5 +250,75 @@ public struct GetLikesGiveResponse: Decodable {
 public struct SaveReadLikesResponse: Decodable {
 	public let like: LikeStatus
 
+}
+
+public struct CreateTopicGroupResponse: Decodable {
+	public let myTopicGroup: TopicGroup
+	public let myTopics: CreateTopicGroupResponse.MyTopics
+
+
+	public struct MyTopics: Decodable {
+		public let myTopic: MyTopic
+
+	}
+}
+
+public struct UpdateTopicGroupResponse: Decodable {
+	public let myTopicGroup: TopicGroup
+
+}
+
+public struct GetMyTopicsResponse: Decodable {
+	public let pinnedTopics: [GetMyTopicsResponse.MyTopic]
+	public let myTopicGroups: [GetMyTopicsResponse.MyTopicGroup]
+	public let joinedTopics: [GetMyTopicsResponse.MyTopic]
+	public let favoritesOnboarding: Bool
+
+
+	public struct MyTopic: Decodable {
+		public let topic: Topic
+		public let unread: Unread
+		public let exTopicGroupId: Int?
+		public let createdAt: Date
+
+
+		public init(topic: Topic, unread: Unread, exTopicGroupId: Int? = nil, createdAt: Date = Date()) {
+			self.topic = topic
+			self.unread = unread
+			self.exTopicGroupId = exTopicGroupId
+			self.createdAt = createdAt
+		}
+	}
+
+	public struct MyTopicGroup: Decodable {
+		public let myTopicGroup: TopicGroup
+		public let myTopics: [GetMyTopicsResponse.MyTopic]
+
+
+		public init(myTopicGroup: TopicGroup, myTopics: [GetMyTopicsResponse.MyTopic]) {
+			self.myTopicGroup = myTopicGroup
+			self.myTopics = myTopics
+		}
+	}
+}
+
+public struct AddTopicToGroupResponse: Decodable {
+	public let myTopic: MyTopic
+
+}
+
+public struct DeleteMyTopicResponse: Decodable {
+	public let myTopic: MyTopic
+
+}
+
+public struct PinTopicResponse: Decodable {
+	public let pinnedTopics: [PinTopicResponse.PinnedTopic]
+
+
+	public struct PinnedTopic: Decodable {
+		public let myTopic: MyTopic
+
+	}
 }
 

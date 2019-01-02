@@ -189,7 +189,7 @@ internal struct DeveloperSettings {
 
 extension Scope {
     public static func scopesFromRaw(_ raw: String) -> [Scope] {
-        return raw.components(separatedBy: ",").flatMap { Scope(rawValue: $0) }
+        return raw.components(separatedBy: ",").compactMap { Scope(rawValue: $0) }
     }
 
     public static func scopesToRaw(_ values: [Scope]) -> String {
