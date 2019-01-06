@@ -16,7 +16,7 @@ TypetalkKit is an unofficial web API client for Typetalk.
 The following code gets user's topics and prints these.
 
 ```swift
-TypetalkAPI.sendRequest(GetTopics()) { result in
+TypetalkAPI.sendRequest(GetTopics(spaceKey: spaceKey)) { result in
     switch result {
     case .Success(let ts):
         for i in ts {
