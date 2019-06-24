@@ -1,2 +1,2 @@
-github "ishkawa/APIKit" "release/4.1.0"
-github "daltoniam/Starscream" >= 3.0.6
+github "ishkawa/APIKit" "5.0.0"
+github "daltoniam/Starscream" >= 3.1.0
