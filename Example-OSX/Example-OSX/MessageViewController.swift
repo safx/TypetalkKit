@@ -53,18 +53,18 @@ class MessageViewController: NSViewController, NSTableViewDelegate, NSTableViewD
     }
 
     func tableView(_ tableView: NSTableView, viewFor viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.make(withIdentifier: "MessageCell", owner: nil) as! MessageCell
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "MessageCell"), owner: nil) as! MessageCell
         cell.model = messages!.posts[row]
         return cell
     }
     
-    func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
+    /*func tableView(_ tableView: NSTableView, heightOfRow row: Int) -> CGFloat {
         let font = NSFont(name: "Helvetica", size: 13)!
-        let attr: [String:AnyObject] = [NSFontAttributeName: font]
+        let attr: [String:AnyObject] = [NSAttributedString.Key.font.rawValue: font]
         let mes = messages!.posts[row].message
         
         let size = (mes as NSString).size(withAttributes: attr)
 
         return max(size.height + 32, 56)
-    }
+    }*/
 }

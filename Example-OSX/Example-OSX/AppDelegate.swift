@@ -16,10 +16,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     override func awakeFromNib() {
         super.awakeFromNib()
         _ = TypetalkAPI.setDeveloperSettings(
-            clientId:     "Your ClientID",
-            clientSecret: "Your SecretID",
-            scopes: [Scope.my, Scope.topicRead],    // e.g. typetalkkit://auth/success
-            redirectURI:  "Your custome scheme")
+            clientId:     "Your_ClientID",
+            clientSecret: "Your_SecretID",
+            scopes: [Scope.my, Scope.topicRead],
+            redirectURI:  "Your_custome_scheme")    // e.g. typetalkkit://auth/success
         
         _ = TypetalkAPI.restoreTokenFromAccountStore()
     }
@@ -32,7 +32,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     // MARK - handleURL
     
-    func handleGetURLEvent(_ event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
+    @objc func handleGetURLEvent(_ event: NSAppleEventDescriptor?, replyEvent: NSAppleEventDescriptor?) {
         if let ev = event,
             let url_str = ev.forKeyword(AEKeyword(keyDirectObject))?.stringValue,
             let url = URL(string: url_str), TypetalkAPI.isRedirectURL(url) {

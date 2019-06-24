@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     var window: UIWindow?
 
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         //navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
@@ -24,18 +24,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         _ = TypetalkAPI.setDeveloperSettings(
             clientId:     "Your ClientID",
             clientSecret: "Your SecretID",
-            scopes: [Scope.my, Scope.topicRead],    // e.g. typetalkkit://auth/success
-            redirectURI:  "Your custome scheme")
+            scopes: [Scope.my, Scope.topicRead],
+            redirectURI:  "Your custome scheme")    // e.g. typetalkkit://auth/success
 
         _ = TypetalkAPI.restoreTokenFromAccountStore()
 
         return true
     }
 
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         if TypetalkAPI.isRedirectURL(url) {
             if #available(iOS 9.0, *) {
-                if let sourceApplication = options[UIApplicationOpenURLOptionsKey.sourceApplication] as! String?, sourceApplication == "com.apple.mobilesafari" {
+                if let sourceApplication = options[UIApplication.OpenURLOptionsKey.sourceApplication] as! String?, sourceApplication == "com.apple.mobilesafari" {
                     return TypetalkAPI.authorizationDone(URL: url)
                 }
             } else {

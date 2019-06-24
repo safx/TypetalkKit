@@ -117,7 +117,7 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
         if topics.count <= sender.selectedRow { return }
 
         let topic = topics[sender.selectedRow]
-        let controller = self.parent?.childViewControllers[1] as! MessageViewController
+        let controller = self.parent?.children[1] as! MessageViewController
         controller.detailItem = topic
     }
 
@@ -128,7 +128,7 @@ class TopicViewController: NSViewController, NSTableViewDelegate, NSTableViewDat
     }
 
     func tableView(_ tableView: NSTableView, viewFor viewForTableColumn: NSTableColumn?, row: Int) -> NSView? {
-        let cell = tableView.make(withIdentifier: "TopicCell", owner: nil) as! NSTableCellView
+        let cell = tableView.makeView(withIdentifier: NSUserInterfaceItemIdentifier(rawValue: "TopicCell"), owner: nil) as! NSTableCellView
         cell.textField?.stringValue = topics[row].topic.name
         return cell
     }

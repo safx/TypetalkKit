@@ -35,10 +35,45 @@ class MasterViewController: UITableViewController {
         fetchData()
     }
     
-    fileprivate func fetchData() {
+    func fetchData() {
+        fetchSpace()
+    }
+
+    func fetchSpace() {
+        if TypetalkAPI.isSignedIn {
+            TypetalkAPI.send(GetSpaces()) { result in
+                switch result {
+                case .success(let ss):
+                    guard let mySpace = ss.mySpaces.last else { return }
+                    self.fetchTopic(spaceKey: mySpace.space.key)
+                case .failure(let error):
+                    print(error)
+                    _ = TypetalkAPI.requestRefreshToken { (err) -> Void in
+                        if err == nil {
+                            self.fetchData()
+                        } else {
+                            TypetalkAPI.authorize { (error) -> Void in
+                                if (error == nil) {
+                                    self.fetchData()
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
+            TypetalkAPI.authorize { (error) -> Void in
+                if (error == nil) {
+                    self.fetchData()
+                }
+            }
+        }
+    }
+
+    fileprivate func fetchTopic(spaceKey: String) {
 
         if TypetalkAPI.isSignedIn {
-            TypetalkAPI.send(GetTopics()) { result in
+            TypetalkAPI.send(GetTopics(spaceKey: spaceKey)) { result in
                 switch result {
                 case .success(let ts):
                     self.topics = ts.topics
