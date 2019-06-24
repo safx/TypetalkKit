@@ -17,7 +17,7 @@ class DetailViewController: UITableViewController {
         super.viewDidLoad()
 
         tableView.estimatedRowHeight = 44
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 
         self.title = detailItem?.topic.name
         getMessages()
@@ -28,7 +28,7 @@ class DetailViewController: UITableViewController {
             case .connected             : print("connected")
             case .disconnected(let err) : print("disconnected: \(String(describing: err))")
             case .postMessage(let res)  :
-                self.append(newPost: res.post!)
+                self.append(newPost: res.post)
                 DispatchQueue.main.async { () -> Void in
                     weakTableView?.reloadData()
                 }
@@ -44,7 +44,7 @@ class DetailViewController: UITableViewController {
             TypetalkAPI.send(GetMessages(topicId: topicid)) { result -> Void in
                 switch result {
                 case .success(let ms):
-                    self.posts = ms.posts!
+                    self.posts = ms.posts
                     self.tableView.reloadData()
                 case .failure(let error):
                     print(error)
